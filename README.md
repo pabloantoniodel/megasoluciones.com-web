@@ -126,10 +126,10 @@ Los colores están definidos en `static/css/style.css`:
 ```
 
 ### Datos de Contacto
-Editar en `templates/base.html` (footer) y `templates/contacto.html`:
-- Email: info@megasolucion.net
-- Teléfono: +34 XXX XXX XXX
-- WhatsApp: Actualizar href en botón flotante
+Configurados en `templates/base.html` (footer) y `templates/contacto.html`:
+- Email: info@megasolucion.net ✅
+- WhatsApp: +34 638 568 668 ✅ (botón flotante configurado)
+- Teléfono público: No visible (solo WhatsApp)
 
 ### Servicios y Precios
 Modificar en `app.py` la variable `SERVICIOS`:
@@ -200,7 +200,7 @@ SERVICIOS = [
 
 Para cualquier consulta sobre el proyecto, contactar a través de:
 - Email: info@megasolucion.net
-- WhatsApp: +34 XXX XXX XXX
+- WhatsApp: +34 638 568 668
 
 ---
 
