@@ -1,0 +1,48 @@
+# Override para exponer Megasoluciones en https://megasolucion.com vía Traefik (Dokploy).
+# Uso: docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d
+#
+# Requisitos:
+# - DNS: megasolucion.com → IP del servidor (69.197.164.198). Puertos 80 y 443 abiertos.
+# - Para www: apuntar www.megasolucion.com al mismo IP y descomentar líneas con www.
+#
+# Acceso OBLIGATORIO por dominio: el puerto 5000 no se expone; solo Traefik (80/443) puede acceder.
+
+services:
+  megasoluciones:
+    ports: []  # Desactivar puerto 5000 público
+    labels:
+      - "traefik.enable=true"
+      
+      # HTTP → HTTPS redirect
+      - "traefik.http.routers.megasoluciones-http.rule=Host(`megasolucion.com`) || Host(`www.megasolucion.com`)"
+      - "traefik.http.routers.megasoluciones-http.entrypoints=web"
+      - "traefik.http.routers.megasoluciones-http.service=megasoluciones-service"
+      - "traefik.http.routers.megasoluciones-http.middlewares=megasoluciones-redirect"
+      - "traefik.http.middlewares.megasoluciones-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.megasoluciones-redirect.redirectscheme.permanent=true"
+      
+      # HTTPS con certificado Let's Encrypt
+      - "traefik.http.routers.megasoluciones.rule=Host(`megasolucion.com`) || Host(`www.megasolucion.com`)"
+      - "traefik.http.routers.megasoluciones.entrypoints=websecure"
+      - "traefik.http.routers.megasoluciones.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.megasoluciones.service=megasoluciones-service"
+      - "traefik.http.routers.megasoluciones.middlewares=megasoluciones-headers"
+      
+      # Headers HTTPS
+      - "traefik.http.middlewares.megasoluciones-headers.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.megasoluciones-headers.headers.customrequestheaders.X-Forwarded-For="
+      
+      # Service (puerto interno Flask)
+      - "traefik.http.services.megasoluciones-service.loadbalancer.server.port=5000"
+      
+      # Red Traefik
+      - "traefik.docker.network=dokploy-network"
+      
+    networks:
+      - megasoluciones-network
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    name: dokploy-network
+    external: true

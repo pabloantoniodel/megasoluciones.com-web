@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Contacto - Megasoluciones{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Hablemos de tu <span class="gradient-text">Proyecto</span></h1>
+        <p>Estamos aquí para ayudarte a transformar tu empresa con IA</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h2>Información de Contacto</h2>
+                <p>Nuestro equipo está disponible para resolver todas tus dudas y ayudarte a encontrar la solución perfecta.</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="method-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@megasoluciones.com</p>
+                            <p class="small">Respuesta en menos de 24h</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="method-icon">📱</div>
+                        <div>
+                            <h4>Teléfono / WhatsApp</h4>
+                            <p>+34 XXX XXX XXX</p>
+                            <p class="small">Lun-Vie 9:00-18:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="method-icon">📍</div>
+                        <div>
+                            <h4>Ubicación</h4>
+                            <p>España & LATAM</p>
+                            <p class="small">Trabajo remoto y presencial</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="method-icon">💼</div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <p>@megasoluciones</p>
+                            <p class="small">Síguenos para novedades</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="office-hours">
+                    <h3>Horario de Atención</h3>
+                    <p>Lunes a Viernes: 9:00 - 18:00 (CET)</p>
+                    <p>Sábados: 10:00 - 14:00 (CET)</p>
+                    <p>Domingos: Cerrado</p>
+                    <p class="note">* Soporte urgente 24/7 para clientes enterprise</p>
+                </div>
+            </div>
+            
+            <div class="contact-form-wrapper">
+                <h2>Envíanos un Mensaje</h2>
+                <p>Rellena el formulario y nos pondremos en contacto contigo lo antes posible</p>
+                
+                <form method="POST" class="contact-form" novalidate>
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="form-group">
+                        {{ form.nombre.label }}
+                        {{ form.nombre(class="form-control", placeholder="Tu nombre completo") }}
+                        {% if form.nombre.errors %}
+                            <span class="error">{{ form.nombre.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.email.label }}
+                        {{ form.email(class="form-control", placeholder="tu@email.com") }}
+                        {% if form.email.errors %}
+                            <span class="error">{{ form.email.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            {{ form.telefono.label }}
+                            {{ form.telefono(class="form-control", placeholder="+34 XXX XXX XXX") }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.empresa.label }}
+                            {{ form.empresa(class="form-control", placeholder="Nombre de tu empresa") }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.mensaje.label }}
+                        {{ form.mensaje(class="form-control", rows="5", placeholder="Cuéntanos sobre tu proyecto o necesidades...") }}
+                        {% if form.mensaje.errors %}
+                            <span class="error">{{ form.mensaje.errors[0] }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="btn-primary btn-block">Enviar Mensaje</button>
+                    
+                    <p class="form-note">
+                        Al enviar este formulario, aceptas nuestra política de privacidad y el tratamiento de tus datos según el GDPR.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="text-center">Preguntas Frecuentes</h2>
+        
+        <div class="faq-list">
+            <div class="faq-item">
+                <h3>¿Cuánto tarda en implementarse un proyecto de IA?</h3>
+                <p>Depende del alcance. Los chatbots básicos pueden estar listos en 2-4 semanas, mientras que proyectos de ML complejos pueden tomar 3-8 meses. Siempre trabajamos con metodologías ágiles para entregas parciales.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>¿Ofrecen mantenimiento y soporte post-implementación?</h3>
+                <p>Sí, todos nuestros proyectos incluyen soporte continuo. Ofrecemos planes mensuales de mantenimiento, actualizaciones y mejoras según las necesidades de cada cliente.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>¿Trabajan con empresas fuera de España?</h3>
+                <p>Por supuesto. Tenemos clientes en toda Latinoamérica y trabajamos 100% remoto. También ofrecemos servicios presenciales en España para proyectos específicos.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>¿Qué garantías ofrecen sobre el ROI?</h3>
+                <p>En la fase de consultoría inicial, realizamos un análisis de ROI proyectado. Trabajamos con KPIs medibles y ofrecemos garantías de rendimiento según lo acordado en contrato.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

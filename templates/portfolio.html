@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Megasoluciones{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Nuestro <span class="gradient-text">Portfolio</span></h1>
+        <p>Casos de éxito en inteligencia artificial y desarrollo de software</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="portfolio-grid">
+            {% for proyecto in proyectos %}
+            <div class="portfolio-card">
+                <div class="portfolio-image gradient-bg"></div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">{{ proyecto.cliente }}</span>
+                    <h3>{{ proyecto.titulo }}</h3>
+                    <p>{{ proyecto.descripcion }}</p>
+                    
+                    <div class="portfolio-tech">
+                        {% for tech in proyecto.tecnologias %}
+                        <span class="tech-badge">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    <a href="{{ url_for('contacto') }}" class="btn-outline btn-sm">Proyecto Similar</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="text-center">Resultados Medibles</h2>
+        
+        <div class="results-grid">
+            <div class="result-card">
+                <h3>35%</h3>
+                <p>Incremento promedio en conversión</p>
+            </div>
+            <div class="result-card">
+                <h3>70%</h3>
+                <p>Reducción en tiempos de respuesta</p>
+            </div>
+            <div class="result-card">
+                <h3>€200K+</h3>
+                <p>Ahorro promedio anual por cliente</p>
+            </div>
+            <div class="result-card">
+                <h3>92%</h3>
+                <p>Precisión en modelos predictivos</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="text-center">Sectores en los que Trabajamos</h2>
+        
+        <div class="sectors-grid">
+            <div class="sector-card">
+                <div class="sector-icon">🏦</div>
+                <h3>Finanzas y Banca</h3>
+                <p>Scoring de crédito, detección de fraude, chatbots bancarios</p>
+            </div>
+            
+            <div class="sector-card">
+                <div class="sector-icon">🛒</div>
+                <h3>E-commerce y Retail</h3>
+                <p>Sistemas de recomendación, análisis de demanda, atención IA</p>
+            </div>
+            
+            <div class="sector-card">
+                <div class="sector-icon">🏭</div>
+                <h3>Industria</h3>
+                <p>Mantenimiento predictivo, control de calidad, optimización</p>
+            </div>
+            
+            <div class="sector-card">
+                <div class="sector-icon">⚕️</div>
+                <h3>Salud</h3>
+                <p>Diagnóstico asistido, análisis de imágenes médicas, telemedicina</p>
+            </div>
+            
+            <div class="sector-card">
+                <div class="sector-icon">📱</div>
+                <h3>Tecnología</h3>
+                <p>Desarrollo de productos, APIs, plataformas SaaS</p>
+            </div>
+            
+            <div class="sector-card">
+                <div class="sector-icon">🎓</div>
+                <h3>Educación</h3>
+                <p>Plataformas e-learning, evaluación automática, tutores IA</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>¿Quieres ver tu proyecto aquí?</h2>
+            <p>Trabajemos juntos en tu próxima solución de IA</p>
+            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Empezar un Proyecto</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
