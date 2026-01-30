@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_wtf import FlaskForm
+from flask_mail import Mail, Message
 from wtforms import StringField, TextAreaField, EmailField, TelField
 from wtforms.validators import DataRequired, Email
 import os
@@ -7,6 +8,20 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'megasoluciones-secret-key-2026')
+
+# Configuración de Flask-Mail
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True') == 'True'
+app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'False') == 'True'
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'info@megasolucion.net')
+app.config['MAIL_MAX_EMAILS'] = None
+app.config['MAIL_ASCII_ATTACHMENTS'] = False
+
+# Inicializar Flask-Mail
+mail = Mail(app)
 
 # Formulario de contacto
 class ContactForm(FlaskForm):
@@ -165,9 +180,87 @@ def testimonios():
 def contacto():
     form = ContactForm()
     if form.validate_on_submit():
-        # Aquí iría la lógica de envío de email
-        # Por ahora solo mostramos mensaje de éxito
-        flash(f'¡Gracias {form.nombre.data}! Hemos recibido tu mensaje y te contactaremos pronto.', 'success')
+        # Intentar enviar email
+        try:
+            # Email para el administrador
+            msg = Message(
+                subject=f'Nuevo contacto de {form.nombre.data} - Megasoluciones',
+                recipients=['info@megasolucion.net'],
+                reply_to=form.email.data
+            )
+            
+            msg.body = f"""
+Nuevo mensaje de contacto desde megasolucion.com
+
+Nombre: {form.nombre.data}
+Email: {form.email.data}
+Teléfono: {form.telefono.data or 'No proporcionado'}
+Empresa: {form.empresa.data or 'No proporcionada'}
+
+Mensaje:
+{form.mensaje.data}
+
+---
+Enviado desde el formulario de contacto de Megasoluciones
+Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
+            """
+            
+            msg.html = f"""
+<html>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%); border-radius: 10px;">
+        <h2 style="color: white; text-align: center;">Nuevo Contacto - Megasoluciones</h2>
+    </div>
+    
+    <div style="max-width: 600px; margin: 20px auto; padding: 20px; background: #f9fafb; border-radius: 10px;">
+        <h3 style="color: #1e3a8a;">Datos del contacto:</h3>
+        
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;"><strong>Nombre:</strong></td>
+                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;">{form.nombre.data}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;"><strong>Email:</strong></td>
+                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;"><a href="mailto:{form.email.data}">{form.email.data}</a></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;"><strong>Teléfono:</strong></td>
+                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;">{form.telefono.data or 'No proporcionado'}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;"><strong>Empresa:</strong></td>
+                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;">{form.empresa.data or 'No proporcionada'}</td>
+            </tr>
+        </table>
+        
+        <h3 style="color: #1e3a8a; margin-top: 20px;">Mensaje:</h3>
+        <div style="background: white; padding: 15px; border-left: 4px solid #3b82f6; border-radius: 5px;">
+            <p style="white-space: pre-wrap;">{form.mensaje.data}</p>
+        </div>
+        
+        <p style="margin-top: 20px; color: #6b7280; font-size: 12px; text-align: center;">
+            Enviado desde el formulario de contacto de <a href="https://megasolucion.com" style="color: #3b82f6;">megasolucion.com</a><br>
+            Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
+        </p>
+    </div>
+</body>
+</html>
+            """
+            
+            # Enviar email
+            if app.config['MAIL_USERNAME']:
+                mail.send(msg)
+                flash(f'¡Gracias {form.nombre.data}! Tu mensaje ha sido enviado. Te contactaremos pronto.', 'success')
+            else:
+                # Si no está configurado SMTP, solo mostrar mensaje
+                flash(f'¡Gracias {form.nombre.data}! Hemos recibido tu mensaje y te contactaremos pronto.', 'success')
+                
+        except Exception as e:
+            # Log del error (en producción usar logging)
+            print(f"Error enviando email: {str(e)}")
+            flash(f'¡Gracias {form.nombre.data}! Hemos recibido tu mensaje y te contactaremos pronto.', 'success')
+        
         return redirect(url_for('contacto'))
     return render_template('contacto.html', form=form)
 
