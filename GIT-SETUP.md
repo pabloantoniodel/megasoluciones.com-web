@@ -226,7 +226,7 @@ Para no escribir contraseña cada vez:
 
 ### 1. Generar SSH Key
 ```bash
-ssh-keygen -t ed25519 -C "info@megasolucion.com"
+ssh-keygen -t ed25519 -C "info@megasolucion.net"
 # Press Enter para todo (dejar por defecto)
 ```
 

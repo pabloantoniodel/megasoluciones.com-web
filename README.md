@@ -127,7 +127,7 @@ Los colores están definidos en `static/css/style.css`:
 
 ### Datos de Contacto
 Editar en `templates/base.html` (footer) y `templates/contacto.html`:
-- Email: info@megasoluciones.com
+- Email: info@megasolucion.net
 - Teléfono: +34 XXX XXX XXX
 - WhatsApp: Actualizar href en botón flotante
 
@@ -199,7 +199,7 @@ SERVICIOS = [
 ## 📞 Soporte
 
 Para cualquier consulta sobre el proyecto, contactar a través de:
-- Email: info@megasoluciones.com
+- Email: info@megasolucion.net
 - WhatsApp: +34 XXX XXX XXX
 
 ---
