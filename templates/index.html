@@ -5,7 +5,9 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="hero">
-    <div class="hero-gradient"></div>
+    <div class="hero-visual-wrap">
+        <img src="{{ url_for('static', filename='images/hero-ai-visual.png') }}" alt="Megasoluciones - IA y desarrollo software" class="hero-bg-image">
+    </div>
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
@@ -115,7 +117,7 @@
             </div>
             
             <div class="why-image">
-                <div class="image-placeholder gradient-bg"></div>
+                <img src="{{ url_for('static', filename='images/why-choose-us.png') }}" alt="Tecnología y equipo Megasoluciones" class="why-image-img">
             </div>
         </div>
     </div>

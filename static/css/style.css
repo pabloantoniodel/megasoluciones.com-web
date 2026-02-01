@@ -53,18 +53,40 @@ a {
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow);
     z-index: 1000;
-    padding: 1.25rem 0;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.navbar .container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 0;
 }
 
 .nav-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 0;
 }
 
 .logo img {
-    height: 120px;
+    height: 50px;
     transition: transform 0.3s ease;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block;
+    vertical-align: middle;
 }
 
 .logo:hover img {
@@ -74,14 +96,23 @@ a {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.nav-links li {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .nav-links a {
     font-weight: 500;
     color: #374151;
     position: relative;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-links a:not(.btn-primary):hover {
@@ -190,14 +221,21 @@ a {
     overflow: hidden;
 }
 
-.hero-gradient {
+.hero-visual-wrap {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
     z-index: -1;
+    overflow: hidden;
+}
+
+.hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
 }
 
 .hero-content {
@@ -648,9 +686,17 @@ a {
     transform: translateY(-5px);
 }
 
-.portfolio-image {
+.portfolio-image-wrap {
     height: 200px;
     width: 100%;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+}
+
+.portfolio-image-wrap .portfolio-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
 }
 
 .portfolio-content {
@@ -707,6 +753,79 @@ a {
 .value-icon, .sector-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+}
+
+/* Video testimonials */
+.video-testimonial {
+    margin-bottom: 3rem;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.video-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-4px);
+}
+
+.video-placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+}
+
+.video-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-placeholder .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.9);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    padding-left: 6px;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover .play-button {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: var(--color-primary);
+}
+
+.video-card h3 {
+    padding: 1.25rem 1.5rem 0.5rem;
+    font-size: 1.1rem;
+}
+
+.video-card p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--color-gray);
+    font-size: 0.95rem;
 }
 
 /* Contact */
@@ -978,14 +1097,24 @@ a {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .navbar {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
     .nav-links {
         position: fixed;
-        top: 80px;
+        top: 50px;
         left: -100%;
         flex-direction: column;
         background: white;
         width: 100%;
-        padding: 2rem;
+        padding: 1rem;
+        margin: 0;
         box-shadow: var(--shadow);
         transition: left 0.3s ease;
     }
@@ -996,6 +1125,8 @@ a {
     
     .mobile-menu-toggle {
         display: flex;
+        padding: 0;
+        margin: 0;
     }
     
     .hero-title {

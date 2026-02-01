@@ -1,0 +1,57 @@
+# Despliegue como SERVICIO SWARM para que Traefik (Dokploy) descubra megasolucion.com
+# Traefik en Swarm solo descubre servicios, no contenedores sueltos.
+#
+# Uso:
+#   1. Construir imagen:  docker build -t megasoluciones:latest .
+#   2. Cargar .env:       set -a && source .env && set +a
+#   3. Desplegar stack:  docker stack deploy -c docker-compose.stack.yml megasoluciones
+#
+# Para actualizar: mismo comando (stack deploy es idempotente).
+# Para quitar:     docker stack rm megasoluciones
+
+version: "3.8"
+
+services:
+  megasoluciones:
+    image: megasoluciones:latest
+    ports:
+      - target: 5000
+        published: 5000
+        mode: host
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-megasoluciones-secret-key-2026-production}
+      - MAIL_SERVER=${MAIL_SERVER:-smtp.serviciodecorreo.es}
+      - MAIL_PORT=${MAIL_PORT:-465}
+      - MAIL_USE_TLS=${MAIL_USE_TLS:-False}
+      - MAIL_USE_SSL=${MAIL_USE_SSL:-True}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_DEFAULT_SENDER=${MAIL_DEFAULT_SENDER:-info@megasolucion.net}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      labels:
+        - "traefik.enable=false"
+        - "traefik.http.routers.megasoluciones-http.rule=Host(`megasolucion.com`) || Host(`www.megasolucion.com`)"
+        - "traefik.http.routers.megasoluciones-http.entrypoints=web"
+        - "traefik.http.routers.megasoluciones-http.service=megasoluciones-service"
+        - "traefik.http.routers.megasoluciones-http.middlewares=megasoluciones-redirect"
+        - "traefik.http.middlewares.megasoluciones-redirect.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.megasoluciones-redirect.redirectscheme.permanent=true"
+        - "traefik.http.routers.megasoluciones.rule=Host(`megasolucion.com`) || Host(`www.megasolucion.com`)"
+        - "traefik.http.routers.megasoluciones.entrypoints=websecure"
+        - "traefik.http.routers.megasoluciones.tls.certresolver=letsencrypt"
+        - "traefik.http.routers.megasoluciones.service=megasoluciones-service"
+        - "traefik.http.routers.megasoluciones.middlewares=megasoluciones-headers"
+        - "traefik.http.middlewares.megasoluciones-headers.headers.customrequestheaders.X-Forwarded-Proto=https"
+        - "traefik.http.services.megasoluciones-service.loadbalancer.server.port=5000"
+        - "traefik.http.services.megasoluciones-service.loadbalancer.responseForwarding.flushInterval=1s"
+        - "traefik.docker.network=dokploy-network"
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true

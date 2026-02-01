@@ -89,14 +89,14 @@ Cuando alguien envíe el formulario, recibirás un email con:
 
 | # | Servicio | Precio |
 |---|----------|--------|
-| 1 | Chatbots IA Personalizados | €299 - €999/mes |
-| 2 | Automatización Inteligente | €399 - €1.499/mes |
-| 3 | Desarrollo Software IA | €5.000 - €50.000 |
-| 4 | Consultoría Estratégica IA | €100 - €250/hora |
-| 5 | Machine Learning & Predictivos | €10.000 - €100.000 |
-| 6 | Computer Vision | €8.000 - €80.000 |
-| 7 | Procesamiento Lenguaje Natural | €6.000 - €60.000 |
-| 8 | Agentes IA Generativos | €15.000 - €150.000 |
+| 1 | Chatbots IA Personalizados | 299€ - 999€/mes |
+| 2 | Automatización Inteligente | 399€ - 1.499€/mes |
+| 3 | Desarrollo Software IA | 5.000€ - 50.000€ |
+| 4 | Consultoría Estratégica IA | 100€ - 250€/hora |
+| 5 | Machine Learning & Predictivos | 10.000€ - 100.000€ |
+| 6 | Computer Vision | 8.000€ - 80.000€ |
+| 7 | Procesamiento Lenguaje Natural | 6.000€ - 60.000€ |
+| 8 | Agentes IA Generativos | 15.000€ - 150.000€ |
 
 ---
 

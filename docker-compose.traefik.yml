@@ -45,8 +45,10 @@ services:
       
       # Service (puerto interno Flask)
       - "traefik.http.services.megasoluciones-service.loadbalancer.server.port=5000"
+      # Timeout respuesta (evitar 502 Bad Gateway si la app tarda)
+      - "traefik.http.services.megasoluciones-service.loadbalancer.responseForwarding.flushInterval=1s"
       
-      # Red Traefik
+      # Red Traefik (OBLIGATORIO: Traefik debe poder alcanzar este contenedor)
       - "traefik.docker.network=dokploy-network"
       
     networks:

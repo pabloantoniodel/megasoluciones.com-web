@@ -15,7 +15,9 @@
         <div class="portfolio-grid">
             {% for proyecto in proyectos %}
             <div class="portfolio-card">
-                <div class="portfolio-image gradient-bg"></div>
+                <div class="portfolio-image-wrap">
+                    <img src="{{ url_for('static', filename='images/' ~ proyecto.imagen) }}" alt="{{ proyecto.titulo }}" class="portfolio-image">
+                </div>
                 <div class="portfolio-content">
                     <span class="portfolio-category">{{ proyecto.cliente }}</span>
                     <h3>{{ proyecto.titulo }}</h3>
@@ -49,7 +51,7 @@
                 <p>Reducción en tiempos de respuesta</p>
             </div>
             <div class="result-card">
-                <h3>€200K+</h3>
+                <h3>200K€+</h3>
                 <p>Ahorro promedio anual por cliente</p>
             </div>
             <div class="result-card">

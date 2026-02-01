@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="hexGradient32" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00ff88;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Hex�gono -->
+  <path d="M 16 2 L 27.7 9.6 L 27.7 23.2 L 16 30.4 L 4.3 23.2 L 4.3 9.6 Z" 
+        fill="none" 
+        stroke="url(#hexGradient32)" 
+        stroke-width="1.2" 
+        stroke-linejoin="round"/>
+  
+  <!-- M simplificada para favicon -->
+  <line x1="8" y1="11" x2="8" y2="22" stroke="url(#hexGradient32)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="8" y1="11" x2="16" y2="16" stroke="url(#hexGradient32)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="24" y2="11" stroke="url(#hexGradient32)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="24" y1="11" x2="24" y2="22" stroke="url(#hexGradient32)" stroke-width="1" stroke-linecap="round"/>
+  
+  <!-- Nodos -->
+  <circle cx="8" cy="11" r="1.2" fill="url(#hexGradient32)"/>
+  <circle cx="16" cy="16" r="1.5" fill="url(#hexGradient32)"/>
+  <circle cx="24" cy="11" r="1.2" fill="url(#hexGradient32)"/>
+  <circle cx="8" cy="22" r="1.2" fill="url(#hexGradient32)"/>
+  <circle cx="24" cy="22" r="1.2" fill="url(#hexGradient32)"/>
+</svg>

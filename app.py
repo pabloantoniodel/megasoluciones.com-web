@@ -37,8 +37,8 @@ SERVICIOS = [
         'id': 1,
         'titulo': 'Chatbots IA Personalizados',
         'descripcion': 'Asistentes virtuales inteligentes que atienden a tus clientes 24/7 con procesamiento de lenguaje natural avanzado.',
-        'precio_desde': '€299',
-        'precio_hasta': '€999/mes',
+        'precio_desde': '299€',
+        'precio_hasta': '999€/mes',
         'caracteristicas': ['Integración multicanal', 'NLP avanzado', 'Aprendizaje continuo', 'Analytics en tiempo real'],
         'icon': '🤖'
     },
@@ -46,8 +46,8 @@ SERVICIOS = [
         'id': 2,
         'titulo': 'Automatización Inteligente',
         'descripcion': 'Optimiza tus procesos empresariales con RPA y machine learning para reducir costos y aumentar eficiencia.',
-        'precio_desde': '€399',
-        'precio_hasta': '€1.499/mes',
+        'precio_desde': '399€',
+        'precio_hasta': '1.499€/mes',
         'caracteristicas': ['RPA empresarial', 'Workflows inteligentes', 'Integración APIs', 'Monitoreo 24/7'],
         'icon': '⚙️'
     },
@@ -55,8 +55,8 @@ SERVICIOS = [
         'id': 3,
         'titulo': 'Desarrollo de Software IA',
         'descripcion': 'Aplicaciones web y móviles de última generación con inteligencia artificial integrada desde el diseño.',
-        'precio_desde': '€5.000',
-        'precio_hasta': '€50.000',
+        'precio_desde': '5.000€',
+        'precio_hasta': '50.000€',
         'caracteristicas': ['Desarrollo a medida', 'Stack moderno', 'Escalabilidad cloud', 'Soporte continuo'],
         'icon': '💻'
     },
@@ -64,8 +64,8 @@ SERVICIOS = [
         'id': 4,
         'titulo': 'Consultoría Estratégica IA',
         'descripcion': 'Asesoramiento experto para definir tu hoja de ruta de transformación digital con inteligencia artificial.',
-        'precio_desde': '€100',
-        'precio_hasta': '€250/hora',
+        'precio_desde': '100€',
+        'precio_hasta': '250€/hora',
         'caracteristicas': ['Análisis de viabilidad', 'ROI proyectado', 'Roadmap tecnológico', 'Formación equipos'],
         'icon': '📊'
     },
@@ -73,8 +73,8 @@ SERVICIOS = [
         'id': 5,
         'titulo': 'Machine Learning & Modelos Predictivos',
         'descripcion': 'Modelos de ML personalizados para predicción de demanda, detección de anomalías y análisis predictivo.',
-        'precio_desde': '€10.000',
-        'precio_hasta': '€100.000',
+        'precio_desde': '10.000€',
+        'precio_hasta': '100.000€',
         'caracteristicas': ['Modelos custom', 'Entrenamiento continuo', 'Deploy cloud', 'MLOps incluido'],
         'icon': '🧠'
     },
@@ -82,8 +82,8 @@ SERVICIOS = [
         'id': 6,
         'titulo': 'Computer Vision',
         'descripcion': 'Visión artificial para reconocimiento facial, detección de objetos, OCR y control de calidad automatizado.',
-        'precio_desde': '€8.000',
-        'precio_hasta': '€80.000',
+        'precio_desde': '8.000€',
+        'precio_hasta': '80.000€',
         'caracteristicas': ['Reconocimiento de imágenes', 'Video analytics', 'OCR avanzado', 'Edge computing'],
         'icon': '👁️'
     },
@@ -91,8 +91,8 @@ SERVICIOS = [
         'id': 7,
         'titulo': 'Procesamiento Lenguaje Natural',
         'descripcion': 'Análisis de sentimiento, extracción de información, traducción automática y generación de contenido.',
-        'precio_desde': '€6.000',
-        'precio_hasta': '€60.000',
+        'precio_desde': '6.000€',
+        'precio_hasta': '60.000€',
         'caracteristicas': ['Análisis de sentimiento', 'NER & clasificación', 'Modelos multiidioma', 'API REST'],
         'icon': '📝'
     },
@@ -100,8 +100,8 @@ SERVICIOS = [
         'id': 8,
         'titulo': 'Agentes IA Generativos',
         'descripcion': 'Agentes inteligentes avanzados con IA generativa para ventas, soporte y asesoramiento personalizado.',
-        'precio_desde': '€15.000',
-        'precio_hasta': '€150.000',
+        'precio_desde': '15.000€',
+        'precio_hasta': '150.000€',
         'caracteristicas': ['GPT-4 & Claude', 'RAG personalizado', 'Multi-agente', 'Memoria contextual'],
         'icon': '✨'
     }
@@ -117,7 +117,7 @@ TESTIMONIOS = [
     {
         'nombre': 'Carlos Ramírez',
         'cargo': 'Director IT, Innovatech',
-        'texto': 'El equipo de Megasoluciones desarrolló un sistema de predicción de demanda que nos ahorró más de €200.000 en el primer año. Profesionales excepcionales.',
+        'texto': 'El equipo de Megasoluciones desarrolló un sistema de predicción de demanda que nos ahorró más de 200.000€ en el primer año. Profesionales excepcionales.',
         'rating': 5
     },
     {
@@ -133,25 +133,29 @@ PORTFOLIO = [
         'titulo': 'Sistema de Recomendación E-commerce',
         'cliente': 'Retail líder en España',
         'descripcion': 'Motor de recomendaciones ML que aumentó conversión 35%',
-        'tecnologias': ['Python', 'TensorFlow', 'AWS', 'PostgreSQL']
+        'tecnologias': ['Python', 'TensorFlow', 'AWS', 'PostgreSQL'],
+        'imagen': 'portfolio-ecommerce.png'
     },
     {
         'titulo': 'Chatbot Bancario Multicanal',
         'cliente': 'Entidad financiera internacional',
         'descripcion': 'Asistente virtual con NLP que atiende 10.000+ consultas/día',
-        'tecnologias': ['GPT-4', 'Azure', 'React', 'Node.js']
+        'tecnologias': ['GPT-4', 'Azure', 'React', 'Node.js'],
+        'imagen': 'portfolio-banking.png'
     },
     {
         'titulo': 'Plataforma Análisis Predictivo',
         'cliente': 'Industria manufacturera',
         'descripcion': 'Predicción de fallos en maquinaria con 92% precisión',
-        'tecnologias': ['Python', 'Scikit-learn', 'Docker', 'Grafana']
+        'tecnologias': ['Python', 'Scikit-learn', 'Docker', 'Grafana'],
+        'imagen': 'portfolio-industry.png'
     },
     {
         'titulo': 'OCR Inteligente Documentos',
         'cliente': 'Sector legal',
         'descripcion': 'Extracción automática de datos de contratos con 98% accuracy',
-        'tecnologias': ['Computer Vision', 'Azure AI', 'FastAPI', 'MongoDB']
+        'tecnologias': ['Computer Vision', 'Azure AI', 'FastAPI', 'MongoDB'],
+        'imagen': 'portfolio-documents.png'
     }
 ]
 
@@ -263,6 +267,11 @@ Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
         
         return redirect(url_for('contacto'))
     return render_template('contacto.html', form=form)
+
+@app.route('/health')
+def health():
+    """Endpoint de salud para Traefik/load balancers."""
+    return {'status': 'ok', 'service': 'megasoluciones'}, 200
 
 @app.context_processor
 def inject_year():

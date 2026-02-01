@@ -14,7 +14,14 @@
     
     <title>{% block title %}Megasoluciones - Inteligencia Artificial y Desarrollo Software{% endblock %}</title>
     
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/logo-icon-192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logo-icon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logo-icon-16.png') }}">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -56,6 +63,7 @@
                     <li><a href="{{ url_for('servicios') }}" class="{% if request.endpoint == 'servicios' %}active{% endif %}">Servicios</a></li>
                     <li><a href="{{ url_for('portfolio') }}" class="{% if request.endpoint == 'portfolio' %}active{% endif %}">Portfolio</a></li>
                     <li><a href="{{ url_for('testimonios') }}" class="{% if request.endpoint == 'testimonios' %}active{% endif %}">Testimonios</a></li>
+                    <li><a href="https://megasolucion.net" target="_blank" rel="noopener noreferrer">Área clientes</a></li>
                     <li><a href="{{ url_for('contacto') }}" class="btn-primary">Contacto</a></li>
                 </ul>
             </div>
@@ -112,6 +120,7 @@
                         <li><a href="{{ url_for('sobre') }}">Sobre Nosotros</a></li>
                         <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
                         <li><a href="{{ url_for('testimonios') }}">Testimonios</a></li>
+                        <li><a href="https://megasolucion.net" target="_blank" rel="noopener noreferrer">Área clientes</a></li>
                         <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
                     </ul>
                 </div>
@@ -138,7 +147,7 @@
         </svg>
     </a>
 
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.v2.js') }}"></script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>

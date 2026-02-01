@@ -1,0 +1,27 @@
+# Config Traefik para megasolucion.com vía host (10.0.0.1:5000)
+# Copiar a: /etc/dokploy/traefik/dynamic/megasolucion-com.yml
+
+http:
+  routers:
+    megasolucion-com-http:
+      rule: Host(`megasolucion.com`) || Host(`www.megasolucion.com`)
+      service: megasolucion-com-service
+      middlewares:
+        - redirect-to-https
+      entryPoints:
+        - web
+    megasolucion-com-https:
+      rule: Host(`megasolucion.com`) || Host(`www.megasolucion.com`)
+      service: megasolucion-com-service
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+  services:
+    megasolucion-com-service:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.1:5000
+        passHostHeader: true
+        responseForwarding:
+          flushInterval: 1s

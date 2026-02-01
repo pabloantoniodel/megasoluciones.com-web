@@ -137,7 +137,7 @@ Modificar en `app.py` la variable `SERVICIOS`:
 SERVICIOS = [
     {
         'titulo': 'Nombre del Servicio',
-        'precio_desde': '€XXX',
+        'precio_desde': 'XXX€',
         # ...
     }
 ]
@@ -147,14 +147,14 @@ SERVICIOS = [
 
 | Servicio | Precio Desde | Precio Hasta |
 |----------|--------------|--------------|
-| Chatbots IA | €299/mes | €999/mes |
-| Automatización | €399/mes | €1.499/mes |
-| Desarrollo Software | €5.000 | €50.000 |
-| Consultoría IA | €100/hora | €250/hora |
-| Machine Learning | €10.000 | €100.000 |
-| Computer Vision | €8.000 | €80.000 |
-| NLP | €6.000 | €60.000 |
-| Agentes IA Generativos | €15.000 | €150.000 |
+| Chatbots IA | 299€/mes | 999€/mes |
+| Automatización | 399€/mes | 1.499€/mes |
+| Desarrollo Software | 5.000€ | 50.000€ |
+| Consultoría IA | 100€/hora | 250€/hora |
+| Machine Learning | 10.000€ | 100.000€ |
+| Computer Vision | 8.000€ | 80.000€ |
+| NLP | 6.000€ | 60.000€ |
+| Agentes IA Generativos | 15.000€ | 150.000€ |
 
 ## 🔧 Funcionalidades Implementadas
 
