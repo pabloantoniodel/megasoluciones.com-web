@@ -1,6 +1,5 @@
-# Config Traefik para megasolucion.com vía host (10.0.0.1:5000)
-# Copiar a: /etc/dokploy/traefik/dynamic/megasolucion-com.yml
-
+# Config Traefik para megasolucion.com (apex + www) con UN certificado para ambos
+# Copiar a: sudo cp traefik-megasolucion-com.yml /etc/dokploy/traefik/dynamic/megasolucion-com.yml
 http:
   routers:
     megasolucion-com-http:
@@ -17,6 +16,10 @@ http:
         - websecure
       tls:
         certResolver: letsencrypt
+        domains:
+          - main: megasolucion.com
+            sans:
+              - www.megasolucion.com
   services:
     megasolucion-com-service:
       loadBalancer:

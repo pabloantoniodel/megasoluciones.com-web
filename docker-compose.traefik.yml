@@ -1,9 +1,9 @@
-# Override para exponer Megasoluciones en https://megasolucion.com vía Traefik (Dokploy).
+# Override para exponer Megasoluciones en https (megasolucion.com y megasolucion.es) vía Traefik (Dokploy).
 # Uso: docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d
 #
 # Requisitos:
-# - DNS: megasolucion.com → IP del servidor (69.197.164.198). Puertos 80 y 443 abiertos.
-# - Para www: apuntar www.megasolucion.com al mismo IP y descomentar líneas con www.
+# - DNS: megasolucion.com y megasolucion.es (y www) → IP del servidor. Puertos 80 y 443 abiertos.
+# - Certificados SSL: Let's Encrypt (certresolver=letsencrypt) los genera automáticamente.
 #
 # Acceso OBLIGATORIO por dominio: el puerto 5000 no se expone; solo Traefik (80/443) puede acceder.
 
@@ -24,16 +24,16 @@ services:
     labels:
       - "traefik.enable=true"
       
-      # HTTP → HTTPS redirect
-      - "traefik.http.routers.megasoluciones-http.rule=Host(`megasolucion.com`) || Host(`www.megasolucion.com`)"
+      # HTTP → HTTPS redirect (megasolucion.com + megasolucion.es)
+      - "traefik.http.routers.megasoluciones-http.rule=Host(`megasolucion.com`) || Host(`www.megasolucion.com`) || Host(`megasolucion.es`) || Host(`www.megasolucion.es`)"
       - "traefik.http.routers.megasoluciones-http.entrypoints=web"
       - "traefik.http.routers.megasoluciones-http.service=megasoluciones-service"
       - "traefik.http.routers.megasoluciones-http.middlewares=megasoluciones-redirect"
       - "traefik.http.middlewares.megasoluciones-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.megasoluciones-redirect.redirectscheme.permanent=true"
       
-      # HTTPS con certificado Let's Encrypt
-      - "traefik.http.routers.megasoluciones.rule=Host(`megasolucion.com`) || Host(`www.megasolucion.com`)"
+      # HTTPS con certificados Let's Encrypt (megasolucion.com + megasolucion.es)
+      - "traefik.http.routers.megasoluciones.rule=Host(`megasolucion.com`) || Host(`www.megasolucion.com`) || Host(`megasolucion.es`) || Host(`www.megasolucion.es`)"
       - "traefik.http.routers.megasoluciones.entrypoints=websecure"
       - "traefik.http.routers.megasoluciones.tls.certresolver=letsencrypt"
       - "traefik.http.routers.megasoluciones.service=megasoluciones-service"

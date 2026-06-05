@@ -1,10 +1,42 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, Response
 from flask_wtf import FlaskForm
 from flask_mail import Mail, Message
 from wtforms import StringField, TextAreaField, EmailField, TelField
 from wtforms.validators import DataRequired, Email
 import os
 from datetime import datetime
+
+def load_gsc_verification_token() -> str | None:
+    """Token de Google Search Console (meta HTML tag)."""
+    for name in ('gsc-verification.txt', '.gsc-verification'):
+        path = os.path.join(os.path.dirname(__file__), name)
+        if os.path.isfile(path):
+            token = open(path, encoding='utf-8').read().strip()
+            if token and not token.startswith('#'):
+                return token
+    env = os.environ.get('GSC_VERIFICATION_TOKEN', '').strip()
+    return env or None
+
+
+GSC_VERIFICATION_TOKEN = load_gsc_verification_token()
+
+CANONICAL_BASE_URL = os.environ.get('CANONICAL_BASE_URL', 'https://megasolucion.com').rstrip('/')
+
+SITEMAP_HOSTS = {
+    'megasolucion.com': 'https://megasolucion.com',
+    'www.megasolucion.com': 'https://megasolucion.com',
+    'megasolucion.es': 'https://megasolucion.es',
+    'www.megasolucion.es': 'https://megasolucion.es',
+}
+
+SITEMAP_PAGES = [
+    {'path': '/', 'changefreq': 'weekly', 'priority': '1.0'},
+    {'path': '/servicios', 'changefreq': 'monthly', 'priority': '0.9'},
+    {'path': '/sobre', 'changefreq': 'monthly', 'priority': '0.8'},
+    {'path': '/portfolio', 'changefreq': 'monthly', 'priority': '0.8'},
+    {'path': '/testimonios', 'changefreq': 'monthly', 'priority': '0.7'},
+    {'path': '/contacto', 'changefreq': 'monthly', 'priority': '0.8'},
+]
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'megasoluciones-secret-key-2026')
@@ -273,9 +305,54 @@ def health():
     """Endpoint de salud para Traefik/load balancers."""
     return {'status': 'ok', 'service': 'megasoluciones'}, 200
 
+
+@app.route('/robots.txt')
+def robots_txt():
+    base = sitemap_base_url()
+    body = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /health\n"
+        f"\nSitemap: {base}/sitemap.xml\n"
+    )
+    return Response(body, mimetype='text/plain')
+
+
+def sitemap_base_url() -> str:
+    host = (request.host or '').split(':')[0].lower()
+    return SITEMAP_HOSTS.get(host, CANONICAL_BASE_URL)
+
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    base = sitemap_base_url()
+    lastmod = datetime.now().strftime('%Y-%m-%d')
+    urls = []
+    for page in SITEMAP_PAGES:
+        loc = f"{base}{page['path']}"
+        urls.append(
+            "  <url>\n"
+            f"    <loc>{loc}</loc>\n"
+            f"    <lastmod>{lastmod}</lastmod>\n"
+            f"    <changefreq>{page['changefreq']}</changefreq>\n"
+            f"    <priority>{page['priority']}</priority>\n"
+            "  </url>"
+        )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(urls)
+        + "\n</urlset>\n"
+    )
+    return Response(xml, mimetype='application/xml')
+
+
 @app.context_processor
-def inject_year():
-    return {'current_year': datetime.now().year}
+def inject_globals():
+    return {
+        'current_year': datetime.now().year,
+        'gsc_verification_token': GSC_VERIFICATION_TOKEN,
+    }
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

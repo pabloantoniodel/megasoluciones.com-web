@@ -1,0 +1,4 @@
+# Copiar a gsc-verification.txt (raíz del repo) con el token de Search Console.
+# En GSC: Verificación → Etiqueta HTML → valor de content="..."
+# Ejemplo: google1234567890abcdef
+google1234567890abcdef

@@ -1,0 +1,31 @@
+# megasolucion.es y www.megasolucion.es → misma app que .com (puerto 5000)
+# Copiar a: sudo cp traefik-megasolucion-es.yml /etc/dokploy/traefik/dynamic/megasoluciones-web-megasoluciones-6gi9az.yml
+http:
+  routers:
+    megasoluciones-web-megasoluciones-6gi9az-router-1:
+      rule: Host(`megasolucion.es`) || Host(`www.megasolucion.es`)
+      service: megasoluciones-web-megasoluciones-6gi9az-service-1
+      middlewares:
+        - redirect-to-https
+      entryPoints:
+        - web
+    megasoluciones-web-megasoluciones-6gi9az-router-websecure-1:
+      rule: Host(`megasolucion.es`) || Host(`www.megasolucion.es`)
+      service: megasoluciones-web-megasoluciones-6gi9az-service-1
+      middlewares: []
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: megasolucion.es
+            sans:
+              - www.megasolucion.es
+  services:
+    megasoluciones-web-megasoluciones-6gi9az-service-1:
+      loadBalancer:
+        servers:
+          - url: http://10.0.0.1:5000
+        passHostHeader: true
+        responseForwarding:
+          flushInterval: 1s

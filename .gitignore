@@ -5,6 +5,7 @@ __pycache__/
 *.pyo
 *.pyd
 .env
+gsc-verification.txt
 .DS_Store
 *.db
 instance/
