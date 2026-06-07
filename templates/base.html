@@ -37,7 +37,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logo-icon-32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logo-icon-16.png') }}">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css', v=6) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -71,7 +71,7 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar">
+    <nav class="navbar{% if request.endpoint == 'index' %} navbar-home{% endif %}">
         <div class="container">
             <div class="nav-content">
                 <a href="{{ url_for('index') }}" class="logo">
@@ -91,7 +91,6 @@
                     <li><a href="{{ url_for('servicios') }}" class="{% if request.endpoint == 'servicios' %}active{% endif %}">Servicios</a></li>
                     <li><a href="{{ url_for('portfolio') }}" class="{% if request.endpoint in ('portfolio', 'portfolio_caso') %}active{% endif %}">Portfolio</a></li>
                     <li><a href="{{ url_for('recursos') }}" class="{% if request.endpoint in ('recursos', 'recurso_articulo') %}active{% endif %}">Recursos</a></li>
-                    <li><a href="{{ url_for('testimonios') }}" class="{% if request.endpoint == 'testimonios' %}active{% endif %}">Testimonios</a></li>
                     <li><a href="{{ url_for('sobre') }}" class="{% if request.endpoint == 'sobre' %}active{% endif %}">Sobre</a></li>
                     <li><a href="https://megasolucion.net" target="_blank" rel="noopener noreferrer">Área clientes</a></li>
                     <li><a href="{{ url_for('contacto') }}" class="btn-primary">Contacto</a></li>

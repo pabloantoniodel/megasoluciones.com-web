@@ -48,20 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Navbar background on scroll
     const navbar = document.querySelector('.navbar');
-    let lastScroll = 0;
+    const isHomeNavbar = navbar && navbar.classList.contains('navbar-home');
+    const navbarBgDefault = isHomeNavbar ? '#f9fbfa' : 'rgba(255, 255, 255, 0.95)';
+    const navbarBgScrolled = isHomeNavbar ? '#f9fbfa' : 'rgba(255, 255, 255, 0.98)';
     
     window.addEventListener('scroll', () => {
+        if (!navbar) return;
         const currentScroll = window.pageYOffset;
         
         if (currentScroll > 100) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.background = navbarBgScrolled;
             navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
         } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.background = navbarBgDefault;
             navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
         }
-        
-        lastScroll = currentScroll;
     });
     
     // Intersection Observer for fade-in animations
@@ -183,6 +184,94 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             whatsappFloat.style.animation = 'pulse 2s infinite, fadeInUp 0.5s ease';
         }, 2000);
+    }
+    
+    // Canvas Particles Animation for Hero
+    const canvas = document.getElementById('hero-particles');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationFrameId;
+
+        const resizeCanvas = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        };
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * -1 - 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(96, 165, 250, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const initParticles = () => {
+            particles = [];
+            const particleCount = Math.min(Math.floor(window.innerWidth / 10), 100);
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        };
+
+        const animateParticles = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connecting lines
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(147, 197, 253, ${0.15 * (1 - distance/100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            animationFrameId = requestAnimationFrame(animateParticles);
+        };
+
+        initParticles();
+        animateParticles();
+        
+        // Pause animation if user prefers reduced motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            cancelAnimationFrame(animationFrameId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     }
     
     console.log('🚀 Megasoluciones web loaded successfully!');
