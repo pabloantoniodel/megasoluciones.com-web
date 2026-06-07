@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Recursos — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
+{% block meta_description %}Artículos y guías sobre desarrollo de software a medida, automatizaciones empresariales y RPA para empresas en España.{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Recursos sobre <span class="gradient-text">desarrollo y automatizaciones</span></h1>
+        <p>Guías prácticas para empresas en España</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="landing-grid">
+            {% for articulo in articulos %}
+            <article class="landing-card">
+                <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
+                <h2><a href="{{ url_for('recursos') }}#{{ articulo.slug }}">{{ articulo.titulo }}</a></h2>
+                <p>{{ articulo.resumen }}</p>
+                <a href="{{ url_for('desarrollo_software') if 'desarrollo' in articulo.slug else url_for('automatizaciones') }}" class="btn-outline btn-sm">Leer más →</a>
+            </article>
+            {% endfor %}
+        </div>
+        <p class="text-center note" style="margin-top: 2rem;">Próximamente publicaremos el contenido completo de cada artículo. Mientras tanto, <a href="{{ url_for('contacto') }}">contáctanos</a> para resolver tus dudas.</p>
+    </div>
+</section>
+{% endblock %}

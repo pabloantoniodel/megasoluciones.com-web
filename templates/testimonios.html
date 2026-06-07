@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Testimonios - Megasoluciones{% endblock %}
+{% block title %}Testimonios — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
+{% block meta_description %}Opiniones de clientes sobre desarrollo de software a medida y automatizaciones empresariales de Megasoluciones en España.{% endblock %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>Testimonios de <span class="gradient-text">Clientes</span></h1>
-        <p>Lo que dicen las empresas que confían en nosotros</p>
+        <h1>Testimonios de <span class="gradient-text">clientes</span></h1>
+        <p>Empresas que confían en nuestro desarrollo y automatizaciones</p>
     </div>
 </section>
 
@@ -16,9 +17,12 @@
             {% for testimonio in testimonios %}
             <div class="testimonial-full-card">
                 <div class="testimonial-quote">"</div>
-                <div class="stars-large">
-                    {% for i in range(testimonio.rating) %}★{% endfor %}
-                </div>
+                {% if testimonio.servicio == 'desarrollo' %}
+                <span class="portfolio-badge portfolio-badge-desarrollo">Desarrollo</span>
+                {% elif testimonio.servicio == 'automatizacion' %}
+                <span class="portfolio-badge portfolio-badge-automatizacion">Automatización</span>
+                {% endif %}
+                <div class="stars-large">{% for i in range(testimonio.rating) %}★{% endfor %}</div>
                 <p class="testimonial-text-large">{{ testimonio.texto }}</p>
                 <div class="testimonial-author-full">
                     <div class="author-avatar-large">{{ testimonio.nombre[0] }}</div>
@@ -35,90 +39,12 @@
 
 <section class="section bg-light">
     <div class="container">
-        <h2 class="text-center">Empresas que Confían en Nosotros</h2>
-        
-        <div class="clients-logos">
-            <div class="client-logo">
-                <div class="logo-placeholder">TechCorp</div>
-            </div>
-            <div class="client-logo">
-                <div class="logo-placeholder">Innovatech</div>
-            </div>
-            <div class="client-logo">
-                <div class="logo-placeholder">FinanceGlobal</div>
-            </div>
-            <div class="client-logo">
-                <div class="logo-placeholder">RetailPlus</div>
-            </div>
-            <div class="client-logo">
-                <div class="logo-placeholder">HealthCare+</div>
-            </div>
-            <div class="client-logo">
-                <div class="logo-placeholder">EduTech</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <div class="video-testimonial">
-            <h2 class="text-center">Testimonios en Video</h2>
-            <p class="text-center lead">Escucha directamente de nuestros clientes</p>
-            
-            <div class="video-grid">
-                <div class="video-card">
-                    <div class="video-placeholder">
-                        <img src="{{ url_for('static', filename='images/video-testimonial-1.png') }}" alt="Testimonio CEO TechCorp">
-                        <div class="play-button">▶</div>
-                    </div>
-                    <h3>CEO TechCorp España</h3>
-                    <p>Cómo mejoramos su atención al cliente en un 70%</p>
-                </div>
-                
-                <div class="video-card">
-                    <div class="video-placeholder">
-                        <img src="{{ url_for('static', filename='images/video-testimonial-2.png') }}" alt="Testimonio Director IT Innovatech">
-                        <div class="play-button">▶</div>
-                    </div>
-                    <h3>Director IT Innovatech</h3>
-                    <p>Sistema predictivo que ahorró 200K€ al año</p>
-                </div>
-                
-                <div class="video-card">
-                    <div class="video-placeholder">
-                        <img src="{{ url_for('static', filename='images/video-testimonial-3.png') }}" alt="Testimonio COO FinanceGlobal">
-                        <div class="play-button">▶</div>
-                    </div>
-                    <h3>COO FinanceGlobal</h3>
-                    <p>Automatización inteligente de procesos clave</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section bg-light">
-    <div class="container">
         <h2 class="text-center">Métricas de Satisfacción</h2>
-        
         <div class="satisfaction-metrics">
-            <div class="metric-item">
-                <div class="metric-value">98%</div>
-                <div class="metric-label">Satisfacción General</div>
-            </div>
-            <div class="metric-item">
-                <div class="metric-value">95%</div>
-                <div class="metric-label">Recomendarían Megasoluciones</div>
-            </div>
-            <div class="metric-item">
-                <div class="metric-value">4.9/5</div>
-                <div class="metric-label">Calificación Promedio</div>
-            </div>
-            <div class="metric-item">
-                <div class="metric-value">92%</div>
-                <div class="metric-label">Proyectos Repetidos</div>
-            </div>
+            <div class="metric-item"><div class="metric-value">98%</div><div class="metric-label">Satisfacción General</div></div>
+            <div class="metric-item"><div class="metric-value">95%</div><div class="metric-label">Recomendarían Megasoluciones</div></div>
+            <div class="metric-item"><div class="metric-value">4.9/5</div><div class="metric-label">Calificación Promedio</div></div>
+            <div class="metric-item"><div class="metric-value">92%</div><div class="metric-label">Proyectos Repetidos</div></div>
         </div>
     </div>
 </section>
@@ -127,7 +53,7 @@
     <div class="container">
         <div class="cta-content">
             <h2>¿Quieres ser nuestro próximo caso de éxito?</h2>
-            <p>Únete a las +200 empresas que ya transformaron su negocio con IA</p>
+            <p>Desarrollo de software o automatizaciones — cuéntanos tu proyecto</p>
             <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Solicitar Consulta</a>
         </div>
     </div>

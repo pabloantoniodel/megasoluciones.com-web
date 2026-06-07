@@ -3,69 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Megasoluciones - Líder en servicios de Inteligencia Artificial y Desarrollo de Software. Transformamos empresas con IA, chatbots, automatización y machine learning.">
-    <meta name="keywords" content="IA, inteligencia artificial, desarrollo software, chatbots, machine learning, automatización, España">
+    <meta name="description" content="{% block meta_description %}Megasoluciones — desarrollo de software a medida y automatizaciones empresariales (RPA) para empresas en España. Integraciones, APIs y workflows inteligentes.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}desarrollo software a medida, automatizaciones empresariales, RPA, automatización procesos, desarrollo web España, integración APIs{% endblock %}">
     <meta name="author" content="Megasoluciones">
     {% if gsc_verification_token %}
     <meta name="google-site-verification" content="{{ gsc_verification_token }}">
     {% endif %}
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Megasoluciones - Servicios de IA y Desarrollo Software">
-    <meta property="og:description" content="Transformamos empresas con inteligencia artificial y desarrollo de software de última generación">
+
+    <link rel="canonical" href="{% block canonical_link %}{{ canonical_url }}{% endblock %}">
+    {% for lang, url in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ lang }}" href="{{ url }}">
+    {% endfor %}
+
+    <meta property="og:title" content="{% block og_title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Megasoluciones — desarrollo de software a medida y automatizaciones empresariales (RPA) para empresas en España. Integraciones, APIs y workflows inteligentes.{% endblock %}">
     <meta property="og:type" content="website">
-    
-    <title>{% block title %}Megasoluciones - Inteligencia Artificial y Desarrollo Software{% endblock %}</title>
-    
-    <!-- Favicon -->
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:image" content="{{ url_for('static', filename='images/logo.png', _external=True) }}">
+
+    <title>{% block title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}</title>
+
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/logo-icon-192.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logo-icon-32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logo-icon-16.png') }}">
-    
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Google Analytics Ready -->
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Megasoluciones",
-      "url": "{{ request.url_root }}",
+      "url": "{{ site_base_url }}/",
       "logo": "{{ url_for('static', filename='images/logo.png', _external=True) }}",
-      "description": "Compañía líder en servicios de inteligencia artificial y desarrollo de software",
+      "description": "Empresa de desarrollo de software a medida y automatizaciones empresariales en España",
       "areaServed": ["ES", "LATAM"],
-      "serviceType": ["Inteligencia Artificial", "Desarrollo Software", "Chatbots", "Machine Learning", "Automatización"]
+      "knowsAbout": ["Desarrollo de software", "Automatización de procesos", "RPA", "Integración APIs", "Desarrollo web"],
+      "serviceType": ["Desarrollo Software", "Automatizaciones", "RPA", "Integraciones", "Inteligencia Artificial"]
     }
     </script>
-    
+
+    {% block structured_data %}{% endblock %}
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <!-- Navegación -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
                 <a href="{{ url_for('index') }}" class="logo">
-                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Megasoluciones Logo">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Megasoluciones — desarrollo software y automatizaciones">
                 </a>
-                
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menú">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
-                
+
                 <ul class="nav-links" id="navLinks">
                     <li><a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Inicio</a></li>
-                    <li><a href="{{ url_for('sobre') }}" class="{% if request.endpoint == 'sobre' %}active{% endif %}">Sobre Nosotros</a></li>
+                    <li><a href="{{ url_for('desarrollo_software') }}" class="{% if request.endpoint == 'desarrollo_software' %}active{% endif %}">Desarrollo</a></li>
+                    <li><a href="{{ url_for('automatizaciones') }}" class="{% if request.endpoint == 'automatizaciones' %}active{% endif %}">Automatizaciones</a></li>
                     <li><a href="{{ url_for('servicios') }}" class="{% if request.endpoint == 'servicios' %}active{% endif %}">Servicios</a></li>
                     <li><a href="{{ url_for('portfolio') }}" class="{% if request.endpoint == 'portfolio' %}active{% endif %}">Portfolio</a></li>
-                    <li><a href="{{ url_for('testimonios') }}" class="{% if request.endpoint == 'testimonios' %}active{% endif %}">Testimonios</a></li>
+                    <li><a href="{{ url_for('sobre') }}" class="{% if request.endpoint == 'sobre' %}active{% endif %}">Sobre</a></li>
                     <li><a href="https://megasolucion.net" target="_blank" rel="noopener noreferrer">Área clientes</a></li>
                     <li><a href="{{ url_for('contacto') }}" class="btn-primary">Contacto</a></li>
                 </ul>
@@ -73,7 +80,6 @@
         </div>
     </nav>
 
-    <!-- Contenido Principal -->
     <main>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -87,18 +93,17 @@
                 </div>
             {% endif %}
         {% endwith %}
-        
+
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
                     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Megasoluciones" class="footer-logo">
                     <p class="footer-description">
-                        Transformamos empresas con inteligencia artificial y desarrollo de software de última generación.
+                        Desarrollo de software a medida y automatizaciones empresariales para empresas en España y LATAM.
                     </p>
                     <div class="social-links">
                         <a href="#" aria-label="LinkedIn">in</a>
@@ -106,28 +111,30 @@
                         <a href="#" aria-label="GitHub">⚙</a>
                     </div>
                 </div>
-                
+
                 <div class="footer-col">
                     <h4>Servicios</h4>
                     <ul>
-                        <li><a href="{{ url_for('servicios') }}#chatbots">Chatbots IA</a></li>
-                        <li><a href="{{ url_for('servicios') }}#automatizacion">Automatización</a></li>
-                        <li><a href="{{ url_for('servicios') }}#desarrollo">Desarrollo Software</a></li>
-                        <li><a href="{{ url_for('servicios') }}#ml">Machine Learning</a></li>
+                        <li><a href="{{ url_for('desarrollo_software') }}">Desarrollo Software</a></li>
+                        <li><a href="{{ url_for('automatizaciones') }}">Automatizaciones y RPA</a></li>
+                        <li><a href="{{ url_for('servicios') }}#desarrollo-software">Desarrollo a medida</a></li>
+                        <li><a href="{{ url_for('servicios') }}#automatizaciones-rpa">Automatizaciones</a></li>
+                        <li><a href="{{ url_for('servicios') }}#chatbots-ia">Chatbots IA</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-col">
                     <h4>Empresa</h4>
                     <ul>
                         <li><a href="{{ url_for('sobre') }}">Sobre Nosotros</a></li>
                         <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+                        <li><a href="{{ url_for('recursos') }}">Recursos</a></li>
                         <li><a href="{{ url_for('testimonios') }}">Testimonios</a></li>
                         <li><a href="https://megasolucion.net" target="_blank" rel="noopener noreferrer">Área clientes</a></li>
                         <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-col">
                     <h4>Contacto</h4>
                     <ul class="contact-info">
@@ -136,15 +143,17 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p>&copy; {{ current_year }} Megasoluciones. Todos los derechos reservados.</p>
+                <p>&copy; {{ current_year }} Megasoluciones. Todos los derechos reservados.
+                    <a href="{{ url_for('privacidad') }}">Privacidad</a> ·
+                    <a href="{{ url_for('aviso_legal') }}">Aviso legal</a>
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- WhatsApp Flotante -->
-    <a href="https://wa.me/34638568668" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <a href="https://wa.me/34638568668" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
         <svg viewBox="0 0 32 32" fill="white" width="28" height="28">
             <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 8.135-2.135c2.369 1.228 5.006 1.869 7.865 1.869 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.333c-2.547 0-5.042-0.735-7.17-2.123l-0.513-0.296-5.316 1.393 1.419-5.284-0.323-0.533c-1.515-2.484-2.311-5.339-2.311-8.254 0-8.578 6.982-15.56 15.56-15.56s15.56 6.982 15.56 15.56-6.982 15.56-15.56 15.56zM22.919 19.478c-0.387-0.193-2.289-1.13-2.644-1.259-0.354-0.129-0.612-0.193-0.87 0.193s-1.001 1.259-1.227 1.517c-0.226 0.258-0.452 0.29-0.839 0.097-0.387-0.193-1.633-0.602-3.109-1.919-1.149-1.025-1.925-2.291-2.151-2.678-0.226-0.387-0.024-0.596 0.169-0.789 0.174-0.173 0.387-0.452 0.58-0.678 0.193-0.226 0.258-0.387 0.387-0.645 0.129-0.258 0.064-0.484-0.032-0.678-0.097-0.193-0.87-2.096-1.193-2.871-0.314-0.754-0.633-0.652-0.87-0.665-0.226-0.012-0.484-0.015-0.742-0.015s-0.677 0.097-1.032 0.484c-0.354 0.387-1.355 1.324-1.355 3.227s1.387 3.742 1.58 3.999c0.193 0.258 2.725 4.161 6.602 5.835 0.922 0.398 1.642 0.636 2.202 0.814 0.927 0.295 1.771 0.253 2.438 0.154 0.744-0.111 2.289-0.936 2.612-1.84s0.323-1.679 0.226-1.84c-0.097-0.161-0.354-0.258-0.742-0.452z"/>
         </svg>

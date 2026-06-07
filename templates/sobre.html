@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Sobre Nosotros - Megasoluciones{% endblock %}
+{% block title %}Sobre Nosotros — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
+{% block meta_description %}Megasoluciones: empresa de desarrollo de software a medida y automatizaciones empresariales en España. Equipo experto, metodología ágil y soporte continuo.{% endblock %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
         <h1>Sobre <span class="gradient-text">Megasoluciones</span></h1>
-        <p>Líderes en inteligencia artificial y desarrollo de software en España y LATAM</p>
+        <p>Empresa de desarrollo de software y automatizaciones en España y LATAM</p>
     </div>
 </section>
 
@@ -16,18 +17,17 @@
             <div class="about-text">
                 <h2>Nuestra Misión</h2>
                 <p class="lead">
-                    Democratizar el acceso a la inteligencia artificial y el desarrollo de software de élite para empresas medianas y grandes que buscan liderar en la era digital.
+                    Ayudar a empresas medianas y grandes en España a crecer mediante desarrollo de software a medida y automatizaciones empresariales que eliminan fricción operativa.
                 </p>
                 <p>
-                    En Megasoluciones, creemos que la tecnología debe ser un acelerador del crecimiento empresarial. Por eso, desarrollamos soluciones de IA personalizadas que se adaptan perfectamente a los objetivos y procesos de cada cliente.
+                    En Megasoluciones creemos que la tecnología debe resolver problemas concretos: integrar sistemas que no se comunican, eliminar horas de trabajo manual y construir herramientas que encajen con tu negocio, no al revés.
                 </p>
                 <p>
-                    Desde 2015, hemos ayudado a más de 200 empresas en España y Latinoamérica a implementar chatbots inteligentes, sistemas de automatización, machine learning y desarrollo de software a medida.
+                    Desde 2015 hemos entregado más de 150 proyectos de desarrollo web, integraciones API, RPA y automatización de procesos para clientes en España y Latinoamérica. La IA la aplicamos donde aporta valor real, como acelerador de desarrollo y automatización inteligente.
                 </p>
             </div>
-            
             <div class="about-image">
-                <img src="{{ url_for('static', filename='images/about-mission.png') }}" alt="Nuestra misión - Megasoluciones" class="about-image-img">
+                <img src="{{ url_for('static', filename='images/about-mission.png') }}" alt="Empresa de desarrollo y automatizaciones Megasoluciones España" class="about-image-img">
             </div>
         </div>
     </div>
@@ -36,31 +36,11 @@
 <section class="section bg-light">
     <div class="container">
         <h2 class="text-center">Nuestros Valores</h2>
-        
         <div class="values-grid">
-            <div class="value-card">
-                <div class="value-icon">🎯</div>
-                <h3>Excelencia Técnica</h3>
-                <p>Utilizamos las mejores prácticas y tecnologías más avanzadas del mercado.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">🤝</div>
-                <h3>Compromiso Cliente</h3>
-                <p>Tu éxito es nuestro éxito. Trabajamos como tu partner tecnológico de largo plazo.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">💡</div>
-                <h3>Innovación Continua</h3>
-                <p>Nos mantenemos a la vanguardia de las últimas tendencias en IA y desarrollo.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">⚡</div>
-                <h3>Agilidad</h3>
-                <p>Metodologías ágiles para entregas rápidas y adaptación constante.</p>
-            </div>
+            <div class="value-card"><div class="value-icon">🎯</div><h3>Resultados medibles</h3><p>Cada proyecto define KPIs: horas ahorradas, errores reducidos, tiempo de entrega.</p></div>
+            <div class="value-card"><div class="value-icon">🤝</div><h3>Partner tecnológico</h3><p>No solo entregamos código: acompañamos mantenimiento, evolutivos y formación.</p></div>
+            <div class="value-card"><div class="value-icon">💡</div><h3>Pragmatismo técnico</h3><p>Elegimos la solución más simple que resuelva el problema, no la más compleja.</p></div>
+            <div class="value-card"><div class="value-icon">⚡</div><h3>Agilidad</h3><p>Entregas cada 2 semanas, comunicación transparente y presupuestos por fases.</p></div>
         </div>
     </div>
 </section>
@@ -68,25 +48,12 @@
 <section class="section">
     <div class="container">
         <h2 class="text-center">Nuestro Equipo</h2>
-        <p class="text-center lead">Profesionales altamente cualificados en IA y desarrollo</p>
-        
+        <p class="text-center lead">Desarrolladores, integradores y especialistas en automatización</p>
         <div class="team-stats">
-            <div class="stat-box">
-                <h3>20+</h3>
-                <p>Data Scientists & ML Engineers</p>
-            </div>
-            <div class="stat-box">
-                <h3>35+</h3>
-                <p>Desarrolladores Full-Stack</p>
-            </div>
-            <div class="stat-box">
-                <h3>10+</h3>
-                <p>Años de Experiencia Promedio</p>
-            </div>
-            <div class="stat-box">
-                <h3>100%</h3>
-                <p>Certificados en IA/Cloud</p>
-            </div>
+            <div class="stat-box"><h3>35+</h3><p>Desarrolladores Full-Stack</p></div>
+            <div class="stat-box"><h3>15+</h3><p>Especialistas en automatización/RPA</p></div>
+            <div class="stat-box"><h3>10+</h3><p>Años de experiencia media</p></div>
+            <div class="stat-box"><h3>ES + LATAM</h3><p>Cobertura remota y presencial</p></div>
         </div>
     </div>
 </section>
@@ -94,7 +61,7 @@
 <section class="section-cta">
     <div class="container">
         <div class="cta-content">
-            <h2>¿Quieres conocernos mejor?</h2>
+            <h2>¿Buscas un partner de desarrollo o automatización?</h2>
             <p>Agenda una videollamada con nuestro equipo</p>
             <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Contacta con Nosotros</a>
         </div>

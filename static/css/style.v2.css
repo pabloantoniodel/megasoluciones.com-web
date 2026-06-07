@@ -1139,3 +1139,28 @@ a {
         font-size: 2rem;
     }
 }
+
+/* SEO landings */
+.breadcrumb {
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted, #6b7280);
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+}
+.breadcrumb a { color: var(--primary, #3b82f6); text-decoration: none; }
+.landing-content { max-width: 800px; margin: 0 auto; }
+.landing-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; color: #1e3a8a; }
+.landing-content p { margin-bottom: 1rem; line-height: 1.7; }
+.landing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+.landing-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.landing-card h2, .landing-card h3 { font-size: 1.1rem; margin-bottom: 0.75rem; color: #1e3a8a; }
+.landing-card a { color: var(--primary, #3b82f6); }
+.landing-list { margin: 1rem 0 1.5rem 1.5rem; line-height: 1.8; }
+.pilar-heading { font-size: 1.75rem; color: #1e3a8a; margin-bottom: 0.5rem; }
+.portfolio-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+.portfolio-badge-desarrollo { background: #dbeafe; color: #1e40af; }
+.portfolio-badge-automatización, .portfolio-badge-automatizacion { background: #d1fae5; color: #065f46; }
+.legal-content h2 { margin-top: 2rem; font-size: 1.25rem; }
+.recursos-date { font-size: 0.85rem; color: #6b7280; }
+.footer-bottom a { color: #9ca3af; margin-left: 0.5rem; }

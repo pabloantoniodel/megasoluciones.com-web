@@ -1,37 +1,38 @@
 {% extends "base.html" %}
 
-{% block title %}Megasoluciones - Inteligencia Artificial y Desarrollo Software Profesional{% endblock %}
+{% block title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}
+{% block meta_description %}Empresa de desarrollo de software a medida y automatizaciones empresariales en España. Aplicaciones web, integraciones API, RPA y workflows para pymes y medianas empresas.{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
 <section class="hero">
     <div class="hero-visual-wrap">
-        <img src="{{ url_for('static', filename='images/hero-ai-visual.png') }}" alt="Megasoluciones - IA y desarrollo software" class="hero-bg-image">
+        <img src="{{ url_for('static', filename='images/hero-ai-visual.png') }}" alt="Desarrollo de software y automatizaciones empresariales en España" class="hero-bg-image">
     </div>
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
-                Transformamos tu empresa con <span class="gradient-text">Inteligencia Artificial</span>
+                Desarrollo de software y <span class="gradient-text">automatizaciones</span> para empresas en España
             </h1>
             <p class="hero-subtitle">
-                Desarrollamos soluciones de IA personalizadas, chatbots inteligentes y software de última generación para empresas que buscan liderar el futuro digital.
+                Creamos software a medida, integraciones entre sistemas y automatizaciones empresariales (RPA) que eliminan tareas repetitivas y aceleran tu negocio. IA como acelerador, no como promesa vacía.
             </p>
             <div class="hero-buttons">
                 <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Consulta Gratis</a>
-                <a href="{{ url_for('servicios') }}" class="btn-secondary btn-lg">Ver Servicios</a>
+                <a href="{{ url_for('desarrollo_software') }}" class="btn-secondary btn-lg">Desarrollo Software</a>
+                <a href="{{ url_for('automatizaciones') }}" class="btn-outline btn-lg">Automatizaciones</a>
             </div>
             <div class="hero-stats">
                 <div class="stat">
-                    <h3>500+</h3>
-                    <p>Proyectos IA</p>
+                    <h3>150+</h3>
+                    <p>Proyectos entregados</p>
+                </div>
+                <div class="stat">
+                    <h3>40%</h3>
+                    <p>Reducción media de tareas manuales</p>
                 </div>
                 <div class="stat">
                     <h3>98%</h3>
-                    <p>Satisfacción</p>
-                </div>
-                <div class="stat">
-                    <h3>24/7</h3>
-                    <p>Soporte</p>
+                    <p>Satisfacción clientes</p>
                 </div>
             </div>
         </div>
@@ -39,14 +40,13 @@
     <div class="hero-shape"></div>
 </section>
 
-<!-- Servicios Destacados -->
 <section class="section-services">
     <div class="container">
         <div class="section-header">
-            <h2>Nuestros Servicios de <span class="gradient-text">IA</span></h2>
-            <p>Soluciones tecnológicas que impulsan el crecimiento de tu negocio</p>
+            <h2>Nuestros <span class="gradient-text">pilares</span></h2>
+            <p>Desarrollo de software a medida y automatizaciones empresariales para empresas que quieren crecer sin multiplicar costes</p>
         </div>
-        
+
         <div class="services-grid">
             {% for servicio in servicios %}
             <div class="service-card" data-aos="fade-up">
@@ -62,75 +62,79 @@
                     <li>✓ {{ caracteristica }}</li>
                     {% endfor %}
                 </ul>
-                <a href="{{ url_for('servicios') }}" class="btn-outline">Más información</a>
+                {% if servicio.slug == 'desarrollo-software' %}
+                <a href="{{ url_for('desarrollo_software') }}" class="btn-outline">Ver desarrollo a medida</a>
+                {% elif servicio.slug == 'automatizaciones-rpa' %}
+                <a href="{{ url_for('automatizaciones') }}" class="btn-outline">Ver automatizaciones</a>
+                {% else %}
+                <a href="{{ url_for('servicios') }}#{{ servicio.slug }}" class="btn-outline">Más información</a>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
-        
+
         <div class="text-center" style="margin-top: 3rem;">
             <a href="{{ url_for('servicios') }}" class="btn-primary">Ver Todos los Servicios</a>
         </div>
     </div>
 </section>
 
-<!-- Por qué Elegirnos -->
 <section class="section-why">
     <div class="container">
         <div class="why-content">
             <div class="why-text">
                 <h2>¿Por qué elegir <span class="gradient-text">Megasoluciones</span>?</h2>
-                <p class="lead">Somos expertos en inteligencia artificial y desarrollo de software con presencia en España y LATAM.</p>
-                
+                <p class="lead">Somos una empresa de desarrollo y automatización con presencia en España y LATAM, especializada en software a medida e integraciones entre sistemas.</p>
+
                 <div class="why-features">
                     <div class="feature-item">
-                        <div class="feature-icon">🚀</div>
+                        <div class="feature-icon">💻</div>
                         <div>
-                            <h4>Tecnología de Vanguardia</h4>
-                            <p>Utilizamos las últimas herramientas de IA: GPT-4, Claude, Azure AI, TensorFlow y más.</p>
+                            <h4>Desarrollo a medida</h4>
+                            <p>Webs, apps, APIs e integraciones con ERP, CRM y pasarelas de pago. Stack moderno y código mantenible.</p>
                         </div>
                     </div>
-                    
+
                     <div class="feature-item">
-                        <div class="feature-icon">👥</div>
+                        <div class="feature-icon">⚙️</div>
                         <div>
-                            <h4>Equipo Experto</h4>
-                            <p>Data Scientists, ML Engineers y desarrolladores full-stack con +10 años de experiencia.</p>
+                            <h4>Automatizaciones que funcionan</h4>
+                            <p>RPA, workflows y sincronización entre herramientas. Menos errores manuales, más tiempo para tu equipo.</p>
                         </div>
                     </div>
-                    
+
                     <div class="feature-item">
-                        <div class="feature-icon">💼</div>
+                        <div class="feature-icon">🔗</div>
                         <div>
-                            <h4>Enfoque Empresarial</h4>
-                            <p>Soluciones diseñadas para ROI medible y escalabilidad empresarial garantizada.</p>
+                            <h4>Integraciones robustas</h4>
+                            <p>Conectamos Odoo, Salesforce, Google Workspace, bancos y APIs de terceros con documentación completa.</p>
                         </div>
                     </div>
-                    
+
                     <div class="feature-item">
                         <div class="feature-icon">🔒</div>
                         <div>
-                            <h4>Seguridad y Privacidad</h4>
-                            <p>Cumplimiento GDPR, ISO 27001. Tus datos siempre protegidos y seguros.</p>
+                            <h4>Seguridad y RGPD</h4>
+                            <p>Cumplimiento GDPR, buenas prácticas de seguridad y contratos claros para empresas españolas.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="why-image">
-                <img src="{{ url_for('static', filename='images/why-choose-us.png') }}" alt="Tecnología y equipo Megasoluciones" class="why-image-img">
+                <img src="{{ url_for('static', filename='images/why-choose-us.png') }}" alt="Equipo de desarrollo y automatizaciones Megasoluciones" class="why-image-img">
             </div>
         </div>
     </div>
 </section>
 
-<!-- Testimonios -->
 <section class="section-testimonials">
     <div class="container">
         <div class="section-header">
             <h2>Lo que dicen nuestros <span class="gradient-text">clientes</span></h2>
-            <p>Más de 200 empresas confían en nosotros</p>
+            <p>Empresas en España que confían en nuestro desarrollo y automatizaciones</p>
         </div>
-        
+
         <div class="testimonials-grid">
             {% for testimonio in testimonios %}
             <div class="testimonial-card">
@@ -148,20 +152,19 @@
             </div>
             {% endfor %}
         </div>
-        
+
         <div class="text-center" style="margin-top: 2rem;">
             <a href="{{ url_for('testimonios') }}" class="btn-outline">Ver Más Testimonios</a>
         </div>
     </div>
 </section>
 
-<!-- CTA Final -->
 <section class="section-cta">
     <div class="container">
         <div class="cta-content">
-            <h2>¿Listo para transformar tu empresa con IA?</h2>
-            <p>Agenda una consulta gratuita y descubre cómo podemos ayudarte</p>
-            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Contacta Ahora</a>
+            <h2>¿Necesitas desarrollo de software o automatizar procesos?</h2>
+            <p>Cuéntanos tu proyecto y te preparamos una propuesta sin compromiso</p>
+            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Solicitar Presupuesto</a>
         </div>
     </div>
 </section>

@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Automatización de Procesos y RPA para Empresas | Megasoluciones{% endblock %}
+{% block meta_description %}Automatizaciones empresariales y RPA en España. Automatiza procesos repetitivos, integra sistemas y reduce costes operativos con workflows inteligentes. Consulta gratuita.{% endblock %}
+{% block meta_keywords %}automatizaciones empresariales, automatización procesos, RPA empresas, automatizar procesos empresa, workflows automatizados España{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Automatizaciones y RPA para Empresas",
+  "provider": {"@type": "Organization", "name": "Megasoluciones", "url": "{{ site_base_url }}/"},
+  "areaServed": {"@type": "Country", "name": "España"},
+  "description": "Automatización de procesos empresariales, RPA e integración entre sistemas para empresas en España",
+  "offers": {"@type": "Offer", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": "399"}}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "{{ site_base_url }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Automatizaciones", "item": "{{ canonical_url }}"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for faq in faqs %}
+    {"@type": "Question", "name": {{ faq.question|tojson }}, "acceptedAnswer": {"@type": "Answer", "text": {{ faq.answer|tojson }}}}{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+        <a href="{{ url_for('index') }}">Inicio</a> › <span>Automatizaciones</span>
+    </div>
+</nav>
+
+<section class="page-header">
+    <div class="container">
+        <h1>Automatizaciones empresariales que ahorran <span class="gradient-text">tiempo y costes</span></h1>
+        <p class="lead">Automatización de procesos, RPA e integración entre sistemas para empresas en España que quieren dejar de perder horas en tareas repetitivas</p>
+        <a href="{{ url_for('contacto', servicio='automatizaciones-rpa') }}" class="btn-primary btn-lg">Consulta gratuita</a>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container landing-content">
+        <h2>¿Qué son las automatizaciones empresariales?</h2>
+        <p>Las <strong>automatizaciones empresariales</strong> son sistemas que ejecutan tareas repetitivas sin intervención humana: copiar datos entre Excel y ERP, generar informes semanales, enviar facturas, sincronizar stock o clasificar emails entrantes. Cuando el proceso tiene reglas claras, se puede automatizar.</p>
+        <p>En Megasoluciones implementamos automatizaciones con dos enfoques complementarios: <strong>RPA</strong> (robots que interactúan con interfaces gráficas) y <strong>automatización con APIs</strong> (más rápida y estable cuando los sistemas lo permiten). El resultado: menos errores, equipos liberados para trabajo de valor y ROI medible en meses.</p>
+
+        <h2>Procesos que automatizamos con frecuencia</h2>
+        <div class="landing-grid">
+            <div class="landing-card">
+                <h3>Facturación y administración</h3>
+                <p>Generación de facturas, conciliación bancaria, envío a gestoría y recordatorios de cobro automáticos.</p>
+            </div>
+            <div class="landing-card">
+                <h3>Sincronización ERP-CRM</h3>
+                <p>Pedidos, clientes, stock y oportunidades comerciales sincronizados entre Odoo, Salesforce, HubSpot y más.</p>
+            </div>
+            <div class="landing-card">
+                <h3>Gestión documental</h3>
+                <p>Extracción de datos de PDFs y emails, clasificación automática y archivo en carpetas o DMS.</p>
+            </div>
+            <div class="landing-card">
+                <h3>Reporting y dashboards</h3>
+                <p>Informes diarios/semanales generados y distribuidos automáticamente a responsables de departamento.</p>
+            </div>
+        </div>
+
+        <h2>Cómo implementamos tus automatizaciones</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Auditoría de procesos</h3>
+                <p>Mapeamos flujos actuales, identificamos cuellos de botella y calculamos horas/coste que se pueden ahorrar.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Diseño del workflow</h3>
+                <p>Definimos triggers, reglas, excepciones y puntos de supervisión humana cuando sea necesario.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Piloto controlado</h3>
+                <p>Implementamos 1–2 procesos prioritarios, medimos resultados y ajustamos antes de escalar.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3>Despliegue y monitorización</h3>
+                <p>Puesta en producción con alertas, logs y soporte continuo. Formación para tu equipo interno.</p>
+            </div>
+        </div>
+
+        <h2>RPA vs automatización con APIs</h2>
+        <p>No existe una solución única. Evaluamos cada caso:</p>
+        <ul class="landing-list">
+            <li><strong>RPA:</strong> ideal cuando el software no tiene API (aplicaciones desktop, portales antiguos, Excel complejo).</li>
+            <li><strong>APIs y scripts:</strong> más rápidos, baratos de mantener y fiables para Odoo, Google Sheets, Slack, email, etc.</li>
+            <li><strong>Híbrido:</strong> muchos proyectos combinan ambos: API donde se puede, RPA donde no hay alternativa.</li>
+        </ul>
+
+        <h2>Herramientas y tecnologías</h2>
+        <ul class="landing-list">
+            <li>Python, n8n, Zapier/Make (según complejidad)</li>
+            <li>Integraciones REST, webhooks, OAuth2</li>
+            <li>Odoo, Salesforce, Google Workspace, Microsoft 365</li>
+            <li>Monitorización con logs, alertas y dashboards de ejecución</li>
+        </ul>
+
+        <h2>Inversión y retorno</h2>
+        <p>Las automatizaciones parten desde <strong>{{ servicio.precio_desde }}/mes</strong> para procesos sencillos. Proyectos RPA multi-departamento desde 3.000€ de implementación. La mayoría de clientes recuperan la inversión en 3–6 meses.</p>
+        <p>Si además necesitas una aplicación a medida, combina este servicio con nuestro <a href="{{ url_for('desarrollo_software') }}">desarrollo de software</a>. Revisa <a href="{{ url_for('portfolio') }}">casos de automatización</a> en nuestro portfolio.</p>
+
+        <h2>Preguntas frecuentes sobre automatizaciones</h2>
+        <div class="faq-list">
+            {% for faq in faqs %}
+            <div class="faq-item">
+                <h3>{{ faq.question }}</h3>
+                <p>{{ faq.answer }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>¿Quieres automatizar procesos en tu empresa?</h2>
+            <p>Te hacemos un diagnóstico inicial sin compromiso</p>
+            <a href="{{ url_for('contacto', servicio='automatizaciones-rpa') }}" class="btn-primary btn-lg">Solicitar diagnóstico de automatización</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

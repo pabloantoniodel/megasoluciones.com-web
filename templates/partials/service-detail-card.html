@@ -1,0 +1,27 @@
+<div class="service-detail-card" id="{{ servicio.slug }}">
+    <div class="service-detail-header">
+        <div class="service-icon-large">{{ servicio.icon }}</div>
+        <div>
+            <h2>{{ servicio.titulo }}</h2>
+            <p class="service-tagline">{{ servicio.descripcion }}</p>
+        </div>
+    </div>
+    <div class="service-detail-content">
+        <div class="service-features-list">
+            <h3>Características principales:</h3>
+            <ul>
+                {% for caracteristica in servicio.caracteristicas %}
+                <li>✓ {{ caracteristica }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="service-pricing">
+            <div class="pricing-badge">
+                <span class="price-label">Desde</span>
+                <span class="price-value">{{ servicio.precio_desde }}</span>
+                <span class="price-range">hasta {{ servicio.precio_hasta }}</span>
+            </div>
+            <a href="{{ url_for('contacto', servicio=servicio.slug) }}" class="btn-primary">Solicitar Cotización</a>
+        </div>
+    </div>
+</div>

@@ -1,48 +1,60 @@
 {% extends "base.html" %}
 
-{% block title %}Servicios de IA y Desarrollo - Megasoluciones{% endblock %}
+{% block title %}Servicios de Desarrollo y Automatización | Megasoluciones{% endblock %}
+{% block meta_description %}Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "{{ site_base_url }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Servicios", "item": "{{ canonical_url }}"}
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>Nuestros <span class="gradient-text">Servicios</span></h1>
-        <p>Soluciones de inteligencia artificial y desarrollo de software a medida</p>
+        <h1>Desarrollo, <span class="gradient-text">automatizaciones</span> e IA aplicada</h1>
+        <p>Software a medida, automatizaciones empresariales y soluciones de IA para empresas en España</p>
     </div>
 </section>
 
 <section class="section">
     <div class="container">
+        <h2 class="pilar-heading">Desarrollo de software</h2>
+        <p class="lead">Aplicaciones web, APIs e integraciones a medida. <a href="{{ url_for('desarrollo_software') }}">Ver landing de desarrollo →</a></p>
         <div class="services-list">
-            {% for servicio in servicios %}
-            <div class="service-detail-card" id="{{ servicio.titulo.lower().replace(' ', '-') }}">
-                <div class="service-detail-header">
-                    <div class="service-icon-large">{{ servicio.icon }}</div>
-                    <div>
-                        <h2>{{ servicio.titulo }}</h2>
-                        <p class="service-tagline">{{ servicio.descripcion }}</p>
-                    </div>
-                </div>
-                
-                <div class="service-detail-content">
-                    <div class="service-features-list">
-                        <h3>Características principales:</h3>
-                        <ul>
-                            {% for caracteristica in servicio.caracteristicas %}
-                            <li>✓ {{ caracteristica }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    
-                    <div class="service-pricing">
-                        <div class="pricing-badge">
-                            <span class="price-label">Desde</span>
-                            <span class="price-value">{{ servicio.precio_desde }}</span>
-                            <span class="price-range">hasta {{ servicio.precio_hasta }}</span>
-                        </div>
-                        <a href="{{ url_for('contacto') }}" class="btn-primary">Solicitar Cotización</a>
-                    </div>
-                </div>
-            </div>
+            {% for servicio in servicios_desarrollo %}
+            {% include 'partials/service-detail-card.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="pilar-heading">Automatizaciones empresariales</h2>
+        <p class="lead">RPA, workflows e integración entre sistemas. <a href="{{ url_for('automatizaciones') }}">Ver landing de automatizaciones →</a></p>
+        <div class="services-list">
+            {% for servicio in servicios_automatizacion %}
+            {% include 'partials/service-detail-card.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="pilar-heading">IA aplicada</h2>
+        <p class="lead">Chatbots, machine learning y visión artificial como complemento a desarrollo y automatizaciones.</p>
+        <div class="services-list">
+            {% for servicio in servicios_ia %}
+            {% include 'partials/service-detail-card.html' %}
             {% endfor %}
         </div>
     </div>
@@ -52,7 +64,6 @@
     <div class="container">
         <h2 class="text-center">Comparativa de Servicios</h2>
         <p class="text-center lead">Encuentra el servicio perfecto para tu empresa</p>
-        
         <div class="comparison-table-wrapper">
             <table class="comparison-table">
                 <thead>
@@ -65,68 +76,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for servicio in servicios %}
                     <tr>
-                        <td><strong>Chatbots IA</strong></td>
-                        <td>299€/mes</td>
-                        <td>999€/mes</td>
-                        <td>Atención al cliente, ecommerce</td>
-                        <td>2-4 semanas</td>
+                        <td><strong>{{ servicio.titulo }}</strong></td>
+                        <td>{{ servicio.precio_desde }}</td>
+                        <td>{{ servicio.precio_hasta }}</td>
+                        <td>{% if servicio.pilar == 'desarrollo' %}Apps, webs, integraciones{% elif servicio.pilar == 'automatizacion' %}Procesos, RPA, workflows{% else %}IA avanzada{% endif %}</td>
+                        <td>{% if servicio.pilar == 'desarrollo' %}2–6 meses{% elif servicio.pilar == 'automatizacion' %}3–6 semanas{% else %}2–8 meses{% endif %}</td>
                     </tr>
-                    <tr>
-                        <td><strong>Automatización</strong></td>
-                        <td>399€/mes</td>
-                        <td>1.499€/mes</td>
-                        <td>Procesos operativos, RPA</td>
-                        <td>3-6 semanas</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Desarrollo Software</strong></td>
-                        <td>5.000€</td>
-                        <td>50.000€</td>
-                        <td>Apps personalizadas, webs</td>
-                        <td>2-6 meses</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Consultoría IA</strong></td>
-                        <td>100€/hora</td>
-                        <td>250€/hora</td>
-                        <td>Estrategia, roadmap IA</td>
-                        <td>Flexible</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Machine Learning</strong></td>
-                        <td>10.000€</td>
-                        <td>100.000€</td>
-                        <td>Predicción, análisis avanzado</td>
-                        <td>3-8 meses</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Computer Vision</strong></td>
-                        <td>8.000€</td>
-                        <td>80.000€</td>
-                        <td>Reconocimiento, OCR, calidad</td>
-                        <td>2-6 meses</td>
-                    </tr>
-                    <tr>
-                        <td><strong>NLP</strong></td>
-                        <td>6.000€</td>
-                        <td>60.000€</td>
-                        <td>Análisis texto, sentimiento</td>
-                        <td>2-5 meses</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Agentes IA Generativos</strong></td>
-                        <td>15.000€</td>
-                        <td>150.000€</td>
-                        <td>Ventas, soporte avanzado</td>
-                        <td>3-8 meses</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
-        
         <div class="text-center" style="margin-top: 2rem;">
-            <p class="note">* Los precios son orientativos y varían según alcance y complejidad del proyecto</p>
+            <p class="note">* Precios orientativos según alcance y complejidad</p>
         </div>
     </div>
 </section>
@@ -134,37 +97,12 @@
 <section class="section">
     <div class="container">
         <h2 class="text-center">Proceso de Trabajo</h2>
-        
         <div class="process-steps">
-            <div class="process-step">
-                <div class="step-number">1</div>
-                <h3>Consulta Inicial</h3>
-                <p>Analizamos tus necesidades y objetivos empresariales</p>
-            </div>
-            
-            <div class="process-step">
-                <div class="step-number">2</div>
-                <h3>Propuesta Técnica</h3>
-                <p>Diseñamos la solución óptima con ROI proyectado</p>
-            </div>
-            
-            <div class="process-step">
-                <div class="step-number">3</div>
-                <h3>Desarrollo Ágil</h3>
-                <p>Implementación iterativa con entregas parciales</p>
-            </div>
-            
-            <div class="process-step">
-                <div class="step-number">4</div>
-                <h3>Testing & Deploy</h3>
-                <p>Pruebas exhaustivas y despliegue en producción</p>
-            </div>
-            
-            <div class="process-step">
-                <div class="step-number">5</div>
-                <h3>Soporte Continuo</h3>
-                <p>Mantenimiento, mejoras y optimización constante</p>
-            </div>
+            <div class="process-step"><div class="step-number">1</div><h3>Consulta Inicial</h3><p>Analizamos necesidades y objetivos</p></div>
+            <div class="process-step"><div class="step-number">2</div><h3>Propuesta Técnica</h3><p>Alcance, plazos y presupuesto</p></div>
+            <div class="process-step"><div class="step-number">3</div><h3>Desarrollo Ágil</h3><p>Entregas parciales cada 2 semanas</p></div>
+            <div class="process-step"><div class="step-number">4</div><h3>Testing & Deploy</h3><p>Pruebas y puesta en producción</p></div>
+            <div class="process-step"><div class="step-number">5</div><h3>Soporte Continuo</h3><p>Mantenimiento y evolutivos</p></div>
         </div>
     </div>
 </section>
@@ -172,7 +110,7 @@
 <section class="section-cta">
     <div class="container">
         <div class="cta-content">
-            <h2>¿Necesitas un servicio personalizado?</h2>
+            <h2>¿Necesitas desarrollo o automatizaciones?</h2>
             <p>Cuéntanos tu proyecto y te preparamos una propuesta a medida</p>
             <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Solicitar Consulta Gratis</a>
         </div>

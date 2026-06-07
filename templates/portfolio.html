@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Portfolio - Megasoluciones{% endblock %}
+{% block title %}Portfolio — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
+{% block meta_description %}Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.{% endblock %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>Nuestro <span class="gradient-text">Portfolio</span></h1>
-        <p>Casos de éxito en inteligencia artificial y desarrollo de software</p>
+        <h1>Portfolio de <span class="gradient-text">desarrollo y automatizaciones</span></h1>
+        <p>Casos de éxito en software a medida, integraciones y automatización de procesos</p>
     </div>
 </section>
 
@@ -19,17 +20,20 @@
                     <img src="{{ url_for('static', filename='images/' ~ proyecto.imagen) }}" alt="{{ proyecto.titulo }}" class="portfolio-image">
                 </div>
                 <div class="portfolio-content">
+                    <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if proyecto.categoria == 'Desarrollo' else 'automatizacion' }}">{{ proyecto.categoria }}</span>
                     <span class="portfolio-category">{{ proyecto.cliente }}</span>
                     <h3>{{ proyecto.titulo }}</h3>
                     <p>{{ proyecto.descripcion }}</p>
-                    
                     <div class="portfolio-tech">
                         {% for tech in proyecto.tecnologias %}
                         <span class="tech-badge">{{ tech }}</span>
                         {% endfor %}
                     </div>
-                    
-                    <a href="{{ url_for('contacto') }}" class="btn-outline btn-sm">Proyecto Similar</a>
+                    {% if proyecto.categoria == 'Desarrollo' %}
+                    <a href="{{ url_for('contacto', servicio='desarrollo-software') }}" class="btn-outline btn-sm">Proyecto similar</a>
+                    {% else %}
+                    <a href="{{ url_for('contacto', servicio='automatizaciones-rpa') }}" class="btn-outline btn-sm">Proyecto similar</a>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
@@ -40,24 +44,11 @@
 <section class="section bg-light">
     <div class="container">
         <h2 class="text-center">Resultados Medibles</h2>
-        
         <div class="results-grid">
-            <div class="result-card">
-                <h3>35%</h3>
-                <p>Incremento promedio en conversión</p>
-            </div>
-            <div class="result-card">
-                <h3>70%</h3>
-                <p>Reducción en tiempos de respuesta</p>
-            </div>
-            <div class="result-card">
-                <h3>200K€+</h3>
-                <p>Ahorro promedio anual por cliente</p>
-            </div>
-            <div class="result-card">
-                <h3>92%</h3>
-                <p>Precisión en modelos predictivos</p>
-            </div>
+            <div class="result-card"><h3>40%</h3><p>Reducción media de tareas manuales</p></div>
+            <div class="result-card"><h3>70%</h3><p>Menos tiempo en reporting</p></div>
+            <div class="result-card"><h3>200K€+</h3><p>Ahorro anual en automatizaciones</p></div>
+            <div class="result-card"><h3>6 sem</h3><p>Media de entrega MVP</p></div>
         </div>
     </div>
 </section>
@@ -65,43 +56,13 @@
 <section class="section">
     <div class="container">
         <h2 class="text-center">Sectores en los que Trabajamos</h2>
-        
         <div class="sectors-grid">
-            <div class="sector-card">
-                <div class="sector-icon">🏦</div>
-                <h3>Finanzas y Banca</h3>
-                <p>Scoring de crédito, detección de fraude, chatbots bancarios</p>
-            </div>
-            
-            <div class="sector-card">
-                <div class="sector-icon">🛒</div>
-                <h3>E-commerce y Retail</h3>
-                <p>Sistemas de recomendación, análisis de demanda, atención IA</p>
-            </div>
-            
-            <div class="sector-card">
-                <div class="sector-icon">🏭</div>
-                <h3>Industria</h3>
-                <p>Mantenimiento predictivo, control de calidad, optimización</p>
-            </div>
-            
-            <div class="sector-card">
-                <div class="sector-icon">⚕️</div>
-                <h3>Salud</h3>
-                <p>Diagnóstico asistido, análisis de imágenes médicas, telemedicina</p>
-            </div>
-            
-            <div class="sector-card">
-                <div class="sector-icon">📱</div>
-                <h3>Tecnología</h3>
-                <p>Desarrollo de productos, APIs, plataformas SaaS</p>
-            </div>
-            
-            <div class="sector-card">
-                <div class="sector-icon">🎓</div>
-                <h3>Educación</h3>
-                <p>Plataformas e-learning, evaluación automática, tutores IA</p>
-            </div>
+            <div class="sector-card"><div class="sector-icon">🏦</div><h3>Finanzas</h3><p>Integraciones bancarias, reporting y automatización documental</p></div>
+            <div class="sector-card"><div class="sector-icon">🛒</div><h3>Retail y e-commerce</h3><p>Plataformas web, sincronización stock y atención automatizada</p></div>
+            <div class="sector-card"><div class="sector-icon">🏭</div><h3>Industria</h3><p>Integración ERP, automatización de pedidos y calidad</p></div>
+            <div class="sector-card"><div class="sector-icon">📱</div><h3>Tecnología</h3><p>Desarrollo SaaS, APIs y productos digitales</p></div>
+            <div class="sector-card"><div class="sector-icon">⚖️</div><h3>Legal y consultoría</h3><p>RPA documental, extracción de datos y workflows</p></div>
+            <div class="sector-card"><div class="sector-icon">🏢</div><h3>Servicios B2B</h3><p>Portales clientes, CRM y automatizaciones internas</p></div>
         </div>
     </div>
 </section>
@@ -110,7 +71,7 @@
     <div class="container">
         <div class="cta-content">
             <h2>¿Quieres ver tu proyecto aquí?</h2>
-            <p>Trabajemos juntos en tu próxima solución de IA</p>
+            <p>Hablemos de tu próximo desarrollo o automatización</p>
             <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Empezar un Proyecto</a>
         </div>
     </div>

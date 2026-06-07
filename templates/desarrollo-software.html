@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Desarrollo de Software a Medida en España | Megasoluciones{% endblock %}
+{% block meta_description %}Desarrollo de software a medida en España: aplicaciones web, APIs, integraciones ERP/CRM y plataformas SaaS. Presupuesto transparente, metodología ágil y soporte continuo.{% endblock %}
+{% block meta_keywords %}desarrollo software a medida, desarrollo web España, software a medida empresas, integración APIs, desarrollo aplicaciones{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Desarrollo de Software a Medida",
+  "provider": {"@type": "Organization", "name": "Megasoluciones", "url": "{{ site_base_url }}/"},
+  "areaServed": {"@type": "Country", "name": "España"},
+  "description": "Desarrollo de software a medida: webs, apps, APIs e integraciones para empresas en España",
+  "offers": {"@type": "Offer", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": "5000"}}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "{{ site_base_url }}/"},
+    {"@type": "ListItem", "position": 2, "name": "Desarrollo de Software", "item": "{{ canonical_url }}"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for faq in faqs %}
+    {"@type": "Question", "name": {{ faq.question|tojson }}, "acceptedAnswer": {"@type": "Answer", "text": {{ faq.answer|tojson }}}}{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+        <a href="{{ url_for('index') }}">Inicio</a> › <span>Desarrollo de Software</span>
+    </div>
+</nav>
+
+<section class="page-header">
+    <div class="container">
+        <h1>Desarrollo de software a medida para tu <span class="gradient-text">empresa</span></h1>
+        <p class="lead">Aplicaciones web, APIs, integraciones y plataformas diseñadas para resolver problemas reales de negocio en España</p>
+        <a href="{{ url_for('contacto', servicio='desarrollo-software') }}" class="btn-primary btn-lg">Solicitar presupuesto</a>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container landing-content">
+        <h2>¿Por qué desarrollo de software a medida?</h2>
+        <p>Las herramientas genéricas rara vez encajan con los procesos únicos de tu empresa. Un <strong>desarrollo de software a medida</strong> te permite automatizar flujos específicos, conectar sistemas que no hablan entre sí y escalar sin depender de limitaciones de software estándar.</p>
+        <p>En Megasoluciones diseñamos y construimos soluciones desde cero o sobre plataformas existentes: portales de clientes, dashboards internos, integraciones bancarias, sincronización ERP-CRM y APIs REST documentadas. Trabajamos con empresas en toda España, con equipos ágiles y entregas cada dos semanas.</p>
+
+        <h2>Qué desarrollamos</h2>
+        <div class="landing-grid">
+            <div class="landing-card">
+                <h3>Aplicaciones web a medida</h3>
+                <p>Portales de clientes, intranets, paneles de administración y plataformas SaaS con React, Vue o interfaces server-side según el proyecto.</p>
+            </div>
+            <div class="landing-card">
+                <h3>APIs e integraciones</h3>
+                <p>Conectamos Odoo, Salesforce, Google Workspace, pasarelas de pago y APIs bancarias. Sincronización bidireccional en tiempo real o por lotes.</p>
+            </div>
+            <div class="landing-card">
+                <h3>Modernización de sistemas</h3>
+                <p>Migración de aplicaciones legacy, refactorización de bases de datos y despliegue en Docker/cloud con CI/CD.</p>
+            </div>
+            <div class="landing-card">
+                <h3>MVP y productos digitales</h3>
+                <p>De la idea al MVP en 6–10 semanas. Validación de mercado con funcionalidad mínima viable y roadmap de evolutivos.</p>
+            </div>
+        </div>
+
+        <h2>Nuestro proceso de desarrollo</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Descubrimiento</h3>
+                <p>Analizamos requisitos, sistemas actuales y objetivos de negocio. Definimos alcance y presupuesto por fases.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Diseño técnico</h3>
+                <p>Arquitectura, stack tecnológico, modelos de datos y plan de integraciones. Documentación compartida contigo.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Desarrollo ágil</h3>
+                <p>Sprints de 2 semanas con demos funcionales. Feedback continuo y ajustes de prioridades.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3>Entrega y soporte</h3>
+                <p>Testing, despliegue en producción, formación y plan de mantenimiento con SLA acordado.</p>
+            </div>
+        </div>
+
+        <h2>Stack tecnológico</h2>
+        <p>Seleccionamos tecnologías según el proyecto, priorizando mantenibilidad y talento disponible en España:</p>
+        <ul class="landing-list">
+            <li><strong>Backend:</strong> Python (Flask, FastAPI, Django), Node.js</li>
+            <li><strong>Frontend:</strong> React, Vue.js, TypeScript, HTML/CSS responsive</li>
+            <li><strong>Bases de datos:</strong> PostgreSQL, MongoDB, Redis</li>
+            <li><strong>Infraestructura:</strong> Docker, AWS, Azure, servidores dedicados</li>
+            <li><strong>Integraciones:</strong> REST, GraphQL, webhooks, Odoo XML-RPC, OAuth2</li>
+        </ul>
+
+        <h2>Tipos de proyecto y presupuesto orientativo</h2>
+        <p>Desde <strong>{{ servicio.precio_desde }}</strong> según complejidad. Proyectos habituales:</p>
+        <ul class="landing-list">
+            <li>Web corporativa con CMS y formularios: 5.000–12.000€</li>
+            <li>Portal clientes con login y panel: 12.000–30.000€</li>
+            <li>Integración ERP + CRM + facturación: 8.000–25.000€</li>
+            <li>Plataforma SaaS multi-tenant: 30.000–80.000€</li>
+        </ul>
+
+        <p>¿También necesitas <a href="{{ url_for('automatizaciones') }}">automatizar procesos</a> además del desarrollo? Combinamos ambos servicios para maximizar el ROI. Consulta nuestros <a href="{{ url_for('portfolio') }}">casos de éxito</a>.</p>
+
+        <h2>Preguntas frecuentes sobre desarrollo de software</h2>
+        <div class="faq-list">
+            {% for faq in faqs %}
+            <div class="faq-item">
+                <h3>{{ faq.question }}</h3>
+                <p>{{ faq.answer }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>¿Tienes un proyecto de desarrollo en mente?</h2>
+            <p>Te respondemos en menos de 24 horas con propuesta inicial</p>
+            <a href="{{ url_for('contacto', servicio='desarrollo-software') }}" class="btn-primary btn-lg">Pedir presupuesto de desarrollo</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
