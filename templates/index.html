@@ -2,11 +2,50 @@
 
 {% block title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}
 {% block meta_description %}Empresa de desarrollo de software a medida y automatizaciones empresariales en España. Aplicaciones web, integraciones API, RPA y workflows para pymes y medianas empresas.{% endblock %}
+{% block og_title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}
+{% block og_description %}Empresa de desarrollo de software a medida y automatizaciones empresariales en España. Aplicaciones web, integraciones API, RPA y workflows para pymes y medianas empresas.{% endblock %}
+
+{% block preload_assets %}
+<link rel="preload" as="image" href="{{ url_for('static', filename='images/hero-megasoluciones.webp') }}" type="image/webp">
+{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Megasoluciones",
+  "url": "{{ site_base_url }}/",
+  "description": "Desarrollo de software a medida y automatizaciones empresariales en España"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Megasoluciones",
+  "url": "{{ site_base_url }}/",
+  "description": "Desarrollo de software a medida y automatizaciones empresariales (RPA) para empresas en España",
+  "areaServed": {"@type": "Country", "name": "España"},
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios principales",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Desarrollo de Software a Medida", "url": "{{ url_for('desarrollo_software', _external=True) }}"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Automatizaciones y RPA", "url": "{{ url_for('automatizaciones', _external=True) }}"}}
+    ]
+  }
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="hero">
     <div class="hero-visual-wrap">
-        <img src="{{ url_for('static', filename='images/hero-ai-visual.png') }}" alt="Desarrollo de software y automatizaciones empresariales en España" class="hero-bg-image">
+        <picture>
+            <source srcset="{{ url_for('static', filename='images/hero-megasoluciones.webp') }}" type="image/webp">
+            <img src="{{ url_for('static', filename='images/hero-megasoluciones.png') }}" alt="Desarrollo de software y automatizaciones empresariales en España" class="hero-bg-image" width="1376" height="768" fetchpriority="high" decoding="async">
+        </picture>
     </div>
     <div class="container">
         <div class="hero-content">
@@ -122,7 +161,13 @@
             </div>
 
             <div class="why-image">
-                <img src="{{ url_for('static', filename='images/why-choose-us.png') }}" alt="Equipo de desarrollo y automatizaciones Megasoluciones" class="why-image-img">
+                {% set img_name = 'why-choose-us' %}
+                {% set alt = 'Equipo de desarrollo y automatizaciones Megasoluciones' %}
+                {% set width = 800 %}
+                {% set height = 600 %}
+                {% set lazy = true %}
+                {% set css_class = 'why-image-img' %}
+                {% include 'partials/responsive-image.html' with context %}
             </div>
         </div>
     </div>
@@ -155,6 +200,8 @@
 
         <div class="text-center" style="margin-top: 2rem;">
             <a href="{{ url_for('testimonios') }}" class="btn-outline">Ver Más Testimonios</a>
+            <a href="{{ url_for('portfolio') }}" class="btn-outline" style="margin-left: 1rem;">Ver Casos de Éxito</a>
+            <a href="{{ url_for('recursos') }}" class="btn-outline" style="margin-left: 1rem;">Leer Recursos</a>
         </div>
     </div>
 </section>

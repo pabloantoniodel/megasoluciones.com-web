@@ -1,0 +1,12 @@
+{# Uso: {% include 'partials/responsive-image.html' with context %}
+   Requiere: img_name (sin ext), alt, width, height, optional: lazy, priority, css_class #}
+<picture>
+  <source srcset="{{ url_for('static', filename='images/' ~ img_name ~ '.webp') }}" type="image/webp">
+  <img src="{{ url_for('static', filename='images/' ~ img_name ~ '.png') }}"
+       alt="{{ alt }}"
+       width="{{ width }}"
+       height="{{ height }}"
+       class="{{ css_class|default('') }}"
+       {% if lazy %}loading="lazy" decoding="async"{% endif %}
+       {% if priority %}fetchpriority="high" decoding="async"{% endif %}>
+</picture>

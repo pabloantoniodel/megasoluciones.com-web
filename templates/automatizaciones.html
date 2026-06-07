@@ -4,7 +4,12 @@
 {% block meta_description %}Automatizaciones empresariales y RPA en España. Automatiza procesos repetitivos, integra sistemas y reduce costes operativos con workflows inteligentes. Consulta gratuita.{% endblock %}
 {% block meta_keywords %}automatizaciones empresariales, automatización procesos, RPA empresas, automatizar procesos empresa, workflows automatizados España{% endblock %}
 
+{% block og_title %}Automatización de Procesos y RPA para Empresas | Megasoluciones{% endblock %}
+{% block og_description %}Automatizaciones empresariales y RPA en España. Automatiza procesos repetitivos, integra sistemas y reduce costes operativos con workflows inteligentes. Consulta gratuita.{% endblock %}
+
 {% block structured_data %}
+{% set breadcrumbs = [{'name': 'Automatizaciones', 'url': canonical_url}] %}
+{% include 'partials/schema-breadcrumb.html' %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -14,16 +19,6 @@
   "areaServed": {"@type": "Country", "name": "España"},
   "description": "Automatización de procesos empresariales, RPA e integración entre sistemas para empresas en España",
   "offers": {"@type": "Offer", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": "399"}}
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "{{ site_base_url }}/"},
-    {"@type": "ListItem", "position": 2, "name": "Automatizaciones", "item": "{{ canonical_url }}"}
-  ]
 }
 </script>
 <script type="application/ld+json">
@@ -122,7 +117,7 @@
 
         <h2>Inversión y retorno</h2>
         <p>Las automatizaciones parten desde <strong>{{ servicio.precio_desde }}/mes</strong> para procesos sencillos. Proyectos RPA multi-departamento desde 3.000€ de implementación. La mayoría de clientes recuperan la inversión en 3–6 meses.</p>
-        <p>Si además necesitas una aplicación a medida, combina este servicio con nuestro <a href="{{ url_for('desarrollo_software') }}">desarrollo de software</a>. Revisa <a href="{{ url_for('portfolio') }}">casos de automatización</a> en nuestro portfolio.</p>
+        <p>Si además necesitas una aplicación a medida, combina este servicio con nuestro <a href="{{ url_for('desarrollo_software') }}">desarrollo de software</a>. Revisa <a href="{{ url_for('portfolio') }}">casos de automatización</a> o lee <a href="{{ url_for('recurso_articulo', slug='automatizar-procesos-pyme') }}">cómo automatizar procesos en una pyme</a>.</p>
 
         <h2>Preguntas frecuentes sobre automatizaciones</h2>
         <div class="faq-list">

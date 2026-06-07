@@ -1,7 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}Portfolio — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
+{% block title %}Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
 {% block meta_description %}Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.{% endblock %}
+{% block og_title %}Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
+{% block og_description %}Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.{% endblock %}
+
+{% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Casos de éxito Megasoluciones",
+  "itemListElement": [
+    {% for proyecto in proyectos %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "CreativeWork",
+        "name": {{ proyecto.titulo|tojson }},
+        "description": {{ proyecto.descripcion|tojson }},
+        "url": "{{ url_for('portfolio_caso', slug=proyecto.slug, _external=True) }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="page-header">
@@ -16,24 +43,27 @@
         <div class="portfolio-grid">
             {% for proyecto in proyectos %}
             <div class="portfolio-card">
-                <div class="portfolio-image-wrap">
-                    <img src="{{ url_for('static', filename='images/' ~ proyecto.imagen) }}" alt="{{ proyecto.titulo }}" class="portfolio-image">
-                </div>
+                <a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}" class="portfolio-image-wrap">
+                    {% set img_name = proyecto.imagen %}
+                    {% set alt = proyecto.titulo %}
+                    {% set width = 600 %}
+                    {% set height = 400 %}
+                    {% set lazy = true %}
+                    {% set css_class = 'portfolio-image' %}
+                    {% include 'partials/responsive-image.html' with context %}
+                </a>
                 <div class="portfolio-content">
                     <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if proyecto.categoria == 'Desarrollo' else 'automatizacion' }}">{{ proyecto.categoria }}</span>
+                    {% if proyecto.real %}<span class="portfolio-badge portfolio-badge-real">Caso real</span>{% endif %}
                     <span class="portfolio-category">{{ proyecto.cliente }}</span>
-                    <h3>{{ proyecto.titulo }}</h3>
+                    <h3><a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}">{{ proyecto.titulo }}</a></h3>
                     <p>{{ proyecto.descripcion }}</p>
                     <div class="portfolio-tech">
                         {% for tech in proyecto.tecnologias %}
                         <span class="tech-badge">{{ tech }}</span>
                         {% endfor %}
                     </div>
-                    {% if proyecto.categoria == 'Desarrollo' %}
-                    <a href="{{ url_for('contacto', servicio='desarrollo-software') }}" class="btn-outline btn-sm">Proyecto similar</a>
-                    {% else %}
-                    <a href="{{ url_for('contacto', servicio='automatizaciones-rpa') }}" class="btn-outline btn-sm">Proyecto similar</a>
-                    {% endif %}
+                    <a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}" class="btn-outline btn-sm">Ver caso completo</a>
                 </div>
             </div>
             {% endfor %}
@@ -64,6 +94,7 @@
             <div class="sector-card"><div class="sector-icon">⚖️</div><h3>Legal y consultoría</h3><p>RPA documental, extracción de datos y workflows</p></div>
             <div class="sector-card"><div class="sector-icon">🏢</div><h3>Servicios B2B</h3><p>Portales clientes, CRM y automatizaciones internas</p></div>
         </div>
+        <p class="text-center" style="margin-top: 2rem;"><a href="{{ url_for('recursos') }}">Guías sobre desarrollo y automatizaciones →</a></p>
     </div>
 </section>
 
@@ -76,4 +107,8 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_head %}
+<style>.portfolio-badge-real{background:#fef3c7;color:#92400e;margin-left:.35rem;font-size:.75rem}</style>
 {% endblock %}

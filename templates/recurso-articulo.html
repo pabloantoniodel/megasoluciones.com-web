@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ articulo.titulo }} | Megasoluciones{% endblock %}
+{% block meta_description %}{{ articulo.resumen }}{% endblock %}
+{% block og_title %}{{ articulo.titulo }} | Megasoluciones{% endblock %}
+{% block og_description %}{{ articulo.resumen }}{% endblock %}
+
+{% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ articulo.titulo|tojson }},
+  "description": {{ articulo.resumen|tojson }},
+  "datePublished": {{ articulo.fecha|tojson }},
+  "dateModified": {{ articulo.fecha|tojson }},
+  "author": {"@type": "Organization", "name": "Megasoluciones"},
+  "publisher": {
+    "@type": "Organization",
+    "name": "Megasoluciones",
+    "logo": {"@type": "ImageObject", "url": "{{ url_for('static', filename='images/logo.png', _external=True) }}"}
+  },
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ canonical_url }}"}
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+        <a href="{{ url_for('index') }}">Inicio</a> ›
+        <a href="{{ url_for('recursos') }}">Recursos</a> ›
+        <span>{{ articulo.titulo }}</span>
+    </div>
+</nav>
+
+<article class="section">
+    <div class="container landing-content">
+        <header>
+            <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
+            <h1>{{ articulo.titulo }}</h1>
+            <p class="lead">{{ articulo.resumen }}</p>
+        </header>
+        <div class="articulo-body">
+            {{ cuerpo|safe }}
+        </div>
+        <div class="articulo-cta" style="margin-top: 2rem;">
+            <a href="{{ url_for('contacto', servicio=articulo.cta_servicio) }}" class="btn-primary btn-lg">Consulta sobre este tema</a>
+            {% if articulo.cluster == 'desarrollo' %}
+            <a href="{{ url_for('desarrollo_software') }}" class="btn-outline btn-lg">Desarrollo a medida</a>
+            {% else %}
+            <a href="{{ url_for('automatizaciones') }}" class="btn-outline btn-lg">Automatizaciones</a>
+            {% endif %}
+        </div>
+    </div>
+</article>
+{% endblock %}

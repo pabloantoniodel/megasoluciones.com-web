@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}{{ caso.titulo }} — Caso de Éxito | Megasoluciones{% endblock %}
+{% block meta_description %}{{ caso.descripcion }}{% endblock %}
+{% block og_title %}{{ caso.titulo }} | Megasoluciones{% endblock %}
+{% block og_description %}{{ caso.descripcion }}{% endblock %}
+
+{% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": {{ caso.titulo|tojson }},
+  "description": {{ caso.descripcion|tojson }},
+  "creator": {"@type": "Organization", "name": "Megasoluciones"},
+  "about": {{ caso.categoria|tojson }},
+  "image": "{{ url_for('static', filename='images/' ~ caso.imagen ~ '.webp', _external=True) }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+        <a href="{{ url_for('index') }}">Inicio</a> ›
+        <a href="{{ url_for('portfolio') }}">Portfolio</a> ›
+        <span>{{ caso.titulo }}</span>
+    </div>
+</nav>
+
+<section class="page-header">
+    <div class="container">
+        <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if caso.categoria == 'Desarrollo' else 'automatizacion' }}">{{ caso.categoria }}</span>
+        {% if caso.real %}<span class="portfolio-badge portfolio-badge-real">Caso real</span>{% endif %}
+        <h1>{{ caso.titulo }}</h1>
+        <p class="lead">{{ caso.cliente }}</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container landing-content">
+        <div class="caso-layout">
+            <div>
+                {% set img_name = caso.imagen %}
+                {% set alt = caso.titulo %}
+                {% set width = 600 %}
+                {% set height = 400 %}
+                {% set lazy = true %}
+                {% set css_class = 'portfolio-image' %}
+                {% include 'partials/responsive-image.html' with context %}
+            </div>
+            <div>
+                <h2>El problema</h2>
+                <p>{{ caso.problema }}</p>
+                <h2>La solución</h2>
+                <p>{{ caso.solucion }}</p>
+                <h2>Resultados</h2>
+                <ul class="landing-list">
+                    {% for r in caso.resultados %}
+                    <li>{{ r }}</li>
+                    {% endfor %}
+                </ul>
+                <h2>Tecnologías</h2>
+                <div class="portfolio-tech">
+                    {% for tech in caso.tecnologias %}
+                    <span class="tech-badge">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                {% if caso.testimonial %}
+                <blockquote class="caso-quote">"{{ caso.testimonial }}"</blockquote>
+                {% endif %}
+                <a href="{{ url_for('contacto', servicio=servicio) }}" class="btn-primary btn-lg">Proyecto similar</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_head %}
+<style>.caso-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start}@media(max-width:768px){.caso-layout{grid-template-columns:1fr}}.caso-quote{margin:1.5rem 0;padding:1rem 1.5rem;border-left:4px solid #3b82f6;background:#f9fafb;font-style:italic}.portfolio-badge-real{background:#fef3c7;color:#92400e;margin-left:.5rem}</style>
+{% endblock %}

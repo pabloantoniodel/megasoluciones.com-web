@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
     
-    // Form validation
+    // Form validation + GA4 form_submit
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
@@ -109,6 +109,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!isValid) {
                 e.preventDefault();
+                return;
+            }
+
+            if (typeof gtag === 'function' && form.id === 'contactForm') {
+                const servicioField = form.querySelector('[name="servicio"]');
+                gtag('event', 'form_submit', {
+                    event_category: 'contact',
+                    event_label: 'contacto',
+                    servicio: servicioField ? servicioField.value : 'no_especificado'
+                });
             }
         });
     });
@@ -159,9 +169,17 @@ document.addEventListener('DOMContentLoaded', function() {
         statObserver.observe(stat);
     });
     
-    // WhatsApp float button animation
+    // WhatsApp float button animation + GA4 click_whatsapp
     const whatsappFloat = document.querySelector('.whatsapp-float');
     if (whatsappFloat) {
+        whatsappFloat.addEventListener('click', function() {
+            if (typeof gtag === 'function') {
+                gtag('event', 'click_whatsapp', {
+                    event_category: 'contact',
+                    event_label: 'whatsapp_float'
+                });
+            }
+        });
         setTimeout(() => {
             whatsappFloat.style.animation = 'pulse 2s infinite, fadeInUp 0.5s ease';
         }, 2000);

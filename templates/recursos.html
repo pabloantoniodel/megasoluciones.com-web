@@ -2,12 +2,40 @@
 
 {% block title %}Recursos — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
 {% block meta_description %}Artículos y guías sobre desarrollo de software a medida, automatizaciones empresariales y RPA para empresas en España.{% endblock %}
+{% block og_title %}Recursos sobre Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
+{% block og_description %}Artículos y guías sobre desarrollo de software a medida, automatizaciones empresariales y RPA para empresas en España.{% endblock %}
+
+{% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Recursos Megasoluciones",
+  "itemListElement": [
+    {% for articulo in articulos %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "BlogPosting",
+        "headline": {{ articulo.titulo|tojson }},
+        "description": {{ articulo.resumen|tojson }},
+        "datePublished": {{ articulo.fecha|tojson }},
+        "url": "{{ url_for('recurso_articulo', slug=articulo.slug, _external=True) }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
         <h1>Recursos sobre <span class="gradient-text">desarrollo y automatizaciones</span></h1>
-        <p>Guías prácticas para empresas en España</p>
+        <p>Guías prácticas para empresas en España — calendario editorial 2025–2026</p>
     </div>
 </section>
 
@@ -17,13 +45,22 @@
             {% for articulo in articulos %}
             <article class="landing-card">
                 <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
-                <h2><a href="{{ url_for('recursos') }}#{{ articulo.slug }}">{{ articulo.titulo }}</a></h2>
+                <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if articulo.cluster == 'desarrollo' else 'automatizacion' }}">{{ articulo.cluster|capitalize }}</span>
+                <h2><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ articulo.titulo }}</a></h2>
                 <p>{{ articulo.resumen }}</p>
-                <a href="{{ url_for('desarrollo_software') if 'desarrollo' in articulo.slug else url_for('automatizaciones') }}" class="btn-outline btn-sm">Leer más →</a>
+                <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">Leer artículo →</a>
             </article>
             {% endfor %}
         </div>
-        <p class="text-center note" style="margin-top: 2rem;">Próximamente publicaremos el contenido completo de cada artículo. Mientras tanto, <a href="{{ url_for('contacto') }}">contáctanos</a> para resolver tus dudas.</p>
+        <div class="text-center" style="margin-top: 2rem;">
+            <p class="lead">Clusters temáticos:</p>
+            <p>
+                <a href="{{ url_for('desarrollo_software') }}">Desarrollo a medida</a> ·
+                <a href="{{ url_for('automatizaciones') }}">Automatizaciones</a> ·
+                <a href="{{ url_for('portfolio') }}">Casos de éxito</a> ·
+                <a href="{{ url_for('contacto') }}">Consulta gratuita</a>
+            </p>
+        </div>
     </div>
 </section>
 {% endblock %}

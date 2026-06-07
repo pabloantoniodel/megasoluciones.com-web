@@ -2,15 +2,30 @@
 
 {% block title %}Servicios de Desarrollo y Automatización | Megasoluciones{% endblock %}
 {% block meta_description %}Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.{% endblock %}
+{% block og_title %}Servicios de Desarrollo y Automatización | Megasoluciones{% endblock %}
+{% block og_description %}Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.{% endblock %}
 
 {% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
+  "@type": "ItemList",
+  "name": "Servicios Megasoluciones",
   "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "{{ site_base_url }}/"},
-    {"@type": "ListItem", "position": 2, "name": "Servicios", "item": "{{ canonical_url }}"}
+    {% for servicio in servicios %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "Service",
+        "name": {{ servicio.titulo|tojson }},
+        "description": {{ servicio.descripcion|tojson }},
+        "provider": {"@type": "Organization", "name": "Megasoluciones"},
+        "url": "{{ url_for('servicios', _external=True) }}#{{ servicio.slug }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
   ]
 }
 </script>
@@ -27,7 +42,7 @@
 <section class="section">
     <div class="container">
         <h2 class="pilar-heading">Desarrollo de software</h2>
-        <p class="lead">Aplicaciones web, APIs e integraciones a medida. <a href="{{ url_for('desarrollo_software') }}">Ver landing de desarrollo →</a></p>
+        <p class="lead">Aplicaciones web, APIs e integraciones a medida. <a href="{{ url_for('desarrollo_software') }}">Ver landing de desarrollo →</a> · <a href="{{ url_for('recursos') }}">Artículos sobre desarrollo →</a></p>
         <div class="services-list">
             {% for servicio in servicios_desarrollo %}
             {% include 'partials/service-detail-card.html' %}
@@ -39,7 +54,7 @@
 <section class="section bg-light">
     <div class="container">
         <h2 class="pilar-heading">Automatizaciones empresariales</h2>
-        <p class="lead">RPA, workflows e integración entre sistemas. <a href="{{ url_for('automatizaciones') }}">Ver landing de automatizaciones →</a></p>
+        <p class="lead">RPA, workflows e integración entre sistemas. <a href="{{ url_for('automatizaciones') }}">Ver landing de automatizaciones →</a> · <a href="{{ url_for('portfolio') }}">Casos de automatización →</a></p>
         <div class="services-list">
             {% for servicio in servicios_automatizacion %}
             {% include 'partials/service-detail-card.html' %}

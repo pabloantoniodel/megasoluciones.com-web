@@ -2,8 +2,25 @@
 
 {% block title %}Contacto — Presupuesto Desarrollo o Automatización | Megasoluciones{% endblock %}
 {% block meta_description %}Contacta con Megasoluciones para presupuesto de desarrollo de software a medida o automatizaciones empresariales en España. Respuesta en menos de 24 horas.{% endblock %}
+{% block og_title %}Presupuesto Desarrollo o Automatización | Megasoluciones{% endblock %}
+{% block og_description %}Contacta con Megasoluciones para presupuesto de desarrollo de software a medida o automatizaciones empresariales en España. Respuesta en menos de 24 horas.{% endblock %}
 
 {% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contacto Megasoluciones",
+  "url": "{{ canonical_url }}",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Megasoluciones",
+    "email": "info@megasolucion.net",
+    "url": "{{ site_base_url }}/"
+  }
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -55,7 +72,7 @@
             <div class="contact-form-wrapper">
                 <h2>Envíanos un Mensaje</h2>
                 <p>Indica el servicio que te interesa para una respuesta más precisa</p>
-                <form method="POST" class="contact-form" novalidate>
+                <form method="POST" class="contact-form" id="contactForm" novalidate>
                     {{ form.hidden_tag() }}
                     <div class="form-group">
                         {{ form.nombre.label }}

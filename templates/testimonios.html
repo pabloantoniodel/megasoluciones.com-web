@@ -1,7 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %}Testimonios — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
+{% block title %}Opiniones de Clientes | Megasoluciones{% endblock %}
 {% block meta_description %}Opiniones de clientes sobre desarrollo de software a medida y automatizaciones empresariales de Megasoluciones en España.{% endblock %}
+{% block og_title %}Opiniones de Clientes | Megasoluciones{% endblock %}
+{% block og_description %}Opiniones de clientes sobre desarrollo de software a medida y automatizaciones empresariales de Megasoluciones en España.{% endblock %}
+
+{% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Megasoluciones",
+  "url": "{{ site_base_url }}/",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "3",
+    "reviewCount": "3"
+  },
+  "review": [
+    {% for testimonio in testimonios %}
+    {
+      "@type": "Review",
+      "author": {"@type": "Person", "name": {{ testimonio.nombre|tojson }}},
+      "reviewRating": {"@type": "Rating", "ratingValue": "{{ testimonio.rating }}", "bestRating": "5"},
+      "reviewBody": {{ testimonio.texto|tojson }},
+      "itemReviewed": {"@type": "Organization", "name": "Megasoluciones"}
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="page-header">
@@ -34,6 +67,7 @@
             </div>
             {% endfor %}
         </div>
+        <p class="text-center" style="margin-top: 2rem;"><a href="{{ url_for('portfolio') }}">Ver casos de éxito →</a></p>
     </div>
 </section>
 

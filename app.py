@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, Response
+from flask import Flask, render_template, render_template_string, request, flash, redirect, url_for, Response, abort
 from flask_wtf import FlaskForm
 from flask_mail import Mail, Message
 from wtforms import StringField, TextAreaField, EmailField, TelField, SelectField
@@ -18,7 +18,18 @@ def load_gsc_verification_token() -> str | None:
     return env or None
 
 
+def load_ga4_id() -> str | None:
+    for name in ('ga4-id.txt', '.ga4-id'):
+        path = os.path.join(os.path.dirname(__file__), name)
+        if os.path.isfile(path):
+            gid = open(path, encoding='utf-8').read().strip()
+            if gid and not gid.startswith('#'):
+                return gid
+    return os.environ.get('GA4_MEASUREMENT_ID', '').strip() or None
+
+
 GSC_VERIFICATION_TOKEN = load_gsc_verification_token()
+GA4_MEASUREMENT_ID = load_ga4_id()
 
 CANONICAL_BASE_URL = os.environ.get('CANONICAL_BASE_URL', 'https://megasolucion.com').rstrip('/')
 
@@ -242,18 +253,48 @@ RECURSOS = [
         'titulo': 'Cómo automatizar procesos en una pyme española',
         'resumen': 'Guía práctica para identificar qué automatizar primero y calcular el ROI de las automatizaciones empresariales.',
         'fecha': '2026-05-01',
+        'cluster': 'automatizaciones',
+        'cta_servicio': 'automatizaciones-rpa',
     },
     {
         'slug': 'coste-desarrollo-software-2026',
         'titulo': 'Cuánto cuesta un desarrollo de software a medida en 2026',
         'resumen': 'Desglose de precios por tipo de proyecto: web, API, plataforma SaaS e integraciones con ERP/CRM.',
         'fecha': '2026-04-15',
+        'cluster': 'desarrollo',
+        'cta_servicio': 'desarrollo-software',
     },
     {
         'slug': 'rpa-vs-automatizacion-apis',
         'titulo': 'RPA vs automatización con APIs: qué elegir',
         'resumen': 'Comparativa técnica y económica para decidir la mejor estrategia de automatización en tu empresa.',
         'fecha': '2026-03-20',
+        'cluster': 'automatizaciones',
+        'cta_servicio': 'automatizaciones-rpa',
+    },
+    {
+        'slug': 'integrar-odoo-web-crm',
+        'titulo': 'Integrar Odoo con tu web y CRM: guía práctica',
+        'resumen': 'Cómo conectar Odoo con ecommerce, CRM y banca sin duplicar datos ni errores manuales.',
+        'fecha': '2026-02-10',
+        'cluster': 'desarrollo',
+        'cta_servicio': 'desarrollo-software',
+    },
+    {
+        'slug': 'procesos-automatizar-empresa',
+        'titulo': '5 procesos que toda empresa debería automatizar ya',
+        'resumen': 'Los procesos con mayor retorno rápido en pymes y medianas empresas en España.',
+        'fecha': '2026-01-15',
+        'cluster': 'automatizaciones',
+        'cta_servicio': 'automatizaciones-rpa',
+    },
+    {
+        'slug': 'elegir-empresa-desarrollo-software',
+        'titulo': 'Checklist para elegir empresa de desarrollo software en España',
+        'resumen': '8 criterios clave antes de contratar desarrollo a medida o integraciones.',
+        'fecha': '2025-12-01',
+        'cluster': 'desarrollo',
+        'cta_servicio': 'desarrollo-software',
     },
 ]
 
@@ -283,36 +324,60 @@ TESTIMONIOS = [
 
 PORTFOLIO = [
     {
+        'slug': 'plataforma-gestion-medida',
         'titulo': 'Plataforma de Gestión a Medida',
-        'cliente': 'Empresa servicios, España',
+        'cliente': 'Empresa de servicios, España',
         'descripcion': 'ERP personalizado con módulos de facturación, inventario e integración bancaria',
+        'problema': 'La empresa gestionaba pedidos, stock y facturación en hojas de cálculo desconectadas. Errores de stock y retrasos en facturación afectaban al cash-flow.',
+        'solucion': 'Desarrollamos un ERP a medida con Python y React, integrado con la API bancaria y módulos de facturación automática.',
+        'resultados': ['-60% tiempo en gestión administrativa', 'Facturación en 24h vs 5 días', 'Stock sincronizado en tiempo real'],
         'tecnologias': ['Python', 'React', 'PostgreSQL', 'Docker'],
-        'imagen': 'portfolio-ecommerce.png',
-        'categoria': 'Desarrollo'
+        'imagen': 'portfolio-ecommerce',
+        'categoria': 'Desarrollo',
+        'real': False,
+        'testimonial': None,
     },
     {
+        'slug': 'automatizacion-erp-crm',
         'titulo': 'Automatización Integración ERP-CRM',
-        'cliente': 'Distribuidora industrial',
+        'cliente': 'Distribuidora industrial, España',
         'descripcion': 'Workflows automáticos que sincronizan pedidos, stock y facturación entre Odoo y Salesforce',
+        'problema': 'Dos equipos introducían los mismos pedidos en Odoo y Salesforce manualmente. Duplicidad de datos y 15 h/semana de trabajo repetitivo.',
+        'solucion': 'Automatizaciones con Python y n8n: cada pedido en Salesforce crea/actualiza registros en Odoo, genera albarán y notifica al almacén.',
+        'resultados': ['-40% horas manuales semanales', 'ROI en 4 meses', 'Cero duplicados de pedidos en 6 meses'],
         'tecnologias': ['Python', 'APIs REST', 'n8n', 'PostgreSQL'],
-        'imagen': 'portfolio-industry.png',
-        'categoria': 'Automatización'
+        'imagen': 'portfolio-industry',
+        'categoria': 'Automatización',
+        'real': True,
+        'testimonial': 'Automatizaron nuestros procesos de reporting y sincronización entre departamentos. Ahorramos más de 200.000€ en el primer año.',
     },
     {
+        'slug': 'portal-clientes-api-bancaria',
         'titulo': 'Portal Clientes y API Bancaria',
         'cliente': 'Entidad financiera internacional',
         'descripcion': 'Desarrollo web con integración API bancaria y panel de autogestión para 10.000+ usuarios',
+        'problema': 'Los clientes no podían consultar movimientos ni gestionar productos online. Alta carga en call center.',
+        'solucion': 'Portal web con autenticación segura, integración API bancaria PSD2 y panel de autogestión escalable en Azure.',
+        'resultados': ['-70% consultas al call center', '10.000+ usuarios activos', 'LCP < 2s en mobile'],
         'tecnologias': ['Node.js', 'React', 'Azure', 'PostgreSQL'],
-        'imagen': 'portfolio-banking.png',
-        'categoria': 'Desarrollo'
+        'imagen': 'portfolio-banking',
+        'categoria': 'Desarrollo',
+        'real': False,
+        'testimonial': None,
     },
     {
+        'slug': 'rpa-documental-ocr',
         'titulo': 'RPA Documental y OCR',
         'cliente': 'Sector legal, España',
         'descripcion': 'Automatización de extracción y clasificación de contratos con 98% de precisión',
+        'problema': 'Abogados dedicaban horas a clasificar y extraer datos de contratos PDF entrantes por email.',
+        'solucion': 'Pipeline OCR + clasificación automática con Computer Vision y FastAPI, integrado al DMS del despacho.',
+        'resultados': ['98% precisión extracción', '-80% tiempo clasificación documental', 'Integración con email entrante'],
         'tecnologias': ['Python', 'Computer Vision', 'FastAPI', 'MongoDB'],
-        'imagen': 'portfolio-documents.png',
-        'categoria': 'Automatización'
+        'imagen': 'portfolio-documents',
+        'categoria': 'Automatización',
+        'real': False,
+        'testimonial': None,
     }
 ]
 
@@ -345,6 +410,31 @@ def get_servicio(slug: str) -> dict | None:
     return next((s for s in SERVICIOS if s['slug'] == slug), None)
 
 
+def get_recurso(slug: str) -> dict | None:
+    return next((r for r in RECURSOS if r['slug'] == slug), None)
+
+
+def get_caso(slug: str) -> dict | None:
+    return next((p for p in PORTFOLIO if p['slug'] == slug), None)
+
+
+def render_recurso_body(slug: str) -> str:
+    path = os.path.join(os.path.dirname(__file__), 'content', 'recursos', f'{slug}.html')
+    if not os.path.isfile(path):
+        return ''
+    with open(path, encoding='utf-8') as f:
+        return render_template_string(f.read())
+
+
+def all_sitemap_paths() -> list[dict]:
+    pages = list(SITEMAP_PAGES)
+    for r in RECURSOS:
+        pages.append({'path': f"/recursos/{r['slug']}", 'changefreq': 'monthly', 'priority': '0.75'})
+    for p in PORTFOLIO:
+        pages.append({'path': f"/portfolio/{p['slug']}", 'changefreq': 'monthly', 'priority': '0.8'})
+    return pages
+
+
 @app.route('/')
 def index():
     servicios_destacados = servicios_por_pilar('desarrollo') + servicios_por_pilar('automatizacion')
@@ -373,11 +463,6 @@ def automatizaciones():
     )
 
 
-@app.route('/sobre')
-def sobre():
-    return render_template('sobre.html')
-
-
 @app.route('/servicios')
 def servicios():
     return render_template(
@@ -386,32 +471,93 @@ def servicios():
         servicios_desarrollo=servicios_por_pilar('desarrollo'),
         servicios_automatizacion=servicios_por_pilar('automatizacion'),
         servicios_ia=servicios_por_pilar('ia'),
+        breadcrumbs=[{'name': 'Servicios', 'url': canonical_url()}],
+    )
+
+
+@app.route('/sobre')
+def sobre():
+    return render_template(
+        'sobre.html',
+        breadcrumbs=[{'name': 'Sobre Nosotros', 'url': canonical_url()}],
     )
 
 
 @app.route('/portfolio')
 def portfolio():
-    return render_template('portfolio.html', proyectos=PORTFOLIO)
+    return render_template(
+        'portfolio.html',
+        proyectos=PORTFOLIO,
+        breadcrumbs=[{'name': 'Portfolio', 'url': canonical_url()}],
+    )
+
+
+@app.route('/portfolio/<slug>')
+def portfolio_caso(slug):
+    caso = get_caso(slug)
+    if not caso:
+        abort(404)
+    servicio = 'desarrollo-software' if caso['categoria'] == 'Desarrollo' else 'automatizaciones-rpa'
+    return render_template(
+        'caso-exito.html',
+        caso=caso,
+        servicio=servicio,
+        breadcrumbs=[
+            {'name': 'Portfolio', 'url': url_for('portfolio', _external=True)},
+            {'name': caso['titulo'], 'url': canonical_url()},
+        ],
+    )
 
 
 @app.route('/testimonios')
 def testimonios():
-    return render_template('testimonios.html', testimonios=TESTIMONIOS)
+    return render_template(
+        'testimonios.html',
+        testimonios=TESTIMONIOS,
+        breadcrumbs=[{'name': 'Testimonios', 'url': canonical_url()}],
+    )
 
 
 @app.route('/recursos')
 def recursos():
-    return render_template('recursos.html', articulos=RECURSOS)
+    return render_template(
+        'recursos.html',
+        articulos=RECURSOS,
+        breadcrumbs=[{'name': 'Recursos', 'url': canonical_url()}],
+    )
+
+
+@app.route('/recursos/<slug>')
+def recurso_articulo(slug):
+    articulo = get_recurso(slug)
+    if not articulo:
+        abort(404)
+    cuerpo = render_recurso_body(slug)
+    return render_template(
+        'recurso-articulo.html',
+        articulo=articulo,
+        cuerpo=cuerpo,
+        breadcrumbs=[
+            {'name': 'Recursos', 'url': url_for('recursos', _external=True)},
+            {'name': articulo['titulo'], 'url': canonical_url()},
+        ],
+    )
 
 
 @app.route('/privacidad')
 def privacidad():
-    return render_template('privacidad.html')
+    return render_template(
+        'privacidad.html',
+        breadcrumbs=[{'name': 'Privacidad', 'url': canonical_url()}],
+    )
 
 
 @app.route('/aviso-legal')
 def aviso_legal():
-    return render_template('aviso-legal.html')
+    return render_template(
+        'aviso-legal.html',
+        breadcrumbs=[{'name': 'Aviso Legal', 'url': canonical_url()}],
+    )
 
 
 @app.route('/contacto', methods=['GET', 'POST'])
@@ -474,7 +620,12 @@ Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
             print(f"Error enviando email: {str(e)}")
             flash(f'¡Gracias {form.nombre.data}! Hemos recibido tu mensaje y te contactaremos pronto.', 'success')
         return redirect(url_for('contacto'))
-    return render_template('contacto.html', form=form, faqs=CONTACTO_FAQS)
+    return render_template(
+        'contacto.html',
+        form=form,
+        faqs=CONTACTO_FAQS,
+        breadcrumbs=[{'name': 'Contacto', 'url': canonical_url()}],
+    )
 
 
 @app.route('/health')
@@ -499,7 +650,7 @@ def sitemap_xml():
     base = sitemap_base_url()
     lastmod = datetime.now().strftime('%Y-%m-%d')
     urls = []
-    for page in SITEMAP_PAGES:
+    for page in all_sitemap_paths():
         loc = f"{base}{page['path']}"
         urls.append(
             "  <url>\n"
@@ -526,6 +677,8 @@ def inject_globals():
         'canonical_url': canonical_url(),
         'hreflang_urls': hreflang_urls(),
         'site_base_url': sitemap_base_url(),
+        'ga4_measurement_id': GA4_MEASUREMENT_ID,
+        'servicios': SERVICIOS,
     }
 
 
