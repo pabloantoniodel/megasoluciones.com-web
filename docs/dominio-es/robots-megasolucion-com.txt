@@ -1,0 +1,5 @@
+# Copiar como referencia — en producción se sirve en https://megasolucion.com/robots.txt
+# megasolucion.com — NO indexar; todo el tráfico redirige 301 a megasolucion.es
+
+User-agent: *
+Disallow: /

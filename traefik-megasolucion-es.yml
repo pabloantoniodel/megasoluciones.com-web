@@ -1,5 +1,5 @@
-# megasolucion.es y www.megasolucion.es → misma app que .com (puerto 5000)
-# Copiar a: sudo cp traefik-megasolucion-es.yml /etc/dokploy/traefik/dynamic/megasoluciones-web-megasoluciones-6gi9az.yml
+# megasolucion.es + www → Flask (www redirige 301 desde la app)
+# Copiar: sudo cp traefik-megasolucion-es.yml /etc/dokploy/traefik/dynamic/megasoluciones-web-megasoluciones-6gi9az.yml
 http:
   routers:
     megasoluciones-web-megasoluciones-6gi9az-router-1:
@@ -21,6 +21,7 @@ http:
           - main: megasolucion.es
             sans:
               - www.megasolucion.es
+
   services:
     megasoluciones-web-megasoluciones-6gi9az-service-1:
       loadBalancer:

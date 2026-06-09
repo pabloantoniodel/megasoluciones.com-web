@@ -45,7 +45,7 @@
             {% for articulo in articulos %}
             <article class="landing-card">
                 <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
-                <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if articulo.cluster == 'desarrollo' else 'automatizacion' }}">{{ articulo.cluster|capitalize }}</span>
+                <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if articulo.cluster == 'desarrollo' else ('ia' if articulo.cluster == 'ia' else 'automatizacion') }}">{{ articulo.cluster|capitalize }}</span>
                 <h2><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ articulo.titulo }}</a></h2>
                 <p>{{ articulo.resumen }}</p>
                 <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">Leer artículo →</a>

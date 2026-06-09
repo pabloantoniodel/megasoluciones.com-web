@@ -103,6 +103,15 @@
                         {{ form.mensaje(class="form-control", rows="5", placeholder="Describe tu proyecto: qué quieres desarrollar o automatizar...") }}
                         {% if form.mensaje.errors %}<span class="error">{{ form.mensaje.errors[0] }}</span>{% endif %}
                     </div>
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="middle_name_hp">Segundo nombre</label>
+                        <input type="text" name="middle_name_hp" id="middle_name_hp" tabindex="-1" autocomplete="nope" value="">
+                    </div>
+                    {% if turnstile_site_key %}
+                    <div class="form-group turnstile-wrap">
+                        <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}" data-theme="light"></div>
+                    </div>
+                    {% endif %}
                     <button type="submit" class="btn-primary btn-block">Enviar Mensaje</button>
                     <p class="form-note">
                         Al enviar aceptas nuestra <a href="{{ url_for('privacidad') }}">política de privacidad</a> y el tratamiento de datos según el RGPD.
@@ -126,4 +135,10 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_head %}
+{% if turnstile_site_key %}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+{% endif %}
 {% endblock %}

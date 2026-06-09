@@ -1,10 +1,24 @@
-from flask import Flask, render_template, render_template_string, request, flash, redirect, url_for, Response, abort
+from flask import Flask, render_template, render_template_string, request, flash, redirect, url_for, Response, abort, session
 from flask_wtf import FlaskForm
 from flask_mail import Mail, Message
 from wtforms import StringField, TextAreaField, EmailField, TelField, SelectField
 from wtforms.validators import DataRequired, Email
 import os
 from datetime import datetime
+from time import time
+
+from spam_protection import (
+    HONEYPOT_FIELD,
+    check_akismet_spam,
+    get_client_ip,
+    load_akismet_api_key,
+    load_turnstile_secret_key,
+    load_turnstile_site_key,
+    record_submission,
+    should_silently_drop,
+    spam_block_reason,
+    verify_turnstile,
+)
 
 def load_gsc_verification_token() -> str | None:
     """Token de Google Search Console (meta HTML tag)."""
@@ -30,18 +44,19 @@ def load_ga4_id() -> str | None:
 
 GSC_VERIFICATION_TOKEN = load_gsc_verification_token()
 GA4_MEASUREMENT_ID = load_ga4_id()
+TURNSTILE_SITE_KEY = load_turnstile_site_key()
+TURNSTILE_SECRET_KEY = load_turnstile_secret_key()
+AKISMET_API_KEY = load_akismet_api_key()
 
-CANONICAL_BASE_URL = os.environ.get('CANONICAL_BASE_URL', 'https://megasolucion.com').rstrip('/')
-
-SITEMAP_HOSTS = {
-    'megasolucion.com': 'https://megasolucion.com',
-    'www.megasolucion.com': 'https://megasolucion.com',
-    'megasolucion.es': 'https://megasolucion.es',
-    'www.megasolucion.es': 'https://megasolucion.es',
-}
+CANONICAL_BASE_URL = os.environ.get('CANONICAL_BASE_URL', 'https://megasolucion.es').rstrip('/')
+PRIMARY_HOST = 'megasolucion.es'
+REDIRECT_TO_PRIMARY_HOSTS = frozenset({
+    'megasolucion.com',
+    'www.megasolucion.com',
+    'www.megasolucion.es',
+})
 
 HREFLANG_ES = 'https://megasolucion.es'
-HREFLANG_COM = 'https://megasolucion.com'
 
 SITEMAP_PAGES = [
     {'path': '/', 'changefreq': 'weekly', 'priority': '1.0'},
@@ -60,6 +75,23 @@ SITEMAP_PAGES = [
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'megasoluciones-secret-key-2026')
 
+
+COM_HOSTS = frozenset({'megasolucion.com', 'www.megasolucion.com'})
+
+
+@app.before_request
+def redirect_to_primary_host():
+    """301 megasolucion.com → megasolucion.es (Google Search Console cambio de dominio)."""
+    host = (request.host or '').split(':')[0].lower()
+    if host in COM_HOSTS and request.path == '/robots.txt':
+        return None
+    if host in REDIRECT_TO_PRIMARY_HOSTS:
+        target = f"{HREFLANG_ES}{request.path or '/'}"
+        if request.query_string:
+            target = f"{target}?{request.query_string.decode()}"
+        return redirect(target, code=301)
+
+
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True') == 'True'
@@ -69,6 +101,8 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'info@megasolucion.net')
 app.config['MAIL_MAX_EMAILS'] = None
 app.config['MAIL_ASCII_ATTACHMENTS'] = False
+app.config['SESSION_COOKIE_SECURE'] = os.environ.get('SESSION_COOKIE_SECURE', 'True') == 'True'
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 mail = Mail(app)
 
@@ -228,6 +262,104 @@ AUTOMATIZACIONES_FAQS = [
     },
 ]
 
+HOME_FAQS = [
+    {
+        'question': '¿Cómo integrar IA en mi empresa sin cambiar todo el software?',
+        'answer': 'Empezamos por un piloto acotado: un chatbot, una automatización o una integración. Se conecta con tus herramientas actuales (ERP, CRM, email). Si funciona, escalamos por fases.'
+    },
+    {
+        'question': '¿Qué procesos se pueden automatizar con IA en una pyme?',
+        'answer': 'Facturación, reporting, sincronización entre sistemas, clasificación documental, respuestas a clientes frecuentes y extracción de datos de emails o PDFs. Cualquier tarea repetitiva con reglas claras es candidata.'
+    },
+    {
+        'question': '¿Cuánto cuesta implementar IA en una empresa en España?',
+        'answer': 'Un chatbot desde ~299€/mes. Automatizaciones desde ~399€/mes. Desarrollo a medida desde ~5.000€. Consultoría desde 100€/hora. El coste exacto depende del alcance; damos presupuesto cerrado tras la consulta inicial.'
+    },
+    {
+        'question': '¿Qué es la GEO (Generative Engine Optimization)?',
+        'answer': 'Es optimizar tu contenido y datos para que motores generativos (ChatGPT, Gemini, Perplexity, AI Overviews) te citen como referente. Complementa al SEO clásico: estructura clara, FAQs, schema markup y contenido verificable.',
+        'link_slug': 'seo-geo-inteligencia-artificial-2026',
+        'link_text': 'Leer la guía completa de SEO para IA y GEO en 2026',
+    },
+    {
+        'question': '¿Megasoluciones trabaja solo en Madrid?',
+        'answer': 'Tenemos base en Madrid y trabajamos con empresas en toda España y LATAM. Proyectos 100% remotos o híbridos según necesidad.'
+    },
+    {
+        'question': '¿Ofrecéis mantenimiento tras el proyecto?',
+        'answer': 'Sí. Todos los proyectos incluyen garantía post-lanzamiento. Planes mensuales con SLA, monitorización de automatizaciones y evolutivos.'
+    },
+    {
+        'question': '¿Qué diferencia hay entre un chatbot genérico y uno a medida?',
+        'answer': 'Un chatbot a medida conoce tus productos, procesos y tono. Se integra con tu CRM, escala a humanos y mejora con feedback real. Los genéricos suelen dar respuestas vagas y frustrar al cliente.'
+    },
+    {
+        'question': '¿Cuánto tarda un proyecto de IA?',
+        'answer': 'Piloto de automatización: 3–4 semanas. Chatbot en producción: 4–8 semanas. Plataforma a medida: 3–6 meses con entregas parciales cada 2 semanas.'
+    },
+]
+
+HOME_SERVICIOS = [
+    {
+        'slug': 'chatbots-ia',
+        'icon': '🤖',
+        'titulo': 'Chatbots IA',
+        'descripcion': 'Asistentes virtuales para web, WhatsApp o CRM. Atienden consultas frecuentes, cualifican leads y escalan a una persona cuando hace falta.',
+        'para_quien': 'E-commerce, servicios profesionales, soporte con alto volumen de preguntas repetitivas.',
+        'precio_desde': '299€/mes',
+        'caracteristicas': ['Integración multicanal', 'NLP y respuestas contextuales', 'Traspaso a agente humano'],
+        'cta_url': 'servicios',
+        'cta_anchor': 'chatbots-ia',
+        'cta_text': 'Ver chatbots IA',
+    },
+    {
+        'slug': 'automatizaciones-rpa',
+        'icon': '⚙️',
+        'titulo': 'Automatización de procesos',
+        'descripcion': 'Workflows, RPA y agentes de IA que conectan ERP, CRM, email y hojas de cálculo. Elimina copiar datos a mano y reduce errores operativos.',
+        'para_quien': 'Operaciones, administración, finanzas, logística.',
+        'precio_desde': '399€/mes',
+        'caracteristicas': ['Workflows inteligentes', 'Integración ERP/CRM', 'Monitorización continua'],
+        'cta_url': 'automatizaciones',
+        'cta_anchor': None,
+        'cta_text': 'Ver automatizaciones',
+    },
+    {
+        'slug': 'desarrollo-software',
+        'icon': '💻',
+        'titulo': 'Desarrollo a medida',
+        'descripcion': 'Aplicaciones web, APIs e integraciones con IA embebida. Conectamos modelos y agentes con tus sistemas existentes.',
+        'para_quien': 'Empresas que necesitan una herramienta propia, no un SaaS genérico.',
+        'precio_desde': '5.000€',
+        'caracteristicas': ['Integración de IA en sistemas existentes', 'APIs e integraciones ERP/CRM', 'Código mantenible y escalable'],
+        'cta_url': 'desarrollo_software',
+        'cta_anchor': None,
+        'cta_text': 'Ver desarrollo',
+    },
+    {
+        'slug': 'consultoria-ia',
+        'icon': '📊',
+        'titulo': 'Consultoría IA',
+        'descripcion': 'Hoja de ruta, viabilidad, selección de herramientas y formación de equipos. Para decidir bien antes de invertir.',
+        'para_quien': 'Dirección, IT y responsables de transformación digital.',
+        'precio_desde': '100€/hora',
+        'caracteristicas': ['Análisis de viabilidad', 'Roadmap tecnológico', 'Formación de equipos'],
+        'cta_url': 'contacto',
+        'cta_query': 'servicio=consultoria-ia',
+        'cta_anchor': None,
+        'cta_text': 'Reservar consultoría',
+    },
+]
+
+HOME_CASOS_USO = [
+    {'sector': 'Distribución', 'problema': 'Pedidos duplicados entre CRM y ERP', 'solucion': 'Sincronización automática con workflows'},
+    {'sector': 'Servicios profesionales', 'problema': 'Clasificación manual de documentos entrantes', 'solucion': 'OCR + clasificación con IA'},
+    {'sector': 'Retail / e-commerce', 'problema': 'Consultas repetitivas sobre envíos y stock', 'solucion': 'Chatbot multicanal con acceso a inventario'},
+    {'sector': 'Finanzas / seguros', 'problema': 'Extracción de datos de formularios PDF', 'solucion': 'Pipeline NLP + validación humana'},
+    {'sector': 'RRHH / administración', 'problema': 'Onboarding manual de empleados', 'solucion': 'Automatización de altas y documentación'},
+    {'sector': 'Marketing', 'problema': 'Informes semanales copiados entre herramientas', 'solucion': 'Dashboards y reporting automatizado'},
+]
+
 CONTACTO_FAQS = [
     {
         'question': '¿Cuánto tarda un proyecto de desarrollo de software?',
@@ -248,6 +380,14 @@ CONTACTO_FAQS = [
 ]
 
 RECURSOS = [
+    {
+        'slug': 'seo-geo-inteligencia-artificial-2026',
+        'titulo': 'SEO para IA y GEO en 2026: guía de Generative Engine Optimization',
+        'resumen': 'Qué es el SEO con inteligencia artificial y la GEO, cómo posicionarte en ChatGPT, Gemini y AI Overviews, y 7 acciones prácticas para empresas en España.',
+        'fecha': '2026-06-07',
+        'cluster': 'ia',
+        'cta_servicio': 'consultoria-ia',
+    },
     {
         'slug': 'automatizar-procesos-pyme',
         'titulo': 'Cómo automatizar procesos en una pyme española',
@@ -300,26 +440,29 @@ RECURSOS = [
 
 TESTIMONIOS = [
     {
-        'nombre': 'María González',
-        'cargo': 'CEO, TechCorp España',
-        'texto': 'Megasoluciones desarrolló nuestra plataforma de gestión a medida e integró todos nuestros sistemas. El proyecto se entregó a tiempo y el equipo fue excepcional.',
+        'nombre': 'Ana R.',
+        'cargo': 'Responsable de Operaciones · Empresa de distribución (España)',
+        'texto': 'Necesitábamos conectar nuestro CRM con el ERP sin contratar a dos personas más. En pocas semanas teníamos los pedidos sincronizados y el equipo dejó de duplicar trabajo.',
         'rating': 5,
-        'servicio': 'desarrollo'
+        'servicio': 'automatizacion',
+        'ilustrativo': True,
     },
     {
-        'nombre': 'Carlos Ramírez',
-        'cargo': 'Director IT, Innovatech',
-        'texto': 'Automatizaron nuestros procesos de reporting y sincronización entre departamentos. Ahorramos más de 200.000€ en el primer año. Profesionales excepcionales.',
+        'nombre': 'Miguel S.',
+        'cargo': 'Director Comercial · Servicios B2B (Madrid)',
+        'texto': 'El chatbot resuelve gran parte de las consultas de soporte sin intervención humana. Nos permitió ampliar horario de atención sin ampliar plantilla.',
         'rating': 5,
-        'servicio': 'automatizacion'
+        'servicio': 'ia',
+        'ilustrativo': True,
     },
     {
-        'nombre': 'Laura Martínez',
-        'cargo': 'COO, FinanceGlobal',
-        'texto': 'Las automatizaciones de Megasoluciones nos permitieron escalar operaciones sin aumentar plantilla. ROI impresionante en menos de 6 meses.',
+        'nombre': 'Elena V.',
+        'cargo': 'CEO · Pyme tecnológica (España)',
+        'texto': 'Lo que más valoramos es que no nos vendieron un producto cerrado. Desarrollaron una herramienta a medida que encaja con cómo trabajamos.',
         'rating': 5,
-        'servicio': 'automatizacion'
-    }
+        'servicio': 'desarrollo',
+        'ilustrativo': True,
+    },
 ]
 
 PORTFOLIO = [
@@ -383,14 +526,12 @@ PORTFOLIO = [
 
 
 def sitemap_base_url() -> str:
-    host = (request.host or '').split(':')[0].lower()
-    return SITEMAP_HOSTS.get(host, CANONICAL_BASE_URL)
+    return HREFLANG_ES
 
 
 def canonical_url() -> str:
-    base = sitemap_base_url()
     path = request.path or '/'
-    return f"{base}{path}" if path != '/' else f"{base}/"
+    return f"{HREFLANG_ES}{path}" if path != '/' else f"{HREFLANG_ES}/"
 
 
 def hreflang_urls() -> list[tuple[str, str]]:
@@ -398,7 +539,7 @@ def hreflang_urls() -> list[tuple[str, str]]:
     suffix = path if path != '/' else '/'
     return [
         ('es-ES', f"{HREFLANG_ES}{suffix}"),
-        ('x-default', f"{HREFLANG_COM}{suffix}"),
+        ('x-default', f"{HREFLANG_ES}{suffix}"),
     ]
 
 
@@ -437,11 +578,12 @@ def all_sitemap_paths() -> list[dict]:
 
 @app.route('/')
 def index():
-    servicios_destacados = servicios_por_pilar('desarrollo') + servicios_por_pilar('automatizacion')
     return render_template(
         'index.html',
-        servicios=servicios_destacados,
-        testimonios=TESTIMONIOS[:2],
+        servicios=HOME_SERVICIOS,
+        casos_uso=HOME_CASOS_USO,
+        testimonios=TESTIMONIOS,
+        faqs=HOME_FAQS,
     )
 
 
@@ -566,16 +708,68 @@ def contacto():
     servicio_param = request.args.get('servicio', '')
     if servicio_param in dict(SERVICIO_CHOICES):
         form.servicio.data = servicio_param
+
+    if request.method == 'GET':
+        session['contact_form_loaded_at'] = time()
+
     if form.validate_on_submit():
+        client_ip = get_client_ip(
+            request.headers.get('X-Forwarded-For'),
+            request.remote_addr,
+        )
+        blog_url = canonical_url()
+        akismet_spam = check_akismet_spam(
+            AKISMET_API_KEY,
+            blog_url=blog_url,
+            client_ip=client_ip,
+            user_agent=request.headers.get('User-Agent', ''),
+            author=form.nombre.data,
+            email=form.email.data,
+            content=form.mensaje.data,
+        )
+        if should_silently_drop(
+            request.form.get(HONEYPOT_FIELD),
+            session.get('contact_form_loaded_at'),
+            client_ip,
+            akismet_spam=akismet_spam,
+        ):
+            reason = spam_block_reason(
+                request.form.get(HONEYPOT_FIELD),
+                session.get('contact_form_loaded_at'),
+                client_ip,
+                akismet_spam=akismet_spam,
+            )
+            print(f"Contacto bloqueado (anti-spam): {reason} ip={client_ip}")
+            flash(f'¡Gracias {form.nombre.data}! Tu mensaje ha sido enviado. Te contactaremos pronto.', 'success')
+            return redirect(url_for('contacto'))
+
+        turnstile_result = verify_turnstile(
+            request.form.get('cf-turnstile-response'),
+            client_ip,
+            TURNSTILE_SECRET_KEY,
+        )
+        if turnstile_result is False:
+            print(f"Contacto: Turnstile inválido ip={client_ip}")
+            flash('No pudimos verificar el envío. Inténtalo de nuevo.', 'error')
+            session['contact_form_loaded_at'] = time()
+            return render_template(
+                'contacto.html',
+                form=form,
+                faqs=CONTACTO_FAQS,
+                breadcrumbs=[{'name': 'Contacto', 'url': canonical_url()}],
+                turnstile_site_key=TURNSTILE_SITE_KEY,
+            )
+
         try:
             servicio_label = dict(SERVICIO_CHOICES).get(form.servicio.data, 'No especificado')
+            source_url = canonical_url()
             msg = Message(
                 subject=f'Nuevo contacto de {form.nombre.data} - Megasoluciones',
                 recipients=['info@megasolucion.net'],
                 reply_to=form.email.data
             )
             msg.body = f"""
-Nuevo mensaje de contacto desde megasolucion.com
+Nuevo mensaje de contacto desde {source_url}
 
 Nombre: {form.nombre.data}
 Email: {form.email.data}
@@ -615,6 +809,10 @@ Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
             """
             if app.config['MAIL_USERNAME']:
                 mail.send(msg)
+                print(f"Contacto: email enviado a info@megasolucion.net desde {form.email.data}")
+            else:
+                print('Contacto: MAIL_USERNAME no configurado, email no enviado')
+            record_submission(client_ip)
             flash(f'¡Gracias {form.nombre.data}! Tu mensaje ha sido enviado. Te contactaremos pronto.', 'success')
         except Exception as e:
             print(f"Error enviando email: {str(e)}")
@@ -625,6 +823,7 @@ Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
         form=form,
         faqs=CONTACTO_FAQS,
         breadcrumbs=[{'name': 'Contacto', 'url': canonical_url()}],
+        turnstile_site_key=TURNSTILE_SITE_KEY,
     )
 
 
@@ -635,13 +834,21 @@ def health():
 
 @app.route('/robots.txt')
 def robots_txt():
-    base = sitemap_base_url()
-    body = (
-        "User-agent: *\n"
-        "Allow: /\n"
-        "Disallow: /health\n"
-        f"\nSitemap: {base}/sitemap.xml\n"
-    )
+    host = (request.host or '').split(':')[0].lower()
+    if host in COM_HOSTS:
+        body = (
+            "# megasolucion.com — no indexar; dominio redirige a megasolucion.es\n"
+            "User-agent: *\n"
+            "Disallow: /\n"
+        )
+    else:
+        body = (
+            "# megasolucion.es — dominio principal Megasoluciones\n"
+            "User-agent: *\n"
+            "Allow: /\n"
+            "Disallow: /health\n"
+            f"\nSitemap: {HREFLANG_ES}/sitemap.xml\n"
+        )
     return Response(body, mimetype='text/plain')
 
 

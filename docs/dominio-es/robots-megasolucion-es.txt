@@ -1,0 +1,8 @@
+# Copiar como referencia — en producción se sirve dinámicamente en https://megasolucion.es/robots.txt
+# megasolucion.es — dominio principal Megasoluciones
+
+User-agent: *
+Allow: /
+Disallow: /health
+
+Sitemap: https://megasolucion.es/sitemap.xml

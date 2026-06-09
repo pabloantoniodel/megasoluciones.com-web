@@ -1,0 +1,22 @@
+# APACHE — Consolidación megasolucion.com → megasolucion.es
+# Activar: RewriteEngine On + AllowOverride All
+# En VirtualHost de .com y www.com
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # megasolucion.com / www.megasolucion.com → megasolucion.es (301)
+    RewriteCond %{HTTP_HOST} ^(www\.)?megasolucion\.com$ [NC]
+    RewriteRule ^(.*)$ https://megasolucion.es/$1 [R=301,L]
+
+    # www.megasolucion.es → megasolucion.es (301)
+    RewriteCond %{HTTP_HOST} ^www\.megasolucion\.es$ [NC]
+    RewriteRule ^(.*)$ https://megasolucion.es/$1 [R=301,L]
+</IfModule>
+
+# robots.txt en megasolucion.com (VirtualHost separado o condición por host)
+# <VirtualHost *:443>
+#   ServerName megasolucion.com
+#   ServerAlias www.megasolucion.com
+#   RedirectMatch 301 ^/(.*)$ https://megasolucion.es/$1
+# </VirtualHost>

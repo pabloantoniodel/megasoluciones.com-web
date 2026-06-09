@@ -49,6 +49,8 @@
             <a href="{{ url_for('contacto', servicio=articulo.cta_servicio) }}" class="btn-primary btn-lg">Consulta sobre este tema</a>
             {% if articulo.cluster == 'desarrollo' %}
             <a href="{{ url_for('desarrollo_software') }}" class="btn-outline btn-lg">Desarrollo a medida</a>
+            {% elif articulo.cluster == 'ia' %}
+            <a href="{{ url_for('servicios') }}#consultoria-ia" class="btn-outline btn-lg">Consultoría IA</a>
             {% else %}
             <a href="{{ url_for('automatizaciones') }}" class="btn-outline btn-lg">Automatizaciones</a>
             {% endif %}

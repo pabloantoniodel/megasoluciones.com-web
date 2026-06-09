@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}
-{% block meta_description %}Empresa de desarrollo de software a medida y automatizaciones empresariales en España. Aplicaciones web, integraciones API, RPA y workflows para pymes y medianas empresas.{% endblock %}
-{% block og_title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}
-{% block og_description %}Empresa de desarrollo de software a medida y automatizaciones empresariales en España. Aplicaciones web, integraciones API, RPA y workflows para pymes y medianas empresas.{% endblock %}
+{% block title %}Agencia de Inteligencia Artificial Madrid | Megasoluciones{% endblock %}
+{% block meta_description %}Agencia IA en Madrid: chatbots, automatización de procesos, desarrollo a medida y consultoría para empresas y pymes en España. Primera consulta sin compromiso.{% endblock %}
+{% block meta_keywords %}agencia inteligencia artificial, agencia IA Madrid, soluciones IA empresas, soluciones IA pymes, automatizar procesos con IA, chatbot inteligencia artificial, consultoría inteligencia artificial{% endblock %}
+{% block og_title %}Agencia de Inteligencia Artificial Madrid | Megasoluciones{% endblock %}
+{% block og_description %}Agencia IA en Madrid: chatbots, automatización de procesos, desarrollo a medida y consultoría para empresas y pymes en España. Primera consulta sin compromiso.{% endblock %}
 
 {% block preload_assets %}
 <link rel="preload" as="image" href="{{ url_for('static', filename='images/hero-megasoluciones.webp') }}" type="image/webp">
@@ -16,7 +17,7 @@
   "@type": "WebSite",
   "name": "Megasoluciones",
   "url": "{{ site_base_url }}/",
-  "description": "Desarrollo de software a medida y automatizaciones empresariales en España"
+  "description": "Agencia de inteligencia artificial y soluciones de IA para empresas y pymes en España"
 }
 </script>
 <script type="application/ld+json">
@@ -25,16 +26,32 @@
   "@type": "ProfessionalService",
   "name": "Megasoluciones",
   "url": "{{ site_base_url }}/",
-  "description": "Desarrollo de software a medida y automatizaciones empresariales (RPA) para empresas en España",
-  "areaServed": {"@type": "Country", "name": "España"},
+  "description": "Agencia de inteligencia artificial en Madrid: chatbots, automatización de procesos, desarrollo a medida y consultoría IA",
+  "areaServed": [
+    {"@type": "City", "name": "Madrid"},
+    {"@type": "Country", "name": "España"}
+  ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Servicios principales",
     "itemListElement": [
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Desarrollo de Software a Medida", "url": "{{ url_for('desarrollo_software', _external=True) }}"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Automatizaciones y RPA", "url": "{{ url_for('automatizaciones', _external=True) }}"}}
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Chatbots IA", "url": "{{ url_for('servicios', _external=True) }}#chatbots-ia"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Automatización de procesos con IA", "url": "{{ url_for('automatizaciones', _external=True) }}"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Desarrollo a medida con IA", "url": "{{ url_for('desarrollo_software', _external=True) }}"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Consultoría IA", "url": "{{ url_for('contacto', _external=True) }}?servicio=consultoria-ia"}}
     ]
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for faq in faqs %}
+    {"@type": "Question", "name": {{ faq.question|tojson }}, "acceptedAnswer": {"@type": "Answer", "text": {{ faq.answer|tojson }}}}{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
 }
 </script>
 {% endblock %}
@@ -44,34 +61,35 @@
     <div class="hero-visual-wrap">
         <picture>
             <source srcset="{{ url_for('static', filename='images/hero-megasoluciones.webp') }}" type="image/webp">
-            <img src="{{ url_for('static', filename='images/hero-megasoluciones.png') }}" alt="Desarrollo de software y automatizaciones empresariales en España" class="hero-bg-image" width="1376" height="768" fetchpriority="high" decoding="async">
+            <img src="{{ url_for('static', filename='images/hero-megasoluciones.png') }}" alt="Agencia de inteligencia artificial en Madrid — soluciones de IA para empresas en España" class="hero-bg-image" width="1376" height="768" fetchpriority="high" decoding="async">
         </picture>
         <canvas id="hero-particles" class="hero-particles"></canvas>
     </div>
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
-                Automatización e Inteligencia Artificial <br><span class="gradient-text">con ADN de desarrollo</span>
+                Agencia de Inteligencia Artificial en Madrid<br><span class="gradient-text">soluciones de IA para empresas y pymes</span>
             </h1>
             <p class="hero-subtitle">
-                Nacimos creando software a medida y evolucionamos para transformar empresas. Integramos IA y automatizamos tus procesos más complejos con la solidez técnica que solo el desarrollo experto puede ofrecer.
+                Integramos inteligencia artificial en tu negocio de forma práctica: automatizar procesos, desplegar chatbots y asistentes, y convertir tus datos en decisiones. Ingeniería de software a medida, no solo consultoría en PowerPoint.
             </p>
             <div class="hero-buttons">
-                <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Hablemos de tu proyecto</a>
-                <a href="{{ url_for('automatizaciones') }}" class="btn-secondary btn-lg">Ver soluciones de IA</a>
+                <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Cuéntanos tu proyecto</a>
+                <a href="#que-hacemos" class="btn-secondary btn-lg">Ver cómo trabajamos</a>
             </div>
+            <p class="hero-microcopy">Respuesta en menos de 24 h · Primera consulta sin compromiso</p>
             <div class="hero-stats">
                 <div class="stat">
-                    <h3>150+</h3>
-                    <p>Proyectos entregados</p>
+                    <h3>España & LATAM</h3>
+                    <p>Proyectos entregados con equipos locales y remotos</p>
                 </div>
                 <div class="stat">
-                    <h3>40%</h3>
-                    <p>Reducción media de tareas manuales</p>
+                    <h3>Procesos medibles</h3>
+                    <p>Pilotos acotados antes de escalar la inversión</p>
                 </div>
                 <div class="stat">
-                    <h3>98%</h3>
-                    <p>Satisfacción clientes</p>
+                    <h3>Soporte continuo</h3>
+                    <p>Mantenimiento y evolutivos tras el lanzamiento</p>
                 </div>
             </div>
         </div>
@@ -79,11 +97,40 @@
     <div class="hero-shape"></div>
 </section>
 
+<section class="section section-que-hacemos" id="que-hacemos">
+    <div class="container">
+        <div class="section-header">
+            <h2>Qué <span class="gradient-text">hacemos</span></h2>
+            <p>Ayudamos a empresas y pymes a usar la inteligencia artificial donde aporta retorno real: menos tareas manuales, mejor atención al cliente y sistemas que escalan con tu negocio.</p>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-icon">🔍</div>
+                <h3>Diagnóstico y priorización</h3>
+                <p>Identificamos qué procesos merecen IA primero. Sin implementar tecnología por moda.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon">🚀</div>
+                <h3>Implementación en producción</h3>
+                <p>Chatbots, automatizaciones, integraciones y software a medida. Entregas por fases, no proyectos eternos.</p>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-icon">🔄</div>
+                <h3>Soporte y evolución</h3>
+                <p>Mantenimiento, monitorización y mejoras continuas. La IA no termina el día del deploy.</p>
+            </div>
+        </div>
+        <div class="text-center" style="margin-top: 2rem;">
+            <a href="{{ url_for('contacto', servicio='consultoria-ia') }}" class="btn-outline">Solicitar diagnóstico</a>
+        </div>
+    </div>
+</section>
+
 <section class="section-services">
     <div class="container">
         <div class="section-header">
-            <h2>Nuestros <span class="gradient-text">pilares</span></h2>
-            <p>Soluciones de automatización e IA respaldadas por ingeniería de software de primer nivel</p>
+            <h2>Servicios de IA para <span class="gradient-text">empresas</span></h2>
+            <p>Cuatro líneas de trabajo que suelen combinarse según la madurez digital de cada cliente</p>
         </div>
 
         <div class="services-grid">
@@ -92,28 +139,73 @@
                 <div class="service-icon">{{ servicio.icon }}</div>
                 <h3>{{ servicio.titulo }}</h3>
                 <p>{{ servicio.descripcion }}</p>
+                <p class="service-audience"><strong>Para quién:</strong> {{ servicio.para_quien }}</p>
                 <div class="service-price">
                     <span class="price-from">Desde</span>
                     <span class="price-amount">{{ servicio.precio_desde }}</span>
                 </div>
                 <ul class="service-features">
-                    {% for caracteristica in servicio.caracteristicas[:3] %}
+                    {% for caracteristica in servicio.caracteristicas %}
                     <li>✓ {{ caracteristica }}</li>
                     {% endfor %}
                 </ul>
-                {% if servicio.slug == 'desarrollo-software' %}
-                <a href="{{ url_for('desarrollo_software') }}" class="btn-outline">Ver desarrollo a medida</a>
-                {% elif servicio.slug == 'automatizaciones-rpa' %}
-                <a href="{{ url_for('automatizaciones') }}" class="btn-outline">Ver automatizaciones</a>
+                {% if servicio.cta_url == 'servicios' %}
+                <a href="{{ url_for('servicios') }}#{{ servicio.cta_anchor }}" class="btn-outline">{{ servicio.cta_text }}</a>
+                {% elif servicio.cta_url == 'contacto' %}
+                <a href="{{ url_for('contacto', servicio='consultoria-ia') }}" class="btn-outline">{{ servicio.cta_text }}</a>
                 {% else %}
-                <a href="{{ url_for('servicios') }}#{{ servicio.slug }}" class="btn-outline">Más información</a>
+                <a href="{{ url_for(servicio.cta_url) }}" class="btn-outline">{{ servicio.cta_text }}</a>
                 {% endif %}
             </div>
             {% endfor %}
         </div>
 
         <div class="text-center" style="margin-top: 3rem;">
-            <a href="{{ url_for('servicios') }}" class="btn-primary">Ver Todos los Servicios</a>
+            <a href="{{ url_for('servicios') }}" class="btn-primary">Ver todos los servicios</a>
+        </div>
+    </div>
+</section>
+
+<section class="section-cta section-cta-inline">
+    <div class="container">
+        <div class="cta-content">
+            <h2>¿Tienes claro qué proceso automatizar primero?</h2>
+            <p>Te ayudamos a priorizar en una consulta de 30 minutos</p>
+            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Reservar consulta</a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-benefits bg-light">
+    <div class="container">
+        <div class="section-header">
+            <h2>Qué ganas al trabajar con una <span class="gradient-text">agencia IA</span> con base técnica</h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <h4>Menos trabajo manual</h4>
+                <p>Automatizaciones que liberan horas en reporting, sincronización y gestión documental.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Atención 24/7</h4>
+                <p>Chatbots que resuelven lo repetitivo; humanos para lo complejo.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Sistemas conectados</h4>
+                <p>IA integrada en ERP, CRM y herramientas que ya usas.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Decisiones con datos</h4>
+                <p>Análisis predictivo y NLP aplicado a tu operativa.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Cumplimiento</h4>
+                <p>RGPD, contratos claros y datos en entornos controlados.</p>
+            </div>
+            <div class="benefit-item">
+                <h4>Evolución continua</h4>
+                <p>Soporte post-lanzamiento, no entrega y despedida.</p>
+            </div>
         </div>
     </div>
 </section>
@@ -122,47 +214,43 @@
     <div class="container">
         <div class="why-content">
             <div class="why-text">
-                <h2>¿Por qué elegir <span class="gradient-text">Megasoluciones</span>?</h2>
-                <p class="lead">Somos una empresa de desarrollo y automatización con presencia en España y LATAM, especializada en software a medida e integraciones entre sistemas.</p>
+                <h2>Por qué <span class="gradient-text">Megasoluciones</span></h2>
+                <p class="lead">Somos una agencia de inteligencia artificial con ADN de desarrollo. Diseñamos soluciones que se pueden mantener, escalar y medir — no demos que caducan en tres meses.</p>
 
                 <div class="why-features">
                     <div class="feature-item">
-                        <div class="feature-icon">💻</div>
+                        <div class="feature-icon">🎯</div>
                         <div>
-                            <h4>Desarrollo a medida</h4>
-                            <p>Webs, apps, APIs e integraciones con ERP, CRM y pasarelas de pago. Stack moderno y código mantenible.</p>
+                            <h4>De la idea al deploy</h4>
+                            <p>Consultoría, desarrollo e integración en el mismo equipo.</p>
                         </div>
                     </div>
-
                     <div class="feature-item">
-                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-icon">🏢</div>
                         <div>
-                            <h4>Automatizaciones que funcionan</h4>
-                            <p>RPA, workflows y sincronización entre herramientas. Menos errores manuales, más tiempo para tu equipo.</p>
+                            <h4>Enfoque pyme y mediana empresa</h4>
+                            <p>Alcance y presupuesto adaptados, con pilotos antes de escalar.</p>
                         </div>
                     </div>
-
                     <div class="feature-item">
-                        <div class="feature-icon">🔗</div>
+                        <div class="feature-icon">📍</div>
                         <div>
-                            <h4>Integraciones robustas</h4>
-                            <p>Conectamos Odoo, Salesforce, Google Workspace, bancos y APIs de terceros con documentación completa.</p>
+                            <h4>Madrid · España · LATAM</h4>
+                            <p>Remoto con posibilidad de trabajo presencial.</p>
                         </div>
                     </div>
-
                     <div class="feature-item">
-                        <div class="feature-icon">🔒</div>
+                        <div class="feature-icon">📋</div>
                         <div>
-                            <h4>Seguridad y RGPD</h4>
-                            <p>Cumplimiento GDPR, buenas prácticas de seguridad y contratos claros para empresas españolas.</p>
+                            <h4>Transparencia</h4>
+                            <p>Presupuestos por fases, entregas cada 2 semanas, documentación incluida.</p>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="why-image">
                 {% set img_name = 'why-choose-us' %}
-                {% set alt = 'Equipo de desarrollo y automatizaciones Megasoluciones' %}
+                {% set alt = 'Agencia de inteligencia artificial con desarrollo a medida — Megasoluciones' %}
                 {% set width = 800 %}
                 {% set height = 600 %}
                 {% set lazy = true %}
@@ -173,11 +261,43 @@
     </div>
 </section>
 
+<section class="section section-use-cases">
+    <div class="container">
+        <div class="section-header">
+            <h2>Casos de uso <span class="gradient-text">habituales</span></h2>
+            <p class="section-note">Ejemplos ilustrativos de sectores y procesos. No representan clientes concretos.</p>
+        </div>
+        <div class="use-cases-table-wrap">
+            <table class="use-cases-table">
+                <thead>
+                    <tr>
+                        <th>Sector</th>
+                        <th>Problema</th>
+                        <th>Solución IA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for caso in casos_uso %}
+                    <tr>
+                        <td>{{ caso.sector }}</td>
+                        <td>{{ caso.problema }}</td>
+                        <td>{{ caso.solucion }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center" style="margin-top: 2rem;">
+            <a href="{{ url_for('portfolio') }}" class="btn-outline">Ver portfolio de referencia</a>
+        </div>
+    </div>
+</section>
+
 <section class="section-testimonials">
     <div class="container">
         <div class="section-header">
-            <h2>Lo que dicen nuestros <span class="gradient-text">clientes</span></h2>
-            <p>Empresas en España que confían en nuestro desarrollo y automatizaciones</p>
+            <h2>Opiniones de <span class="gradient-text">referencia</span></h2>
+            <p class="section-note">Testimonios ilustrativos basados en tipologías de proyecto reales. Sustituiremos por reseñas verificadas cuando estén disponibles.</p>
         </div>
 
         <div class="testimonials-grid">
@@ -199,9 +319,27 @@
         </div>
 
         <div class="text-center" style="margin-top: 2rem;">
-            <a href="{{ url_for('testimonios') }}" class="btn-outline">Ver Más Testimonios</a>
-            <a href="{{ url_for('portfolio') }}" class="btn-outline" style="margin-left: 1rem;">Ver Casos de Éxito</a>
-            <a href="{{ url_for('recursos') }}" class="btn-outline" style="margin-left: 1rem;">Leer Recursos</a>
+            <a href="{{ url_for('testimonios') }}" class="btn-outline">Ver más testimonios</a>
+            <a href="{{ url_for('recursos') }}" class="btn-outline" style="margin-left: 1rem;">Leer recursos</a>
+        </div>
+    </div>
+</section>
+
+<section class="section-faq">
+    <div class="container">
+        <div class="section-header">
+            <h2>Preguntas frecuentes sobre <span class="gradient-text">inteligencia artificial</span> para empresas</h2>
+        </div>
+        <div class="faq-list">
+            {% for faq in faqs %}
+            <div class="faq-item">
+                <h3>{{ faq.question }}</h3>
+                <p>{{ faq.answer }}</p>
+                {% if faq.link_slug %}
+                <p><a href="{{ url_for('recurso_articulo', slug=faq.link_slug) }}">{{ faq.link_text or 'Leer más →' }}</a></p>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -209,9 +347,12 @@
 <section class="section-cta">
     <div class="container">
         <div class="cta-content">
-            <h2>¿Necesitas desarrollo de software o automatizar procesos?</h2>
-            <p>Cuéntanos tu proyecto y te preparamos una propuesta sin compromiso</p>
-            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Solicitar Presupuesto</a>
+            <h2>¿Listo para integrar IA en tu empresa?</h2>
+            <p>Cuéntanos qué proceso quieres mejorar. Te respondemos en menos de 24 horas con una propuesta sin compromiso.</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Solicitar consultoría</a>
+                <a href="{{ url_for('recursos') }}" class="btn-secondary btn-lg">Ver recursos sobre IA</a>
+            </div>
         </div>
     </div>
 </section>

@@ -28,6 +28,9 @@ services:
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - MAIL_DEFAULT_SENDER=${MAIL_DEFAULT_SENDER:-info@megasolucion.net}
       - GSC_VERIFICATION_TOKEN=${GSC_VERIFICATION_TOKEN:-}
+      - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY:-}
+      - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY:-}
+      - AKISMET_API_KEY=${AKISMET_API_KEY:-}
     deploy:
       replicas: 1
       restart_policy:

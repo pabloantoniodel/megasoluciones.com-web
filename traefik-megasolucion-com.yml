@@ -1,5 +1,8 @@
-# Config Traefik para megasolucion.com (apex + www) con UN certificado para ambos
-# Copiar a: sudo cp traefik-megasolucion-com.yml /etc/dokploy/traefik/dynamic/megasolucion-com.yml
+# megasolucion.com + www → proxy Flask (301 a .es en la app; GSC validado)
+# NO usar "redirect:" — esta versión Traefik no lo soporta (rompe todo con 404)
+#
+# Copiar: sudo cp traefik-megasolucion-com.yml /etc/dokploy/traefik/dynamic/megasolucion-com.yml
+#         docker restart dokploy-traefik
 http:
   routers:
     megasolucion-com-http:
@@ -20,6 +23,7 @@ http:
           - main: megasolucion.com
             sans:
               - www.megasolucion.com
+
   services:
     megasolucion-com-service:
       loadBalancer:
