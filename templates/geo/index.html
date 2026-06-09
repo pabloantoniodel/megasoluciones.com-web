@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ hub.meta_title }}{% endblock %}
+{% block meta_description %}{{ hub.meta_description }}{% endblock %}
+{% block og_title %}{{ hub.meta_title }}{% endblock %}
+{% block og_description %}{{ hub.meta_description }}{% endblock %}
+
+{% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+        <a href="{{ url_for('index') }}">Inicio</a> › <span>Zona Madrid</span>
+    </div>
+</nav>
+
+<section class="page-header">
+    <div class="container">
+        <h1>{{ hub.h1 }}</h1>
+        <p class="lead">{{ hub.subtitle }}</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <p class="lead">
+            Elige tu municipio para ver servicios, sectores y casos de uso adaptados a tu zona.
+            Todas las páginas son independientes de la home: contenido adicional orientado a empresas locales.
+        </p>
+
+        <div class="geo-tree">
+            {% for group in index_groups %}
+            <div class="geo-tree-group">
+                <h2>{{ group.title }}</h2>
+                <ul class="geo-tree-list">
+                    {% for page in group.pages %}
+                    <li>
+                        <a href="{{ url_for('geo_page', slug=page.slug) }}">
+                            <strong>{{ page.city_name }}</strong>
+                            <span>{{ page.subtitle[:100] }}{% if page.subtitle|length > 100 %}…{% endif %}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="geo-hub-links">
+            <h2>Servicios generales</h2>
+            <p>También puedes consultar nuestros servicios para toda España:</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('servicios') }}" class="btn-secondary">Servicios IA</a>
+                <a href="{{ url_for('automatizaciones') }}" class="btn-secondary">Automatizaciones</a>
+                <a href="{{ url_for('desarrollo_software') }}" class="btn-secondary">Desarrollo software</a>
+                <a href="{{ url_for('contacto') }}" class="btn-primary">Contacto</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

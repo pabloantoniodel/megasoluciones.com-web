@@ -7,6 +7,8 @@ import os
 from datetime import datetime
 from time import time
 
+from geo_pages import GEO_HUB, GEO_INDEX_GROUPS, geo_sitemap_entries, get_geo_page
+
 from spam_protection import (
     HONEYPOT_FIELD,
     check_akismet_spam,
@@ -573,7 +575,21 @@ def all_sitemap_paths() -> list[dict]:
         pages.append({'path': f"/recursos/{r['slug']}", 'changefreq': 'monthly', 'priority': '0.75'})
     for p in PORTFOLIO:
         pages.append({'path': f"/portfolio/{p['slug']}", 'changefreq': 'monthly', 'priority': '0.8'})
+    pages.extend(geo_sitemap_entries())
     return pages
+
+
+def geo_index_groups() -> list[dict]:
+    groups = []
+    for group in GEO_INDEX_GROUPS:
+        pages = []
+        for slug in group['pages']:
+            page = get_geo_page(slug)
+            if page:
+                pages.append(page)
+        if pages:
+            groups.append({'title': group['title'], 'pages': pages})
+    return groups
 
 
 @app.route('/')
@@ -824,6 +840,43 @@ Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
         faqs=CONTACTO_FAQS,
         breadcrumbs=[{'name': 'Contacto', 'url': canonical_url()}],
         turnstile_site_key=TURNSTILE_SITE_KEY,
+    )
+
+
+@app.route('/geo/')
+@app.route('/geo')
+def geo_index():
+    return render_template(
+        'geo/index.html',
+        hub=GEO_HUB,
+        index_groups=geo_index_groups(),
+        breadcrumbs=[{'name': 'Zona Madrid', 'url': canonical_url()}],
+    )
+
+
+@app.route('/geo/<slug>')
+def geo_page(slug):
+    page = get_geo_page(slug)
+    if not page:
+        abort(404)
+    parent_page = get_geo_page(page['parent_slug']) if page.get('parent_slug') else None
+    related_pages = [
+        p for s in page.get('related_slugs', [])
+        if (p := get_geo_page(s)) and p['slug'] != slug
+    ]
+    crumbs = [{'name': 'Zona Madrid', 'url': url_for('geo_index', _external=True)}]
+    if parent_page and parent_page['slug'] != slug:
+        crumbs.append({
+            'name': parent_page['city_name'],
+            'url': url_for('geo_page', slug=parent_page['slug'], _external=True),
+        })
+    crumbs.append({'name': page['city_name'], 'url': canonical_url()})
+    return render_template(
+        'geo/page.html',
+        page=page,
+        parent_page=parent_page if parent_page and parent_page['slug'] != slug else None,
+        related_pages=related_pages,
+        breadcrumbs=crumbs,
     )
 
 

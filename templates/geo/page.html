@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.meta_title }}{% endblock %}
+{% block meta_description %}{{ page.meta_description }}{% endblock %}
+{% block og_title %}{{ page.meta_title }}{% endblock %}
+{% block og_description %}{{ page.meta_description }}{% endblock %}
+
+{% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Megasoluciones",
+  "url": "{{ canonical_url }}",
+  "description": {{ page.meta_description|tojson }},
+  "areaServed": {
+    "@type": "City",
+    "name": {{ page.city_name|tojson }},
+    "containedInPlace": {
+      "@type": "AdministrativeArea",
+      "name": "Comunidad de Madrid"
+    }
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Megasoluciones",
+    "url": "{{ site_base_url }}/"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+        <a href="{{ url_for('index') }}">Inicio</a> ›
+        <a href="{{ url_for('geo_index') }}">Zona Madrid</a> ›
+        {% if parent_page %}
+        <a href="{{ url_for('geo_page', slug=parent_page.slug) }}">{{ parent_page.city_name }}</a> ›
+        {% endif %}
+        <span>{{ page.city_name }}</span>
+    </div>
+</nav>
+
+<section class="page-header">
+    <div class="container">
+        <h1>{{ page.h1 }}</h1>
+        <p class="lead">{{ page.subtitle }}</p>
+    </div>
+</section>
+
+{% if page.intro_title %}
+<section class="section">
+    <div class="container landing-content">
+        <h2>{{ page.intro_title }}</h2>
+        {% for paragraph in page.get('intro_paragraphs', []) %}
+        <p>{{ paragraph }}</p>
+        {% endfor %}
+        {% if page.sectors %}
+        <div class="sectors-grid">
+            {% for sector in page.sectors %}
+            <div class="sector-card">
+                <h3>{{ sector.title }}</h3>
+                <p>{{ sector.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+{% if page.services %}
+<section class="section bg-light">
+    <div class="container">
+        <div class="section-header">
+            <h2>{{ page.services_title }}</h2>
+        </div>
+        <div class="pillars-grid">
+            {% for service in page.services %}
+            <div class="pillar-card">
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="geo-service-links">
+            <a href="{{ url_for('servicios') }}">Ver todos los servicios</a>
+            ·
+            <a href="{{ url_for('automatizaciones') }}">Automatizaciones</a>
+            ·
+            <a href="{{ url_for('desarrollo_software') }}">Desarrollo a medida</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if page.use_cases or page.use_cases_simple %}
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>{{ page.use_cases_title }}</h2>
+            {% if page.use_cases_note %}
+            <p class="section-note">{{ page.use_cases_note }}</p>
+            {% endif %}
+        </div>
+        <div class="use-cases-table-wrap">
+            <table class="use-cases-table">
+                <thead>
+                    <tr>
+                        {% if page.use_cases and page.use_cases[0].context is defined %}
+                        <th>Contexto</th>
+                        <th>Situación</th>
+                        <th>Solución</th>
+                        {% else %}
+                        {% set first_simple = page.use_cases_simple[0] if page.use_cases_simple else none %}
+                        {% if first_simple and first_simple.title is defined %}<th>Tipo</th>{% endif %}
+                        <th>Situación</th>
+                        <th>Solución</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for case in page.get('use_cases', []) %}
+                    <tr>
+                        {% if case.context is defined %}<td>{{ case.context }}</td>{% endif %}
+                        <td>{{ case.situation }}</td>
+                        <td>{{ case.solution }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for case in page.get('use_cases_simple', []) %}
+                    <tr>
+                        {% if case.title is defined %}<td>{{ case.title }}</td>{% endif %}
+                        <td>{{ case.situation }}</td>
+                        <td>{{ case.solution }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if page.benefits %}
+<section class="section bg-light">
+    <div class="container landing-content">
+        <h2>{{ page.benefits_title }}</h2>
+        <ul class="geo-benefits-list">
+            {% for benefit in page.benefits %}
+            <li>{{ benefit }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+
+{% if page.why_items %}
+<section class="section">
+    <div class="container landing-content">
+        <h2>{{ page.why_title }}</h2>
+        <ul class="geo-benefits-list">
+            {% for item in page.why_items %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endif %}
+
+{% if related_pages %}
+<section class="section bg-light">
+    <div class="container">
+        <h2>Otras zonas de la Comunidad de Madrid</h2>
+        <ul class="geo-related-links">
+            {% for related in related_pages %}
+            <li><a href="{{ url_for('geo_page', slug=related.slug) }}">{{ related.city_name }}</a></li>
+            {% endfor %}
+            <li><a href="{{ url_for('geo_index') }}">Ver mapa de zonas</a></li>
+        </ul>
+    </div>
+</section>
+{% endif %}
+
+<section class="section geo-cta-section">
+    <div class="container text-center">
+        <h2>{{ page.cta_title }}</h2>
+        <p class="lead">{{ page.cta_text }}</p>
+        <a href="{{ url_for('contacto', servicio=page.get('contact_servicio'), origen=page.contact_origen) }}" class="btn-primary btn-lg">Solicitar consulta</a>
+        <p class="hero-microcopy">Respuesta en menos de 24 h · Primera consulta sin compromiso</p>
+    </div>
+</section>
+{% endblock %}
