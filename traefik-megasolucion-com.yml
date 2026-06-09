@@ -1,20 +1,36 @@
-# megasolucion.com + www → proxy Flask (301 a .es en la app; GSC validado)
-# NO usar "redirect:" — esta versión Traefik no lo soporta (rompe todo con 404)
+# megasolucion.com + www → 301 directo a megasolucion.es (Traefik, sin backend Flask)
+# Un solo salto HTTP/HTTPS .com → https://megasolucion.es (mejor señal para Google)
 #
-# Copiar: sudo cp traefik-megasolucion-com.yml /etc/dokploy/traefik/dynamic/megasolucion-com.yml
+# Copiar: docker run --rm -v $PWD/traefik-megasolucion-com.yml:/src/f.yml:ro \
+#           -v /etc/dokploy/traefik/dynamic:/dest alpine cp /src/f.yml /dest/megasolucion-com.yml
 #         docker restart dokploy-traefik
 http:
+  middlewares:
+    megasolucion-com-http-to-es:
+      redirectRegex:
+        regex: "^http://(?:www\\.)?megasolucion\\.com(.*)"
+        replacement: "https://megasolucion.es${1}"
+        permanent: true
+    megasolucion-com-https-to-es:
+      redirectRegex:
+        regex: "^https://(?:www\\.)?megasolucion\\.com(.*)"
+        replacement: "https://megasolucion.es${1}"
+        permanent: true
+
   routers:
     megasolucion-com-http:
       rule: Host(`megasolucion.com`) || Host(`www.megasolucion.com`)
-      service: megasolucion-com-service
       middlewares:
-        - redirect-to-https
+        - megasolucion-com-http-to-es
+      service: megasolucion-com-noop
       entryPoints:
         - web
+      priority: 200
     megasolucion-com-https:
       rule: Host(`megasolucion.com`) || Host(`www.megasolucion.com`)
-      service: megasolucion-com-service
+      middlewares:
+        - megasolucion-com-https-to-es
+      service: megasolucion-com-noop
       entryPoints:
         - websecure
       tls:
@@ -23,12 +39,10 @@ http:
           - main: megasolucion.com
             sans:
               - www.megasolucion.com
+      priority: 200
 
   services:
-    megasolucion-com-service:
+    megasolucion-com-noop:
       loadBalancer:
         servers:
-          - url: http://10.0.0.1:5000
-        passHostHeader: true
-        responseForwarding:
-          flushInterval: 1s
+          - url: http://127.0.0.1:9

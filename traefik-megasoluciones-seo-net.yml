@@ -1,0 +1,23 @@
+# Sitemap y robots de la web corporativa también en megasolucion.net (Odoo usa el resto del dominio)
+# Copiar: docker run --rm -v $PWD/traefik-megasoluciones-seo-net.yml:/src/f.yml:ro \
+#           -v /etc/dokploy/traefik/dynamic:/dest alpine cp /src/f.yml /dest/megasoluciones-seo-net.yml
+http:
+  routers:
+    megasoluciones-seo-net-http:
+      rule: Host(`megasolucion.net`) && (Path(`/sitemap.xml`) || Path(`/robots.txt`))
+      priority: 2000
+      service: megasoluciones-web-megasoluciones-6gi9az-service-1
+      middlewares:
+        - redirect-to-https
+      entryPoints:
+        - web
+    megasoluciones-seo-net-https:
+      rule: Host(`megasolucion.net`) && (Path(`/sitemap.xml`) || Path(`/robots.txt`))
+      priority: 2000
+      service: megasoluciones-web-megasoluciones-6gi9az-service-1
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: megasolucion.net
