@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logos Vectoriales MEGASOLUCIONES</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .container.dark {
+            background: #0f172a;
+            color: white;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .preview {
+            margin: 20px 0;
+            padding: 40px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .checkered {
+            background-image: 
+                linear-gradient(45deg, #eee 25%, transparent 25%),
+                linear-gradient(-45deg, #eee 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #eee 75%),
+                linear-gradient(-45deg, transparent 75%, #eee 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        .btn {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Logos Vectoriales (SVG)</h1>
+    
+    <div class="container">
+        <h2>Versión Clara (Fondo claro)</h2>
+        <div class="preview checkered">
+            <img src="logo-vector.svg" alt="Logo Megasoluciones Vector" style="max-width: 100%;">
+        </div>
+        <div style="text-align: center;">
+            <a href="logo-vector.svg" download class="btn">📥 Descargar SVG (Claro)</a>
+        </div>
+    </div>
+
+    <div class="container dark">
+        <h2>Versión Oscura (Fondo oscuro)</h2>
+        <div class="preview" style="background: #1e293b;">
+            <img src="logo-vector-dark.svg" alt="Logo Megasoluciones Vector Dark" style="max-width: 100%;">
+        </div>
+        <div style="text-align: center;">
+            <a href="logo-vector-dark.svg" download class="btn">📥 Descargar SVG (Oscuro)</a>
+        </div>
+    </div>
+</body>
+</html>

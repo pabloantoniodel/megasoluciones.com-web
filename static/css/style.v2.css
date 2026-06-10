@@ -79,7 +79,9 @@ a {
 }
 
 .logo img {
-    height: 96px;
+    /* SVG recortado al contenido: 50px equivalen visualmente a los 96px del PNG con márgenes */
+    height: 50px;
+    margin: 23px 0;
     transition: transform 0.3s ease;
     display: block;
 }
@@ -1009,8 +1011,8 @@ a {
 }
 
 .footer-logo {
-    height: 100px;
-    margin-bottom: 1rem;
+    height: 52px;
+    margin: 24px 0 1rem;
 }
 
 .footer-description {
@@ -1360,7 +1362,8 @@ a {
     }
 
     .logo img {
-        height: 75px;
+        height: 39px;
+        margin: 18px 0;
     }
 
     .nav-links {
