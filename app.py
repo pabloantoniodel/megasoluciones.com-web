@@ -9,6 +9,10 @@ from time import time
 
 from geo_pages import GEO_HUB, GEO_INDEX_GROUPS, geo_sitemap_entries, get_geo_page
 
+from yt_posts import db as yt_db
+from yt_posts import stats as yt_stats
+from yt_posts.admin import admin_bp
+
 from spam_protection import (
     HONEYPOT_FIELD,
     check_akismet_spam,
@@ -46,6 +50,9 @@ def load_ga4_id() -> str | None:
 
 GSC_VERIFICATION_TOKEN = load_gsc_verification_token()
 GA4_MEASUREMENT_ID = load_ga4_id()
+
+LINKEDIN_URL = 'https://www.linkedin.com/showcase/megasolucion'
+X_URL = 'https://x.com/Megasolucion'
 TURNSTILE_SITE_KEY = load_turnstile_site_key()
 TURNSTILE_SECRET_KEY = load_turnstile_secret_key()
 AKISMET_API_KEY = load_akismet_api_key()
@@ -77,6 +84,34 @@ SITEMAP_PAGES = [
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'megasoluciones-secret-key-2026')
 
+app.register_blueprint(admin_bp)
+yt_db.init_db()
+
+
+@app.after_request
+def track_visit(response):
+    """Estadísticas propias (tipo WP Statistics). Informado en /privacidad (RGPD)."""
+    try:
+        ua = request.headers.get('User-Agent', '')
+        if yt_stats.should_track(
+            request.path, request.method, response.status_code,
+            response.content_type or '', ua,
+        ):
+            client_ip = get_client_ip(
+                request.headers.get('X-Forwarded-For'),
+                request.remote_addr,
+            )
+            yt_stats.track(
+                path=request.path,
+                referrer=request.headers.get('Referer', ''),
+                ip=client_ip or '',
+                user_agent=ua,
+                own_host=(request.host or '').split(':')[0],
+            )
+    except Exception as e:
+        print(f'[stats] after_request error: {e}')
+    return response
+
 
 COM_HOSTS = frozenset({'megasolucion.com', 'www.megasolucion.com'})
 
@@ -92,6 +127,24 @@ def redirect_to_primary_host():
         if request.query_string:
             target = f"{target}?{request.query_string.decode()}"
         return redirect(target, code=301)
+
+
+LEGACY_REDIRECTS = {
+    '/proyectos': '/portfolio',
+    '/proyectos/': '/portfolio',
+    '/livechat': '/contacto',
+    '/livechat/': '/contacto',
+    '/blog': '/recursos',
+    '/blog/': '/recursos',
+}
+
+
+@app.before_request
+def redirect_legacy_urls():
+    """301 de URLs antiguas con enlaces externos para conservar el SEO."""
+    target = LEGACY_REDIRECTS.get(request.path)
+    if target:
+        return redirect(f"{HREFLANG_ES}{target}", code=301)
 
 
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
@@ -553,8 +606,25 @@ def get_servicio(slug: str) -> dict | None:
     return next((s for s in SERVICIOS if s['slug'] == slug), None)
 
 
+def todos_los_recursos() -> list[dict]:
+    """Artículos estáticos + posts de vídeo publicados, ordenados por fecha desc."""
+    try:
+        posts = yt_db.posts_publicados()
+    except Exception as e:
+        print(f'[yt_posts] Error leyendo posts publicados: {e}')
+        posts = []
+    return sorted(RECURSOS + posts, key=lambda r: r.get('fecha', ''), reverse=True)
+
+
 def get_recurso(slug: str) -> dict | None:
-    return next((r for r in RECURSOS if r['slug'] == slug), None)
+    articulo = next((r for r in RECURSOS if r['slug'] == slug), None)
+    if articulo:
+        return articulo
+    try:
+        return yt_db.get_post_publicado(slug)
+    except Exception as e:
+        print(f'[yt_posts] Error leyendo post {slug}: {e}')
+        return None
 
 
 def get_caso(slug: str) -> dict | None:
@@ -570,12 +640,24 @@ def render_recurso_body(slug: str) -> str:
 
 
 def all_sitemap_paths() -> list[dict]:
-    pages = list(SITEMAP_PAGES)
-    for r in RECURSOS:
-        pages.append({'path': f"/recursos/{r['slug']}", 'changefreq': 'monthly', 'priority': '0.75'})
+    today = datetime.now().strftime('%Y-%m-%d')
+    pages = [{**p, 'lastmod': today} for p in SITEMAP_PAGES]
+    for r in todos_los_recursos():
+        pages.append({
+            'path': f"/recursos/{r['slug']}",
+            'changefreq': 'monthly',
+            'priority': '0.75',
+            'lastmod': r.get('fecha') or today,
+        })
     for p in PORTFOLIO:
-        pages.append({'path': f"/portfolio/{p['slug']}", 'changefreq': 'monthly', 'priority': '0.8'})
-    pages.extend(geo_sitemap_entries())
+        pages.append({
+            'path': f"/portfolio/{p['slug']}",
+            'changefreq': 'monthly',
+            'priority': '0.8',
+            'lastmod': today,
+        })
+    for entry in geo_sitemap_entries():
+        pages.append({**entry, 'lastmod': today})
     return pages
 
 
@@ -680,7 +762,7 @@ def testimonios():
 def recursos():
     return render_template(
         'recursos.html',
-        articulos=RECURSOS,
+        articulos=todos_los_recursos(),
         breadcrumbs=[{'name': 'Recursos', 'url': canonical_url()}],
     )
 
@@ -690,7 +772,8 @@ def recurso_articulo(slug):
     articulo = get_recurso(slug)
     if not articulo:
         abort(404)
-    cuerpo = render_recurso_body(slug)
+    # Posts de vídeo llevan el cuerpo en BD; los artículos estáticos, en content/recursos/
+    cuerpo = articulo.get('cuerpo') or render_recurso_body(slug)
     return render_template(
         'recurso-articulo.html',
         articulo=articulo,
@@ -889,10 +972,14 @@ def health():
 def robots_txt():
     host = (request.host or '').split(':')[0].lower()
     if host in COM_HOSTS:
+        # Permitimos el rastreo para que Google descubra el 301 → megasolucion.es
+        # y consolide la señal canónica. Sin Allow, no rastrea y nunca llega a ver
+        # la redirección.
         body = (
-            "# megasolucion.com — no indexar; dominio redirige a megasolucion.es\n"
+            "# megasolucion.com — alias 301 → megasolucion.es (dominio principal)\n"
             "User-agent: *\n"
-            "Disallow: /\n"
+            "Allow: /\n"
+            f"\nSitemap: {HREFLANG_ES}/sitemap.xml\n"
         )
     else:
         body = (
@@ -900,6 +987,8 @@ def robots_txt():
             "User-agent: *\n"
             "Allow: /\n"
             "Disallow: /health\n"
+            "Disallow: /admin\n"
+            "Disallow: /admin/\n"
             f"\nSitemap: {HREFLANG_ES}/sitemap.xml\n"
         )
     return Response(body, mimetype='text/plain')
@@ -908,10 +997,11 @@ def robots_txt():
 @app.route('/sitemap.xml')
 def sitemap_xml():
     base = sitemap_base_url()
-    lastmod = datetime.now().strftime('%Y-%m-%d')
+    today = datetime.now().strftime('%Y-%m-%d')
     urls = []
     for page in all_sitemap_paths():
         loc = f"{base}{page['path']}"
+        lastmod = page.get('lastmod') or today
         urls.append(
             "  <url>\n"
             f"    <loc>{loc}</loc>\n"
@@ -938,6 +1028,8 @@ def inject_globals():
         'hreflang_urls': hreflang_urls(),
         'site_base_url': sitemap_base_url(),
         'ga4_measurement_id': GA4_MEASUREMENT_ID,
+        'linkedin_url': LINKEDIN_URL,
+        'x_url': X_URL,
         'servicios': SERVICIOS,
     }
 

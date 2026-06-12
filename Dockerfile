@@ -15,6 +15,11 @@ COPY requirements.txt .
 # Instalar dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Chromium headless para leer transcripciones de YouTube como un navegador real
+# (YouTube bloquea las peticiones directas de la API desde IPs de datacenter)
+RUN python -m playwright install --with-deps chromium-headless-shell \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copiar código de la aplicación
 COPY . .
 

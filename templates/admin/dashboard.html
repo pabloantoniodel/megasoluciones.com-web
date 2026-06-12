@@ -1,0 +1,70 @@
+{% extends 'admin/base.html' %}
+{% block title %}Posts YouTube{% endblock %}
+{% block content %}
+
+<div class="card">
+    <h2>Canales vigilados</h2>
+    {% if canales %}
+    <table>
+        <tr><th>Canal</th><th>Estado</th><th>Último chequeo</th><th></th></tr>
+        {% for c in canales %}
+        <tr>
+            <td><a href="{{ c['url'] }}" target="_blank" rel="noopener">{{ c['nombre'] or c['channel_id'] }}</a></td>
+            <td>{% if c['activo'] %}<span class="badge publicado">activo</span>{% else %}<span class="badge rechazado">pausado</span>{% endif %}</td>
+            <td class="muted">{{ c['ultimo_chequeo'] or 'nunca' }}</td>
+            <td style="text-align: right; white-space: nowrap;">
+                <form class="inline-form" method="post" action="{{ url_for('admin.canal_toggle', canal_id=c['id']) }}">
+                    <button class="btn sm gray" type="submit">{% if c['activo'] %}Pausar{% else %}Activar{% endif %}</button>
+                </form>
+                <form class="inline-form" method="post" action="{{ url_for('admin.canal_delete', canal_id=c['id']) }}"
+                      onsubmit="return confirm('¿Eliminar este canal? Los posts ya generados se conservan.');">
+                    <button class="btn sm red" type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p class="muted">Todavía no hay canales. Añade el primero pegando la URL del canal de YouTube.</p>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('admin.canal_add') }}" style="display: flex; gap: 10px; margin-top: 16px;">
+        <input type="url" name="url" placeholder="https://www.youtube.com/@canal o URL /channel/UC…" required style="flex: 1;">
+        <button class="btn" type="submit">Añadir canal</button>
+    </form>
+
+    <form method="post" action="{{ url_for('admin.chequear') }}" style="margin-top: 12px;">
+        <button class="btn green" type="submit">Comprobar vídeos nuevos ahora</button>
+        <span class="muted">(el worker también lo hace automáticamente cada 30 min)</span>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Vídeos y posts ({{ total }})</h2>
+    <p style="margin-bottom: 14px;">
+        <a href="{{ url_for('admin.dashboard') }}" {% if not estado_activo %}style="font-weight:700"{% endif %}>Todos</a>
+        {% for est in ['borrador', 'publicado', 'nuevo', 'transcrito', 'error', 'rechazado'] %}
+        · <a href="{{ url_for('admin.dashboard', estado=est) }}" {% if estado_activo == est %}style="font-weight:700"{% endif %}>
+            {{ est }}{% if conteos.get(est) %} ({{ conteos[est] }}){% endif %}</a>
+        {% endfor %}
+    </p>
+    {% if videos %}
+    <table>
+        <tr><th>Vídeo</th><th>Canal</th><th>Estado</th><th>Post</th><th></th></tr>
+        {% for v in videos %}
+        <tr>
+            <td><a href="{{ v['url'] }}" target="_blank" rel="noopener">{{ v['titulo_video'] }}</a>
+                <div class="muted">{{ (v['publicado_video'] or '')[:10] }}</div></td>
+            <td>{{ v['canal_nombre'] or '—' }}</td>
+            <td><span class="badge {{ v['estado'] }}">{{ v['estado'] }}</span></td>
+            <td>{% if v['post_titulo'] %}{{ v['post_titulo'] }}{% else %}<span class="muted">—</span>{% endif %}</td>
+            <td style="text-align: right;"><a class="btn sm" href="{{ url_for('admin.video_detalle', vid=v['id']) }}">Revisar</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p class="muted">No hay vídeos{% if estado_activo %} en estado «{{ estado_activo }}»{% endif %}.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

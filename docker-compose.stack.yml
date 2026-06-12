@@ -31,6 +31,20 @@ services:
       - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY:-}
       - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY:-}
       - AKISMET_API_KEY=${AKISMET_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
+      - DATA_DIR=/app/data
+      - YT_PROXY=${YT_PROXY:-}
+      - WEBSHARE_PROXY_USERNAME=${WEBSHARE_PROXY_USERNAME:-}
+      - WEBSHARE_PROXY_PASSWORD=${WEBSHARE_PROXY_PASSWORD:-}
+      - LINKEDIN_ACCESS_TOKEN=${LINKEDIN_ACCESS_TOKEN:-}
+      - LINKEDIN_REFRESH_TOKEN=${LINKEDIN_REFRESH_TOKEN:-}
+      - LINKEDIN_CLIENT_ID=${LINKEDIN_CLIENT_ID:-}
+      - LINKEDIN_CLIENT_SECRET=${LINKEDIN_CLIENT_SECRET:-}
+      - LINKEDIN_ORG_ID=${LINKEDIN_ORG_ID:-}
+      - LINKEDIN_API_VERSION=${LINKEDIN_API_VERSION:-202501}
+    volumes:
+      - megasoluciones_data:/app/data
     deploy:
       replicas: 1
       restart_policy:
@@ -55,6 +69,62 @@ services:
         - "traefik.docker.network=dokploy-network"
     networks:
       - dokploy-network
+
+  worker:
+    image: megasoluciones:latest
+    command: ["python", "-m", "yt_posts.worker"]
+    environment:
+      - MAIL_SERVER=${MAIL_SERVER:-smtp.serviciodecorreo.es}
+      - MAIL_PORT=${MAIL_PORT:-465}
+      - MAIL_USE_TLS=${MAIL_USE_TLS:-False}
+      - MAIL_USE_SSL=${MAIL_USE_SSL:-True}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_DEFAULT_SENDER=${MAIL_DEFAULT_SENDER:-info@megasolucion.net}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - DATA_DIR=/app/data
+      - YT_WORKER_INTERVAL_MIN=${YT_WORKER_INTERVAL_MIN:-30}
+      - YT_PROXY=${YT_PROXY:-}
+      - WEBSHARE_PROXY_USERNAME=${WEBSHARE_PROXY_USERNAME:-}
+      - WEBSHARE_PROXY_PASSWORD=${WEBSHARE_PROXY_PASSWORD:-}
+    volumes:
+      - megasoluciones_data:/app/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+      labels:
+        - "traefik.enable=false"
+    networks:
+      - dokploy-network
+
+  linkedin_worker:
+    image: megasoluciones:latest
+    command: ["python", "-m", "yt_posts.linkedin_worker"]
+    environment:
+      - DATA_DIR=/app/data
+      - LINKEDIN_ACCESS_TOKEN=${LINKEDIN_ACCESS_TOKEN:-}
+      - LINKEDIN_REFRESH_TOKEN=${LINKEDIN_REFRESH_TOKEN:-}
+      - LINKEDIN_CLIENT_ID=${LINKEDIN_CLIENT_ID:-}
+      - LINKEDIN_CLIENT_SECRET=${LINKEDIN_CLIENT_SECRET:-}
+      - LINKEDIN_ORG_ID=${LINKEDIN_ORG_ID:-}
+      - LINKEDIN_API_VERSION=${LINKEDIN_API_VERSION:-202501}
+      - LINKEDIN_WORKER_INTERVAL_MIN=${LINKEDIN_WORKER_INTERVAL_MIN:-15}
+    volumes:
+      - megasoluciones_data:/app/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+      labels:
+        - "traefik.enable=false"
+    networks:
+      - dokploy-network
+
+volumes:
+  megasoluciones_data:
 
 networks:
   dokploy-network:

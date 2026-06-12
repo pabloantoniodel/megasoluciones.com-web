@@ -1,0 +1,79 @@
+{% extends 'admin/base.html' %}
+{% block title %}Revisar post{% endblock %}
+{% block content %}
+
+<p style="margin-bottom: 14px;"><a href="{{ url_for('admin.dashboard') }}">← Volver al listado</a></p>
+
+<div class="card">
+    <h1>{{ video['titulo_video'] }} <span class="badge {{ video['estado'] }}">{{ video['estado'] }}</span></h1>
+    <p class="muted">
+        Canal: {{ video['canal_nombre'] or '—' }} ·
+        <a href="{{ video['url'] }}" target="_blank" rel="noopener">Ver vídeo en YouTube ↗</a>
+        {% if video['estado'] == 'publicado' %} ·
+        <a href="/recursos/{{ video['post_slug'] }}" target="_blank">Ver post publicado ↗</a>
+        {% endif %}
+    </p>
+    {% if video['error_motivo'] %}
+    <div class="flash error" style="margin-top: 12px;">{{ video['error_motivo'] }}</div>
+    {% endif %}
+
+    <div style="margin: 16px 0;">
+        <iframe width="380" height="214" src="https://www.youtube-nocookie.com/embed/{{ video['video_id'] }}"
+                title="{{ video['titulo_video'] }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        {% if video['post_titulo'] and video['estado'] != 'publicado' %}
+        <form class="inline-form" method="post" action="{{ url_for('admin.video_publicar', vid=video['id']) }}"
+              onsubmit="return confirm('¿Publicar este post en la web?');">
+            <button class="btn green" type="submit">✔ Publicar</button>
+        </form>
+        {% endif %}
+        <form class="inline-form" method="post" action="{{ url_for('admin.video_regenerar', vid=video['id']) }}"
+              onsubmit="return confirm('Se volverá a generar el post con IA y se perderán las ediciones manuales. ¿Continuar?');">
+            <button class="btn" type="submit">↻ Regenerar con IA</button>
+        </form>
+        {% if video['estado'] not in ('rechazado', 'publicado') %}
+        <form class="inline-form" method="post" action="{{ url_for('admin.video_rechazar', vid=video['id']) }}">
+            <button class="btn red" type="submit">✕ Rechazar</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+{% if video['post_titulo'] or video['post_cuerpo'] %}
+<div class="card">
+    <h2>Editar borrador</h2>
+    <form method="post" action="{{ url_for('admin.video_guardar', vid=video['id']) }}">
+        <label>Título</label>
+        <input type="text" name="post_titulo" value="{{ video['post_titulo'] or '' }}">
+        <label>Resumen (metadescripción)</label>
+        <textarea name="post_resumen" style="min-height: 60px;">{{ video['post_resumen'] or '' }}</textarea>
+        <label>Cuerpo (HTML)</label>
+        <textarea name="post_cuerpo" style="min-height: 320px; font-family: monospace; font-size: 13px;">{{ video['post_cuerpo'] or '' }}</textarea>
+        <div style="margin-top: 14px;">
+            <button class="btn" type="submit">Guardar cambios</button>
+            <span class="muted">URL: /recursos/{{ video['post_slug'] or '(pendiente)' }}</span>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Vista previa</h2>
+    <h1 style="margin-bottom: 8px;">{{ video['post_titulo'] }}</h1>
+    <p class="muted" style="margin-bottom: 16px;">{{ video['post_resumen'] }}</p>
+    <div style="line-height: 1.7;">{{ (video['post_cuerpo'] or '') | safe }}</div>
+</div>
+{% endif %}
+
+{% if video['transcripcion'] %}
+<div class="card">
+    <h2>Transcripción ({{ video['transcripcion'] | length }} caracteres)</h2>
+    <details>
+        <summary class="muted" style="cursor: pointer;">Mostrar transcripción completa</summary>
+        <p class="muted" style="margin-top: 10px; line-height: 1.6;">{{ video['transcripcion'] }}</p>
+    </details>
+</div>
+{% endif %}
+
+{% endblock %}

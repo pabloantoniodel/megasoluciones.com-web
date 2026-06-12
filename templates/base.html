@@ -23,6 +23,7 @@
     <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='images/hero-megasoluciones.png', _external=True) }}{% endblock %}">
 
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Megasolucion">
     <meta name="twitter:title" content="{% block twitter_title %}{{ self.og_title() }}{% endblock %}">
     <meta name="twitter:description" content="{% block twitter_description %}{{ self.og_description() }}{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ self.og_image() }}{% endblock %}">
@@ -63,7 +64,7 @@
       "areaServed": ["ES", "LATAM"],
       "knowsAbout": ["Inteligencia artificial", "Automatización de procesos con IA", "Chatbots IA", "Agentes de IA", "Análisis de datos con IA", "Desarrollo de software", "Integración APIs"],
       "serviceType": ["Agencia IA", "Soluciones IA empresas", "Automatización IA", "Chatbots", "Agentes IA", "Desarrollo Software", "Consultoría IA"],
-      "sameAs": ["https://www.linkedin.com/company/megasoluciones", "https://github.com/megasoluciones"]
+      "sameAs": ["{{ linkedin_url }}", "{{ x_url }}", "https://github.com/megasoluciones"]
     }
     </script>
 
@@ -125,9 +126,8 @@
                         Desarrollo de software a medida y automatizaciones empresariales para empresas en España y LATAM.
                     </p>
                     <div class="social-links">
-                        <a href="#" aria-label="LinkedIn">in</a>
-                        <a href="#" aria-label="Twitter">𝕏</a>
-                        <a href="#" aria-label="GitHub">⚙</a>
+                        <a href="{{ linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+                        <a href="{{ x_url }}" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">𝕏</a>
                     </div>
                 </div>
 

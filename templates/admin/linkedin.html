@@ -1,0 +1,95 @@
+{% extends 'admin/base.html' %}
+{% block title %}LinkedIn{% endblock %}
+{% block content %}
+<h1>Publicaciones LinkedIn</h1>
+
+<div class="card">
+    <h2>Conexión</h2>
+    {% if configured %}
+    <p class="muted" style="margin-bottom:12px;">
+        ✅ Configurado · Org ID: <code>{{ config.org_id }}</code>
+        · Token: {{ 'sí' if config.has_token else 'no' }}
+        · Refresh: {{ 'sí' if config.has_refresh else 'no' }}
+        · API {{ config.api_version }}
+    </p>
+    <form method="post" action="{{ url_for('admin.linkedin_test') }}" class="inline-form">
+        <button type="submit" class="btn gray sm">Probar conexión</button>
+    </form>
+    <form method="post" action="{{ url_for('admin.linkedin_run_due') }}" class="inline-form" style="margin-left:8px;">
+        <button type="submit" class="btn sm">Publicar programadas ahora</button>
+    </form>
+    {% else %}
+    <p class="muted" style="margin-bottom:12px;">
+        ⚠️ Faltan claves. Añade en el servidor (archivo <code>.env</code> o <code>linkedin-access-token.txt</code>):
+    </p>
+    <pre style="background:#f8fafc;padding:12px;border-radius:6px;font-size:12px;overflow-x:auto;">LINKEDIN_ACCESS_TOKEN=tu_token
+LINKEDIN_ORG_ID=12345678
+LINKEDIN_CLIENT_ID=...
+LINKEDIN_CLIENT_SECRET=...
+LINKEDIN_REFRESH_TOKEN=...</pre>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2>Cola de publicaciones</h2>
+    <p class="muted" style="margin-bottom:16px;">
+        Programa cada post con fecha/hora (ISO, ej. <code>2026-06-17T10:00:00</code>).
+        El worker publica automáticamente cuando llega la hora.
+    </p>
+    <table>
+        <tr>
+            <th>Título</th>
+            <th>Estado</th>
+            <th>Programada</th>
+            <th>Acciones</th>
+        </tr>
+        {% for p in posts %}
+        <tr>
+            <td>
+                <strong>{{ p.title or p.id }}</strong>
+                {% if p.image %}
+                <br><span class="muted">{{ p.image }}</span>
+                {% endif %}
+                {% if p.error %}
+                <br><span style="color:#991b1b;font-size:12px;">{{ p.error }}</span>
+                {% endif %}
+                {% if p.linkedin_post_urn %}
+                <br><span class="muted" style="font-size:11px;">{{ p.linkedin_post_urn }}</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if p.status == 'published' %}
+                <span class="badge publicado">Publicada</span>
+                {% elif p.status == 'failed' %}
+                <span class="badge error">Error</span>
+                {% else %}
+                <span class="badge borrador">Pendiente</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if p.published_at %}
+                <span class="muted">✓ {{ p.published_at[:16] }}</span>
+                {% else %}
+                <form method="post" action="{{ url_for('admin.linkedin_schedule', post_id=p.id) }}" style="display:flex;gap:6px;align-items:center;">
+                    <input type="datetime-local" name="scheduled_at" value="{{ p.scheduled_at[:16] if p.scheduled_at else '' }}" style="width:auto;min-width:180px;">
+                    <button type="submit" class="btn sm gray">Guardar</button>
+                </form>
+                {% endif %}
+            </td>
+            <td>
+                {% if p.status != 'published' %}
+                <form method="post" action="{{ url_for('admin.linkedin_publish_now', post_id=p.id) }}" class="inline-form"
+                      onsubmit="return confirm('¿Publicar ahora en LinkedIn?');">
+                    <button type="submit" class="btn green sm">Publicar ya</button>
+                </form>
+                {% else %}
+                <span class="muted">—</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="muted">Sin publicaciones en cola</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

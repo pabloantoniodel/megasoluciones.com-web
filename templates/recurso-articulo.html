@@ -24,6 +24,20 @@
   "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ canonical_url }}"}
 }
 </script>
+{% if articulo.video_id %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": {{ articulo.video_titulo|tojson }},
+  "description": {{ articulo.resumen|tojson }},
+  "thumbnailUrl": "https://i.ytimg.com/vi/{{ articulo.video_id }}/hqdefault.jpg",
+  "uploadDate": {{ articulo.fecha|tojson }},
+  "embedUrl": "https://www.youtube-nocookie.com/embed/{{ articulo.video_id }}",
+  "contentUrl": {{ articulo.video_url|tojson }}
+}
+</script>
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -42,9 +56,34 @@
             <h1>{{ articulo.titulo }}</h1>
             <p class="lead">{{ articulo.resumen }}</p>
         </header>
+        {% if articulo.video_id %}
+        <div class="articulo-video" style="margin: 2rem 0;">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
+                <iframe src="https://www.youtube-nocookie.com/embed/{{ articulo.video_id }}"
+                        title="{{ articulo.video_titulo }}"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                        loading="lazy" allowfullscreen></iframe>
+            </div>
+            <p style="margin-top: .75rem; font-size: .9rem; color: #64748b;">
+                Fuente: vídeo «<a href="{{ articulo.video_url }}" target="_blank" rel="noopener nofollow">{{ articulo.video_titulo }}</a>»
+                {% if articulo.canal_nombre %}
+                del canal <a href="{{ articulo.canal_url }}" target="_blank" rel="noopener nofollow">{{ articulo.canal_nombre }}</a>
+                {% endif %}
+                en YouTube.
+            </p>
+        </div>
+        {% endif %}
         <div class="articulo-body">
             {{ cuerpo|safe }}
         </div>
+        {% if articulo.video_id %}
+        <blockquote style="margin: 2rem 0; padding: 1rem 1.5rem; border-left: 4px solid #3b82f6; background: #f8fafc; border-radius: 0 8px 8px 0;">
+            Este artículo es un resumen elaborado por Megasoluciones a partir del vídeo
+            «<a href="{{ articulo.video_url }}" target="_blank" rel="noopener nofollow">{{ articulo.video_titulo }}</a>»
+            {% if articulo.canal_nombre %}publicado por <a href="{{ articulo.canal_url }}" target="_blank" rel="noopener nofollow">{{ articulo.canal_nombre }}</a>{% endif %}.
+            Todo el crédito del contenido original corresponde a su autor.
+        </blockquote>
+        {% endif %}
         <div class="articulo-cta" style="margin-top: 2rem;">
             <a href="{{ url_for('contacto', servicio=articulo.cta_servicio) }}" class="btn-primary btn-lg">Consulta sobre este tema</a>
             {% if articulo.cluster == 'desarrollo' %}
