@@ -60,6 +60,7 @@
             <a href="{{ url_for('admin.dashboard') }}" {% if request.endpoint == 'admin.dashboard' %}class="active"{% endif %}>Posts YouTube</a>
             <a href="{{ url_for('admin.estadisticas') }}" {% if request.endpoint == 'admin.estadisticas' %}class="active"{% endif %}>Estadísticas</a>
             <a href="{{ url_for('admin.linkedin_panel') }}" {% if request.endpoint and request.endpoint.startswith('admin.linkedin') %}class="active"{% endif %}>LinkedIn</a>
+            <a href="{{ url_for('admin.social_panel') }}" {% if request.endpoint and request.endpoint.startswith('admin.social') %}class="active"{% endif %}>Redes sociales</a>
             <a href="/" target="_blank">Ver web ↗</a>
         </nav>
         {% if session.get('admin_logged') %}

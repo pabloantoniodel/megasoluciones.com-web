@@ -22,11 +22,20 @@
                 title="{{ video['titulo_video'] }}" frameborder="0" allowfullscreen></iframe>
     </div>
 
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
         {% if video['post_titulo'] and video['estado'] != 'publicado' %}
         <form class="inline-form" method="post" action="{{ url_for('admin.video_publicar', vid=video['id']) }}"
-              onsubmit="return confirm('¿Publicar este post en la web?');">
-            <button class="btn green" type="submit">✔ Publicar</button>
+              onsubmit="return confirm('¿Publicar en la web?');" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+            <button class="btn green" type="submit">✔ Publicar en web</button>
+            <label style="margin:0;font-weight:500;font-size:13px;display:flex;align-items:center;gap:6px;">
+                <input type="checkbox" name="publish_twitter" value="1"> 𝕏 Twitter
+            </label>
+            <label style="margin:0;font-weight:500;font-size:13px;display:flex;align-items:center;gap:6px;">
+                <input type="checkbox" name="publish_instagram" value="1"> Instagram
+            </label>
+            <label style="margin:0;font-weight:500;font-size:13px;display:flex;align-items:center;gap:6px;">
+                <input type="checkbox" name="publish_linkedin" value="1"> LinkedIn
+            </label>
         </form>
         {% endif %}
         <form class="inline-form" method="post" action="{{ url_for('admin.video_regenerar', vid=video['id']) }}"
@@ -40,6 +49,32 @@
         {% endif %}
     </div>
 </div>
+
+{% if video['estado'] == 'publicado' %}
+<div class="card">
+    <h2>Redes sociales</h2>
+    <p class="muted" style="margin-bottom:12px;">
+        𝕏 {% if twitter_configured %}✓{% else %}sin API{% endif %}
+        · Instagram {% if instagram_configured %}✓{% else %}sin API{% endif %}
+        · LinkedIn {% if linkedin_configured %}✓{% else %}sin API{% endif %}
+    </p>
+    {% if not social_posts %}
+    <p class="muted" style="margin-bottom:12px;">Todavía no hay borradores para este vídeo.</p>
+    <form method="post" action="{{ url_for('admin.video_social_prepare', vid=video['id']) }}">
+        <button type="submit" class="btn">Preparar 𝕏, Instagram y LinkedIn</button>
+    </form>
+    {% else %}
+    <form method="post" action="{{ url_for('admin.video_social_prepare', vid=video['id']) }}" class="inline-form" style="margin-bottom:16px;">
+        <input type="hidden" name="regenerate" value="1">
+        <button type="submit" class="btn sm gray">↻ Regenerar textos (conserva imágenes personalizadas)</button>
+    </form>
+    {% for p in social_posts %}
+    {% include 'admin/_social_post_card.html' %}
+    {% endfor %}
+    <p style="margin-top:8px;"><a href="{{ url_for('admin.social_panel') }}">Ver panel completo de redes →</a></p>
+    {% endif %}
+</div>
+{% endif %}
 
 {% if video['post_titulo'] or video['post_cuerpo'] %}
 <div class="card">

@@ -7,8 +7,8 @@
 ## 🌐 INFORMACIÓN DE LA WEB
 
 ### URLs Activas
-- **Principal**: https://megasolucion.com
-- **WWW**: https://www.megasolucion.com
+- **Principal**: https://megasolucion.es
+- **WWW**: https://www.megasolucion.es
 - **SSL**: ✅ Certificado Let's Encrypt válido
 - **Redirect HTTP→HTTPS**: ✅ Automático
 
@@ -187,7 +187,7 @@ git push -u origin main
 ## 🧪 PROBAR EL ENVÍO DE EMAILS
 
 ### Método 1: Desde la Web
-1. Ve a: https://megasolucion.com/contacto
+1. Ve a: https://megasolucion.es/contacto
 2. Completa el formulario
 3. Click "Enviar Mensaje"
 4. Revisa bandeja: info@megasolucion.net
@@ -298,7 +298,7 @@ megasoluciones/
 ## 📞 DATOS FINALES
 
 ### Web
-- **URL**: https://megasolucion.com
+- **URL**: https://megasolucion.es
 - **Email**: info@megasolucion.net
 - **WhatsApp**: +34 638 568 668
 
@@ -364,7 +364,7 @@ megasoluciones/
 **Tu web de Megasoluciones está 100% operativa** ✅
 
 ### Accede ahora:
-- 🌐 **Web**: https://megasolucion.com
+- 🌐 **Web**: https://megasolucion.es
 - 📧 **Email**: Formulario enviando a info@megasolucion.net
 - 📱 **WhatsApp**: Botón flotante con +34 638 568 668
 - 🔒 **SSL**: Certificado válido de Let's Encrypt

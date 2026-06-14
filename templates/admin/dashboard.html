@@ -50,7 +50,7 @@
     </p>
     {% if videos %}
     <table>
-        <tr><th>Vídeo</th><th>Canal</th><th>Estado</th><th>Post</th><th></th></tr>
+        <tr><th>Vídeo</th><th>Canal</th><th>Estado</th><th>Post</th>{% if estado_activo == 'publicado' %}<th>Redes</th>{% endif %}<th></th></tr>
         {% for v in videos %}
         <tr>
             <td><a href="{{ v['url'] }}" target="_blank" rel="noopener">{{ v['titulo_video'] }}</a>
@@ -58,6 +58,23 @@
             <td>{{ v['canal_nombre'] or '—' }}</td>
             <td><span class="badge {{ v['estado'] }}">{{ v['estado'] }}</span></td>
             <td>{% if v['post_titulo'] %}{{ v['post_titulo'] }}{% else %}<span class="muted">—</span>{% endif %}</td>
+            {% if estado_activo == 'publicado' %}
+            <td style="font-size:12px;white-space:nowrap;">
+                {% set soc = social_by_video.get(v['id'], {}) %}
+                {% set tw = soc.get('twitter') %}
+                {% set ig = soc.get('instagram') %}
+                {% set li = soc.get('linkedin') %}
+                {% if tw %}
+                𝕏 <span class="badge {{ 'publicado' if tw.status == 'published' else 'borrador' }}">{{ tw.status[:4] }}</span>
+                {% else %}<span class="muted">𝕏—</span>{% endif %}
+                {% if ig %}
+                IG <span class="badge {{ 'publicado' if ig.status == 'published' else 'borrador' }}">{{ ig.status[:4] }}</span>
+                {% else %}<span class="muted">IG—</span>{% endif %}
+                {% if li %}
+                in <span class="badge {{ 'publicado' if li.status == 'published' else 'borrador' }}">{{ li.status[:4] }}</span>
+                {% else %}<span class="muted">in—</span>{% endif %}
+            </td>
+            {% endif %}
             <td style="text-align: right;"><a class="btn sm" href="{{ url_for('admin.video_detalle', vid=v['id']) }}">Revisar</a></td>
         </tr>
         {% endfor %}

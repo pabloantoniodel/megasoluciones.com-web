@@ -240,7 +240,7 @@ Te ayudamos a priorizar en una consulta de 30 minutos.
 - Title ≤ 60 caracteres, meta description 150–160 caracteres
 - URLs limpias (`/automatizaciones`, `/desarrollo-software`)
 - Enlaces internos entre servicios, recursos y contacto
-- hreflang es-ES entre megasolucion.es y megasolucion.com
+- hreflang es-ES apuntando solo a megasolucion.es (dominio canónico)
 - Canonical correcto por dominio
 
 **Acciones off-page:**

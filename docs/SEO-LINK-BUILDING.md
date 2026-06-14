@@ -1,6 +1,6 @@
 # SEO Link Building — Megasoluciones (Fase 3)
 
-Plan operativo off-page para megasolucion.es / megasolucion.com. Ejecutar fuera del código; enlazar siempre a landings pilares o artículos, no solo a la home.
+Plan operativo off-page para megasolucion.es. Ejecutar fuera del código; enlazar siempre a landings pilares o artículos, no solo a la home.
 
 ## Prioridad alta — directorios B2B (una vez, perfil completo)
 

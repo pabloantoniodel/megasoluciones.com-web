@@ -30,7 +30,7 @@ echo ""
 
 echo "📋 Para probar el envío de emails:"
 echo ""
-echo "1. Ve a: https://megasolucion.com/contacto"
+echo "1. Ve a: https://megasolucion.es/contacto"
 echo "2. Completa el formulario con:"
 echo "   - Tu nombre"
 echo "   - Tu email"

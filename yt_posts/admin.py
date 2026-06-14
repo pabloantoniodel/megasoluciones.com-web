@@ -55,12 +55,19 @@ def logout():
 @admin_bp.route('/')
 @login_required
 def dashboard():
+    from . import social_queue
+
     estado = request.args.get('estado') or None
     videos = db.list_videos(estado)
     todos = db.list_videos()
     conteos = {}
     for v in todos:
         conteos[v['estado']] = conteos.get(v['estado'], 0) + 1
+    social_by_video: dict[int, dict[str, dict]] = {}
+    for p in social_queue.load_queue():
+        vid = p.get('video_db_id')
+        if vid is not None:
+            social_by_video.setdefault(vid, {})[p['platform']] = p
     return render_template(
         'admin/dashboard.html',
         videos=videos,
@@ -68,6 +75,7 @@ def dashboard():
         conteos=conteos,
         estado_activo=estado,
         total=len(todos),
+        social_by_video=social_by_video,
     )
 
 
@@ -129,7 +137,17 @@ def video_detalle(vid):
     video = db.get_video(vid)
     if not video:
         abort(404)
-    return render_template('admin/video.html', video=video)
+    from . import instagram_client, linkedin_client, social_queue, twitter_client
+    video_d = dict(video)
+    social_posts = social_queue.get_posts_for_video(vid)
+    return render_template(
+        'admin/video.html',
+        video=video_d,
+        social_posts=social_posts,
+        twitter_configured=twitter_client.is_configured(),
+        instagram_configured=instagram_client.is_configured(),
+        linkedin_configured=linkedin_client.is_configured(),
+    )
 
 
 @admin_bp.route('/video/<int:vid>/guardar', methods=['POST'])
@@ -151,15 +169,54 @@ def video_guardar(vid):
 @admin_bp.route('/video/<int:vid>/publicar', methods=['POST'])
 @login_required
 def video_publicar(vid):
+    from . import social_content, social_queue, social_worker
+
     video = db.get_video(vid)
     if not video:
         abort(404)
     if not video['post_titulo'] or not video['post_cuerpo']:
         flash('El post no tiene título o cuerpo. Genera o edita el borrador antes de publicar.', 'error')
         return redirect(url_for('admin.video_detalle', vid=vid))
+
+    publish_twitter = request.form.get('publish_twitter') == '1'
+    publish_instagram = request.form.get('publish_instagram') == '1'
+    publish_linkedin = request.form.get('publish_linkedin') == '1'
+
     db.update_video(vid, estado='publicado', publicado=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     notify.notificar_publicado(video['post_titulo'], video['post_slug'])
-    flash(f"Publicado: /recursos/{video['post_slug']}", 'success')
+
+    video_d = dict(db.get_video(vid))
+    social_msgs = []
+    try:
+        social_content.prepare_for_video(video_d)
+        if publish_twitter:
+            pid = social_queue.post_id(vid, 'twitter')
+            if social_worker.publish_by_id(pid):
+                social_msgs.append('Twitter publicado')
+            else:
+                p = social_queue.get_post(pid)
+                social_msgs.append(f'Twitter: {p.get("error", "error") if p else "error"}')
+        if publish_instagram:
+            pid = social_queue.post_id(vid, 'instagram')
+            if social_worker.publish_by_id(pid):
+                social_msgs.append('Instagram publicado')
+            else:
+                p = social_queue.get_post(pid)
+                social_msgs.append(f'Instagram: {p.get("error", "error") if p else "error"}')
+        if publish_linkedin:
+            pid = social_queue.post_id(vid, 'linkedin')
+            if social_worker.publish_by_id(pid):
+                social_msgs.append('LinkedIn publicado')
+            else:
+                p = social_queue.get_post(pid)
+                social_msgs.append(f'LinkedIn: {p.get("error", "error") if p else "error"}')
+    except Exception as e:
+        social_msgs.append(f'Redes: {e}')
+
+    msg = f"Publicado: /recursos/{video['post_slug']}"
+    if social_msgs:
+        msg += ' · ' + ' · '.join(social_msgs)
+    flash(msg, 'success')
     return redirect(url_for('admin.video_detalle', vid=vid))
 
 
@@ -401,3 +458,149 @@ def linkedin_run_due():
             'success' if not result.get('failed') else 'error',
         )
     return redirect(url_for('admin.linkedin_panel'))
+
+
+# ── Twitter / Instagram (posts de vídeo) ─────────────────────────────
+
+@admin_bp.route('/social')
+@login_required
+def social_panel():
+    from . import instagram_client, linkedin_client, social_queue, twitter_client
+
+    posts = social_queue.load_queue()
+    posts.sort(key=lambda p: (p.get('video_db_id') or 0, p.get('platform', '')))
+    cfg_tw = twitter_client.twitter_config()
+    cfg_ig = instagram_client.instagram_config()
+    cfg_li = linkedin_client.linkedin_config()
+    return render_template(
+        'admin/social.html',
+        posts=posts,
+        twitter_configured=twitter_client.is_configured(),
+        instagram_configured=instagram_client.is_configured(),
+        linkedin_configured=linkedin_client.is_configured(),
+        config={
+            'twitter_has_token': bool(cfg_tw.get('access_token')),
+            'instagram_has_token': bool(cfg_ig.get('access_token')),
+            'instagram_user_id': cfg_ig.get('user_id') or '',
+            'linkedin_org_id': cfg_li.get('org_id') or '',
+            'linkedin_has_token': bool(cfg_li.get('access_token')),
+        },
+    )
+
+
+@admin_bp.route('/social/bootstrap', methods=['POST'])
+@login_required
+def social_bootstrap():
+    from . import social_content
+
+    regenerate = request.form.get('regenerate') == '1'
+    try:
+        n = social_content.prepare_all_published(regenerate=regenerate)
+        flash(f'Preparados textos e imágenes para {n} vídeos publicados.', 'success')
+    except Exception as e:
+        flash(f'Error preparando redes: {e}', 'error')
+    return redirect(request.referrer or url_for('admin.social_panel'))
+
+
+@admin_bp.route('/social/test/<platform>', methods=['POST'])
+@login_required
+def social_test(platform):
+    try:
+        if platform == 'twitter':
+            from . import twitter_client
+            info = twitter_client.test_connection()
+            flash(f"Twitter OK: @{info.get('username', '?')}", 'success')
+        elif platform == 'instagram':
+            from . import instagram_client
+            info = instagram_client.test_connection()
+            flash(f"Instagram OK: @{info.get('username', '?')}", 'success')
+        elif platform == 'linkedin':
+            from . import linkedin_client
+            info = linkedin_client.test_connection()
+            flash(f"LinkedIn OK: {info.get('name', '?')}", 'success')
+        else:
+            flash('Plataforma desconocida.', 'error')
+    except Exception as e:
+        flash(f'Error de conexión: {e}', 'error')
+    return redirect(url_for('admin.social_panel'))
+
+
+@admin_bp.route('/social/publish/<post_id>', methods=['POST'])
+@login_required
+def social_publish_now(post_id):
+    from . import social_queue
+    from .social_worker import publish_one
+
+    post = social_queue.get_post(post_id)
+    if not post:
+        flash('Publicación no encontrada.', 'error')
+    elif post.get('status') == 'published':
+        flash('Ya publicada en esta red.', 'error')
+    elif publish_one(post):
+        flash(f"Publicado en {post['platform']}.", 'success')
+    else:
+        post = social_queue.get_post(post_id)
+        flash(f"Error: {post.get('error', 'desconocido')}", 'error')
+    return redirect(request.referrer or url_for('admin.social_panel'))
+
+
+@admin_bp.route('/social/save/<post_id>', methods=['POST'])
+@login_required
+def social_save(post_id):
+    from . import social_content, social_queue
+
+    post = social_queue.get_post(post_id)
+    if not post:
+        flash('Publicación no encontrada.', 'error')
+        return redirect(request.referrer or url_for('admin.social_panel'))
+
+    text = (request.form.get('text') or '').strip()
+    if text:
+        social_queue.update_post(post_id, text=text, error=None)
+
+    uploaded = request.files.get('image')
+    if uploaded and uploaded.filename:
+        try:
+            fname = social_content.save_uploaded_image(post_id, uploaded)
+            flash(f'Texto e imagen guardados ({fname}).', 'success')
+        except Exception as e:
+            flash(f'Imagen: {e}', 'error')
+    elif text:
+        flash('Texto guardado.', 'success')
+    elif not text:
+        flash('Indica texto o sube una imagen.', 'error')
+
+    return redirect(request.referrer or url_for('admin.social_panel'))
+
+
+@admin_bp.route('/social/image/<post_id>/regenerate', methods=['POST'])
+@login_required
+def social_regenerate_image(post_id):
+    from . import social_content
+
+    try:
+        fname = social_content.regenerate_post_image(post_id)
+        flash(f'Imagen regenerada desde YouTube: {fname}', 'success')
+    except Exception as e:
+        flash(f'Error regenerando imagen: {e}', 'error')
+    return redirect(request.referrer or url_for('admin.social_panel'))
+
+
+@admin_bp.route('/video/<int:vid>/social/prepare', methods=['POST'])
+@login_required
+def video_social_prepare(vid):
+    from . import social_content
+
+    video = db.get_video(vid)
+    if not video:
+        abort(404)
+    if video['estado'] != 'publicado':
+        flash('Solo se preparan redes para posts ya publicados en la web.', 'error')
+        return redirect(url_for('admin.video_detalle', vid=vid))
+    try:
+        regenerate = request.form.get('regenerate') == '1'
+        social_content.prepare_for_video(dict(video), regenerate=regenerate)
+        flash('Textos e imagen preparados para Twitter, Instagram y LinkedIn.', 'success')
+    except Exception as e:
+        flash(f'Error: {e}', 'error')
+    return redirect(url_for('admin.video_detalle', vid=vid))

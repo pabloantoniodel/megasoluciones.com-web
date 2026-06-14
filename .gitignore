@@ -18,6 +18,10 @@ akismet-key.txt
 openai-key.txt
 linkedin-*.txt
 .linkedin-*
+twitter-*.txt
+.x-*
+.instagram-*
+instagram-*.txt
 .admin-password
 admin-password.txt
 data/

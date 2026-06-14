@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de configuración Traefik para Megasoluciones
-# Configura megasolucion.com con certificado SSL automático
+# Configura megasolucion.es (y alias .com → .es) con certificado SSL automático
 
 echo "🚀 Configurando Megasoluciones con Traefik"
 echo "=========================================="
@@ -13,8 +13,8 @@ IP_SERVER=$(hostname -I | awk '{print $1}')
 echo "IP del servidor: $IP_SERVER"
 echo ""
 echo "⚠️  IMPORTANTE: Asegúrate de que el DNS esté configurado:"
-echo "   megasolucion.com → $IP_SERVER"
-echo "   www.megasolucion.com → $IP_SERVER (opcional)"
+echo "   megasolucion.es → $IP_SERVER"
+echo "   megasolucion.com → $IP_SERVER (alias 301 → .es)"
 echo ""
 echo "Puertos necesarios abiertos en firewall:"
 echo "   - Puerto 80 (HTTP)"
@@ -52,8 +52,8 @@ echo ""
 echo "✅ Configuración completada!"
 echo ""
 echo "🌐 Tu web estará disponible en:"
-echo "   https://megasolucion.com"
-echo "   https://www.megasolucion.com"
+echo "   https://megasolucion.es"
+echo "   https://www.megasolucion.es"
 echo ""
 echo "🔒 Certificado SSL:"
 echo "   - Se generará automáticamente con Let's Encrypt"

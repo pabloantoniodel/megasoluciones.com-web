@@ -92,8 +92,7 @@
                     <li><a href="{{ url_for('servicios') }}" class="{% if request.endpoint == 'servicios' %}active{% endif %}">Servicios</a></li>
                     <li><a href="{{ url_for('portfolio') }}" class="{% if request.endpoint in ('portfolio', 'portfolio_caso') %}active{% endif %}">Portfolio</a></li>
                     <li><a href="{{ url_for('recursos') }}" class="{% if request.endpoint in ('recursos', 'recurso_articulo') %}active{% endif %}">Recursos</a></li>
-                    <li><a href="{{ url_for('sobre') }}" class="{% if request.endpoint == 'sobre' %}active{% endif %}">Sobre</a></li>
-                    <li><a href="https://megasolucion.net" target="_blank" rel="noopener noreferrer">Área clientes</a></li>
+                    <li><a href="{{ url_for('sobre') }}" class="{% if request.endpoint == 'sobre' %}active{% endif %}">Sobre Nosotros</a></li>
                     <li><a href="{{ url_for('contacto') }}" class="btn-primary">Contacto</a></li>
                 </ul>
             </div>

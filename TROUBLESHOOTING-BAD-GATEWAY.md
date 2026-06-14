@@ -33,7 +33,7 @@ set -a && source .env && set +a
 docker stack deploy -c docker-compose.stack.yml megasoluciones
 ```
 
-Tras el despliegue, **https://megasolucion.com** debería responder correctamente.
+Tras el despliegue, **https://megasolucion.es** debería responder correctamente.
 
 ### Alternativa (solo para pruebas): compose sin dominio
 
@@ -96,7 +96,7 @@ docker stack rm megasoluciones
 
 ## Resumen
 
-| Método | Dominio megasolucion.com | localhost:5000 |
+| Método | Dominio megasolucion.es | localhost:5000 |
 |--------|--------------------------|----------------|
 | `docker compose up` | ❌ 502 (Traefik no lo descubre) | ✅ |
 | `docker stack deploy` | ✅ | ❌ (puerto no publicado) |

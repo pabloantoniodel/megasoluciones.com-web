@@ -1,0 +1,48 @@
+{# Tarjeta editable de post social — requiere variable p #}
+<div style="border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-bottom:16px;">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+        {% if p.image_url %}
+        <div style="flex-shrink:0;">
+            <img src="{{ p.image_url }}" alt=""
+                 style="width:160px;border-radius:6px;display:block;">
+            {% if p.custom_image %}<span class="muted" style="font-size:11px;">Imagen personalizada</span>{% endif %}
+        </div>
+        {% endif %}
+        <div style="flex:1;min-width:240px;">
+            <strong>
+                {% if p.platform == 'twitter' %}𝕏 Twitter
+                {% elif p.platform == 'instagram' %}📷 Instagram
+                {% elif p.platform == 'linkedin' %}💼 LinkedIn
+                {% else %}{{ p.platform }}{% endif %}
+            </strong>
+            · <span class="badge {{ 'publicado' if p.status == 'published' else ('error' if p.status == 'failed' else 'borrador') }}">{{ p.status }}</span>
+            <br><span class="muted">{{ p.title }}</span>
+            {% if p.post_slug %}
+            · <a href="/recursos/{{ p.post_slug }}" target="_blank">/recursos/{{ p.post_slug }}</a>
+            {% endif %}
+            {% if p.error %}
+            <div style="color:#991b1b;font-size:12px;margin-top:6px;">{{ p.error }}</div>
+            {% endif %}
+            {% if p.external_id %}
+            <div class="muted" style="font-size:11px;margin-top:4px;">ID: {{ p.external_id }}</div>
+            {% endif %}
+            <form method="post" action="{{ url_for('admin.social_save', post_id=p.id) }}"
+                  enctype="multipart/form-data" style="margin-top:10px;">
+                <label style="margin-top:0;">Texto</label>
+                <textarea name="text" style="min-height:100px;font-size:13px;">{{ p.text }}</textarea>
+                <label style="margin-top:10px;">Cambiar imagen (JPG, PNG, WebP · máx. 8 MB)</label>
+                <input type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" style="width:auto;">
+                <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                    <button type="submit" class="btn sm gray">Guardar</button>
+                    {% if p.status != 'published' %}
+                    <button type="submit" formaction="{{ url_for('admin.social_publish_now', post_id=p.id) }}"
+                            class="btn sm green" onclick="return confirm('¿Publicar ahora en {{ p.platform }}?');">Publicar ya</button>
+                    {% endif %}
+                    <button type="submit" formaction="{{ url_for('admin.social_regenerate_image', post_id=p.id) }}"
+                            class="btn sm gray" onclick="return confirm('¿Regenerar imagen desde YouTube?');">↻ Imagen YouTube</button>
+                    <a class="btn sm" href="{{ url_for('admin.video_detalle', vid=p.video_db_id) }}">Ver vídeo</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

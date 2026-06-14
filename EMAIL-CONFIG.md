@@ -153,7 +153,7 @@ services:
 
 ### 1. Ir al formulario
 ```
-https://megasolucion.com/contacto
+https://megasolucion.es/contacto
 ```
 
 ### 2. Completar y enviar

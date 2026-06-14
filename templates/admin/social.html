@@ -1,0 +1,45 @@
+{% extends 'admin/base.html' %}
+{% block title %}Redes sociales{% endblock %}
+{% block content %}
+<h1>Redes sociales · posts de vídeo</h1>
+
+<div class="card">
+    <h2>Conexión</h2>
+    <p class="muted" style="margin-bottom:12px;">
+        𝕏 Twitter: {% if twitter_configured %}<span class="badge publicado">configurado</span>{% else %}<span class="badge error">sin claves</span>{% endif %}
+        · Instagram: {% if instagram_configured %}<span class="badge publicado">configurado</span>{% else %}<span class="badge error">sin claves</span>{% endif %}
+        · LinkedIn: {% if linkedin_configured %}<span class="badge publicado">configurado ({{ config.linkedin_org_id }})</span>{% else %}<span class="badge error">sin claves</span>{% endif %}
+    </p>
+    <form method="post" action="{{ url_for('admin.social_test', platform='twitter') }}" class="inline-form">
+        <button type="submit" class="btn gray sm" {% if not twitter_configured %}disabled{% endif %}>Probar Twitter</button>
+    </form>
+    <form method="post" action="{{ url_for('admin.social_test', platform='instagram') }}" class="inline-form" style="margin-left:8px;">
+        <button type="submit" class="btn gray sm" {% if not instagram_configured %}disabled{% endif %}>Probar Instagram</button>
+    </form>
+    <form method="post" action="{{ url_for('admin.social_test', platform='linkedin') }}" class="inline-form" style="margin-left:8px;">
+        <button type="submit" class="btn gray sm" {% if not linkedin_configured %}disabled{% endif %}>Probar LinkedIn</button>
+    </form>
+    <form method="post" action="{{ url_for('admin.social_bootstrap') }}" class="inline-form" style="margin-left:8px;"
+          onsubmit="return confirm('¿Generar/regenerar posts para todos los vídeos publicados? Las imágenes personalizadas se conservan.');">
+        <input type="hidden" name="regenerate" value="1">
+        <button type="submit" class="btn sm">Preparar todos los publicados</button>
+    </form>
+    <p class="muted" style="margin-top:12px;font-size:12px;">
+        Los posts de campaña (presentación, servicios…) siguen en <a href="{{ url_for('admin.linkedin_panel') }}">LinkedIn → cola fija</a>.
+    </p>
+</div>
+
+<div class="card">
+    <h2>Cola por vídeo</h2>
+    <p class="muted" style="margin-bottom:16px;">
+        Cada artículo de /recursos genera borrador para 𝕏, Instagram y LinkedIn. Puedes editar texto e imagen antes de publicar.
+    </p>
+    {% if posts %}
+    {% for p in posts %}
+    {% include 'admin/_social_post_card.html' %}
+    {% endfor %}
+    {% else %}
+    <p class="muted">Sin borradores. Pulsa «Preparar todos los publicados» o publica un vídeo con las casillas de redes.</p>
+    {% endif %}
+</div>
+{% endblock %}

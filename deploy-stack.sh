@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Despliega Megasoluciones como SERVICIO SWARM para que Traefik descubra megasolucion.com
+# Despliega Megasoluciones como SERVICIO SWARM para que Traefik descubra megasolucion.es
 # En Swarm, Traefik solo descubre servicios (no contenedores sueltos con docker compose).
 
 set -e
 
 cd "$(dirname "$0")"
 
-echo "🔧 Megasoluciones - Deploy como Swarm Stack (para dominio megasolucion.com)"
+echo "🔧 Megasoluciones - Deploy como Swarm Stack (dominio megasolucion.es)"
 echo "=========================================================================="
 echo ""
 
@@ -49,7 +49,7 @@ docker stack services megasoluciones
 echo ""
 echo "✅ Despliegue completado."
 echo ""
-echo "🌐 La web debería estar disponible en: https://megasolucion.com"
+echo "🌐 La web debería estar disponible en: https://megasolucion.es"
 echo "   (Traefik descubre servicios Swarm; el dominio debería funcionar ahora)"
 echo ""
 echo "📋 Comandos útiles:"

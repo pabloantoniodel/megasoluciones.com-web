@@ -21,10 +21,10 @@ TTL: 300
 **Verificar DNS** (espera 5-10 minutos después de configurar):
 ```bash
 # Verificar dominio principal
-dig megasolucion.com +short
+dig megasolucion.es +short
 
 # Verificar www
-dig www.megasolucion.com +short
+dig www.megasolucion.es +short
 
 # Ambos deben mostrar: 69.197.164.198
 ```
@@ -73,19 +73,20 @@ docker-compose logs -f
 # Luego: "Server responded with a certificate"
 ```
 
-**Primera visita**: https://megasolucion.com
+**Primera visita**: https://megasolucion.es
 - Puede tardar 1-2 minutos en generar el certificado
 - Luego será instantáneo
 
 ## 🌐 URLs Configuradas
 
 ✅ **HTTP** → **HTTPS** (redirect automático):
-- http://megasolucion.com → https://megasolucion.com
-- http://www.megasolucion.com → https://www.megasolucion.com
+- http://megasolucion.es → https://megasolucion.es
+- http://www.megasolucion.es → https://www.megasolucion.es
+- http://megasolucion.com → https://megasolucion.es (301 alias)
 
 ✅ **HTTPS** con certificado válido:
-- https://megasolucion.com ✅
-- https://www.megasolucion.com ✅
+- https://megasolucion.es ✅
+- https://www.megasolucion.es ✅
 
 ## 🔧 Gestión
 
@@ -121,10 +122,10 @@ docker compose -f docker-compose.yml -f docker-compose.traefik.yml up --build -d
 **Verificar certificado**:
 ```bash
 # Online
-https://www.ssllabs.com/ssltest/analyze.html?d=megasolucion.com
+https://www.ssllabs.com/ssltest/analyze.html?d=megasolucion.es
 
 # Terminal
-openssl s_client -connect megasolucion.com:443 -servername megasolucion.com | openssl x509 -noout -dates
+openssl s_client -connect megasolucion.es:443 -servername megasolucion.es | openssl x509 -noout -dates
 ```
 
 ## 📊 Estado del Sistema
@@ -149,11 +150,11 @@ docker stats megasoluciones-web
 **Solución**:
 ```bash
 # 1. Verificar DNS
-dig megasolucion.com +short
+dig megasolucion.es +short
 
 # 2. Verificar puertos desde internet
-curl -I http://megasolucion.com
-curl -I https://megasolucion.com
+curl -I http://megasolucion.es
+curl -I https://megasolucion.es
 
 # 3. Ver logs detallados
 docker-compose logs | grep -i certificate
@@ -193,7 +194,7 @@ docker-compose logs -f | grep megasolucion
 
 ### Verificar salud del servicio
 ```bash
-curl -I https://megasolucion.com
+curl -I https://megasolucion.es
 ```
 
 ### Ver métricas
@@ -230,4 +231,4 @@ docker-compose down && docker compose -f docker-compose.yml -f docker-compose.tr
 
 ---
 
-**¡Tu web estará disponible en https://megasolucion.com con SSL válido!** 🚀🔒
+**¡Tu web estará disponible en https://megasolucion.es con SSL válido!** 🚀🔒

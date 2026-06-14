@@ -1,4 +1,4 @@
-from flask import Flask, render_template, render_template_string, request, flash, redirect, url_for, Response, abort, session
+from flask import Flask, render_template, render_template_string, request, flash, redirect, url_for, Response, abort, session, send_file
 from flask_wtf import FlaskForm
 from flask_mail import Mail, Message
 from wtforms import StringField, TextAreaField, EmailField, TelField, SelectField
@@ -966,6 +966,17 @@ def geo_page(slug):
 @app.route('/health')
 def health():
     return {'status': 'ok', 'service': 'megasoluciones'}, 200
+
+
+@app.route('/media/social/<filename>')
+def social_media_file(filename):
+    """Imágenes para posts sociales (Instagram requiere URL pública HTTPS)."""
+    from yt_posts import social_queue
+    safe = os.path.basename(filename)
+    path = social_queue.resolve_image_path(safe)
+    if not path:
+        abort(404)
+    return send_file(path, mimetype='image/jpeg', max_age=86400)
 
 
 @app.route('/robots.txt')
