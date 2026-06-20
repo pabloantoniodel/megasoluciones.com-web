@@ -62,6 +62,12 @@ CREATE TABLE IF NOT EXISTS ips_excluidas (
     es_robot INTEGER DEFAULT 0,
     excluido TEXT DEFAULT (datetime('now'))
 );
+
+CREATE TABLE IF NOT EXISTS recursos_redirects (
+    old_slug TEXT PRIMARY KEY,
+    new_slug TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
+);
 """
 
 # Rutas internas + IPs excluidas provisionalmente en el panel
@@ -88,6 +94,20 @@ def init_db() -> None:
             conn.execute('ALTER TABLE videos ADD COLUMN intentos INTEGER DEFAULT 0')
         except sqlite3.OperationalError:
             pass
+        for col, ddl in (
+            ('post_cluster', "TEXT DEFAULT 'ia'"),
+            ('post_tipo', "TEXT DEFAULT 'noticia'"),
+            ('post_keyword', 'TEXT'),
+            ('post_relacionados', 'TEXT'),
+            ('post_intencion', "TEXT DEFAULT 'noticia'"),
+            ('post_fecha_modificacion', 'TEXT'),
+        ):
+            try:
+                conn.execute(f'ALTER TABLE videos ADD COLUMN {col} {ddl}')
+            except sqlite3.OperationalError:
+                pass
+        _migrate_video_seo_defaults(conn)
+        _migrate_mythos_redirects(conn)
         # Eliminar visitas del panel / estáticos registradas antes del filtro
         conn.execute(
             "DELETE FROM visitas WHERE path LIKE '/admin%' OR path LIKE '/static/%' OR path = '/health'"
@@ -101,9 +121,19 @@ def slugify(text: str) -> str:
 
 
 def unique_slug(conn: sqlite3.Connection, base: str, exclude_id: int | None = None) -> str:
+    static_slugs: set[str] = set()
+    try:
+        from app import RECURSOS
+        static_slugs = {r['slug'] for r in RECURSOS}
+    except ImportError:
+        pass
     slug = base
     n = 2
     while True:
+        if slug in static_slugs:
+            slug = f'{base}-{n}'
+            n += 1
+            continue
         row = conn.execute(
             'SELECT id FROM videos WHERE post_slug = ? AND (? IS NULL OR id != ?)',
             (slug, exclude_id, exclude_id),
@@ -199,6 +229,91 @@ def update_video(vid: int, **campos) -> None:
         conn.execute(f"UPDATE videos SET {sets}, actualizado = datetime('now') WHERE id = ?", valores)
 
 
+def _migrate_video_seo_defaults(conn: sqlite3.Connection) -> None:
+    """Asigna metadatos SEO a vídeos publicados sin cluster real."""
+    try:
+        from recursos_seo import VIDEO_POST_DEFAULTS
+    except ImportError:
+        return
+    import json
+    for slug, meta in VIDEO_POST_DEFAULTS.items():
+        row = conn.execute(
+            "SELECT id, post_cluster FROM videos WHERE post_slug = ? AND estado = 'publicado'",
+            (slug,),
+        ).fetchone()
+        if not row:
+            continue
+        if row['post_cluster'] and row['post_cluster'] != 'video':
+            continue
+        conn.execute(
+            'UPDATE videos SET post_cluster = ?, post_tipo = ?, post_keyword = ?, '
+            'post_relacionados = ?, post_intencion = ? WHERE id = ?',
+            (
+                meta.get('cluster', 'ia'),
+                meta.get('tipo', 'noticia'),
+                meta.get('keyword_principal', ''),
+                json.dumps(meta.get('relacionados', [])),
+                meta.get('intencion', 'noticia'),
+                row['id'],
+            ),
+        )
+
+
+def _migrate_mythos_redirects(conn: sqlite3.Connection) -> None:
+    try:
+        from recursos_seo import MYTHOS_CANONICAL_SLUG, RECURSOS_SLUG_REDIRECTS
+    except ImportError:
+        return
+    for old_path, new_path in RECURSOS_SLUG_REDIRECTS.items():
+        old_slug = old_path.removeprefix('/recursos/')
+        new_slug = new_path.removeprefix('/recursos/')
+        if old_slug and new_slug:
+            conn.execute(
+                'INSERT OR IGNORE INTO recursos_redirects (old_slug, new_slug) VALUES (?, ?)',
+                (old_slug, new_slug),
+            )
+
+
+def _row_to_recurso_dict(r: sqlite3.Row) -> dict:
+    import json
+    from recursos_seo import normalize_recurso
+
+    relacionados = r['post_relacionados'] if 'post_relacionados' in r.keys() else None
+    if relacionados:
+        try:
+            relacionados = json.loads(relacionados)
+        except (json.JSONDecodeError, TypeError):
+            relacionados = []
+    else:
+        relacionados = []
+
+    cluster = r['post_cluster'] if 'post_cluster' in r.keys() and r['post_cluster'] else 'ia'
+    raw = {
+        'slug': r['post_slug'],
+        'titulo': r['post_titulo'],
+        'resumen': r['post_resumen'],
+        'fecha': (r['publicado'] or r['creado'] or '')[:10],
+        'fecha_modificacion': (
+            (r['post_fecha_modificacion'] or r['publicado'] or r['creado'] or '')[:10]
+            if 'post_fecha_modificacion' in r.keys()
+            else (r['publicado'] or r['creado'] or '')[:10]
+        ),
+        'cluster': cluster,
+        'tipo': r['post_tipo'] if 'post_tipo' in r.keys() and r['post_tipo'] else 'noticia',
+        'intencion': r['post_intencion'] if 'post_intencion' in r.keys() and r['post_intencion'] else 'noticia',
+        'keyword_principal': r['post_keyword'] if 'post_keyword' in r.keys() else '',
+        'relacionados': relacionados,
+        'cta_servicio': 'consultoria-ia',
+        'video_id': r['video_id'],
+        'video_url': r['url'],
+        'video_titulo': r['titulo_video'],
+        'canal_nombre': r['canal_nombre'],
+        'canal_url': r['canal_url'],
+        'cuerpo': r['post_cuerpo'],
+    }
+    return normalize_recurso(raw)
+
+
 def posts_publicados() -> list[dict]:
     """Posts publicados con el mismo formato que la lista RECURSOS de app.py."""
     with get_db() as conn:
@@ -207,27 +322,44 @@ def posts_publicados() -> list[dict]:
             "LEFT JOIN canales c ON c.id = v.canal_id "
             "WHERE v.estado = 'publicado' ORDER BY v.publicado DESC",
         ).fetchall()
-    posts = []
-    for r in rows:
-        posts.append({
-            'slug': r['post_slug'],
-            'titulo': r['post_titulo'],
-            'resumen': r['post_resumen'],
-            'fecha': (r['publicado'] or r['creado'] or '')[:10],
-            'cluster': 'video',
-            'cta_servicio': 'consultoria-ia',
-            'video_id': r['video_id'],
-            'video_url': r['url'],
-            'video_titulo': r['titulo_video'],
-            'canal_nombre': r['canal_nombre'],
-            'canal_url': r['canal_url'],
-            'cuerpo': r['post_cuerpo'],
-        })
-    return posts
+    return [_row_to_recurso_dict(r) for r in rows]
 
 
 def get_post_publicado(slug: str) -> dict | None:
     return next((p for p in posts_publicados() if p['slug'] == slug), None)
+
+
+def list_video_slugs(exclude_id: int | None = None) -> list[str]:
+    with get_db() as conn:
+        if exclude_id:
+            rows = conn.execute(
+                'SELECT post_slug FROM videos WHERE post_slug IS NOT NULL AND id != ?',
+                (exclude_id,),
+            ).fetchall()
+        else:
+            rows = conn.execute(
+                'SELECT post_slug FROM videos WHERE post_slug IS NOT NULL',
+            ).fetchall()
+    return [r['post_slug'] for r in rows if r['post_slug']]
+
+
+def list_recursos_redirects() -> dict[str, str]:
+    with get_db() as conn:
+        try:
+            rows = conn.execute('SELECT old_slug, new_slug FROM recursos_redirects').fetchall()
+        except sqlite3.OperationalError:
+            return {}
+    return {r['old_slug']: r['new_slug'] for r in rows}
+
+
+def add_recursos_redirect(old_slug: str, new_slug: str) -> None:
+    if not old_slug or not new_slug or old_slug == new_slug:
+        return
+    with get_db() as conn:
+        conn.execute(
+            'INSERT OR REPLACE INTO recursos_redirects (old_slug, new_slug) VALUES (?, ?)',
+            (old_slug, new_slug),
+        )
 
 
 # ── Estadísticas ─────────────────────────────────────────────────────

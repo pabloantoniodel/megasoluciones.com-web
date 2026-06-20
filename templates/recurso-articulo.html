@@ -4,6 +4,8 @@
 {% block meta_description %}{{ articulo.resumen }}{% endblock %}
 {% block og_title %}{{ articulo.titulo }} | Megasoluciones{% endblock %}
 {% block og_description %}{{ articulo.resumen }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_image %}{% if articulo.imagen %}{{ url_for('static', filename=articulo.imagen, _external=True) }}{% elif articulo.video_id %}https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg{% else %}{{ super() }}{% endif %}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -14,8 +16,13 @@
   "headline": {{ articulo.titulo|tojson }},
   "description": {{ articulo.resumen|tojson }},
   "datePublished": {{ articulo.fecha|tojson }},
-  "dateModified": {{ articulo.fecha|tojson }},
+  "dateModified": {{ (articulo.fecha_modificacion or articulo.fecha)|tojson }},
   "author": {"@type": "Organization", "name": "Megasoluciones"},
+  {% if articulo.imagen %}
+  "image": {{ url_for('static', filename=articulo.imagen, _external=True)|tojson }},
+  {% elif articulo.video_id %}
+  "image": "https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg",
+  {% endif %}
   "publisher": {
     "@type": "Organization",
     "name": "Megasoluciones",
@@ -45,6 +52,9 @@
     <div class="container">
         <a href="{{ url_for('index') }}">Inicio</a> ›
         <a href="{{ url_for('recursos') }}">Recursos</a> ›
+        {% if cluster_meta.ancla %}
+        <a href="{{ url_for('recursos') }}#{{ cluster_meta.ancla }}">{{ articulo.cluster|capitalize }}</a> ›
+        {% endif %}
         <span>{{ articulo.titulo }}</span>
     </div>
 </nav>
@@ -53,9 +63,19 @@
     <div class="container landing-content">
         <header>
             <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
+            {% if articulo.tipo == 'pilar' %}<span class="recursos-badge-pilar">Guía pilar</span>{% endif %}
             <h1>{{ articulo.titulo }}</h1>
             <p class="lead">{{ articulo.resumen }}</p>
         </header>
+        {% if articulo.imagen %}
+        <figure style="margin: 1.5rem 0 2rem;">
+            <img src="{{ url_for('static', filename=articulo.imagen) }}"
+                 alt="{{ articulo.titulo }}"
+                 width="1200" height="630"
+                 style="width:100%;max-width:900px;border-radius:12px;display:block;"
+                 loading="eager">
+        </figure>
+        {% endif %}
         {% if articulo.video_id %}
         <div class="articulo-video" style="margin: 2rem 0;">
             <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
@@ -73,6 +93,13 @@
             </p>
         </div>
         {% endif %}
+        {% if articulo.tipo == 'noticia' and pilar_slug %}
+        <aside class="articulo-noticia-contexto" aria-label="Guía relacionada">
+            <p>Este artículo es actualidad del sector. Para una visión estratégica sobre IA aplicada a empresas en España, consulta nuestra
+            <a href="{{ url_for('recurso_articulo', slug=pilar_slug) }}">guía pilar del cluster</a>
+            o el <a href="{{ url_for('recursos') }}">hub de recursos</a>.</p>
+        </aside>
+        {% endif %}
         <div class="articulo-body">
             {{ cuerpo|safe }}
         </div>
@@ -84,6 +111,24 @@
             Todo el crédito del contenido original corresponde a su autor.
         </blockquote>
         {% endif %}
+
+        {% if articulos_relacionados %}
+        <aside class="articulo-relacionados" aria-label="Artículos relacionados">
+            <h2>Artículos relacionados</h2>
+            <ul>
+                {% for rel in articulos_relacionados %}
+                <li>
+                    <a href="{{ url_for('recurso_articulo', slug=rel.slug) }}">{{ rel.titulo }}</a>
+                    {% if rel.tipo == 'pilar' %}<span class="recursos-badge-pilar">Pilar</span>{% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            <p><a href="{{ url_for('recursos') }}">Ver todos los recursos</a>
+            {% if cluster_meta.ancla %} · <a href="{{ url_for('recursos_tema', cluster=articulo.cluster) }}">Más sobre {{ cluster_meta.nombre or articulo.cluster }}</a>{% endif %}
+            </p>
+        </aside>
+        {% endif %}
+
         <div class="articulo-cta" style="margin-top: 2rem;">
             <a href="{{ url_for('contacto', servicio=articulo.cta_servicio) }}" class="btn-primary btn-lg">Consulta sobre este tema</a>
             {% if articulo.cluster == 'desarrollo' %}

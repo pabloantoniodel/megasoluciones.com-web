@@ -1,0 +1,84 @@
+<p class="lead">Cada semana aparece un nuevo modelo de IA «para usar en casa». Y cada semana escuchamos la misma pregunta en empresas: <strong>«¿Para qué necesitamos desarrolladores si la IA ya lo hace?»</strong> La respuesta corta: porque gestionar, automatizar y escalar procesos reales en una empresa no es lo mismo que chatear con un modelo en un portátil. Más contexto en nuestros <a href="{{ url_for('recursos') }}">recursos sobre desarrollo y automatizaciones</a>.</p>
+
+<h2>IA doméstica vs IA en producción empresarial</h2>
+<p>Instalar un LLM local, probar ChatGPT o generar un script con un prompt es útil para explorar ideas. Pero la web que usa tu cliente, el ERP que factura, el CRM que guarda datos personales y las automatizaciones que mueven pedidos entre sistemas exigen otra capa: <strong>ingeniería de software</strong>.</p>
+<div class="landing-grid">
+  <div class="landing-card">
+    <h3>En un entorno doméstico</h3>
+    <ul>
+      <li>Un usuario, sin concurrencia real</li>
+      <li>Sin integración con SAP, Odoo o Salesforce</li>
+      <li>Sin auditoría, logs ni control de versiones</li>
+      <li>Sin cumplimiento RGPD ni SLAs</li>
+      <li>Errores tolerables («lo vuelvo a preguntar»)</li>
+    </ul>
+  </div>
+  <div class="landing-card">
+    <h3>En una empresa en producción</h3>
+    <ul>
+      <li>Cientos de usuarios y procesos críticos</li>
+      <li>APIs, colas, bases de datos y permisos por rol</li>
+      <li>Trazabilidad, monitorización y alertas 24/7</li>
+      <li>Datos sensibles con retención y cifrado</li>
+      <li>Errores que cuestan dinero, clientes o reputación</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Lo que un modelo «de salón» no resuelve solo</h2>
+<p>Un modelo generalista — por muy potente que sea — no conoce tu Odoo, tu flujo de aprobación de compras ni la excepción que solo aplica los martes en logística. Tampoco mantiene solo una integración cuando el proveedor cambia su API.</p>
+<p>Para llevar IA a gestión y automatización empresarial hace falta:</p>
+<ul>
+  <li><strong>Diseño de arquitectura:</strong> dónde va el modelo, dónde van las reglas de negocio y qué no debe decidir la IA.</li>
+  <li><strong>Integraciones:</strong> conectar ERP, CRM, banca, email, almacenamiento y herramientas internas sin duplicar datos.</li>
+  <li><strong>Orquestación:</strong> workflows que combinan IA, RPA y lógica determinista (porque no todo debe ser probabilístico).</li>
+  <li><strong>Validación y pruebas:</strong> casos límite, regresiones y entornos staging antes de tocar producción.</li>
+  <li><strong>Seguridad:</strong> secretos, acceso mínimo, registro de prompts sensibles y políticas de retención.</li>
+</ul>
+<p>Eso lo construyen <strong>desarrolladores y equipos de automatización</strong>, no un prompt bien escrito en un chat doméstico.</p>
+
+<h2>Gestión empresarial: la IA asiste, el software gobierna</h2>
+<p>En dirección y operaciones se confunde a menudo «tener IA» con «tener un proceso mejor». La IA puede clasificar emails, resumir informes, redactar borradores o sugerir la siguiente acción. Pero quien define <em>qué</em> se automatiza, <em>cuándo</em> interviene un humano y <em>cómo</em> se registra cada decisión es el sistema — software a medida o plataforma bien integrada.</p>
+<p>Ejemplos habituales en pymes y medianas empresas en España:</p>
+<ul>
+  <li>Sincronizar pedidos entre tienda online y ERP sin intervención manual.</li>
+  <li>Generar albaranes y avisos cuando el stock cruza un umbral.</li>
+  <li>Enrutar tickets de soporte con IA y escalar solo los casos complejos.</li>
+  <li>Extraer datos de facturas PDF hacia contabilidad con revisión humana opcional.</li>
+</ul>
+<p>En todos ellos hay modelos de IA posibles, pero el valor está en el <strong>flujo completo</strong>: triggers, validaciones, rollback, permisos y panel de control. Eso es desarrollo.</p>
+
+<h2>Automatización: más allá del «copiar y pegar con ChatGPT»</h2>
+<p>Automatizar no es pedirle a un chatbot que «haga un Excel». Es identificar el proceso repetitivo, medir su volumen, eliminar excepciones peligrosas y dejarlo corriendo meses sin sorpresas.</p>
+<p>Los equipos técnicos aportan lo que un experimento casero no garantiza:</p>
+<ol>
+  <li><strong>Idempotencia:</strong> si el job falla a medias, no duplica pedidos ni cobros.</li>
+  <li><strong>Observabilidad:</strong> saber qué pasó, cuándo y con qué datos de entrada.</li>
+  <li><strong>Evolución:</strong> cambiar una regla sin reescribir todo el negocio a mano.</li>
+  <li><strong>Coste predecible:</strong> tokens, infraestructura y licencias bajo control.</li>
+</ol>
+<p>Por eso las empresas que ya probaron «solo IA» acaban llamando a consultores de automatización o a una <a href="{{ url_for('desarrollo_software') }}">empresa de desarrollo a medida</a>: necesitan pasar de demo a producción.</p>
+
+<h2>Mitos frecuentes (y la realidad técnica)</h2>
+<ul>
+  <li><strong>«Con un modelo open source en un NAS lo tenemos.»</strong> — Para pruebas sí; para clientes reales necesitas despliegue, backups, actualizaciones de modelo y fallback si el servicio cae.</li>
+  <li><strong>«La IA sustituye al programador.»</strong> — Acelera tareas concretas (boilerplate, tests, documentación), pero no sustituye criterio de arquitectura ni responsabilidad legal sobre los datos.</li>
+  <li><strong>«No-code + IA lo hace todo.»</strong> — Sirve para prototipos; en cuanto aparecen integraciones custom, volumen o normativa, hace falta código.</li>
+  <li><strong>«Si funciona en mi PC, funciona en la web.»</strong> — Latencia, sesiones concurrentes, SEO, seguridad y despliegue son disciplinas aparte.</li>
+</ul>
+
+<h2>El perfil que sí marca la diferencia</h2>
+<p>En 2026 el desarrollador relevante para IA empresarial no es solo quien escribe código: entiende procesos de negocio, APIs, datos y límites de los modelos. Trabaja junto a operaciones para automatizar lo repetitivo y dejar a las personas lo estratégico.</p>
+<p>En Megasoluciones combinamos <strong>desarrollo a medida</strong>, <strong>automatizaciones</strong> e <strong>IA aplicada</strong> con criterio de producción: piloto pequeño, métricas claras y escalado solo si el ROI está demostrado.</p>
+
+<h2>Conclusión: la IA amplifica; no reemplaza la ingeniería</h2>
+<p>Los modelos domésticos democratizan el acceso a la inteligencia artificial. Eso es bueno. Pero convertir esa capacidad en gestión eficiente, automatizaciones fiables y productos web que aguantan el tráfico real sigue siendo trabajo de quien sabe construir sistemas — no de quien solo sabe hacer preguntas a un chat.</p>
+<p>Si estás evaluando IA para tu empresa, empieza por un proceso concreto, mide resultados y apóyate en quien pueda llevarlo a producción con las mismas exigencias que el resto de tu software crítico.</p>
+
+<p>
+  <a href="{{ url_for('recurso_articulo', slug='seo-geo-inteligencia-artificial-2026') }}">Guía SEO y GEO para IA 2026</a> ·
+  <a href="{{ url_for('recurso_articulo', slug='elegir-empresa-desarrollo-software') }}">Cómo elegir empresa de desarrollo</a> ·
+  <a href="{{ url_for('desarrollo_software') }}">Desarrollo de software a medida</a> ·
+  <a href="{{ url_for('automatizaciones') }}">Automatizaciones empresariales</a> ·
+  <a href="{{ url_for('contacto', servicio='desarrollo-software') }}">Consulta sin compromiso</a>
+</p>

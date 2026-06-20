@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propuesta logo Megasoluciones — cerebro + engranaje</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Inter, Arial, sans-serif;
+      margin: 0;
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .lead { color: #64748b; margin-bottom: 2rem; max-width: 720px; line-height: 1.6; }
+    .grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 2rem; }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      border: 1px solid #e2e8f0;
+    }
+    .card h2 { font-size: 1rem; margin: 0 0 1rem; color: #334155; }
+    .compare {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: center;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background: #f8fafc;
+    }
+    .compare img { max-width: 100%; height: auto; }
+    .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+    }
+    .label.new { color: #2563eb; }
+    .mock-header {
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 96px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .mock-nav { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.9rem; color: #374151; }
+    .mock-nav li:last-child {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    .mock-footer {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      color: #9ca3af;
+    }
+    .mock-footer .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .mock-footer p { margin: 0.75rem 0 0; font-size: 0.9rem; line-height: 1.5; max-width: 280px; }
+    .logo-unified { height: 50px; width: auto; display: block; }
+    .logo-unified-footer { height: 52px; width: auto; display: block; margin-bottom: 0.5rem; }
+    .notes { margin-top: 2rem; }
+    .notes ul { line-height: 1.8; color: #475569; padding-left: 1.25rem; }
+    .badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Propuesta de logo unificado <span class="badge">v2</span></h1>
+    <p class="lead">
+      Se elimina el icono radial de la izquierda del logo actual y se sustituye por el
+      <strong>cerebro con engranaje</strong> ya usado en favicons y tarjetas sociales.
+      Icono + texto forman <strong>un solo bloque</strong> horizontal, alineado en header y footer.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Antes (logo actual en web)</h2>
+        <div class="compare">
+          <span class="label">logo-vector.svg</span>
+          <img src="logo-vector.svg" alt="Logo actual" style="max-height: 56px;">
+        </div>
+      </div>
+      <div class="card">
+        <h2>Propuesta (unificado)</h2>
+        <div class="compare">
+          <span class="label new">logo-megasoluciones-unified.svg</span>
+          <img src="logo-megasoluciones-unified.svg" alt="Logo propuesto claro" class="logo-unified">
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <h2>Header — cómo quedaría</h2>
+      <div class="mock-header">
+        <img src="logo-megasoluciones-unified.svg" alt="Megasoluciones" class="logo-unified">
+        <ul class="mock-nav">
+          <li>Inicio</li>
+          <li>Desarrollo</li>
+          <li>Automatizaciones</li>
+          <li>Servicios</li>
+          <li>Contacto</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Footer — cómo quedaría</h2>
+      <div class="mock-footer">
+        <div class="footer-row">
+          <div>
+            <img src="logo-megasoluciones-unified-dark.svg" alt="Megasoluciones" class="logo-unified-footer">
+            <p>Desarrollo de software a medida y automatizaciones empresariales para empresas en España y LATAM.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card notes">
+      <h2>Cambios técnicos si apruebas</h2>
+      <ul>
+        <li><code>base.html</code> header: <code>logo-megasoluciones-unified.svg</code></li>
+        <li><code>base.html</code> footer: <code>logo-megasoluciones-unified-dark.svg</code></li>
+        <li>Misma altura CSS (~50px header, ~52px footer) — sin cambiar el layout del nav</li>
+        <li>Colores del icono: gradiente azul → verde (#2563eb → #10b981), coherente con la marca</li>
+        <li>Favicon e iconos PWA ya usan cerebro+engranaje — quedarían alineados con el logo principal</li>
+      </ul>
+      <p style="margin-top:1rem;color:#64748b;font-size:0.9rem;">
+        Archivos: <code>logo-megasoluciones-unified.svg</code> ·
+        <code>logo-megasoluciones-unified-dark.svg</code>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

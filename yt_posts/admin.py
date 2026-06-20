@@ -1,4 +1,5 @@
 """Panel de control /admin: canales de YouTube, aprobación de posts y estadísticas."""
+import json
 import os
 from datetime import date, datetime, timedelta
 from functools import wraps
@@ -6,6 +7,9 @@ from functools import wraps
 from flask import (
     Blueprint, abort, flash, jsonify, redirect, render_template, request, session, url_for,
 )
+
+import recursos_seo
+from recursos_seo import seo_check_recurso
 
 from . import db, notify, pipeline, youtube
 
@@ -139,11 +143,37 @@ def video_detalle(vid):
         abort(404)
     from . import instagram_client, linkedin_client, social_queue, twitter_client
     video_d = dict(video)
+    rel_raw = video_d.get('post_relacionados')
+    if rel_raw:
+        try:
+            parsed = json.loads(rel_raw) if isinstance(rel_raw, str) else rel_raw
+            if isinstance(parsed, list):
+                video_d['post_relacionados'] = ', '.join(parsed)
+        except (json.JSONDecodeError, TypeError):
+            pass
+    seo_issues = []
+    try:
+        from app import todos_los_recursos
+        preview = {
+            'slug': video_d.get('post_slug'),
+            'titulo': video_d.get('post_titulo'),
+            'resumen': video_d.get('post_resumen'),
+            'cluster': video_d.get('post_cluster') or 'ia',
+            'tipo': video_d.get('post_tipo') or 'noticia',
+            'intencion': video_d.get('post_intencion') or 'noticia',
+            'keyword_principal': video_d.get('post_keyword') or '',
+            'video_id': video_d.get('video_id'),
+        }
+        seo_issues = seo_check_recurso(preview, todos_los_recursos())
+    except Exception:
+        pass
     social_posts = social_queue.get_posts_for_video(vid)
     return render_template(
         'admin/video.html',
         video=video_d,
         social_posts=social_posts,
+        seo_issues=seo_issues,
+        clusters=recursos_seo.CLUSTERS,
         twitter_configured=twitter_client.is_configured(),
         instagram_configured=instagram_client.is_configured(),
         linkedin_configured=linkedin_client.is_configured(),
@@ -156,11 +186,41 @@ def video_guardar(vid):
     video = db.get_video(vid)
     if not video:
         abort(404)
+    old_slug = video['post_slug']
+    new_slug = (request.form.get('post_slug') or old_slug or '').strip()
+    cluster = (request.form.get('post_cluster') or 'ia').strip()
+    if cluster not in recursos_seo.CLUSTERS:
+        cluster = 'ia'
+
+    from app import RECURSOS
+    if new_slug and not recursos_seo.slug_disponible(
+        new_slug, RECURSOS, db.list_video_slugs(exclude_id=vid), exclude_slug=old_slug,
+    ):
+        flash(f'Slug «{new_slug}» no disponible (duplicado en recursos estáticos o BD).', 'error')
+        return redirect(url_for('admin.video_detalle', vid=vid))
+
+    if old_slug and new_slug and old_slug != new_slug and video['estado'] == 'publicado':
+        if request.form.get('confirm_slug_change') != '1':
+            flash('Cambio de slug en URL publicada: marca la confirmación y vuelve a guardar.', 'error')
+            return redirect(url_for('admin.video_detalle', vid=vid))
+        db.add_recursos_redirect(old_slug, new_slug)
+
+    relacionados_raw = (request.form.get('post_relacionados') or '').strip()
+    relacionados = [
+        s.strip() for s in relacionados_raw.replace('\n', ',').split(',') if s.strip()
+    ]
+
     db.update_video(
         vid,
         post_titulo=request.form.get('post_titulo', '').strip(),
         post_resumen=request.form.get('post_resumen', '').strip(),
         post_cuerpo=request.form.get('post_cuerpo', '').strip(),
+        post_slug=new_slug or old_slug,
+        post_cluster=cluster,
+        post_tipo=(request.form.get('post_tipo') or 'noticia').strip(),
+        post_intencion=(request.form.get('post_intencion') or 'noticia').strip(),
+        post_keyword=(request.form.get('post_keyword') or '').strip(),
+        post_relacionados=json.dumps(relacionados) if relacionados else None,
     )
     flash('Cambios guardados.', 'success')
     return redirect(url_for('admin.video_detalle', vid=vid))
@@ -169,6 +229,7 @@ def video_guardar(vid):
 @admin_bp.route('/video/<int:vid>/publicar', methods=['POST'])
 @login_required
 def video_publicar(vid):
+    from app import RECURSOS, todos_los_recursos
     from . import social_content, social_queue, social_worker
 
     video = db.get_video(vid)
@@ -177,6 +238,30 @@ def video_publicar(vid):
     if not video['post_titulo'] or not video['post_cuerpo']:
         flash('El post no tiene título o cuerpo. Genera o edita el borrador antes de publicar.', 'error')
         return redirect(url_for('admin.video_detalle', vid=vid))
+
+    cluster = video['post_cluster'] if 'post_cluster' in video.keys() and video['post_cluster'] else None
+    if not cluster or cluster == 'video':
+        flash('Asigna un cluster (ia, desarrollo o automatizaciones) antes de publicar.', 'error')
+        return redirect(url_for('admin.video_detalle', vid=vid))
+
+    articulo_check = {
+        'slug': video['post_slug'],
+        'titulo': video['post_titulo'],
+        'resumen': video['post_resumen'],
+        'cluster': cluster,
+        'tipo': video['post_tipo'] if 'post_tipo' in video.keys() else 'noticia',
+        'intencion': video['post_intencion'] if 'post_intencion' in video.keys() else 'noticia',
+        'keyword_principal': video['post_keyword'] if 'post_keyword' in video.keys() else '',
+        'video_id': video['video_id'],
+    }
+    issues = seo_check_recurso(articulo_check, todos_los_recursos())
+    errors = [i for i in issues if i['level'] == 'error']
+    if errors:
+        flash('No se puede publicar: ' + errors[0]['message'], 'error')
+        return redirect(url_for('admin.video_detalle', vid=vid))
+    for w in issues:
+        if w['level'] == 'warning':
+            flash(f"SEO: {w['message']}", 'warning')
 
     publish_twitter = request.form.get('publish_twitter') == '1'
     publish_instagram = request.form.get('publish_instagram') == '1'

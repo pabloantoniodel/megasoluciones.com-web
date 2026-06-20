@@ -17,7 +17,7 @@
 
     <meta property="og:title" content="{% block og_title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Megasoluciones — desarrollo de software a medida y automatizaciones empresariales (RPA) para empresas en España. Integraciones, APIs y workflows inteligentes.{% endblock %}">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:url" content="{{ canonical_url }}">
     <meta property="og:locale" content="es_ES">
     <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='images/hero-megasoluciones.png', _external=True) }}{% endblock %}">
@@ -38,7 +38,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logo-icon-32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logo-icon-16.png') }}">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css', v=12) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css', v=17) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@
         <div class="container">
             <div class="nav-content">
                 <a href="{{ url_for('index') }}" class="logo">
-                    <img src="{{ url_for('static', filename='images/logo-vector.svg') }}" alt="Megasoluciones — desarrollo software y automatizaciones">
+                    <img src="{{ url_for('static', filename='images/logo-vector.svg', v=17) }}" alt="Megasoluciones — desarrollo software y automatizaciones">
                 </a>
 
                 <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menú">
@@ -120,7 +120,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <img src="{{ url_for('static', filename='images/logo-vector-dark.svg') }}" alt="Megasoluciones" class="footer-logo">
+                    <img src="{{ url_for('static', filename='images/logo-vector-dark.svg', v=17) }}" alt="Megasoluciones" class="footer-logo">
                     <p class="footer-description">
                         Desarrollo de software a medida y automatizaciones empresariales para empresas en España y LATAM.
                     </p>

@@ -79,9 +79,8 @@ a {
 }
 
 .logo img {
-    /* SVG recortado al contenido: 50px equivalen visualmente a los 96px del PNG con márgenes */
-    height: 50px;
-    margin: 23px 0;
+    height: 56px;
+    margin: 8px 0;
     transition: transform 0.3s ease;
     display: block;
 }
@@ -1011,8 +1010,8 @@ a {
 }
 
 .footer-logo {
-    height: 52px;
-    margin: 24px 0 1rem;
+    height: 58px;
+    margin: 8px 0 1rem;
 }
 
 .footer-description {
@@ -1362,8 +1361,13 @@ a {
     }
 
     .logo img {
-        height: 39px;
-        margin: 18px 0;
+        height: 53px;
+        margin: 0;
+    }
+
+    .footer-logo {
+        height: 70px;
+        margin: 0 0 1rem;
     }
 
     .nav-links {
@@ -1506,6 +1510,26 @@ a {
 .portfolio-badge-automatización, .portfolio-badge-automatizacion { background: #d1fae5; color: #065f46; }
 .legal-content h2 { margin-top: 2rem; font-size: 1.25rem; }
 .recursos-date { font-size: 0.85rem; color: #6b7280; }
+.recursos-card-thumb { display: block; margin: -0.25rem -0.25rem 1rem; border-radius: 10px; overflow: hidden; }
+.recursos-card-thumb img { width: 100%; height: auto; display: block; aspect-ratio: 1200 / 630; object-fit: cover; }
+
+.recursos-section-title { font-size: 1.5rem; margin-bottom: 1rem; }
+.recursos-clusters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+.recursos-cluster-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; }
+.recursos-cluster-card h3 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+.recursos-pilar-link { font-size: 0.95rem; margin: 0.75rem 0; }
+.recursos-soporte-list { margin: 0.5rem 0 1rem; padding-left: 1.2rem; font-size: 0.92rem; }
+.recursos-soporte-list li { margin-bottom: 0.35rem; }
+.recursos-badge-pilar { display: inline-block; margin-left: 0.5rem; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.7rem; font-weight: 600; background: #fef3c7; color: #92400e; vertical-align: middle; }
+.recursos-feed-intro { color: #64748b; margin-bottom: 1rem; }
+.recursos-hub-footer { margin-top: 2rem; }
+.articulo-relacionados { margin: 2.5rem 0 1rem; padding: 1.25rem 1.5rem; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; }
+.articulo-relacionados h2 { font-size: 1.25rem; margin: 0 0 0.75rem; }
+.articulo-relacionados ul { margin: 0 0 1rem; padding-left: 1.2rem; }
+.articulo-relacionados li { margin-bottom: 0.5rem; }
+.recursos-ver-mas { margin-top: 1.5rem; }
+.recursos-actualidad-pilar { margin-bottom: 1.25rem; padding: 0.75rem 1rem; background: #f0f9ff; border-radius: 8px; border: 1px solid #bae6fd; }
+.articulo-noticia-contexto { margin: 1.25rem 0; padding: 1rem 1.25rem; background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 0 8px 8px 0; font-size: 0.95rem; }
 .footer-bottom a { color: #9ca3af; margin-left: 0.5rem; }
 
 /* GEO local pages */

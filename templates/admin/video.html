@@ -79,11 +79,58 @@
 {% if video['post_titulo'] or video['post_cuerpo'] %}
 <div class="card">
     <h2>Editar borrador</h2>
+    {% if seo_issues %}
+    <div style="margin-bottom: 14px;">
+        {% for issue in seo_issues %}
+        <div class="flash {{ 'error' if issue.level == 'error' else 'warning' }}" style="margin-bottom: 6px;">
+            SEO ({{ issue.level }}): {{ issue.message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <form method="post" action="{{ url_for('admin.video_guardar', vid=video['id']) }}">
         <label>Título</label>
         <input type="text" name="post_titulo" value="{{ video['post_titulo'] or '' }}">
+        <label>Slug (URL)</label>
+        <input type="text" name="post_slug" value="{{ video['post_slug'] or '' }}" pattern="[a-z0-9-]+">
         <label>Resumen (metadescripción)</label>
         <textarea name="post_resumen" style="min-height: 60px;">{{ video['post_resumen'] or '' }}</textarea>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 12px 0;">
+            <div>
+                <label>Cluster</label>
+                <select name="post_cluster">
+                    {% for c in clusters %}
+                    <option value="{{ c }}" {% if (video.get('post_cluster') or 'ia') == c %}selected{% endif %}>{{ c }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Tipo</label>
+                <select name="post_tipo">
+                    <option value="noticia" {% if (video.get('post_tipo') or 'noticia') == 'noticia' %}selected{% endif %}>noticia</option>
+                    <option value="soporte" {% if video.get('post_tipo') == 'soporte' %}selected{% endif %}>soporte</option>
+                    <option value="pilar" {% if video.get('post_tipo') == 'pilar' %}selected{% endif %}>pilar</option>
+                </select>
+            </div>
+            <div>
+                <label>Intención</label>
+                <select name="post_intencion">
+                    <option value="noticia" {% if (video.get('post_intencion') or 'noticia') == 'noticia' %}selected{% endif %}>noticia</option>
+                    <option value="informacional" {% if video.get('post_intencion') == 'informacional' %}selected{% endif %}>informacional</option>
+                    <option value="comercial" {% if video.get('post_intencion') == 'comercial' %}selected{% endif %}>comercial</option>
+                </select>
+            </div>
+        </div>
+        <label>Keyword principal</label>
+        <input type="text" name="post_keyword" value="{{ video.get('post_keyword') or '' }}" placeholder="una keyword por artículo">
+        <label>Relacionados (slugs separados por coma)</label>
+        <input type="text" name="post_relacionados" value="{{ video.get('post_relacionados') or '' }}" placeholder="seo-geo-inteligencia-artificial-2026, ...">
+        {% if video['estado'] == 'publicado' %}
+        <label style="display:flex;align-items:center;gap:8px;margin-top:10px;">
+            <input type="checkbox" name="confirm_slug_change" value="1">
+            Confirmo cambio de slug (creará redirect 301)
+        </label>
+        {% endif %}
         <label>Cuerpo (HTML)</label>
         <textarea name="post_cuerpo" style="min-height: 320px; font-family: monospace; font-size: 13px;">{{ video['post_cuerpo'] or '' }}</textarea>
         <div style="margin-top: 14px;">

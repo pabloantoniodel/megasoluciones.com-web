@@ -55,6 +55,7 @@ GEO_PAGES: dict[str, dict] = {
                 'reales y escalamos solo si el retorno está claro.'
             ),
         ],
+        'resources_article_slug': 'agencia-ia-madrid-apuesta-comunidad-pymes',
         'services_title': 'Servicios más demandados en Madrid',
         'services': [
             {

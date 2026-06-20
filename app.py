@@ -9,6 +9,9 @@ from time import time
 
 from geo_pages import GEO_HUB, GEO_INDEX_GROUPS, geo_sitemap_entries, get_geo_page
 
+import recursos_seo
+from recursos_seo import build_actualidad_context, build_hub_context, get_articulos_relacionados, redirect_path_for_slug, sitemap_priority
+
 from yt_posts import db as yt_db
 from yt_posts import stats as yt_stats
 from yt_posts.admin import admin_bp
@@ -76,7 +79,8 @@ SITEMAP_PAGES = [
     {'path': '/portfolio', 'changefreq': 'monthly', 'priority': '0.8'},
     {'path': '/testimonios', 'changefreq': 'monthly', 'priority': '0.7'},
     {'path': '/contacto', 'changefreq': 'monthly', 'priority': '0.8'},
-    {'path': '/recursos', 'changefreq': 'monthly', 'priority': '0.7'},
+    {'path': '/recursos', 'changefreq': 'weekly', 'priority': '0.85'},
+    {'path': '/recursos/actualidad', 'changefreq': 'daily', 'priority': '0.65'},
     {'path': '/privacidad', 'changefreq': 'yearly', 'priority': '0.3'},
     {'path': '/aviso-legal', 'changefreq': 'yearly', 'priority': '0.3'},
 ]
@@ -137,14 +141,20 @@ LEGACY_REDIRECTS = {
     '/blog': '/recursos',
     '/blog/': '/recursos',
 }
+LEGACY_REDIRECTS.update(recursos_seo.RECURSOS_SLUG_REDIRECTS)
 
 
 @app.before_request
 def redirect_legacy_urls():
     """301 de URLs antiguas con enlaces externos para conservar el SEO."""
-    target = LEGACY_REDIRECTS.get(request.path)
+    path = request.path or ''
+    target = LEGACY_REDIRECTS.get(path)
     if target:
         return redirect(f"{HREFLANG_ES}{target}", code=301)
+    if path.startswith('/blog/') and path not in ('/blog', '/blog/'):
+        slug = path.removeprefix('/blog/').strip('/')
+        if slug:
+            return redirect(f"{HREFLANG_ES}/recursos/{slug}", code=301)
 
 
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
@@ -436,11 +446,53 @@ CONTACTO_FAQS = [
 
 RECURSOS = [
     {
+        'slug': 'agencia-ia-madrid-apuesta-comunidad-pymes',
+        'titulo': 'Agencia de IA en Madrid: la apuesta de la Comunidad de Madrid y qué significa para tu pyme',
+        'resumen': 'Estrategia IA 2030, LADIA, Centro de Excelencia y EDIH Madrid Region: qué impulsa la Comunidad de Madrid en inteligencia artificial y cómo una pyme puede aprovecharlo.',
+        'fecha': '2026-06-19',
+        'fecha_modificacion': '2026-06-19',
+        'cluster': 'ia',
+        'tipo': 'soporte',
+        'intencion': 'comercial',
+        'keyword_principal': 'agencia ia madrid pymes',
+        'relacionados': [
+            'seo-geo-inteligencia-artificial-2026',
+            'desarrolladores-ia-gestion-automatizacion-empresas',
+        ],
+        'cta_servicio': 'consultoria-ia',
+        'imagen': 'images/recursos/agencia-ia-madrid-apuesta-comunidad-pymes.jpg',
+    },
+    {
+        'slug': 'desarrolladores-ia-gestion-automatizacion-empresas',
+        'titulo': 'Desarrolladores e IA en empresas: por qué un modelo doméstico no sustituye la producción',
+        'resumen': 'La IA casera sirve para probar ideas, pero gestionar y automatizar una empresa exige integraciones, seguridad y software en producción.',
+        'fecha': '2026-06-13',
+        'fecha_modificacion': '2026-06-13',
+        'cluster': 'ia',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'ia empresas produccion desarrolladores',
+        'relacionados': [
+            'seo-geo-inteligencia-artificial-2026',
+            'elegir-empresa-desarrollo-software',
+        ],
+        'cta_servicio': 'desarrollo-software',
+        'imagen': 'images/recursos/desarrolladores-ia-gestion-automatizacion-empresas.jpg',
+    },
+    {
         'slug': 'seo-geo-inteligencia-artificial-2026',
         'titulo': 'SEO para IA y GEO en 2026: guía de Generative Engine Optimization',
         'resumen': 'Qué es el SEO con inteligencia artificial y la GEO, cómo posicionarte en ChatGPT, Gemini y AI Overviews, y 7 acciones prácticas para empresas en España.',
         'fecha': '2026-06-07',
+        'fecha_modificacion': '2026-06-07',
         'cluster': 'ia',
+        'tipo': 'pilar',
+        'intencion': 'informacional',
+        'keyword_principal': 'seo geo inteligencia artificial',
+        'relacionados': [
+            'agencia-ia-madrid-apuesta-comunidad-pymes',
+            'desarrolladores-ia-gestion-automatizacion-empresas',
+        ],
         'cta_servicio': 'consultoria-ia',
     },
     {
@@ -448,7 +500,15 @@ RECURSOS = [
         'titulo': 'Cómo automatizar procesos en una pyme española',
         'resumen': 'Guía práctica para identificar qué automatizar primero y calcular el ROI de las automatizaciones empresariales.',
         'fecha': '2026-05-01',
+        'fecha_modificacion': '2026-05-01',
         'cluster': 'automatizaciones',
+        'tipo': 'pilar',
+        'intencion': 'informacional',
+        'keyword_principal': 'automatizar procesos pyme',
+        'relacionados': [
+            'rpa-vs-automatizacion-apis',
+            'procesos-automatizar-empresa',
+        ],
         'cta_servicio': 'automatizaciones-rpa',
     },
     {
@@ -456,7 +516,15 @@ RECURSOS = [
         'titulo': 'Cuánto cuesta un desarrollo de software a medida en 2026',
         'resumen': 'Desglose de precios por tipo de proyecto: web, API, plataforma SaaS e integraciones con ERP/CRM.',
         'fecha': '2026-04-15',
+        'fecha_modificacion': '2026-04-15',
         'cluster': 'desarrollo',
+        'tipo': 'soporte',
+        'intencion': 'comercial',
+        'keyword_principal': 'coste desarrollo software a medida',
+        'relacionados': [
+            'elegir-empresa-desarrollo-software',
+            'integrar-odoo-web-crm',
+        ],
         'cta_servicio': 'desarrollo-software',
     },
     {
@@ -464,7 +532,15 @@ RECURSOS = [
         'titulo': 'RPA vs automatización con APIs: qué elegir',
         'resumen': 'Comparativa técnica y económica para decidir la mejor estrategia de automatización en tu empresa.',
         'fecha': '2026-03-20',
+        'fecha_modificacion': '2026-03-20',
         'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'rpa vs automatizacion apis',
+        'relacionados': [
+            'automatizar-procesos-pyme',
+            'procesos-automatizar-empresa',
+        ],
         'cta_servicio': 'automatizaciones-rpa',
     },
     {
@@ -472,7 +548,15 @@ RECURSOS = [
         'titulo': 'Integrar Odoo con tu web y CRM: guía práctica',
         'resumen': 'Cómo conectar Odoo con ecommerce, CRM y banca sin duplicar datos ni errores manuales.',
         'fecha': '2026-02-10',
+        'fecha_modificacion': '2026-02-10',
         'cluster': 'desarrollo',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'integrar odoo web crm',
+        'relacionados': [
+            'elegir-empresa-desarrollo-software',
+            'coste-desarrollo-software-2026',
+        ],
         'cta_servicio': 'desarrollo-software',
     },
     {
@@ -480,7 +564,15 @@ RECURSOS = [
         'titulo': '5 procesos que toda empresa debería automatizar ya',
         'resumen': 'Los procesos con mayor retorno rápido en pymes y medianas empresas en España.',
         'fecha': '2026-01-15',
+        'fecha_modificacion': '2026-01-15',
         'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'procesos automatizar empresa',
+        'relacionados': [
+            'automatizar-procesos-pyme',
+            'rpa-vs-automatizacion-apis',
+        ],
         'cta_servicio': 'automatizaciones-rpa',
     },
     {
@@ -488,7 +580,15 @@ RECURSOS = [
         'titulo': 'Checklist para elegir empresa de desarrollo software en España',
         'resumen': '8 criterios clave antes de contratar desarrollo a medida o integraciones.',
         'fecha': '2025-12-01',
+        'fecha_modificacion': '2025-12-01',
         'cluster': 'desarrollo',
+        'tipo': 'pilar',
+        'intencion': 'comercial',
+        'keyword_principal': 'elegir empresa desarrollo software',
+        'relacionados': [
+            'coste-desarrollo-software-2026',
+            'integrar-odoo-web-crm',
+        ],
         'cta_servicio': 'desarrollo-software',
     },
 ]
@@ -613,15 +713,17 @@ def todos_los_recursos() -> list[dict]:
     except Exception as e:
         print(f'[yt_posts] Error leyendo posts publicados: {e}')
         posts = []
-    return sorted(RECURSOS + posts, key=lambda r: r.get('fecha', ''), reverse=True)
+    merged = [recursos_seo.normalize_recurso(r) for r in RECURSOS + posts]
+    return sorted(merged, key=lambda r: r.get('fecha', ''), reverse=True)
 
 
 def get_recurso(slug: str) -> dict | None:
     articulo = next((r for r in RECURSOS if r['slug'] == slug), None)
     if articulo:
-        return articulo
+        return recursos_seo.normalize_recurso(articulo)
     try:
-        return yt_db.get_post_publicado(slug)
+        post = yt_db.get_post_publicado(slug)
+        return recursos_seo.normalize_recurso(post) if post else None
     except Exception as e:
         print(f'[yt_posts] Error leyendo post {slug}: {e}')
         return None
@@ -642,12 +744,15 @@ def render_recurso_body(slug: str) -> str:
 def all_sitemap_paths() -> list[dict]:
     today = datetime.now().strftime('%Y-%m-%d')
     pages = [{**p, 'lastmod': today} for p in SITEMAP_PAGES]
+    for p in pages:
+        if p.get('path') == '/recursos':
+            p['changefreq'] = 'weekly'
     for r in todos_los_recursos():
         pages.append({
             'path': f"/recursos/{r['slug']}",
             'changefreq': 'monthly',
-            'priority': '0.75',
-            'lastmod': r.get('fecha') or today,
+            'priority': sitemap_priority(r),
+            'lastmod': r.get('fecha_modificacion') or r.get('fecha') or today,
         })
     for p in PORTFOLIO:
         pages.append({
@@ -760,24 +865,70 @@ def testimonios():
 
 @app.route('/recursos')
 def recursos():
+    hub = build_hub_context(todos_los_recursos())
     return render_template(
         'recursos.html',
-        articulos=todos_los_recursos(),
         breadcrumbs=[{'name': 'Recursos', 'url': canonical_url()}],
+        **hub,
+    )
+
+
+@app.route('/recursos/actualidad')
+def recursos_actualidad():
+    ctx = build_actualidad_context(todos_los_recursos())
+    return render_template(
+        'recursos-actualidad.html',
+        breadcrumbs=[
+            {'name': 'Recursos', 'url': url_for('recursos', _external=True)},
+            {'name': 'Actualidad IA', 'url': canonical_url()},
+        ],
+        **ctx,
+    )
+
+
+@app.route('/recursos/temas/<cluster>')
+def recursos_tema(cluster):
+    if cluster not in recursos_seo.CLUSTERS:
+        abort(404)
+    todos = [r for r in todos_los_recursos() if r.get('cluster') == cluster]
+    meta = recursos_seo.CLUSTER_META[cluster]
+    return render_template(
+        'recursos-tema.html',
+        cluster=cluster,
+        cluster_meta=meta,
+        pilar_slug=recursos_seo.CLUSTER_PILARES[cluster],
+        articulos=todos,
+        breadcrumbs=[
+            {'name': 'Recursos', 'url': url_for('recursos', _external=True)},
+            {'name': meta['nombre'], 'url': canonical_url()},
+        ],
     )
 
 
 @app.route('/recursos/<slug>')
 def recurso_articulo(slug):
+    try:
+        db_redirects = yt_db.list_recursos_redirects()
+    except Exception:
+        db_redirects = {}
+    target = redirect_path_for_slug(slug, db_redirects)
+    if target:
+        return redirect(f"{HREFLANG_ES}{target}", code=301)
+
     articulo = get_recurso(slug)
     if not articulo:
         abort(404)
+    todos = todos_los_recursos()
+    relacionados = get_articulos_relacionados(articulo, todos)
     # Posts de vídeo llevan el cuerpo en BD; los artículos estáticos, en content/recursos/
     cuerpo = articulo.get('cuerpo') or render_recurso_body(slug)
     return render_template(
         'recurso-articulo.html',
         articulo=articulo,
         cuerpo=cuerpo,
+        articulos_relacionados=relacionados,
+        cluster_meta=recursos_seo.CLUSTER_META.get(articulo.get('cluster', '')) or {},
+        pilar_slug=recursos_seo.CLUSTER_PILARES.get(articulo.get('cluster', '')),
         breadcrumbs=[
             {'name': 'Recursos', 'url': url_for('recursos', _external=True)},
             {'name': articulo['titulo'], 'url': canonical_url()},

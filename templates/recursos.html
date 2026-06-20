@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}Recursos — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
-{% block meta_description %}Artículos y guías sobre desarrollo de software a medida, automatizaciones empresariales y RPA para empresas en España.{% endblock %}
+{% block meta_description %}Guías prácticas sobre desarrollo de software a medida, automatizaciones empresariales, RPA e inteligencia artificial para empresas en España.{% endblock %}
 {% block og_title %}Recursos sobre Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
-{% block og_description %}Artículos y guías sobre desarrollo de software a medida, automatizaciones empresariales y RPA para empresas en España.{% endblock %}
+{% block og_description %}Guías prácticas sobre desarrollo de software a medida, automatizaciones empresariales, RPA e inteligencia artificial para empresas en España.{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -11,9 +11,9 @@
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Recursos Megasoluciones",
+  "name": "Guías Megasoluciones",
   "itemListElement": [
-    {% for articulo in articulos %}
+    {% for articulo in guias_evergreen %}
     {
       "@type": "ListItem",
       "position": {{ loop.index }},
@@ -31,32 +31,116 @@
 </script>
 {% endblock %}
 
+{% macro recurso_card(articulo, compact=false, heading_tag='h2', show_thumb=true) %}
+<article class="landing-card{% if compact %} landing-card-compact{% endif %}">
+    {% if show_thumb and articulo.imagen %}
+    <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="recursos-card-thumb">
+        <img src="{{ url_for('static', filename=articulo.imagen) }}"
+             alt=""
+             width="400" height="210"
+             loading="lazy">
+    </a>
+    {% elif show_thumb and articulo.video_id %}
+    <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="recursos-card-thumb">
+        <img src="https://i.ytimg.com/vi/{{ articulo.video_id }}/hqdefault.jpg"
+             alt=""
+             width="400" height="210"
+             loading="lazy">
+    </a>
+    {% endif %}
+    <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
+    <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if articulo.cluster == 'desarrollo' else ('ia' if articulo.cluster == 'ia' else 'automatizacion') }}">{{ articulo.cluster|capitalize }}</span>
+    {% if articulo.tipo == 'pilar' %}<span class="recursos-badge-pilar">Guía pilar</span>{% endif %}
+    <{{ heading_tag }}><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ articulo.titulo }}</a></{{ heading_tag }}>
+    {% if not compact %}<p>{{ articulo.resumen }}</p>{% endif %}
+    <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">Leer artículo →</a>
+</article>
+{% endmacro %}
+
 {% block content %}
 <section class="page-header">
     <div class="container">
         <h1>Recursos sobre <span class="gradient-text">desarrollo y automatizaciones</span></h1>
-        <p>Guías prácticas para empresas en España — calendario editorial 2025–2026</p>
+        <p>Guías evergreen y actualidad sobre IA, software a medida y RPA para empresas en España</p>
     </div>
 </section>
 
-<section class="section">
+<section class="section recursos-hub-clusters">
     <div class="container">
-        <div class="landing-grid">
-            {% for articulo in articulos %}
-            <article class="landing-card">
-                <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
-                <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if articulo.cluster == 'desarrollo' else ('ia' if articulo.cluster in ('ia', 'video') else 'automatizacion') }}">{{ 'Vídeo' if articulo.cluster == 'video' else articulo.cluster|capitalize }}</span>
-                <h2><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ articulo.titulo }}</a></h2>
-                <p>{{ articulo.resumen }}</p>
-                <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">Leer artículo →</a>
-            </article>
+        <h2 class="recursos-section-title">Guías por tema</h2>
+        <div class="recursos-clusters-grid">
+            {% for c in clusters_hub %}
+            <div class="recursos-cluster-card" id="{{ c.ancla }}">
+                <h3><a href="{{ url_for('recursos_tema', cluster=c.key) }}">{{ c.nombre }}</a></h3>
+                <p>{{ c.descripcion }}</p>
+                {% if c.pilar %}
+                <p class="recursos-pilar-link">
+                    <strong>Guía pilar:</strong>
+                    <a href="{{ url_for('recurso_articulo', slug=c.pilar.slug) }}">{{ c.pilar.titulo }}</a>
+                </p>
+                {% endif %}
+                {% if c.soporte %}
+                <ul class="recursos-soporte-list">
+                    {% for s in c.soporte %}
+                    <li><a href="{{ url_for('recurso_articulo', slug=s.slug) }}">{{ s.titulo }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <a href="{{ url_for('recursos_tema', cluster=c.key) }}" class="btn-outline btn-sm">Ver tema →</a>
+            </div>
             {% endfor %}
         </div>
-        <div class="text-center" style="margin-top: 2rem;">
-            <p class="lead">Clusters temáticos:</p>
+    </div>
+</section>
+
+{% if destacados %}
+<section class="section recursos-hub-destacados">
+    <div class="container">
+        <h2 class="recursos-section-title">Guías pilar</h2>
+        <div class="landing-grid">
+            {% for articulo in destacados %}
+            {{ recurso_card(articulo) }}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if feed_actualidad %}
+<section class="section recursos-hub-feed">
+    <div class="container">
+        <h2 class="recursos-section-title">Actualidad IA / Noticias del sector</h2>
+        <p class="recursos-feed-intro">Resúmenes de vídeo y novedades del sector. Las guías evergreen están en los bloques superiores.</p>
+        <div class="landing-grid">
+            {% for articulo in feed_actualidad %}
+            {{ recurso_card(articulo, heading_tag='h3', show_thumb=false) }}
+            {% endfor %}
+        </div>
+        {% if feed_actualidad_total > feed_actualidad|length %}
+        <p class="text-center recursos-ver-mas">
+            <a href="{{ url_for('recursos_actualidad') }}" class="btn-outline">
+                Ver toda la actualidad ({{ feed_actualidad_total }} artículos) →
+            </a>
+        </p>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+<section class="section recursos-hub-all">
+    <div class="container">
+        <h2 class="recursos-section-title">Todas las guías</h2>
+        <div class="landing-grid">
+            {% for articulo in guias_todas %}
+            {{ recurso_card(articulo, compact=true) }}
+            {% endfor %}
+        </div>
+        <div class="text-center recursos-hub-footer">
+            <p class="lead">Servicios relacionados:</p>
             <p>
                 <a href="{{ url_for('desarrollo_software') }}">Desarrollo a medida</a> ·
                 <a href="{{ url_for('automatizaciones') }}">Automatizaciones</a> ·
+                <a href="{{ url_for('servicios') }}#consultoria-ia">Consultoría IA</a> ·
                 <a href="{{ url_for('portfolio') }}">Casos de éxito</a> ·
                 <a href="{{ url_for('contacto') }}">Consulta gratuita</a>
             </p>

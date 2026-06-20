@@ -57,6 +57,9 @@
         {% for paragraph in page.get('intro_paragraphs', []) %}
         <p>{{ paragraph }}</p>
         {% endfor %}
+        {% if page.get('resources_article_slug') %}
+        <p><a href="{{ url_for('recurso_articulo', slug=page.resources_article_slug) }}">Agencia de IA en Madrid: la apuesta de la Comunidad de Madrid y qué significa para tu pyme →</a></p>
+        {% endif %}
         {% if page.sectors %}
         <div class="sectors-grid">
             {% for sector in page.sectors %}

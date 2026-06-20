@@ -107,6 +107,9 @@ def procesar_pendientes() -> int:
                 post_slug=slug,
                 post_resumen=datos['resumen'],
                 post_cuerpo=datos['cuerpo_html'],
+                post_cluster='ia',
+                post_tipo='noticia',
+                post_intencion='noticia',
                 estado='borrador',
                 error_motivo=None,
             )

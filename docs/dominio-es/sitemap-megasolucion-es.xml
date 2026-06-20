@@ -1,113 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Referencia estática — en producción: https://megasolucion.es/sitemap.xml (generado dinámicamente) -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://megasolucion.es/</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/desarrollo-software</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/automatizaciones</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/servicios</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/sobre</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/portfolio</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/testimonios</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/contacto</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/actualidad</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.65</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/privacidad</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/aviso-legal</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/agencia-ia-madrid-apuesta-comunidad-pymes</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/el-coste-de-inferencia-en-ia-superara-al-de-entrenamiento</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/instala-odysseus-tu-agente-ia-gratis-y-local</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/el-drama-de-mythos-la-regulacion-de-ia-en-ee-uu</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/acceso-a-mitos-oportunidad-tardia-para-europa</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/desarrolladores-ia-gestion-automatizacion-empresas</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/prohibicion-de-fable-y-mythos-un-precedente-en-ia</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://megasolucion.es/recursos/meta-y-el-fiasco-de-su-chatbot-en-instagram</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos/google-fusiona-gemini-y-notebooklm-innovacion-en-productividad</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos/el-impacto-de-la-ia-en-el-nhs-ahorro-de-tiempo-y-productividad</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos/la-ia-que-transformara-nuestra-comprension-del-conocimiento</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos/opencloud-y-windows-la-nueva-era-de-la-ia-segura</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos/mythos-fable-5-un-avance-revolucionario-en-ia</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos/seo-geo-inteligencia-artificial-2026</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos/automatizar-procesos-pyme</loc>
     <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/recursos/coste-desarrollo-software-2026</loc>
@@ -137,83 +190,83 @@
     <loc>https://megasolucion.es/recursos/elegir-empresa-desarrollo-software</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/portfolio/plataforma-gestion-medida</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/portfolio/automatizacion-erp-crm</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/portfolio/portal-clientes-api-bancaria</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/portfolio/rpa-documental-ocr</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/madrid</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/comunidad-de-madrid</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/alcala-de-henares</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/torrejon-de-ardoz</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/coslada</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/rivas-vaciamadrid</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/arganda-del-rey</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://megasolucion.es/geo/san-fernando-de-henares</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
