@@ -47,6 +47,16 @@
     .presets a:hover { background: #cbd5e1; }
     .presets a.active { background: #2563eb; color: #fff; }
     .range-title { font-size: 14px; color: #64748b; margin: 0 0 14px; }
+    .exclusion-banner {
+        background: #fffbeb;
+        border: 1px solid #fcd34d;
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin-bottom: 18px;
+        font-size: 14px;
+        color: #92400e;
+    }
+    .exclusion-banner strong { color: #78350f; }
     .pager { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 16px; }
     .pager a, .pager span {
         display: inline-block; padding: 6px 12px; border-radius: 6px;
@@ -147,6 +157,14 @@
     {% if resumen.dias > 1 %}({{ resumen.dias }} días con actividad){% endif %}
 </p>
 
+{% if exclusion_summary.visitas_ocultas or exclusion_summary.ips_activas %}
+<div class="exclusion-banner">
+    <strong>{{ exclusion_summary.visitas_ocultas }}</strong> visitas ocultas en este rango por filtros de IP
+    {% if exclusion_summary.ips_activas %}({{ exclusion_summary.ips_activas }} IP{{ 's' if exclusion_summary.ips_activas != 1 else '' }} excluida{{ 's' if exclusion_summary.ips_activas != 1 else '' }}){% endif %}.
+    El gráfico inferior muestra visitas contadas y excluidas por separado.
+</div>
+{% endif %}
+
 <div class="kpis" style="margin-bottom: 22px;">
     <div class="kpi"><div class="num">{{ resumen.visitas }}</div><div class="lbl">Visitas en el rango</div></div>
     <div class="kpi"><div class="num">{{ resumen.unicos }}</div><div class="lbl">Únicos en el rango</div></div>
@@ -154,7 +172,7 @@
 </div>
 
 <div class="card">
-    <h2>Visitas y visitantes únicos por día</h2>
+    <h2>Visitas por día (contadas vs excluidas)</h2>
     {% if series %}
     <canvas id="serie" height="90"></canvas>
     {% else %}
@@ -220,13 +238,83 @@
         {% endif %}
     </div>
     <div class="card">
-        <h2>Referrers (origen del tráfico)</h2>
+        <h2>Origen del tráfico (referrers)</h2>
+        <p class="muted" style="margin:0 0 12px;font-size:13px;">
+            Canales conocidos (Google, Bing, LinkedIn, ChatGPT, redes…) agrupados por plataforma.
+            Cada <strong>dominio externo desconocido</strong> aparece por separado.
+            Sin referrer = <strong>Tráfico directo</strong>, salvo que la URL traiga
+            <code>?utm_source=linkedin</code> (u otro utm reconocido).
+            La app móvil de LinkedIn suele llegar sin Referer — usa UTMs en tus enlaces.
+            Los únicos usan la última visita del visitante en el rango.
+        </p>
+        {% if origenes_excluidos %}
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:13px;">
+            <strong>Tráfico oculto por IPs excluidas</strong> (no suma en los totales de arriba):
+            {% for o in origenes_excluidos %}
+            <span style="margin-left:8px;">{{ o.canal }} ({{ o.visitas }} visitas{% if o.unicos %}, {{ o.unicos }} únicos{% endif %})</span>{% if not loop.last %} ·{% endif %}
+            {% endfor %}
+            — Restáuralas en la tabla de abajo si quieres contarlas.
+        </div>
+        {% endif %}
+        {% if referrer_breakdown.filas %}
         <table>
-            <tr><th>Dominio</th><th style="text-align:right">Visitas</th></tr>
-            {% for r in top_referrers %}
-            <tr><td>{{ r.valor }}</td><td style="text-align:right">{{ r.visitas }}</td></tr>
+            <tr>
+                <th>Origen</th>
+                <th style="text-align:right">Visitas</th>
+                <th style="text-align:right">%</th>
+                <th style="text-align:right">Únicos</th>
+                <th style="text-align:right">%</th>
+            </tr>
+            {% for r in referrer_breakdown.filas %}
+            <tr{% if r.es_dominio %} style="background:#f8fafc;"{% endif %}>
+                <td>
+                    {% if r.es_dominio %}
+                    <span class="muted" style="font-size:11px;margin-right:4px;">↗</span><code>{{ r.canal }}</code>
+                    {% else %}
+                    {{ r.canal }}
+                    {% endif %}
+                </td>
+                <td style="text-align:right">{{ r.visitas }}</td>
+                <td style="text-align:right" class="muted">{{ r.pct_visitas }}%</td>
+                <td style="text-align:right">{{ r.unicos }}</td>
+                <td style="text-align:right" class="muted">{{ r.pct_unicos }}%</td>
+            </tr>
+            {% endfor %}
+            <tr style="font-weight:700;border-top:2px solid #e2e8f0;">
+                <td>Total</td>
+                <td style="text-align:right">{{ referrer_breakdown.totales.visitas }}</td>
+                <td style="text-align:right" class="muted">100%</td>
+                <td style="text-align:right">{{ referrer_breakdown.totales.unicos }}</td>
+                <td style="text-align:right" class="muted">100%</td>
+            </tr>
+        </table>
+        {% else %}
+        <p class="muted">Sin visitas en este rango.</p>
+        {% endif %}
+    </div>
+    <div class="card">
+        <h2>Consultas de búsqueda (Referer)</h2>
+        <p class="muted" style="margin:0 0 12px;font-size:13px;">
+            Términos extraídos del header <code>Referer</code> (p. ej. <code>?q=</code> en Google/Bing)
+            y, si no vienen ahí, de la URL de entrada (<code>?q=</code>, <code>?search_query=</code>, <code>?query=</code>…).
+            Muchas visitas orgánicas no incluyen la consulta (navegadores y Google suelen ocultarla).
+        </p>
+        <table>
+            <tr>
+                <th>Consulta</th>
+                <th>Motor / referrer</th>
+                <th>Fuente</th>
+                <th style="text-align:right">Visitas</th>
+            </tr>
+            {% for r in top_busquedas %}
+            <tr>
+                <td><strong>{{ r.valor }}</strong></td>
+                <td class="muted">{{ r.referrer or '—' }}</td>
+                <td class="muted">{% if r.referrer_query_source == 'referer' %}Referer{% elif r.referrer_query_source == 'landing' %}URL entrada{% else %}—{% endif %}</td>
+                <td style="text-align:right">{{ r.visitas }}</td>
+            </tr>
             {% else %}
-            <tr><td colspan="2" class="muted">Sin datos (directo no cuenta)</td></tr>
+            <tr><td colspan="4" class="muted">Sin consultas capturadas en este rango</td></tr>
             {% endfor %}
         </table>
     </div>
@@ -251,12 +339,69 @@
     </div>
 </div>
 
+<div class="grid2">
+    <div class="card">
+        <h2>Visitantes más activos</h2>
+        <p class="muted" style="margin:0 0 12px;font-size:13px;">Top 15 IPs por número de visitas en el rango. Misma información que la tabla completa.</p>
+        <div class="ip-toolbar">
+            <span id="activos-count" class="muted">Cargando…</span>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="xls-table" id="activos-table">
+                <thead>
+                    <tr>
+                        <th style="width:36px;"></th>
+                        <th>IP</th>
+                        <th>Tipo</th>
+                        <th>País</th>
+                        <th>Dispositivo</th>
+                        <th style="text-align:right">Visitas</th>
+                        <th style="width:90px;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="activos-tbody">
+                    <tr><td colspan="7" class="muted">Cargando datos…</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <h2>Últimas conexiones por IP</h2>
+        <p class="muted" style="margin:0 0 12px;font-size:13px;">15 IPs ordenadas por su última conexión (más reciente primero).</p>
+        <div class="ip-toolbar">
+            <span id="recientes-count" class="muted">Cargando…</span>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="xls-table" id="recientes-table">
+                <thead>
+                    <tr>
+                        <th style="width:36px;"></th>
+                        <th>IP</th>
+                        <th>Tipo</th>
+                        <th>País</th>
+                        <th>Dispositivo</th>
+                        <th>Última conexión</th>
+                        <th style="text-align:right">Visitas</th>
+                        <th style="width:90px;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="recientes-tbody">
+                    <tr><td colspan="8" class="muted">Cargando datos…</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <h2>IPs con más visitas</h2>
     <div class="ip-toolbar">
         <span id="ip-count" class="muted">Cargando…</span>
         <button type="button" class="btn sm gray" id="ip-clear-filters">Limpiar filtros</button>
         <button type="button" class="btn sm" id="ip-excluir-robots" title="Excluye provisionalmente todas las IPs marcadas como robot">Excluir robots del rango</button>
+        <label class="muted" style="font-size:12px;display:inline-flex;align-items:center;gap:4px;">
+            <input type="checkbox" id="ip-include-google"> Incluir Googlebot
+        </label>
         <label class="muted">Por página:
             <select id="ip-per-page" style="padding:4px 8px;border-radius:4px;border:1px solid #cbd5e1;">
                 <option value="25">25</option>
@@ -332,51 +477,20 @@
 
 <script>
 (function() {
-    const COLSPAN = 7;
-    const API_BASE = '{% if preset == "custom" %}{{ url_for("admin.api_stats_ips", desde=desde, hasta=hasta) }}{% else %}{{ url_for("admin.api_stats_ips", preset=preset) }}{% endif %}';
     const API_VISITAS = (ip, qs) => '{% if preset == "custom" %}{{ url_for("admin.api_stats_ip_visitas", ip="__IP__", desde=desde, hasta=hasta) }}{% else %}{{ url_for("admin.api_stats_ip_visitas", ip="__IP__", preset=preset) }}{% endif %}'.replace('__IP__', encodeURIComponent(ip)) + (qs ? '&' + qs : '');
     const API_EXCLUIR = (ip) => '{% if preset == "custom" %}{{ url_for("admin.api_stats_ip_excluir", ip="__IP__", desde=desde, hasta=hasta) }}{% else %}{{ url_for("admin.api_stats_ip_excluir", ip="__IP__", preset=preset) }}{% endif %}'.replace('__IP__', encodeURIComponent(ip));
     const API_RESTAURAR = (ip) => '{{ url_for("admin.api_stats_ip_restaurar", ip="__IP__") }}'.replace('__IP__', encodeURIComponent(ip));
     const API_EXCLUIDAS = '{{ url_for("admin.api_stats_ips_excluidas") }}';
     const API_EXCLUIR_ROBOTS = '{% if preset == "custom" %}{{ url_for("admin.api_stats_excluir_robots", desde=desde, hasta=hasta) }}{% else %}{{ url_for("admin.api_stats_excluir_robots", preset=preset) }}{% endif %}';
+    const API_ACTIVAS = '{% if preset == "custom" %}{{ url_for("admin.api_stats_ips_activas", desde=desde, hasta=hasta) }}{% else %}{{ url_for("admin.api_stats_ips_activas", preset=preset) }}{% endif %}';
+    const API_RECIENTES = '{% if preset == "custom" %}{{ url_for("admin.api_stats_ips_recientes", desde=desde, hasta=hasta) }}{% else %}{{ url_for("admin.api_stats_ips_recientes", preset=preset) }}{% endif %}';
+    const API_BASE = '{% if preset == "custom" %}{{ url_for("admin.api_stats_ips", desde=desde, hasta=hasta) }}{% else %}{{ url_for("admin.api_stats_ips", preset=preset) }}{% endif %}';
 
-    let allRows = [];
-    let filtered = [];
-    let sortCol = 'visitas';
-    let sortDir = 'desc';
-    let page = 1;
-    let perPage = 25;
-    const expanded = new Set();
+    const excluidasTbody = document.getElementById('excluidas-tbody');
+    const ipTables = [];
 
-    const els = {
-        tbody: document.getElementById('ip-tbody'),
-        pager: document.getElementById('ip-pager'),
-        count: document.getElementById('ip-count'),
-        excluidasTbody: document.getElementById('excluidas-tbody'),
-    };
-
-    function getFilters() {
-        return {
-            ip: document.getElementById('f-ip').value.trim().toLowerCase(),
-            tipo: document.getElementById('f-tipo').value,
-            pais: document.getElementById('f-pais').value.trim().toLowerCase(),
-            dispositivo: document.getElementById('f-dispositivo').value,
-            visitasMin: parseInt(document.getElementById('f-visitas').value, 10) || 0,
-        };
-    }
-
-    function applyFilters() {
-        const f = getFilters();
-        filtered = allRows.filter(r => {
-            if (f.ip && !r.ip.toLowerCase().includes(f.ip)) return false;
-            if (f.tipo && r.tipo !== f.tipo) return false;
-            if (f.pais && !(r.pais || '').toLowerCase().includes(f.pais) && !(r.pais_codigo || '').toLowerCase().includes(f.pais)) return false;
-            if (f.dispositivo && r.dispositivo_label !== f.dispositivo) return false;
-            if (f.visitasMin && r.visitas < f.visitasMin) return false;
-            return true;
-        });
-        sortRows();
-    }
+    function esc(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+    function cssId(ip) { return ip.replace(/\./g, '-'); }
 
     function tipoBadge(r) {
         if (r.es_robot) {
@@ -386,204 +500,17 @@
         return '<span class="badge-tipo humano">👤 Humano</span>';
     }
 
-    function sortRows() {
-        filtered.sort((a, b) => {
-            let va = a[sortCol], vb = b[sortCol];
-            if (sortCol === 'visitas') { va = +va; vb = +vb; }
-            else { va = String(va || '').toLowerCase(); vb = String(vb || '').toLowerCase(); }
-            if (va < vb) return sortDir === 'asc' ? -1 : 1;
-            if (va > vb) return sortDir === 'asc' ? 1 : -1;
-            return 0;
-        });
-        page = 1;
-        render();
-    }
-
-    function render() {
-        const total = filtered.length;
-        const pages = Math.max(1, Math.ceil(total / perPage));
-        if (page > pages) page = pages;
-        const slice = filtered.slice((page - 1) * perPage, page * perPage);
-
-        els.count.textContent = total === allRows.length
-            ? `${total} IPs en el rango`
-            : `${total} de ${allRows.length} IPs (filtradas)`;
-
-        if (!slice.length) {
-            els.tbody.innerHTML = `<tr><td colspan="${COLSPAN}" class="muted">Sin resultados con estos filtros</td></tr>`;
-            els.pager.style.display = 'none';
-            return;
-        }
-
-        els.tbody.innerHTML = slice.map(r => {
-            const open = expanded.has(r.ip);
-            const paisTxt = r.pais + (r.pais_codigo ? ` <span class="flag">${r.pais_codigo}</span>` : '');
-            let html = `<tr class="ip-row" data-ip="${esc(r.ip)}">
-                <td><button type="button" class="btn-expand${open ? ' open' : ''}" data-ip="${esc(r.ip)}" title="Ver visitas">${open ? '▼' : '▶'}</button></td>
-                <td><code>${esc(r.ip)}</code></td>
-                <td>${tipoBadge(r)}</td>
-                <td>${paisTxt}</td>
-                <td>${esc(r.dispositivo_label)}</td>
-                <td style="text-align:right;font-weight:600">${r.visitas}</td>
-                <td><button type="button" class="btn-excluir" data-excluir="${esc(r.ip)}" data-robot="${r.es_robot ? '1' : '0'}" title="Excluir de estadísticas">Excluir</button></td>
-            </tr>`;
-            if (open) {
-                html += `<tr class="sub-row" data-sub="${esc(r.ip)}"><td colspan="${COLSPAN}"><div class="sub-wrap" id="sub-${cssId(r.ip)}"><span class="muted">Cargando…</span></div></td></tr>`;
-            }
-            return html;
-        }).join('');
-
-        renderPager(pages);
-        bindExpandButtons();
-        bindExcluirButtons();
-        slice.filter(r => expanded.has(r.ip)).forEach(r => loadSub(r.ip));
-    }
-
-    function renderPager(pages) {
-        if (pages <= 1) { els.pager.style.display = 'none'; return; }
-        els.pager.style.display = 'flex';
-        let html = '';
-        if (page > 1) html += `<a href="#" data-p="${page-1}">← Anterior</a>`;
-        else html += '<span class="disabled">← Anterior</span>';
-        for (let p = 1; p <= pages; p++) {
-            if (p === 1 || p === pages || (p >= page - 2 && p <= page + 2))
-                html += p === page ? `<span class="current">${p}</span>` : `<a href="#" data-p="${p}">${p}</a>`;
-            else if (p === page - 3 || p === page + 3) html += '<span class="muted">…</span>';
-        }
-        if (page < pages) html += `<a href="#" data-p="${page+1}">Siguiente →</a>`;
-        else html += '<span class="disabled">Siguiente →</span>';
-        html += `<span class="muted" style="margin-left:8px">Pág. ${page} de ${pages}</span>`;
-        els.pager.innerHTML = html;
-        els.pager.querySelectorAll('a[data-p]').forEach(a => {
-            a.addEventListener('click', e => { e.preventDefault(); page = +a.dataset.p; render(); });
-        });
-    }
-
-    function bindExpandButtons() {
-        els.tbody.querySelectorAll('.btn-expand').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const ip = btn.dataset.ip;
-                if (expanded.has(ip)) { expanded.delete(ip); }
-                else { expanded.add(ip); }
-                render();
-            });
-        });
-    }
-
-    function bindExcluirButtons() {
-        els.tbody.querySelectorAll('[data-excluir]').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const ip = btn.dataset.excluir;
-                if (!confirm(`¿Excluir ${ip} de las estadísticas? Podrás restaurarla después.`)) return;
-                btn.disabled = true;
-                try {
-                    await fetch(API_EXCLUIR(ip), {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            es_robot: btn.dataset.robot === '1',
-                            motivo: btn.dataset.robot === '1' ? 'robot' : 'manual',
-                        }),
-                    });
-                    expanded.delete(ip);
-                    allRows = allRows.filter(r => r.ip !== ip);
-                    applyFilters();
-                    loadExcluidas();
-                } catch (e) {
-                    alert('Error al excluir la IP');
-                    btn.disabled = false;
-                }
-            });
-        });
-    }
-
-    async function loadExcluidas() {
-        try {
-            const resp = await fetch(API_EXCLUIDAS);
-            const data = await resp.json();
-            const filas = data.filas || [];
-            if (!filas.length) {
-                els.excluidasTbody.innerHTML = '<tr><td colspan="5" class="muted">Ninguna IP excluida</td></tr>';
-                return;
-            }
-            els.excluidasTbody.innerHTML = filas.map(r => `<tr>
-                <td><code>${esc(r.ip)}</code></td>
-                <td>${esc(r.motivo || '—')}</td>
-                <td>${r.es_robot ? '<span class="badge-tipo robot">🤖 Robot</span>' : '<span class="badge-tipo humano">Manual</span>'}</td>
-                <td>${esc(r.excluido || '—')}</td>
-                <td><button type="button" class="btn-restaurar" data-restaurar="${esc(r.ip)}">Restaurar</button></td>
-            </tr>`).join('');
-            els.excluidasTbody.querySelectorAll('[data-restaurar]').forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    const ip = btn.dataset.restaurar;
-                    btn.disabled = true;
-                    try {
-                        await fetch(API_RESTAURAR(ip), { method: 'POST' });
-                        await reloadIps();
-                        loadExcluidas();
-                    } catch (e) {
-                        alert('Error al restaurar');
-                        btn.disabled = false;
-                    }
-                });
-            });
-        } catch (e) {
-            els.excluidasTbody.innerHTML = '<tr><td colspan="5" class="muted">Error cargando excluidas</td></tr>';
-        }
-    }
-
-    async function reloadIps() {
-        const resp = await fetch(API_BASE);
-        const data = await resp.json();
-        allRows = data.filas || [];
-        applyFilters();
-    }
-
-    async function loadSub(ip, subFilters) {
-        const wrapId = 'sub-' + cssId(ip);
-        const el = document.getElementById(wrapId);
-        if (!el || !expanded.has(ip)) return;
-        const qs = subFilters ? new URLSearchParams(subFilters).toString() : '';
-        try {
-            const resp = await fetch(API_VISITAS(ip, qs));
-            const data = await resp.json();
-            el.innerHTML = buildSubTable(ip, data.visitas, qs);
-            bindSubFilters(wrapId, ip);
-        } catch (e) {
-            el.innerHTML = '<span class="muted">Error cargando visitas</span>';
-        }
-    }
-
-    function bindSubFilters(wrapId, ip) {
-        const wrap = document.getElementById(wrapId);
-        if (!wrap) return;
-        const btn = wrap.querySelector('[data-sub-apply]');
-        if (btn) {
-            btn.onclick = () => {
-                const filters = {};
-                wrap.querySelectorAll('[data-subf]').forEach(inp => {
-                    if (inp.value.trim()) filters[inp.dataset.subf] = inp.value.trim();
-                });
-                wrap.innerHTML = '<span class="muted">Cargando…</span>';
-                loadSub(ip, filters);
-            };
-        }
-        wrap.querySelectorAll('[data-subf]').forEach(inp => {
-            inp.addEventListener('keydown', e => {
-                if (e.key === 'Enter') btn?.click();
-            });
-        });
-    }
-
     function buildSubTable(ip, visitas, activeQs) {
         const params = new URLSearchParams(activeQs || '');
         const fPath = params.get('path') || '';
         const fRef = params.get('referrer') || '';
+        const fBusq = params.get('busqueda') || '';
         const fNav = params.get('navegador') || '';
         const fDisp = params.get('dispositivo') || '';
         let html = `<div class="sub-filters">
             <input type="text" placeholder="Filtrar página…" value="${esc(fPath)}" data-subf="path">
             <input type="text" placeholder="Filtrar referrer…" value="${esc(fRef)}" data-subf="referrer">
+            <input type="text" placeholder="Filtrar consulta…" value="${esc(fBusq)}" data-subf="busqueda">
             <input type="text" placeholder="Filtrar navegador…" value="${esc(fNav)}" data-subf="navegador">
             <input type="text" placeholder="Filtrar dispositivo…" value="${esc(fDisp)}" data-subf="dispositivo">
             <button type="button" class="btn sm" data-sub-apply>Filtrar detalle</button>
@@ -592,12 +519,17 @@
             html += '<p class="muted">Sin visitas con estos filtros (máx. 500)</p>';
         } else {
             html += `<p class="muted" style="margin-bottom:8px">${visitas.length} visita(s) de <code>${esc(ip)}</code></p>
-            <table><tr><th>Fecha/hora</th><th>Página</th><th>Referrer</th><th>Navegador</th><th>SO</th><th>Dispositivo</th></tr>`;
+            <table><tr><th>Fecha/hora</th><th>Página</th><th>Referrer</th><th>Consulta</th><th>Fuente</th><th>UTM</th><th>Navegador</th><th>SO</th><th>Dispositivo</th></tr>`;
             visitas.forEach(v => {
+                const src = v.referrer_query_source === 'referer' ? 'Referer'
+                    : v.referrer_query_source === 'landing' ? 'URL' : '—';
                 html += `<tr>
                     <td>${esc(v.ts || v.fecha)}</td>
                     <td>${esc(v.path)}</td>
                     <td>${esc(v.referrer)}</td>
+                    <td>${v.referrer_query && v.referrer_query !== '—' ? '<strong>' + esc(v.referrer_query) + '</strong>' : '—'}</td>
+                    <td>${src}</td>
+                    <td>${esc(v.utm_source !== '—' ? v.utm_source : '—')}</td>
                     <td>${esc(v.navegador)}</td>
                     <td>${esc(v.so)}</td>
                     <td>${esc(v.dispositivo)}</td>
@@ -608,43 +540,375 @@
         return html;
     }
 
-    function esc(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
-    function cssId(ip) { return ip.replace(/\./g, '-'); }
+    function createIpTable(opts) {
+        const {
+            apiUrl,
+            tbodyId,
+            pagerId,
+            countId,
+            tableId,
+            idPrefix,
+            colspan,
+            showUltimaVisita = false,
+            sortable = false,
+            filterIds = [],
+            perPageDefault = 25,
+            countLabel = 'IPs',
+            emptyLabel = 'Sin datos en este rango',
+            preserveApiOrder = false,
+        } = opts;
 
-    document.querySelectorAll('#ip-table th.sortable').forEach(th => {
-        th.addEventListener('click', () => {
-            const col = th.dataset.col;
-            if (sortCol === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-            else { sortCol = col; sortDir = col === 'visitas' ? 'desc' : 'asc'; }
-            document.querySelectorAll('#ip-table th.sortable').forEach(h => {
-                h.classList.remove('sorted-asc', 'sorted-desc');
+        let allRows = [];
+        let filtered = [];
+        let sortCol = opts.defaultSort || 'visitas';
+        let sortDir = opts.defaultSortDir || 'desc';
+        let page = 1;
+        let perPage = perPageDefault;
+        const expanded = new Set();
+
+        const tbody = document.getElementById(tbodyId);
+        const pager = pagerId ? document.getElementById(pagerId) : null;
+        const countEl = countId ? document.getElementById(countId) : null;
+
+        function subWrapId(ip) { return `sub-${idPrefix}-${cssId(ip)}`; }
+
+        function getFilters() {
+            if (!filterIds.length) return { ip: '', tipo: '', pais: '', dispositivo: '', visitasMin: 0 };
+            return {
+                ip: document.getElementById(filterIds[0]).value.trim().toLowerCase(),
+                tipo: document.getElementById(filterIds[1]).value,
+                pais: document.getElementById(filterIds[2]).value.trim().toLowerCase(),
+                dispositivo: document.getElementById(filterIds[3]).value,
+                visitasMin: parseInt(document.getElementById(filterIds[4]).value, 10) || 0,
+            };
+        }
+
+        function applyFilters() {
+            const f = getFilters();
+            filtered = allRows.filter(r => {
+                if (f.ip && !r.ip.toLowerCase().includes(f.ip)) return false;
+                if (f.tipo && r.tipo !== f.tipo) return false;
+                if (f.pais && !(r.pais || '').toLowerCase().includes(f.pais) && !(r.pais_codigo || '').toLowerCase().includes(f.pais)) return false;
+                if (f.dispositivo && r.dispositivo_label !== f.dispositivo) return false;
+                if (f.visitasMin && r.visitas < f.visitasMin) return false;
+                return true;
             });
-            th.classList.add(sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc');
-            sortRows();
-        });
-    });
+            if (preserveApiOrder) {
+                page = 1;
+                render();
+            } else {
+                sortRows();
+            }
+        }
 
-    ['f-ip','f-tipo','f-pais','f-dispositivo','f-visitas'].forEach(id => {
-        document.getElementById(id).addEventListener('input', applyFilters);
-        document.getElementById(id).addEventListener('change', applyFilters);
+        function sortValue(row, col) {
+            if (col === 'visitas') return +row[col];
+            if (col === 'ultima_visita') {
+                const t = Date.parse(String(row[col] || '').replace(' ', 'T'));
+                return Number.isNaN(t) ? 0 : t;
+            }
+            return String(row[col] || '').toLowerCase();
+        }
+
+        function sortRows() {
+            filtered.sort((a, b) => {
+                const va = sortValue(a, sortCol);
+                const vb = sortValue(b, sortCol);
+                if (va < vb) return sortDir === 'asc' ? -1 : 1;
+                if (va > vb) return sortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+            page = 1;
+            render();
+        }
+
+        function rowHtml(r) {
+            const open = expanded.has(r.ip);
+            const paisTxt = r.pais + (r.pais_codigo ? ` <span class="flag">${r.pais_codigo}</span>` : '');
+            const ultimaCol = showUltimaVisita
+                ? `<td class="muted" style="white-space:nowrap">${esc(r.ultima_visita || '—')}</td>`
+                : '';
+            let html = `<tr class="ip-row" data-ip="${esc(r.ip)}">
+                <td><button type="button" class="btn-expand${open ? ' open' : ''}" data-ip="${esc(r.ip)}" title="Ver visitas">${open ? '▼' : '▶'}</button></td>
+                <td><code>${esc(r.ip)}</code></td>
+                <td>${tipoBadge(r)}</td>
+                <td>${paisTxt}</td>
+                <td>${esc(r.dispositivo_label)}</td>
+                ${ultimaCol}
+                <td style="text-align:right;font-weight:600">${r.visitas}</td>
+                <td><button type="button" class="btn-excluir" data-excluir="${esc(r.ip)}" data-robot="${r.es_robot ? '1' : '0'}" title="Excluir de estadísticas">Excluir</button></td>
+            </tr>`;
+            if (open) {
+                html += `<tr class="sub-row" data-sub="${esc(r.ip)}"><td colspan="${colspan}"><div class="sub-wrap" id="${subWrapId(r.ip)}"><span class="muted">Cargando…</span></div></td></tr>`;
+            }
+            return html;
+        }
+
+        function render() {
+            const total = filtered.length;
+            const pages = Math.max(1, Math.ceil(total / perPage));
+            if (page > pages) page = pages;
+            const slice = filtered.slice((page - 1) * perPage, page * perPage);
+
+            if (countEl) {
+                countEl.textContent = filterIds.length && total !== allRows.length
+                    ? `${total} de ${allRows.length} ${countLabel}`
+                    : `${total} ${countLabel}`;
+            }
+
+            if (!slice.length) {
+                tbody.innerHTML = `<tr><td colspan="${colspan}" class="muted">${emptyLabel}</td></tr>`;
+                if (pager) pager.style.display = 'none';
+                return;
+            }
+
+            tbody.innerHTML = slice.map(rowHtml).join('');
+            renderPager(pages);
+            bindExpandButtons();
+            bindExcluirButtons();
+            slice.filter(r => expanded.has(r.ip)).forEach(r => loadSub(r.ip));
+        }
+
+        function renderPager(pages) {
+            if (!pager) return;
+            if (pages <= 1) { pager.style.display = 'none'; return; }
+            pager.style.display = 'flex';
+            let html = '';
+            if (page > 1) html += `<a href="#" data-p="${page-1}">← Anterior</a>`;
+            else html += '<span class="disabled">← Anterior</span>';
+            for (let p = 1; p <= pages; p++) {
+                if (p === 1 || p === pages || (p >= page - 2 && p <= page + 2))
+                    html += p === page ? `<span class="current">${p}</span>` : `<a href="#" data-p="${p}">${p}</a>`;
+                else if (p === page - 3 || p === page + 3) html += '<span class="muted">…</span>';
+            }
+            if (page < pages) html += `<a href="#" data-p="${page+1}">Siguiente →</a>`;
+            else html += '<span class="disabled">Siguiente →</span>';
+            html += `<span class="muted" style="margin-left:8px">Pág. ${page} de ${pages}</span>`;
+            pager.innerHTML = html;
+            pager.querySelectorAll('a[data-p]').forEach(a => {
+                a.addEventListener('click', e => { e.preventDefault(); page = +a.dataset.p; render(); });
+            });
+        }
+
+        function bindExpandButtons() {
+            tbody.querySelectorAll('.btn-expand').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const ip = btn.dataset.ip;
+                    if (expanded.has(ip)) expanded.delete(ip);
+                    else expanded.add(ip);
+                    render();
+                });
+            });
+        }
+
+        function bindExcluirButtons() {
+            tbody.querySelectorAll('[data-excluir]').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const ip = btn.dataset.excluir;
+                    if (!confirm(`¿Excluir ${ip} de las estadísticas? Podrás restaurarla después.`)) return;
+                    btn.disabled = true;
+                    try {
+                        await fetch(API_EXCLUIR(ip), {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                es_robot: btn.dataset.robot === '1',
+                                motivo: btn.dataset.robot === '1' ? 'robot' : 'manual',
+                            }),
+                        });
+                        expanded.delete(ip);
+                        allRows = allRows.filter(r => r.ip !== ip);
+                        ipTables.forEach(t => t.removeIp(ip));
+                        loadExcluidas();
+                    } catch (e) {
+                        alert('Error al excluir la IP');
+                        btn.disabled = false;
+                    }
+                });
+            });
+        }
+
+        async function loadSub(ip, subFilters) {
+            const el = document.getElementById(subWrapId(ip));
+            if (!el || !expanded.has(ip)) return;
+            const qs = subFilters ? new URLSearchParams(subFilters).toString() : '';
+            try {
+                const resp = await fetch(API_VISITAS(ip, qs));
+                const data = await resp.json();
+                el.innerHTML = buildSubTable(ip, data.visitas, qs);
+                bindSubFilters(subWrapId(ip), ip);
+            } catch (e) {
+                el.innerHTML = '<span class="muted">Error cargando visitas</span>';
+            }
+        }
+
+        function bindSubFilters(wrapId, ip) {
+            const wrap = document.getElementById(wrapId);
+            if (!wrap) return;
+            const btn = wrap.querySelector('[data-sub-apply]');
+            if (btn) {
+                btn.onclick = () => {
+                    const filters = {};
+                    wrap.querySelectorAll('[data-subf]').forEach(inp => {
+                        if (inp.value.trim()) filters[inp.dataset.subf] = inp.value.trim();
+                    });
+                    wrap.innerHTML = '<span class="muted">Cargando…</span>';
+                    loadSub(ip, filters);
+                };
+            }
+            wrap.querySelectorAll('[data-subf]').forEach(inp => {
+                inp.addEventListener('keydown', e => { if (e.key === 'Enter') btn?.click(); });
+            });
+        }
+
+        async function reload() {
+            const resp = await fetch(apiUrl);
+            const data = await resp.json();
+            allRows = data.filas || [];
+            applyFilters();
+        }
+
+        function removeIp(ip) {
+            expanded.delete(ip);
+            allRows = allRows.filter(r => r.ip !== ip);
+            applyFilters();
+        }
+
+        function setPerPage(n) { perPage = n; page = 1; render(); }
+
+        if (sortable && tableId) {
+            document.querySelectorAll(`#${tableId} th.sortable`).forEach(th => {
+                th.addEventListener('click', () => {
+                    const col = th.dataset.col;
+                    if (sortCol === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+                    else { sortCol = col; sortDir = col === 'visitas' ? 'desc' : 'asc'; }
+                    document.querySelectorAll(`#${tableId} th.sortable`).forEach(h => {
+                        h.classList.remove('sorted-asc', 'sorted-desc');
+                    });
+                    th.classList.add(sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+                    sortRows();
+                });
+            });
+        }
+
+        if (filterIds.length) {
+            filterIds.forEach(id => {
+                const el = document.getElementById(id);
+                el.addEventListener('input', applyFilters);
+                el.addEventListener('change', applyFilters);
+            });
+        }
+
+        reload().catch(() => {
+            tbody.innerHTML = `<tr><td colspan="${colspan}" class="muted">Error cargando datos</td></tr>`;
+        });
+
+        return { reload, removeIp, setPerPage, getRows: () => allRows, applyFilters };
+    }
+
+    async function loadExcluidas() {
+        try {
+            const resp = await fetch(API_EXCLUIDAS);
+            const data = await resp.json();
+            const filas = data.filas || [];
+            if (!filas.length) {
+                excluidasTbody.innerHTML = '<tr><td colspan="5" class="muted">Ninguna IP excluida</td></tr>';
+                return;
+            }
+            excluidasTbody.innerHTML = filas.map(r => `<tr>
+                <td><code>${esc(r.ip)}</code></td>
+                <td>${esc(r.motivo || '—')}</td>
+                <td>${r.es_robot ? '<span class="badge-tipo robot">🤖 Robot</span>' : '<span class="badge-tipo humano">Manual</span>'}</td>
+                <td>${esc(r.excluido || '—')}</td>
+                <td><button type="button" class="btn-restaurar" data-restaurar="${esc(r.ip)}">Restaurar</button></td>
+            </tr>`).join('');
+            excluidasTbody.querySelectorAll('[data-restaurar]').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const ip = btn.dataset.restaurar;
+                    btn.disabled = true;
+                    try {
+                        await fetch(API_RESTAURAR(ip), { method: 'POST' });
+                        await Promise.all(ipTables.map(t => t.reload()));
+                        loadExcluidas();
+                    } catch (e) {
+                        alert('Error al restaurar');
+                        btn.disabled = false;
+                    }
+                });
+            });
+        } catch (e) {
+            excluidasTbody.innerHTML = '<tr><td colspan="5" class="muted">Error cargando excluidas</td></tr>';
+        }
+    }
+
+    ipTables.push(createIpTable({
+        apiUrl: API_ACTIVAS,
+        tbodyId: 'activos-tbody',
+        countId: 'activos-count',
+        tableId: 'activos-table',
+        idPrefix: 'activos',
+        colspan: 7,
+        perPageDefault: 15,
+        countLabel: 'visitantes activos',
+        defaultSort: 'visitas',
+        defaultSortDir: 'desc',
+    }));
+
+    ipTables.push(createIpTable({
+        apiUrl: API_RECIENTES,
+        tbodyId: 'recientes-tbody',
+        countId: 'recientes-count',
+        tableId: 'recientes-table',
+        idPrefix: 'recientes',
+        colspan: 8,
+        showUltimaVisita: true,
+        perPageDefault: 15,
+        countLabel: 'conexiones recientes',
+        defaultSort: 'ultima_visita',
+        defaultSortDir: 'desc',
+        preserveApiOrder: true,
+    }));
+
+    const mainTable = createIpTable({
+        apiUrl: API_BASE,
+        tbodyId: 'ip-tbody',
+        pagerId: 'ip-pager',
+        countId: 'ip-count',
+        tableId: 'ip-table',
+        idPrefix: 'main',
+        colspan: 7,
+        sortable: true,
+        filterIds: ['f-ip', 'f-tipo', 'f-pais', 'f-dispositivo', 'f-visitas'],
+        perPageDefault: 25,
+        countLabel: 'IPs en el rango',
+        emptyLabel: 'Sin resultados con estos filtros',
     });
+    ipTables.push(mainTable);
+
+    document.querySelector('#ip-table th[data-col="visitas"]').classList.add('sorted-desc');
+
     document.getElementById('ip-clear-filters').addEventListener('click', () => {
         ['f-ip','f-pais','f-visitas'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('f-dispositivo').value = '';
         document.getElementById('f-tipo').value = '';
-        applyFilters();
+        mainTable.applyFilters();
     });
     document.getElementById('ip-excluir-robots').addEventListener('click', async () => {
-        const n = allRows.filter(r => r.es_robot).length;
+        const n = mainTable.getRows().filter(r => r.es_robot).length;
         if (!n) { alert('No hay robots detectados en este rango.'); return; }
-        if (!confirm(`¿Excluir ${n} IP(s) marcadas como robot del rango actual?`)) return;
+        const includeGoogle = document.getElementById('ip-include-google').checked;
+        const msg = includeGoogle
+            ? `¿Excluir ${n} IP(s) marcadas como robot del rango actual (incluyendo Googlebot)?`
+            : `¿Excluir ${n} IP(s) marcadas como robot del rango actual?\n\nGooglebot NO se excluirá (marca la casilla si quieres incluirlo).`;
+        if (!confirm(msg)) return;
         const btn = document.getElementById('ip-excluir-robots');
         btn.disabled = true;
         try {
-            const resp = await fetch(API_EXCLUIR_ROBOTS, { method: 'POST' });
+            const qs = includeGoogle ? '?include_google=1' : '';
+            const resp = await fetch(API_EXCLUIR_ROBOTS + qs, { method: 'POST' });
             const data = await resp.json();
             alert(`Se excluyeron ${data.excluidas || 0} IP(s). Recarga la página para ver totales actualizados.`);
-            await reloadIps();
+            await Promise.all(ipTables.map(t => t.reload()));
             loadExcluidas();
         } catch (e) {
             alert('Error al excluir robots');
@@ -653,19 +917,10 @@
         }
     });
     document.getElementById('ip-per-page').addEventListener('change', e => {
-        perPage = +e.target.value;
-        page = 1;
-        render();
+        mainTable.setPerPage(+e.target.value);
     });
 
-    fetch(API_BASE).then(r => r.json()).then(data => {
-        allRows = data.filas || [];
-        document.querySelector('#ip-table th[data-col="visitas"]').classList.add('sorted-desc');
-        applyFilters();
-        loadExcluidas();
-    }).catch(() => {
-        els.tbody.innerHTML = `<tr><td colspan="${COLSPAN}" class="muted">Error cargando IPs</td></tr>`;
-    });
+    loadExcluidas();
 })();
 </script>
 
@@ -677,8 +932,9 @@ new Chart(document.getElementById('serie'), {
     data: {
         labels: serie.map(d => d.fecha),
         datasets: [
-            { label: 'Visitas', data: serie.map(d => d.visitas), borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,.12)', fill: true, tension: .3 },
-            { label: 'Únicos', data: serie.map(d => d.unicos), borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,.10)', fill: true, tension: .3 },
+            { label: 'Visitas contadas', data: serie.map(d => d.visitas), borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,.12)', fill: true, tension: .3 },
+            { label: 'Visitas excluidas', data: serie.map(d => d.excluidas || 0), borderColor: '#94a3b8', backgroundColor: 'rgba(148,163,184,.08)', borderDash: [6, 4], fill: false, tension: .3 },
+            { label: 'Únicos', data: serie.map(d => d.unicos), borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,.10)', fill: false, tension: .3 },
         ],
     },
     options: { scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } },

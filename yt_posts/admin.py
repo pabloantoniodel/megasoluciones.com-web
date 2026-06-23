@@ -158,6 +158,7 @@ def video_detalle(vid):
             'slug': video_d.get('post_slug'),
             'titulo': video_d.get('post_titulo'),
             'resumen': video_d.get('post_resumen'),
+            'cuerpo': video_d.get('post_cuerpo'),
             'cluster': video_d.get('post_cluster') or 'ia',
             'tipo': video_d.get('post_tipo') or 'noticia',
             'intencion': video_d.get('post_intencion') or 'noticia',
@@ -248,6 +249,7 @@ def video_publicar(vid):
         'slug': video['post_slug'],
         'titulo': video['post_titulo'],
         'resumen': video['post_resumen'],
+        'cuerpo': video['post_cuerpo'],
         'cluster': cluster,
         'tipo': video['post_tipo'] if 'post_tipo' in video.keys() else 'noticia',
         'intencion': video['post_intencion'] if 'post_intencion' in video.keys() else 'noticia',
@@ -261,7 +263,10 @@ def video_publicar(vid):
         return redirect(url_for('admin.video_detalle', vid=vid))
     for w in issues:
         if w['level'] == 'warning':
-            flash(f"SEO: {w['message']}", 'warning')
+            msg = f"SEO: {w['message']}"
+            if w.get('alternativas'):
+                msg += ' Alternativas: ' + ' | '.join(w['alternativas'][:3])
+            flash(msg, 'warning')
 
     publish_twitter = request.form.get('publish_twitter') == '1'
     publish_instagram = request.form.get('publish_instagram') == '1'
@@ -383,6 +388,30 @@ def api_stats_ips():
     return jsonify({'filas': db.stats_ips_todas(desde, hasta), 'desde': desde, 'hasta': hasta})
 
 
+@admin_bp.route('/api/stats/ips/activas')
+@login_required
+def api_stats_ips_activas():
+    desde, hasta, _, _ = _resolve_stats_range()
+    limit = min(max(int(request.args.get('limit', 15)), 5), 50)
+    return jsonify({
+        'filas': db.stats_ips_mas_activas(desde, hasta, limit=limit),
+        'desde': desde,
+        'hasta': hasta,
+    })
+
+
+@admin_bp.route('/api/stats/ips/recientes')
+@login_required
+def api_stats_ips_recientes():
+    desde, hasta, _, _ = _resolve_stats_range()
+    limit = min(max(int(request.args.get('limit', 15)), 5), 50)
+    return jsonify({
+        'filas': db.stats_ips_recientes(desde, hasta, limit=limit),
+        'desde': desde,
+        'hasta': hasta,
+    })
+
+
 @admin_bp.route('/api/stats/ip/<path:ip>/visitas')
 @login_required
 def api_stats_ip_visitas(ip):
@@ -393,6 +422,7 @@ def api_stats_ip_visitas(ip):
         hasta,
         f_path=request.args.get('path', '').strip(),
         f_referrer=request.args.get('referrer', '').strip(),
+        f_busqueda=request.args.get('busqueda', '').strip(),
         f_navegador=request.args.get('navegador', '').strip(),
         f_dispositivo=request.args.get('dispositivo', '').strip(),
     )
@@ -426,8 +456,15 @@ def api_stats_ip_restaurar(ip):
 @login_required
 def api_stats_excluir_robots():
     desde, hasta, _, _ = _resolve_stats_range()
-    count = db.excluir_robots_en_rango(desde, hasta)
-    return jsonify({'ok': True, 'excluidas': count, 'desde': desde, 'hasta': hasta})
+    include_google = request.args.get('include_google', '').lower() in ('1', 'true', 'yes')
+    count = db.excluir_robots_en_rango(desde, hasta, include_google=include_google)
+    return jsonify({
+        'ok': True,
+        'excluidas': count,
+        'desde': desde,
+        'hasta': hasta,
+        'include_google': include_google,
+    })
 
 
 @admin_bp.route('/estadisticas')
@@ -447,9 +484,12 @@ def estadisticas():
         rango_label=rango_label,
         resumen=resumen,
         overview=db.stats_overview(),
-        series=db.stats_series_range(desde, hasta),
+        exclusion_summary=db.stats_exclusion_summary(desde, hasta),
+        series=db.stats_series_range_full(desde, hasta),
         top_paginas=db.stats_top_pages_paginated(desde, hasta, page=pag_page),
-        top_referrers=db.stats_top_range('referrer', desde, hasta),
+        referrer_breakdown=db.stats_referrer_breakdown(desde, hasta),
+        origenes_excluidos=db.stats_origins_excluded_only(desde, hasta),
+        top_busquedas=db.stats_top_search_queries(desde, hasta),
         top_navegadores=db.stats_top_range('navegador', desde, hasta, limit=8),
         top_dispositivos=db.stats_top_range('dispositivo', desde, hasta, limit=4),
         hoy_iso=date.today().isoformat(),

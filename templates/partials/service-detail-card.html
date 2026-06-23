@@ -19,7 +19,6 @@
             <div class="pricing-badge">
                 <span class="price-label">Desde</span>
                 <span class="price-value">{{ servicio.precio_desde }}</span>
-                <span class="price-range">hasta {{ servicio.precio_hasta }}</span>
             </div>
             <a href="{{ url_for('contacto', servicio=servicio.slug) }}" class="btn-primary">Solicitar Cotización</a>
         </div>

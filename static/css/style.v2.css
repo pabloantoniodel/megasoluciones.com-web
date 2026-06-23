@@ -26,6 +26,10 @@ body {
     overflow-x: hidden;
 }
 
+h2 {
+    line-height: 1.12;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -76,17 +80,30 @@ a {
 .logo {
     display: flex;
     align-items: center;
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: calc(100% - 44px);
+    margin: 8px 0;
 }
 
 .logo img {
     height: 56px;
-    margin: 8px 0;
-    transition: transform 0.3s ease;
+    width: auto;
+    max-width: 100%;
     display: block;
+    transition: transform 0.3s ease;
 }
 
 .logo:hover img {
     transform: scale(1.05);
+}
+
+.footer-logo {
+    height: 58px;
+    width: auto;
+    max-width: 100%;
+    margin: 8px 0 1rem;
+    display: block;
 }
 
 .nav-links {
@@ -136,6 +153,8 @@ a {
     background: none;
     border: none;
     cursor: pointer;
+    flex-shrink: 0;
+    z-index: 1001;
 }
 
 .mobile-menu-toggle span {
@@ -279,14 +298,35 @@ a {
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.65), 0 1px 3px rgba(0, 0, 0, 0.9);
     animation: fadeInUp 0.8s ease;
     letter-spacing: -0.02em;
+    max-width: 700px;
 }
 
 .hero .gradient-text {
-    background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+    background: var(--gradient-main);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 2px 12px rgba(52, 211, 153, 0.3));
+}
+
+.hero-title-accent {
+    display: block;
+    margin-top: calc(16px + 0.35rem);
+    font-size: 1em;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 14px rgba(59, 130, 246, 0.35));
+}
+
+.hero-title-br {
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .hero-title-br {
+        display: inline;
+    }
 }
 
 .hero-subtitle {
@@ -296,6 +336,7 @@ a {
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.75);
     animation: fadeInUp 0.8s ease 0.2s backwards;
     max-width: 700px;
+    line-height: 1.45;
 }
 
 .hero-buttons {
@@ -538,9 +579,27 @@ a {
     gap: 1rem;
 }
 
+.testimonials-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.testimonials-actions .btn-outline {
+    width: 15rem;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .author-avatar {
     width: 50px;
     height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    flex-shrink: 0;
+    aspect-ratio: 1;
     border-radius: 50%;
     background: var(--gradient-main);
     display: flex;
@@ -549,6 +608,7 @@ a {
     color: white;
     font-weight: 700;
     font-size: 1.3rem;
+    line-height: 1;
 }
 
 /* CTA Section */
@@ -590,6 +650,7 @@ a {
 .page-header h1 {
     font-size: 3rem;
     font-weight: 900;
+    line-height: 1.12;
     margin-bottom: 1rem;
 }
 
@@ -658,12 +719,6 @@ a {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-}
-
-.price-range {
-    display: block;
-    color: var(--color-gray);
-    margin-top: 0.5rem;
 }
 
 /* Comparison Table */
@@ -1009,11 +1064,6 @@ a {
     margin-bottom: 2rem;
 }
 
-.footer-logo {
-    height: 58px;
-    margin: 8px 0 1rem;
-}
-
 .footer-description {
     color: #9ca3af;
     margin-bottom: 1rem;
@@ -1333,13 +1383,31 @@ a {
 
 @media (max-width: 768px) {
     .hero-content {
-        text-align: center;
-        margin: 0 auto;
+        text-align: left;
+        margin: 0;
+    }
+
+    .hero-title,
+    .hero-subtitle {
+        text-align: left;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .hero-buttons,
+    .hero-microcopy,
     .hero-stats {
+        text-align: center;
         justify-content: center;
+        align-items: center;
+    }
+
+    .hero-microcopy {
+        width: 100%;
+    }
+
+    .hero-stats .stat {
+        text-align: center;
     }
 
     .pillars-grid,
@@ -1360,9 +1428,13 @@ a {
         padding: 0.5rem 0;
     }
 
+    .logo {
+        margin: 0;
+        max-width: calc(100% - 40px);
+    }
+
     .logo img {
         height: 53px;
-        margin: 0;
     }
 
     .footer-logo {
@@ -1400,6 +1472,12 @@ a {
 
     .hero-buttons {
         flex-direction: column;
+        align-items: center;
+    }
+
+    .testimonials-actions {
+        flex-direction: column;
+        align-items: center;
     }
 
     .hero-stats {

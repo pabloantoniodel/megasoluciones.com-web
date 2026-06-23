@@ -84,8 +84,7 @@
                 <thead>
                     <tr>
                         <th>Servicio</th>
-                        <th>Precio Desde</th>
-                        <th>Precio Hasta</th>
+                        <th>Desde</th>
                         <th>Ideal Para</th>
                         <th>Tiempo Impl.</th>
                     </tr>
@@ -95,7 +94,6 @@
                     <tr>
                         <td><strong>{{ servicio.titulo }}</strong></td>
                         <td>{{ servicio.precio_desde }}</td>
-                        <td>{{ servicio.precio_hasta }}</td>
                         <td>{% if servicio.pilar == 'desarrollo' %}Apps, webs, integraciones{% elif servicio.pilar == 'automatizacion' %}Procesos, RPA, workflows{% else %}IA avanzada{% endif %}</td>
                         <td>{% if servicio.pilar == 'desarrollo' %}2–6 meses{% elif servicio.pilar == 'automatizacion' %}3–6 semanas{% else %}2–8 meses{% endif %}</td>
                     </tr>

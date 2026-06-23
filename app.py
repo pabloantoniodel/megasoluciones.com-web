@@ -10,7 +10,15 @@ from time import time
 from geo_pages import GEO_HUB, GEO_INDEX_GROUPS, geo_sitemap_entries, get_geo_page
 
 import recursos_seo
-from recursos_seo import build_actualidad_context, build_hub_context, get_articulos_relacionados, redirect_path_for_slug, sitemap_priority
+from recursos_seo import (
+    articulo_canonical_href,
+    build_actualidad_context,
+    build_hub_context,
+    get_articulos_relacionados,
+    include_recurso_in_sitemap,
+    redirect_path_for_slug,
+    sitemap_priority,
+)
 
 from yt_posts import db as yt_db
 from yt_posts import stats as yt_stats
@@ -68,6 +76,13 @@ REDIRECT_TO_PRIMARY_HOSTS = frozenset({
     'www.megasolucion.es',
 })
 
+GA4_LINKER_DOMAINS = (
+    'megasolucion.es',
+    'www.megasolucion.es',
+    'megasolucion.com',
+    'www.megasolucion.com',
+)
+
 HREFLANG_ES = 'https://megasolucion.es'
 
 SITEMAP_PAGES = [
@@ -97,20 +112,23 @@ def track_visit(response):
     """Estadísticas propias (tipo WP Statistics). Informado en /privacidad (RGPD)."""
     try:
         ua = request.headers.get('User-Agent', '')
+        client_ip = get_client_ip(
+            request.headers.get('X-Forwarded-For'),
+            request.remote_addr,
+        )
         if yt_stats.should_track(
             request.path, request.method, response.status_code,
             response.content_type or '', ua,
+            ip=client_ip or '',
+            referrer=request.headers.get('Referer', ''),
         ):
-            client_ip = get_client_ip(
-                request.headers.get('X-Forwarded-For'),
-                request.remote_addr,
-            )
             yt_stats.track(
                 path=request.path,
                 referrer=request.headers.get('Referer', ''),
                 ip=client_ip or '',
                 user_agent=ua,
                 own_host=(request.host or '').split(':')[0],
+                landing_query_string=request.query_string.decode('utf-8', errors='replace'),
             )
     except Exception as e:
         print(f'[stats] after_request error: {e}')
@@ -198,7 +216,6 @@ SERVICIOS = [
         'titulo': 'Desarrollo de Software a Medida',
         'descripcion': 'Aplicaciones web, APIs e integraciones diseñadas para tu negocio. Stack moderno, escalable y mantenible para empresas en España.',
         'precio_desde': '5.000€',
-        'precio_hasta': '50.000€',
         'caracteristicas': ['Desarrollo a medida', 'APIs e integraciones', 'Stack moderno (Python, React, Node)', 'Despliegue cloud y soporte continuo'],
         'icon': '💻'
     },
@@ -209,7 +226,6 @@ SERVICIOS = [
         'titulo': 'Automatizaciones y RPA para Empresas',
         'descripcion': 'Automatización de procesos repetitivos, workflows inteligentes e integración entre sistemas para reducir costes y errores.',
         'precio_desde': '399€',
-        'precio_hasta': '1.499€/mes',
         'caracteristicas': ['RPA empresarial', 'Automatizaciones con APIs', 'Workflows y orquestación', 'Monitorización 24/7'],
         'icon': '⚙️'
     },
@@ -220,7 +236,6 @@ SERVICIOS = [
         'titulo': 'Chatbots IA Personalizados',
         'descripcion': 'Asistentes virtuales que atienden a tus clientes 24/7 con procesamiento de lenguaje natural avanzado.',
         'precio_desde': '299€',
-        'precio_hasta': '999€/mes',
         'caracteristicas': ['Integración multicanal', 'NLP avanzado', 'Aprendizaje continuo', 'Analytics en tiempo real'],
         'icon': '🤖'
     },
@@ -231,7 +246,6 @@ SERVICIOS = [
         'titulo': 'Consultoría Estratégica IA',
         'descripcion': 'Asesoramiento experto para definir tu hoja de ruta de transformación digital con inteligencia artificial.',
         'precio_desde': '100€',
-        'precio_hasta': '250€/hora',
         'caracteristicas': ['Análisis de viabilidad', 'ROI proyectado', 'Roadmap tecnológico', 'Formación equipos'],
         'icon': '📊'
     },
@@ -242,7 +256,6 @@ SERVICIOS = [
         'titulo': 'Machine Learning & Modelos Predictivos',
         'descripcion': 'Modelos de ML personalizados para predicción de demanda, detección de anomalías y análisis predictivo.',
         'precio_desde': '10.000€',
-        'precio_hasta': '100.000€',
         'caracteristicas': ['Modelos custom', 'Entrenamiento continuo', 'Deploy cloud', 'MLOps incluido'],
         'icon': '🧠'
     },
@@ -253,7 +266,6 @@ SERVICIOS = [
         'titulo': 'Computer Vision',
         'descripcion': 'Visión artificial para reconocimiento facial, detección de objetos, OCR y control de calidad automatizado.',
         'precio_desde': '8.000€',
-        'precio_hasta': '80.000€',
         'caracteristicas': ['Reconocimiento de imágenes', 'Video analytics', 'OCR avanzado', 'Edge computing'],
         'icon': '👁️'
     },
@@ -264,7 +276,6 @@ SERVICIOS = [
         'titulo': 'Procesamiento Lenguaje Natural',
         'descripcion': 'Análisis de sentimiento, extracción de información, traducción automática y generación de contenido.',
         'precio_desde': '6.000€',
-        'precio_hasta': '60.000€',
         'caracteristicas': ['Análisis de sentimiento', 'NER & clasificación', 'Modelos multiidioma', 'API REST'],
         'icon': '📝'
     },
@@ -275,7 +286,6 @@ SERVICIOS = [
         'titulo': 'Agentes IA Generativos',
         'descripcion': 'Agentes inteligentes avanzados con IA generativa para ventas, soporte y asesoramiento personalizado.',
         'precio_desde': '15.000€',
-        'precio_hasta': '150.000€',
         'caracteristicas': ['GPT-4 & Claude', 'RAG personalizado', 'Multi-agente', 'Memoria contextual'],
         'icon': '✨'
     }
@@ -284,7 +294,7 @@ SERVICIOS = [
 DESARROLLO_FAQS = [
     {
         'question': '¿Cuánto cuesta un desarrollo de software a medida en España?',
-        'answer': 'Depende del alcance. Proyectos web o integraciones sencillas suelen partir de 5.000€. Plataformas complejas con múltiples módulos pueden superar los 50.000€. Tras una consulta inicial te entregamos presupuesto cerrado por fases.'
+        'answer': 'Depende del alcance. Proyectos web o integraciones sencillas suelen partir de 5.000€. Plataformas complejas con múltiples módulos parten desde importes superiores según funcionalidad. Tras una consulta inicial te entregamos presupuesto cerrado por fases.'
     },
     {
         'question': '¿Qué tecnologías utilizáis para el desarrollo?',
@@ -446,6 +456,40 @@ CONTACTO_FAQS = [
 
 RECURSOS = [
     {
+        'slug': 'automatizar-pyme-sin-direccion-error-estrategia',
+        'titulo': 'Automatizar una pyme sin procesos claros: por qué la tecnología no arregla el desorden',
+        'resumen': 'Muchas pymes quieren automatizar antes de definir procesos, roles y datos. Megasoluciones explica cómo evitar proyectos de IA y RPA que solo aceleran el caos operativo.',
+        'fecha': '2026-06-22',
+        'fecha_modificacion': '2026-06-22',
+        'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'automatizacion pyme procesos claros estrategia',
+        'relacionados': [
+            'automatizar-procesos-pyme',
+            'desarrolladores-ia-gestion-automatizacion-empresas',
+            'rpa-vs-automatizacion-apis',
+        ],
+        'cta_servicio': 'automatizaciones-rpa',
+    },
+    {
+        'slug': 'claude-fable-5-ia-local-estrategia-empresas',
+        'titulo': 'Claude Fable 5 y la estrategia híbrida de IA para empresas',
+        'resumen': 'La retirada de Claude Fable 5 expone la dependencia de la IA en la nube. Megasoluciones explica cómo combinar modelos locales y cloud con integración real para pymes.',
+        'fecha': '2026-06-22',
+        'fecha_modificacion': '2026-06-22',
+        'cluster': 'ia',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'ia local estrategia empresas claude fable',
+        'relacionados': [
+            'desarrolladores-ia-gestion-automatizacion-empresas',
+            'integrar-datos-ia-metodos-estrategias',
+            'seo-geo-inteligencia-artificial-2026',
+        ],
+        'cta_servicio': 'consultoria-ia',
+    },
+    {
         'slug': 'agencia-ia-madrid-apuesta-comunidad-pymes',
         'titulo': 'Agencia de IA en Madrid: la apuesta de la Comunidad de Madrid y qué significa para tu pyme',
         'resumen': 'Estrategia IA 2030, LADIA, Centro de Excelencia y EDIH Madrid Region: qué impulsa la Comunidad de Madrid en inteligencia artificial y cómo una pyme puede aprovecharlo.',
@@ -496,6 +540,41 @@ RECURSOS = [
         'cta_servicio': 'consultoria-ia',
     },
     {
+        'slug': 'memoria-persistente-agentes-ia-desarrollo',
+        'titulo': 'Memoria persistente en agentes de IA: capturar conocimiento técnico sin documentación manual',
+        'resumen': 'Por qué los agentes sin memoria repiten errores y cómo diseñar memoria persistente en desarrollo y automatización empresarial.',
+        'fecha': '2026-06-20',
+        'fecha_modificacion': '2026-06-20',
+        'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'memoria persistente agentes ia desarrollo',
+        'relacionados': [
+            'integrar-datos-ia-metodos-estrategias',
+            'automatizar-procesos-pyme',
+            'desarrolladores-ia-gestion-automatizacion-empresas',
+        ],
+        'cta_servicio': 'automatizaciones-rpa',
+        'imagen': 'images/recursos/memoria-persistente-agentes-ia-desarrollo.jpg',
+    },
+    {
+        'slug': 'integrar-datos-ia-metodos-estrategias',
+        'titulo': 'Cómo integrar tus datos en una IA: métodos y estrategias',
+        'resumen': 'Context stuffing, MCP, CLI y RAG explicados con criterio de producción. Cómo elegir el método según desarrollo y automatización empresarial.',
+        'fecha': '2026-06-21',
+        'fecha_modificacion': '2026-06-21',
+        'cluster': 'desarrollo',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'integrar datos ia metodos rag mcp',
+        'relacionados': [
+            'integrar-odoo-web-crm',
+            'memoria-persistente-agentes-ia-desarrollo',
+            'rpa-vs-automatizacion-apis',
+        ],
+        'cta_servicio': 'desarrollo-software',
+    },
+    {
         'slug': 'automatizar-procesos-pyme',
         'titulo': 'Cómo automatizar procesos en una pyme española',
         'resumen': 'Guía práctica para identificar qué automatizar primero y calcular el ROI de las automatizaciones empresariales.',
@@ -506,6 +585,7 @@ RECURSOS = [
         'intencion': 'informacional',
         'keyword_principal': 'automatizar procesos pyme',
         'relacionados': [
+            'memoria-persistente-agentes-ia-desarrollo',
             'rpa-vs-automatizacion-apis',
             'procesos-automatizar-empresa',
         ],
@@ -555,7 +635,7 @@ RECURSOS = [
         'keyword_principal': 'integrar odoo web crm',
         'relacionados': [
             'elegir-empresa-desarrollo-software',
-            'coste-desarrollo-software-2026',
+            'integrar-datos-ia-metodos-estrategias',
         ],
         'cta_servicio': 'desarrollo-software',
     },
@@ -747,7 +827,13 @@ def all_sitemap_paths() -> list[dict]:
     for p in pages:
         if p.get('path') == '/recursos':
             p['changefreq'] = 'weekly'
+    try:
+        db_redirects = yt_db.list_recursos_redirects()
+    except Exception:
+        db_redirects = {}
     for r in todos_los_recursos():
+        if not include_recurso_in_sitemap(r, db_redirects):
+            continue
         pages.append({
             'path': f"/recursos/{r['slug']}",
             'changefreq': 'monthly',
@@ -925,6 +1011,7 @@ def recurso_articulo(slug):
     return render_template(
         'recurso-articulo.html',
         articulo=articulo,
+        articulo_canonical_url=articulo_canonical_href(articulo, HREFLANG_ES),
         cuerpo=cuerpo,
         articulos_relacionados=relacionados,
         cluster_meta=recursos_seo.CLUSTER_META.get(articulo.get('cluster', '')) or {},
@@ -1190,6 +1277,7 @@ def inject_globals():
         'hreflang_urls': hreflang_urls(),
         'site_base_url': sitemap_base_url(),
         'ga4_measurement_id': GA4_MEASUREMENT_ID,
+        'ga4_linker_domains': GA4_LINKER_DOMAINS,
         'linkedin_url': LINKEDIN_URL,
         'x_url': X_URL,
         'servicios': SERVICIOS,

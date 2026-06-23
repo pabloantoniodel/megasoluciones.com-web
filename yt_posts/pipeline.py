@@ -100,13 +100,14 @@ def procesar_pendientes() -> int:
 
         try:
             with db.get_db() as conn:
-                slug = db.unique_slug(conn, db.slugify(datos['titulo']))
+                slug = db.unique_slug(conn, db.slugify(datos['resumen']))
             db.update_video(
                 vid,
                 post_titulo=datos['titulo'],
                 post_slug=slug,
                 post_resumen=datos['resumen'],
                 post_cuerpo=datos['cuerpo_html'],
+                post_keyword=datos.get('keyword_principal') or '',
                 post_cluster='ia',
                 post_tipo='noticia',
                 post_intencion='noticia',
@@ -142,13 +143,14 @@ def regenerar(video_db_id: int) -> dict:
         transcripcion=transcripcion,
     )
     with db.get_db() as conn:
-        slug = video['post_slug'] or db.unique_slug(conn, db.slugify(datos['titulo']))
+        slug = db.unique_slug(conn, db.slugify(datos['resumen']), exclude_id=video_db_id)
     db.update_video(
         video_db_id,
         post_titulo=datos['titulo'],
         post_slug=slug,
         post_resumen=datos['resumen'],
         post_cuerpo=datos['cuerpo_html'],
+        post_keyword=datos.get('keyword_principal') or '',
         estado='borrador',
         error_motivo=None,
     )

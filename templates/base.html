@@ -18,7 +18,7 @@
     <meta property="og:title" content="{% block og_title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Megasoluciones — desarrollo de software a medida y automatizaciones empresariales (RPA) para empresas en España. Integraciones, APIs y workflows inteligentes.{% endblock %}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:url" content="{% block og_url %}{{ canonical_url }}{% endblock %}">
     <meta property="og:locale" content="es_ES">
     <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='images/hero-megasoluciones.png', _external=True) }}{% endblock %}">
 
@@ -30,6 +30,8 @@
 
     <title>{% block title %}Megasoluciones | Desarrollo de Software y Automatizaciones en España{% endblock %}</title>
 
+    <link rel="preload" as="image" type="image/webp" href="{{ url_for('static', filename='images/logo-nav.webp', v=7) }}">
+
     {% block preload_assets %}{% endblock %}
 
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -38,7 +40,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logo-icon-32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logo-icon-16.png') }}">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css', v=17) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css', v=33) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -49,7 +51,10 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '{{ ga4_measurement_id }}');
+      gtag('config', '{{ ga4_measurement_id }}', {
+        linker: { domains: {{ ga4_linker_domains | tojson }} },
+        send_page_view: true
+      });
     </script>
     {% endif %}
 
@@ -59,7 +64,7 @@
       "@type": "Organization",
       "name": "Megasoluciones",
       "url": "{{ site_base_url }}/",
-      "logo": "{{ url_for('static', filename='images/logo.png', _external=True) }}",
+      "logo": "{{ url_for('static', filename='images/logo-nav.png', _external=True) }}",
       "description": "Agencia de inteligencia artificial y soluciones de IA para empresas y pymes en España",
       "areaServed": ["ES", "LATAM"],
       "knowsAbout": ["Inteligencia artificial", "Automatización de procesos con IA", "Chatbots IA", "Agentes de IA", "Análisis de datos con IA", "Desarrollo de software", "Integración APIs"],
@@ -76,7 +81,10 @@
         <div class="container">
             <div class="nav-content">
                 <a href="{{ url_for('index') }}" class="logo">
-                    <img src="{{ url_for('static', filename='images/logo-vector.svg', v=17) }}" alt="Megasoluciones — desarrollo software y automatizaciones">
+                    <picture>
+                        <source srcset="{{ url_for('static', filename='images/logo-nav.webp', v=7) }}" type="image/webp">
+                        <img src="{{ url_for('static', filename='images/logo-nav.png', v=7) }}" alt="Megasoluciones — desarrollo software y automatizaciones" height="56" decoding="async" fetchpriority="high">
+                    </picture>
                 </a>
 
                 <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menú">
@@ -120,7 +128,10 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <img src="{{ url_for('static', filename='images/logo-vector-dark.svg', v=17) }}" alt="Megasoluciones" class="footer-logo">
+                    <picture>
+                        <source srcset="{{ url_for('static', filename='images/logo-nav-dark.webp', v=7) }}" type="image/webp">
+                        <img src="{{ url_for('static', filename='images/logo-nav-dark.png', v=7) }}" alt="Megasoluciones" class="footer-logo" height="58" loading="lazy" decoding="async">
+                    </picture>
                     <p class="footer-description">
                         Desarrollo de software a medida y automatizaciones empresariales para empresas en España y LATAM.
                     </p>

@@ -45,6 +45,9 @@ CREATE TABLE IF NOT EXISTS visitas (
     fecha TEXT,
     path TEXT,
     referrer TEXT,
+    referrer_query TEXT,
+    referrer_query_source TEXT,
+    utm_source TEXT,
     ip TEXT,
     visitante TEXT,
     navegador TEXT,
@@ -71,9 +74,18 @@ CREATE TABLE IF NOT EXISTS recursos_redirects (
 """
 
 # Rutas internas + IPs excluidas provisionalmente en el panel
+STATS_PATH_FILTER = (
+    "path NOT LIKE '/admin%' AND path NOT LIKE '/static/%' AND path != '/health'"
+)
+
 STATS_EXCLUDE_SQL = (
-    "path NOT LIKE '/admin%' AND path NOT LIKE '/static/%' AND path != '/health' "
-    "AND NOT EXISTS (SELECT 1 FROM ips_excluidas ex WHERE ex.ip = visitas.ip)"
+    f'{STATS_PATH_FILTER} '
+    'AND NOT EXISTS (SELECT 1 FROM ips_excluidas ex WHERE ex.ip = visitas.ip)'
+)
+
+STATS_INCLUDE_EXCLUDED_ONLY = (
+    f'{STATS_PATH_FILTER} '
+    'AND EXISTS (SELECT 1 FROM ips_excluidas ex WHERE ex.ip = visitas.ip)'
 )
 
 
@@ -107,7 +119,19 @@ def init_db() -> None:
             except sqlite3.OperationalError:
                 pass
         _migrate_video_seo_defaults(conn)
-        _migrate_mythos_redirects(conn)
+        _remove_mythos_editorial_redirects(conn)
+        try:
+            conn.execute('ALTER TABLE visitas ADD COLUMN referrer_query TEXT')
+        except sqlite3.OperationalError:
+            pass
+        try:
+            conn.execute('ALTER TABLE visitas ADD COLUMN referrer_query_source TEXT')
+        except sqlite3.OperationalError:
+            pass
+        try:
+            conn.execute('ALTER TABLE visitas ADD COLUMN utm_source TEXT')
+        except sqlite3.OperationalError:
+            pass
         # Eliminar visitas del panel / estáticos registradas antes del filtro
         conn.execute(
             "DELETE FROM visitas WHERE path LIKE '/admin%' OR path LIKE '/static/%' OR path = '/health'"
@@ -259,19 +283,15 @@ def _migrate_video_seo_defaults(conn: sqlite3.Connection) -> None:
         )
 
 
-def _migrate_mythos_redirects(conn: sqlite3.Connection) -> None:
-    try:
-        from recursos_seo import MYTHOS_CANONICAL_SLUG, RECURSOS_SLUG_REDIRECTS
-    except ImportError:
-        return
-    for old_path, new_path in RECURSOS_SLUG_REDIRECTS.items():
-        old_slug = old_path.removeprefix('/recursos/')
-        new_slug = new_path.removeprefix('/recursos/')
-        if old_slug and new_slug:
-            conn.execute(
-                'INSERT OR IGNORE INTO recursos_redirects (old_slug, new_slug) VALUES (?, ?)',
-                (old_slug, new_slug),
-            )
+def _remove_mythos_editorial_redirects(conn: sqlite3.Connection) -> None:
+    """Quita redirects 301 impuestos antes por consolidación Mythos (cada URL indexa sola)."""
+    mythos_slugs = (
+        'el-drama-de-mythos-la-regulacion-de-ia-en-ee-uu',
+        'prohibicion-de-fable-y-mythos-un-precedente-en-ia',
+        'mythos-fable-5-un-avance-revolucionario-en-ia',
+    )
+    for slug in mythos_slugs:
+        conn.execute('DELETE FROM recursos_redirects WHERE old_slug = ?', (slug,))
 
 
 def _row_to_recurso_dict(r: sqlite3.Row) -> dict:
@@ -365,12 +385,18 @@ def add_recursos_redirect(old_slug: str, new_slug: str) -> None:
 # ── Estadísticas ─────────────────────────────────────────────────────
 
 def record_visit(path: str, referrer: str, ip: str, visitante: str,
-                 navegador: str, so: str, dispositivo: str) -> None:
+                 navegador: str, so: str, dispositivo: str,
+                 referrer_query: str = '', referrer_query_source: str = '',
+                 utm_source: str = '') -> None:
     with get_db() as conn:
         conn.execute(
-            'INSERT INTO visitas (fecha, path, referrer, ip, visitante, navegador, so, dispositivo) '
-            "VALUES (date('now'), ?, ?, ?, ?, ?, ?, ?)",
-            (path, referrer, ip, visitante, navegador, so, dispositivo),
+            'INSERT INTO visitas (ts, fecha, path, referrer, referrer_query, referrer_query_source, '
+            'utm_source, ip, visitante, navegador, so, dispositivo) '
+            "VALUES (datetime('now'), date('now'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                path, referrer, referrer_query or None, referrer_query_source or None,
+                utm_source or None, ip, visitante, navegador, so, dispositivo,
+            ),
         )
 
 
@@ -431,6 +457,40 @@ def stats_series_range(desde: str, hasta: str) -> list[dict]:
     return [dict(r) for r in rows]
 
 
+def stats_exclusion_summary(desde: str, hasta: str) -> dict:
+    """Visitas ocultas por filtros de IP en el rango."""
+    with get_db() as conn:
+        visitas_ocultas = conn.execute(
+            f'SELECT COUNT(*) FROM visitas WHERE fecha BETWEEN ? AND ? AND {STATS_INCLUDE_EXCLUDED_ONLY}',
+            (desde, hasta),
+        ).fetchone()[0] or 0
+        ips_activas = conn.execute('SELECT COUNT(*) FROM ips_excluidas').fetchone()[0] or 0
+    return {'visitas_ocultas': visitas_ocultas, 'ips_activas': ips_activas}
+
+
+def stats_series_range_full(desde: str, hasta: str) -> list[dict]:
+    """Serie diaria con visitas contadas y excluidas."""
+    counted = {r['fecha']: dict(r) for r in stats_series_range(desde, hasta)}
+    with get_db() as conn:
+        excl_rows = conn.execute(
+            f'SELECT fecha, COUNT(*) AS excluidas FROM visitas '
+            f'WHERE fecha BETWEEN ? AND ? AND {STATS_INCLUDE_EXCLUDED_ONLY} '
+            f'GROUP BY fecha ORDER BY fecha',
+            (desde, hasta),
+        ).fetchall()
+    excl_by_fecha = {r['fecha']: r['excluidas'] for r in excl_rows}
+    all_fechas = sorted(set(counted) | set(excl_by_fecha))
+    return [
+        {
+            'fecha': fecha,
+            'visitas': counted.get(fecha, {}).get('visitas', 0),
+            'excluidas': excl_by_fecha.get(fecha, 0),
+            'unicos': counted.get(fecha, {}).get('unicos', 0),
+        }
+        for fecha in all_fechas
+    ]
+
+
 def stats_series(days: int = 30) -> list[dict]:
     with get_db() as conn:
         rows = conn.execute(
@@ -439,6 +499,116 @@ def stats_series(days: int = 30) -> list[dict]:
             (f'-{days - 1} days',),
         ).fetchall()
     return [dict(r) for r in rows]
+
+
+def stats_top_search_queries(desde: str, hasta: str, limit: int = 20) -> list[dict]:
+    """Consultas de búsqueda extraídas del Referer o de la URL de entrada."""
+    with get_db() as conn:
+        rows = conn.execute(
+            f'SELECT referrer_query AS valor, referrer, referrer_query_source, COUNT(*) AS visitas '
+            f"FROM visitas WHERE fecha BETWEEN ? AND ? AND referrer_query IS NOT NULL "
+            f"AND referrer_query != '' AND {STATS_EXCLUDE_SQL} "
+            f'GROUP BY referrer_query, referrer, referrer_query_source ORDER BY visitas DESC LIMIT ?',
+            (desde, hasta, limit),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def stats_origins_excluded_only(desde: str, hasta: str, limit: int = 8) -> list[dict]:
+    """Orígenes con visitas solo desde IPs excluidas (no aparecen en los totales)."""
+    from collections import defaultdict
+
+    from yt_posts.stats import visit_origin_channel
+
+    sql = (
+        f'SELECT referrer, utm_source, visitante FROM visitas '
+        f'WHERE fecha BETWEEN ? AND ? '
+        f'AND path NOT LIKE \'/admin%\' AND path NOT LIKE \'/static/%\' AND path != \'/health\' '
+        f'AND EXISTS (SELECT 1 FROM ips_excluidas ex WHERE ex.ip = visitas.ip)'
+    )
+    with get_db() as conn:
+        rows = conn.execute(sql, (desde, hasta)).fetchall()
+
+    visitas: dict[str, int] = defaultdict(int)
+    unicos: dict[str, set[str]] = defaultdict(set)
+    for r in rows:
+        canal = visit_origin_channel(r['referrer'] or '', r['utm_source'] or '')
+        visitas[canal] += 1
+        if r['visitante']:
+            unicos[canal].add(r['visitante'])
+
+    filas = sorted(
+        (
+            {'canal': c, 'visitas': visitas[c], 'unicos': len(unicos[c])}
+            for c in visitas
+        ),
+        key=lambda x: -x['visitas'],
+    )
+    return filas[:limit]
+
+
+def stats_referrer_breakdown(desde: str, hasta: str) -> dict:
+    """Origen del tráfico con visitas y únicos; las sumas coinciden con stats_summary."""
+    from collections import defaultdict
+
+    from yt_posts.stats import REFERRER_KNOWN_CHANNELS, visit_origin_channel
+
+    with get_db() as conn:
+        rows = conn.execute(
+            f'SELECT referrer, utm_source, visitante, ts FROM visitas '
+            f'WHERE fecha BETWEEN ? AND ? AND {STATS_EXCLUDE_SQL}',
+            (desde, hasta),
+        ).fetchall()
+
+    visitas_por_origen: dict[str, int] = defaultdict(int)
+    ultima_visita: dict[str, tuple[str, str, str]] = {}
+
+    for r in rows:
+        ref = r['referrer'] or ''
+        utm = r['utm_source'] or ''
+        origen = visit_origin_channel(ref, utm)
+        visitas_por_origen[origen] += 1
+        visitante = r['visitante'] or ''
+        ts = r['ts'] or ''
+        prev = ultima_visita.get(visitante)
+        if prev is None or ts >= prev[0]:
+            ultima_visita[visitante] = (ts, ref, utm)
+
+    unicos_por_origen: dict[str, int] = defaultdict(int)
+    for _visitante, (_ts, ref, utm) in ultima_visita.items():
+        unicos_por_origen[visit_origin_channel(ref, utm)] += 1
+
+    total_visitas = len(rows)
+    total_unicos = len(ultima_visita)
+
+    def _sort_key(origen: str) -> tuple:
+        v = visitas_por_origen[origen]
+        if origen == 'Tráfico directo':
+            return (2, 0, origen)
+        if origen in REFERRER_KNOWN_CHANNELS:
+            return (0, -v, origen)
+        return (1, -v, origen)
+
+    origenes = sorted(visitas_por_origen.keys(), key=_sort_key)
+
+    filas = []
+    for origen in origenes:
+        v = visitas_por_origen[origen]
+        u = unicos_por_origen[origen]
+        es_dominio = origen not in REFERRER_KNOWN_CHANNELS and origen != 'Tráfico directo'
+        filas.append({
+            'canal': origen,
+            'es_dominio': es_dominio,
+            'visitas': v,
+            'unicos': u,
+            'pct_visitas': round(100 * v / total_visitas, 1) if total_visitas else 0.0,
+            'pct_unicos': round(100 * u / total_unicos, 1) if total_unicos else 0.0,
+        })
+
+    return {
+        'filas': filas,
+        'totales': {'visitas': total_visitas, 'unicos': total_unicos},
+    }
 
 
 def stats_top_range(campo: str, desde: str, hasta: str, limit: int = 15) -> list[dict]:
@@ -530,7 +700,17 @@ KNOWN_BOT_IP_PREFIXES: tuple[tuple[str, str], ...] = (
     ('142.250.', 'Google'),
 )
 
+CLOUD_SCRAPER_IP_PREFIXES = ('34.', '35.', '104.197.', '104.155.')
+
 HUMAN_BROWSERS = ('Chrome', 'Firefox', 'Safari', 'Edge', 'Opera', 'Samsung Internet')
+
+
+def _is_gcp_scraper_ip(ip: str) -> bool:
+    return any(ip.startswith(p) for p in CLOUD_SCRAPER_IP_PREFIXES)
+
+
+def _is_google_bot_label(label: str) -> bool:
+    return label in ('Googlebot', 'Google') or 'Google' in label
 
 
 def _bot_label_for_ip(ip: str) -> str:
@@ -544,6 +724,16 @@ def _detect_robot_ip(conn: sqlite3.Connection, ip: str, desde: str, hasta: str) 
     label = _bot_label_for_ip(ip)
     if label:
         return True, label
+    if _is_gcp_scraper_ip(ip):
+        row = conn.execute(
+            f"""SELECT COUNT(*) AS total,
+                SUM(CASE WHEN referrer = '' OR referrer IS NULL THEN 1 ELSE 0 END) AS directas
+                FROM visitas
+                WHERE ip = ? AND fecha BETWEEN ? AND ? AND {STATS_PATH_FILTER}""",
+            (ip, desde, hasta),
+        ).fetchone()
+        if row and row['total'] >= 10 and row['directas'] >= row['total'] * 0.8:
+            return True, 'Scraper GCP'
     placeholders = ','.join('?' * len(HUMAN_BROWSERS))
     row = conn.execute(
         f"""SELECT COUNT(*) AS total,
@@ -580,7 +770,7 @@ def list_ips_excluidas() -> list[dict]:
     return [dict(r) for r in rows]
 
 
-def excluir_robots_en_rango(desde: str, hasta: str) -> int:
+def excluir_robots_en_rango(desde: str, hasta: str, include_google: bool = False) -> int:
     """Excluye provisionalmente todas las IPs detectadas como robot en el rango."""
     with get_db() as conn:
         rows = conn.execute(
@@ -592,24 +782,64 @@ def excluir_robots_en_rango(desde: str, hasta: str) -> int:
         count = 0
         for r in rows:
             es_robot, etiqueta = _detect_robot_ip(conn, r['ip'], desde, hasta)
-            if es_robot:
+            if not es_robot:
+                continue
+            if not include_google and _is_google_bot_label(etiqueta):
+                continue
+            conn.execute(
+                'INSERT OR REPLACE INTO ips_excluidas (ip, motivo, es_robot) VALUES (?, ?, 1)',
+                (r['ip'], etiqueta or 'robot'),
+            )
+            count += 1
+        return count
+
+
+def excluir_scrapers_gcp_en_rango(desde: str, hasta: str) -> int:
+    """Excluye IPs GCP con patrón de scraper en el rango."""
+    with get_db() as conn:
+        rows = conn.execute(
+            f'SELECT ip FROM visitas '
+            f"WHERE fecha BETWEEN ? AND ? AND ip != '' AND {STATS_EXCLUDE_SQL} "
+            f'GROUP BY ip',
+            (desde, hasta),
+        ).fetchall()
+        count = 0
+        for r in rows:
+            ip = r['ip']
+            es_robot, etiqueta = _detect_robot_ip(conn, ip, desde, hasta)
+            if es_robot and etiqueta == 'Scraper GCP':
                 conn.execute(
                     'INSERT OR REPLACE INTO ips_excluidas (ip, motivo, es_robot) VALUES (?, ?, 1)',
-                    (r['ip'], etiqueta or 'robot'),
+                    (ip, etiqueta),
                 )
                 count += 1
         return count
 
 
-def _enriquecer_ip(conn: sqlite3.Connection, ip: str, visitas: int, desde: str, hasta: str) -> dict:
+def _enriquecer_ip(
+    conn: sqlite3.Connection,
+    ip: str,
+    visitas: int,
+    desde: str,
+    hasta: str,
+    ultima_visita: str | None = None,
+) -> dict:
     from . import geoip
 
     dispositivo = _moda_dispositivo_ip(conn, ip, desde, hasta)
     pais, codigo = geoip.lookup_country(ip)
     es_robot, robot_etiqueta = _detect_robot_ip(conn, ip, desde, hasta)
+    if ultima_visita is None:
+        row = conn.execute(
+            f'SELECT MAX(ts) AS ultima FROM visitas '
+            f'WHERE ip = ? AND fecha BETWEEN ? AND ? AND {STATS_EXCLUDE_SQL}',
+            (ip, desde, hasta),
+        ).fetchone()
+        ultima_visita = row['ultima'] if row else ''
     return {
         'ip': ip,
         'visitas': visitas,
+        'ultima_visita': ultima_visita or '',
         'dispositivo': dispositivo,
         'dispositivo_label': DISPOSITIVO_ETIQUETAS.get(dispositivo, dispositivo or '—'),
         'pais': pais,
@@ -620,16 +850,56 @@ def _enriquecer_ip(conn: sqlite3.Connection, ip: str, visitas: int, desde: str, 
     }
 
 
+def _stats_ips_agrupadas(
+    desde: str,
+    hasta: str,
+    order_by: str,
+    limit: int | None = None,
+) -> list[dict]:
+    if order_by == 'reciente':
+        orden = (
+            "datetime(COALESCE(NULLIF(ultima_visita, ''), fecha || ' 00:00:00')) DESC, "
+            'last_id DESC'
+        )
+        inner = (
+            f'SELECT ip, COUNT(*) AS visitas, MAX(ts) AS ultima_visita, MAX(id) AS last_id, '
+            f"MAX(fecha) AS fecha FROM visitas "
+            f"WHERE fecha BETWEEN ? AND ? AND ip != '' AND {STATS_EXCLUDE_SQL} "
+            f'GROUP BY ip'
+        )
+        sql = f'SELECT ip, visitas, ultima_visita FROM ({inner}) ORDER BY {orden}'
+    else:
+        orden = 'visitas DESC, ultima_visita DESC'
+        sql = (
+            f'SELECT ip, COUNT(*) AS visitas, MAX(ts) AS ultima_visita FROM visitas '
+            f"WHERE fecha BETWEEN ? AND ? AND ip != '' AND {STATS_EXCLUDE_SQL} "
+            f'GROUP BY ip ORDER BY {orden}'
+        )
+    params: list = [desde, hasta]
+    if limit is not None:
+        sql += ' LIMIT ?'
+        params.append(limit)
+    with get_db() as conn:
+        rows = conn.execute(sql, params).fetchall()
+        return [
+            _enriquecer_ip(conn, r['ip'], r['visitas'], desde, hasta, r['ultima_visita'])
+            for r in rows
+        ]
+
+
+def stats_ips_mas_activas(desde: str, hasta: str, limit: int = 15) -> list[dict]:
+    """IPs con más visitas en el rango (top N)."""
+    return _stats_ips_agrupadas(desde, hasta, order_by='visitas', limit=limit)
+
+
+def stats_ips_recientes(desde: str, hasta: str, limit: int = 15) -> list[dict]:
+    """IPs ordenadas por la visita más reciente."""
+    return _stats_ips_agrupadas(desde, hasta, order_by='reciente', limit=limit)
+
+
 def stats_ips_todas(desde: str, hasta: str) -> list[dict]:
     """Todas las IPs del rango con país y dispositivo (para tabla interactiva)."""
-    with get_db() as conn:
-        rows = conn.execute(
-            f'SELECT ip, COUNT(*) AS visitas FROM visitas '
-            f"WHERE fecha BETWEEN ? AND ? AND ip != '' AND {STATS_EXCLUDE_SQL} "
-            f'GROUP BY ip ORDER BY visitas DESC',
-            (desde, hasta),
-        ).fetchall()
-        return [_enriquecer_ip(conn, r['ip'], r['visitas'], desde, hasta) for r in rows]
+    return _stats_ips_agrupadas(desde, hasta, order_by='visitas', limit=None)
 
 
 def stats_ip_visitas(
@@ -638,12 +908,14 @@ def stats_ip_visitas(
     hasta: str,
     f_path: str = '',
     f_referrer: str = '',
+    f_busqueda: str = '',
     f_navegador: str = '',
     f_dispositivo: str = '',
 ) -> list[dict]:
     """Visitas individuales de una IP (subtabla desplegable)."""
     sql = (
-        f'SELECT ts, fecha, path, referrer, navegador, so, dispositivo FROM visitas '
+        f'SELECT ts, fecha, path, referrer, referrer_query, referrer_query_source, utm_source, '
+        f'navegador, so, dispositivo FROM visitas '
         f'WHERE ip = ? AND fecha BETWEEN ? AND ? AND {STATS_EXCLUDE_SQL}'
     )
     params: list = [ip, desde, hasta]
@@ -653,6 +925,9 @@ def stats_ip_visitas(
     if f_referrer:
         sql += ' AND referrer LIKE ?'
         params.append(f'%{f_referrer}%')
+    if f_busqueda:
+        sql += ' AND referrer_query LIKE ?'
+        params.append(f'%{f_busqueda}%')
     if f_navegador:
         sql += ' AND navegador LIKE ?'
         params.append(f'%{f_navegador}%')
@@ -668,6 +943,9 @@ def stats_ip_visitas(
             'fecha': r['fecha'],
             'path': r['path'],
             'referrer': r['referrer'] or '—',
+            'referrer_query': r['referrer_query'] or '—',
+            'referrer_query_source': r['referrer_query_source'] or '—',
+            'utm_source': r['utm_source'] or '—',
             'navegador': r['navegador'] or '—',
             'so': r['so'] or '—',
             'dispositivo': DISPOSITIVO_ETIQUETAS.get(r['dispositivo'], r['dispositivo'] or '—'),

@@ -84,6 +84,13 @@
         {% for issue in seo_issues %}
         <div class="flash {{ 'error' if issue.level == 'error' else 'warning' }}" style="margin-bottom: 6px;">
             SEO ({{ issue.level }}): {{ issue.message }}
+            {% if issue.alternativas %}
+            <ul style="margin: 8px 0 0 18px; padding: 0;">
+                {% for alt in issue.alternativas %}
+                <li>{{ alt }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

@@ -7,6 +7,9 @@
 {% block og_type %}article{% endblock %}
 {% block og_image %}{% if articulo.imagen %}{{ url_for('static', filename=articulo.imagen, _external=True) }}{% elif articulo.video_id %}https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg{% else %}{{ super() }}{% endif %}{% endblock %}
 
+{% block canonical_link %}{{ articulo_canonical_url or canonical_url }}{% endblock %}
+{% block og_url %}{{ articulo_canonical_url or canonical_url }}{% endblock %}
+
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
 <script type="application/ld+json">
@@ -26,9 +29,9 @@
   "publisher": {
     "@type": "Organization",
     "name": "Megasoluciones",
-    "logo": {"@type": "ImageObject", "url": "{{ url_for('static', filename='images/logo.png', _external=True) }}"}
+    "logo": {"@type": "ImageObject", "url": "{{ url_for('static', filename='images/logo-nav.png', _external=True) }}"}
   },
-  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ canonical_url }}"}
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ articulo_canonical_url or canonical_url }}"}
 }
 </script>
 {% if articulo.video_id %}
