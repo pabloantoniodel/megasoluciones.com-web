@@ -1246,8 +1246,17 @@ def robots_txt():
             "Disallow: /admin\n"
             "Disallow: /admin/\n"
             f"\nSitemap: {HREFLANG_ES}/sitemap.xml\n"
+            f"\n# Guía para modelos de lenguaje: {HREFLANG_ES}/llms.txt\n"
         )
     return Response(body, mimetype='text/plain')
+
+
+@app.route('/llms.txt')
+def llms_txt():
+    path = os.path.join(os.path.dirname(__file__), 'llms.txt')
+    with open(path, encoding='utf-8') as f:
+        body = f.read()
+    return Response(body, mimetype='text/plain; charset=utf-8')
 
 
 @app.route('/sitemap.xml')

@@ -1,0 +1,32 @@
+# Megasoluciones
+
+> Megasoluciones es una agencia en España especializada en desarrollo de software a medida, automatización de procesos (RPA e integraciones) e inteligencia artificial aplicada a pymes y empresas. Sitio principal: https://megasolucion.es
+
+Este archivo orienta a sistemas de IA sobre qué páginas priorizar para entender nuestros servicios, guías y actualidad del sector. Usa URLs absolutas en https://megasolucion.es. Para rastreo web estándar, consulta también /robots.txt y /sitemap.xml.
+
+## Servicios principales
+
+- [Desarrollo de software a medida](https://megasolucion.es/desarrollo-software): Aplicaciones web, integraciones y proyectos a medida para empresas.
+- [Automatizaciones y RPA](https://megasolucion.es/automatizaciones): Automatización de procesos, APIs y flujos operativos.
+- [Servicios y consultoría IA](https://megasolucion.es/servicios): Consultoría de inteligencia artificial, agentes y estrategia GEO.
+- [Portfolio y casos](https://megasolucion.es/portfolio): Proyectos realizados y referencias.
+- [Contacto](https://megasolucion.es/contacto): Formulario para consultas comerciales y técnicas.
+
+## Guías y recursos (evergreen)
+
+- [Hub de recursos](https://megasolucion.es/recursos): Guías sobre IA, desarrollo y automatización para empresas en España.
+- [SEO para IA y GEO en 2026](https://megasolucion.es/recursos/seo-geo-inteligencia-artificial-2026): Guía pilar sobre visibilidad en buscadores y asistentes con IA.
+- [Elegir empresa de desarrollo software](https://megasolucion.es/recursos/elegir-empresa-desarrollo-software): Criterios para contratar desarrollo a medida.
+- [Automatizar procesos en pymes](https://megasolucion.es/recursos/automatizar-procesos-pyme): Guía pilar de automatización empresarial.
+- [Actualidad IA](https://megasolucion.es/recursos/actualidad): Noticias y resúmenes del sector de inteligencia artificial.
+
+## Empresa
+
+- [Sobre nosotros](https://megasolucion.es/sobre): Equipo, enfoque y valores de Megasoluciones.
+- [Testimonios](https://megasolucion.es/testimonios): Opiniones de clientes.
+
+## Optional
+
+- [Política de privacidad](https://megasolucion.es/privacidad): Tratamiento de datos personales y cookies.
+- [Aviso legal](https://megasolucion.es/aviso-legal): Información legal del titular del sitio.
+- [Páginas locales GEO](https://megasolucion.es/geo/): Contenido geolocalizado (Madrid y Comunidad de Madrid).
