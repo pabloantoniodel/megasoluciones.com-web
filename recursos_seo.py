@@ -38,6 +38,79 @@ META_TOPIC_RE = re.compile(r'\bmeta\b.*\b(chatbot|instagram|bot)\b|\b(chatbot|in
 # Redirects editoriales explícitos (slug inmutable tras indexación, etc.)
 RECURSOS_SLUG_REDIRECTS: dict[str, str] = {}
 
+# Artículos reescritos como editorial Megasoluciones (sin embed ni crédito al canal)
+ARTICULOS_SIN_VIDEO_CANAL = frozenset({
+    'el-futuro-de-las-empresas-inteligencia-artificial-en-cada-departamento',
+})
+
+
+def mostrar_video_en_articulo(articulo: dict) -> bool:
+    """Embed y atribución al canal en noticias de vídeo, salvo excepciones editoriales."""
+    if not articulo.get('video_id'):
+        return False
+    if articulo.get('slug') in ARTICULOS_SIN_VIDEO_CANAL:
+        return False
+    return bool(articulo.get('canal_nombre'))
+
+
+def video_upload_date_iso(articulo: dict) -> str:
+    """Fecha ISO del vídeo en YouTube (para VideoObject.uploadDate)."""
+    raw = (articulo.get('publicado_video') or '').strip()
+    if not raw:
+        return articulo.get('fecha', '')
+    if raw.endswith('+00:00'):
+        return raw.replace('+00:00', 'Z')
+    if 'T' in raw and not raw.endswith('Z'):
+        return f'{raw}Z'
+    return raw
+
+
+def video_schema_graph(articulo: dict, page_url: str) -> dict:
+    """Schema de página de visualización: ItemPage + VideoObject (requisito Google Video)."""
+    vid = articulo['video_id']
+    page_id = page_url.rstrip('/')
+    video_id = f'{page_id}#video'
+    thumb = f'https://i.ytimg.com/vi/{vid}/maxresdefault.jpg'
+    return {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'ItemPage',
+                '@id': page_id,
+                'url': page_id,
+                'name': articulo.get('titulo', ''),
+                'description': articulo.get('resumen', ''),
+                'datePublished': articulo.get('fecha', ''),
+                'dateModified': articulo.get('fecha_modificacion') or articulo.get('fecha', ''),
+                'mainEntity': {'@id': video_id},
+                'isPartOf': {
+                    '@type': 'WebSite',
+                    'name': 'Megasoluciones',
+                    'url': 'https://megasolucion.es',
+                },
+            },
+            {
+                '@type': 'VideoObject',
+                '@id': video_id,
+                'name': articulo.get('video_titulo') or articulo.get('titulo', ''),
+                'description': articulo.get('resumen', ''),
+                'thumbnailUrl': [thumb, f'https://i.ytimg.com/vi/{vid}/hqdefault.jpg'],
+                'uploadDate': video_upload_date_iso(articulo),
+                'embedUrl': f'https://www.youtube.com/embed/{vid}',
+                'contentUrl': articulo.get('video_url') or f'https://www.youtube.com/watch?v={vid}',
+                'mainEntityOfPage': {'@id': page_id},
+                'publisher': {
+                    '@type': 'Organization',
+                    'name': 'Megasoluciones',
+                    'logo': {
+                        '@type': 'ImageObject',
+                        'url': 'https://megasolucion.es/static/images/logo-nav.png',
+                    },
+                },
+            },
+        ],
+    }
+
 _GENERIC_IA_TERMS = frozenset({
     'inteligencia', 'artificial', 'empresas', 'desarrollo', 'software',
     'automatizacion', 'procesos', 'modelos', 'tecnologia', 'digital',

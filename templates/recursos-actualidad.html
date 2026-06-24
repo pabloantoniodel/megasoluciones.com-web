@@ -30,12 +30,6 @@
         <div class="landing-grid">
             {% for articulo in articulos %}
             <article class="landing-card landing-card-compact">
-                {% if articulo.video_id %}
-                <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="recursos-card-thumb">
-                    <img src="https://i.ytimg.com/vi/{{ articulo.video_id }}/hqdefault.jpg"
-                         alt="" width="400" height="210" loading="lazy">
-                </a>
-                {% endif %}
                 <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
                 <h2><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ articulo.titulo }}</a></h2>
                 <p>{{ articulo.resumen }}</p>

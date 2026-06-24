@@ -39,7 +39,7 @@
                             class="btn sm green" onclick="return confirm('¿Publicar ahora en {{ p.platform }}?');">Publicar ya</button>
                     {% endif %}
                     <button type="submit" formaction="{{ url_for('admin.social_regenerate_image', post_id=p.id) }}"
-                            class="btn sm gray" onclick="return confirm('¿Regenerar imagen desde YouTube?');">↻ Imagen YouTube</button>
+                            class="btn sm gray" onclick="return confirm('¿Regenerar imagen de tarjeta?');">↻ Regenerar imagen</button>
                     <a class="btn sm" href="{{ url_for('admin.video_detalle', vid=p.video_db_id) }}">Ver vídeo</a>
                 </div>
             </form>

@@ -12,6 +12,8 @@ from geo_pages import GEO_HUB, GEO_INDEX_GROUPS, geo_sitemap_entries, get_geo_pa
 import recursos_seo
 from recursos_seo import (
     articulo_canonical_href,
+    video_schema_graph,
+    mostrar_video_en_articulo,
     build_actualidad_context,
     build_hub_context,
     get_articulos_relacionados,
@@ -1008,10 +1010,15 @@ def recurso_articulo(slug):
     relacionados = get_articulos_relacionados(articulo, todos)
     # Posts de vídeo llevan el cuerpo en BD; los artículos estáticos, en content/recursos/
     cuerpo = articulo.get('cuerpo') or render_recurso_body(slug)
+    page_url = articulo_canonical_href(articulo, HREFLANG_ES) or canonical_url()
+    mostrar_video = mostrar_video_en_articulo(articulo)
     return render_template(
         'recurso-articulo.html',
         articulo=articulo,
-        articulo_canonical_url=articulo_canonical_href(articulo, HREFLANG_ES),
+        articulo_canonical_url=page_url,
+        mostrar_video=mostrar_video,
+        sin_video_canal=slug in recursos_seo.ARTICULOS_SIN_VIDEO_CANAL,
+        video_schema=video_schema_graph(articulo, page_url) if mostrar_video else None,
         cuerpo=cuerpo,
         articulos_relacionados=relacionados,
         cluster_meta=recursos_seo.CLUSTER_META.get(articulo.get('cluster', '')) or {},

@@ -149,30 +149,19 @@ def prepare_image(
     title: str,
     resumen: str = '',
 ) -> tuple[str, str]:
-    """Devuelve (filename, ruta_absoluta). Guarda en DATA_DIR/social y copia a static."""
+    """Devuelve (filename, ruta_absoluta). Tarjeta de marca Megasoluciones (sin miniatura YouTube)."""
     filename = f'{slug}.jpg'
     os.makedirs(social_queue.SOCIAL_IMAGE_DIR, exist_ok=True)
     dest = Path(social_queue.SOCIAL_IMAGE_DIR) / filename
 
-    raw = _fetch_youtube_thumbnail(youtube_video_id)
-    if raw:
-        try:
-            image_bytes = _brand_image(raw, title)
-            source = 'youtube'
-        except Exception:
-            image_bytes = _generate_card_image(title, resumen)
-            source = 'generated'
-    else:
-        image_bytes = _generate_card_image(title, resumen)
-        source = 'generated'
-
+    image_bytes = _generate_card_image(title, resumen)
     dest.write_bytes(image_bytes)
 
     STATIC_SOCIAL_DIR.mkdir(parents=True, exist_ok=True)
     static_dest = STATIC_SOCIAL_DIR / filename
     static_dest.write_bytes(image_bytes)
 
-    print(f'[social] Imagen {filename} ({source})')
+    print(f'[social] Imagen {filename} (generated)')
     return filename, str(dest)
 
 
@@ -300,7 +289,7 @@ def save_uploaded_image(post_id: str, file_storage) -> str:
 
 
 def regenerate_post_image(post_id: str) -> str:
-    """Regenera imagen desde miniatura YouTube para un post."""
+    """Regenera imagen de tarjeta Megasoluciones para un post."""
     from . import db as yt_db
 
     post = social_queue.get_post(post_id)
@@ -316,15 +305,7 @@ def regenerate_post_image(post_id: str) -> str:
     platform = post.get('platform') or 'social'
     filename = image_filename_for(slug, platform, custom=True)
 
-    yt_id = video['video_id'] or ''
-    raw = _fetch_youtube_thumbnail(yt_id)
-    if raw:
-        try:
-            image_bytes = _brand_image(raw, titulo)
-        except Exception:
-            image_bytes = _generate_card_image(titulo, resumen)
-    else:
-        image_bytes = _generate_card_image(titulo, resumen)
+    image_bytes = _generate_card_image(titulo, resumen)
 
     os.makedirs(social_queue.SOCIAL_IMAGE_DIR, exist_ok=True)
     dest = Path(social_queue.SOCIAL_IMAGE_DIR) / filename

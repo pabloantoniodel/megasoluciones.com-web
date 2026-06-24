@@ -327,6 +327,7 @@ def _row_to_recurso_dict(r: sqlite3.Row) -> dict:
         'video_id': r['video_id'],
         'video_url': r['url'],
         'video_titulo': r['titulo_video'],
+        'publicado_video': r['publicado_video'] if 'publicado_video' in r.keys() else '',
         'canal_nombre': r['canal_nombre'],
         'canal_url': r['canal_url'],
         'cuerpo': r['post_cuerpo'],

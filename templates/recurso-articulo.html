@@ -4,14 +4,19 @@
 {% block meta_description %}{{ articulo.resumen }}{% endblock %}
 {% block og_title %}{{ articulo.titulo }} | Megasoluciones{% endblock %}
 {% block og_description %}{{ articulo.resumen }}{% endblock %}
-{% block og_type %}article{% endblock %}
-{% block og_image %}{% if articulo.imagen %}{{ url_for('static', filename=articulo.imagen, _external=True) }}{% elif articulo.video_id %}https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block og_type %}{% if mostrar_video %}video.other{% else %}article{% endif %}{% endblock %}
+{% block og_image %}{% if articulo.imagen %}{{ url_for('static', filename=articulo.imagen, _external=True) }}{% elif mostrar_video %}https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg{% else %}{{ super() }}{% endif %}{% endblock %}
 
 {% block canonical_link %}{{ articulo_canonical_url or canonical_url }}{% endblock %}
 {% block og_url %}{{ articulo_canonical_url or canonical_url }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
+{% if video_schema %}
+<script type="application/ld+json">
+{{ video_schema|tojson }}
+</script>
+{% else %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -23,8 +28,6 @@
   "author": {"@type": "Organization", "name": "Megasoluciones"},
   {% if articulo.imagen %}
   "image": {{ url_for('static', filename=articulo.imagen, _external=True)|tojson }},
-  {% elif articulo.video_id %}
-  "image": "https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg",
   {% endif %}
   "publisher": {
     "@type": "Organization",
@@ -32,19 +35,6 @@
     "logo": {"@type": "ImageObject", "url": "{{ url_for('static', filename='images/logo-nav.png', _external=True) }}"}
   },
   "mainEntityOfPage": {"@type": "WebPage", "@id": "{{ articulo_canonical_url or canonical_url }}"}
-}
-</script>
-{% if articulo.video_id %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": {{ articulo.video_titulo|tojson }},
-  "description": {{ articulo.resumen|tojson }},
-  "thumbnailUrl": "https://i.ytimg.com/vi/{{ articulo.video_id }}/hqdefault.jpg",
-  "uploadDate": {{ articulo.fecha|tojson }},
-  "embedUrl": "https://www.youtube-nocookie.com/embed/{{ articulo.video_id }}",
-  "contentUrl": {{ articulo.video_url|tojson }}
 }
 </script>
 {% endif %}
@@ -62,13 +52,13 @@
     </div>
 </nav>
 
-<article class="section">
+<article class="section"{% if mostrar_video %} itemscope itemtype="https://schema.org/ItemPage"{% endif %}>
     <div class="container landing-content">
         <header>
             <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
             {% if articulo.tipo == 'pilar' %}<span class="recursos-badge-pilar">Guía pilar</span>{% endif %}
             <h1>{{ articulo.titulo }}</h1>
-            <p class="lead">{{ articulo.resumen }}</p>
+            {% if not mostrar_video %}<p class="lead">{{ articulo.resumen }}</p>{% endif %}
         </header>
         {% if articulo.imagen %}
         <figure style="margin: 1.5rem 0 2rem;">
@@ -79,13 +69,20 @@
                  loading="eager">
         </figure>
         {% endif %}
-        {% if articulo.video_id %}
-        <div class="articulo-video" style="margin: 2rem 0;">
-            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
-                <iframe src="https://www.youtube-nocookie.com/embed/{{ articulo.video_id }}"
+        {% if mostrar_video %}
+        <section id="video-principal" class="articulo-video" style="margin: 1.25rem 0 2rem;" itemprop="video" itemscope itemtype="https://schema.org/VideoObject">
+            <meta itemprop="name" content="{{ articulo.video_titulo }}">
+            <meta itemprop="description" content="{{ articulo.resumen }}">
+            <meta itemprop="thumbnailUrl" content="https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg">
+            <meta itemprop="uploadDate" content="{{ articulo.publicado_video or articulo.fecha }}">
+            <meta itemprop="embedUrl" content="https://www.youtube.com/embed/{{ articulo.video_id }}">
+            <meta itemprop="contentUrl" content="{{ articulo.video_url }}">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #0f172a;">
+                <iframe src="https://www.youtube.com/embed/{{ articulo.video_id }}"
                         title="{{ articulo.video_titulo }}"
                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                        loading="lazy" allowfullscreen></iframe>
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
             </div>
             <p style="margin-top: .75rem; font-size: .9rem; color: #64748b;">
                 Fuente: vídeo «<a href="{{ articulo.video_url }}" target="_blank" rel="noopener nofollow">{{ articulo.video_titulo }}</a>»
@@ -94,9 +91,10 @@
                 {% endif %}
                 en YouTube.
             </p>
-        </div>
+        </section>
+        <p class="lead">{{ articulo.resumen }}</p>
         {% endif %}
-        {% if articulo.tipo == 'noticia' and pilar_slug %}
+        {% if articulo.tipo == 'noticia' and pilar_slug and not mostrar_video %}
         <aside class="articulo-noticia-contexto" aria-label="Guía relacionada">
             <p>Este artículo es actualidad del sector. Para una visión estratégica sobre IA aplicada a empresas en España, consulta nuestra
             <a href="{{ url_for('recurso_articulo', slug=pilar_slug) }}">guía pilar del cluster</a>
@@ -104,14 +102,27 @@
         </aside>
         {% endif %}
         <div class="articulo-body">
+            {% if mostrar_video %}<h2>Resumen y conclusiones</h2>{% endif %}
             {{ cuerpo|safe }}
         </div>
-        {% if articulo.video_id %}
+        {% if articulo.tipo == 'noticia' and pilar_slug and mostrar_video %}
+        <aside class="articulo-noticia-contexto" aria-label="Guía relacionada">
+            <p>Este artículo es actualidad del sector. Para una visión estratégica sobre IA aplicada a empresas en España, consulta nuestra
+            <a href="{{ url_for('recurso_articulo', slug=pilar_slug) }}">guía pilar del cluster</a>
+            o el <a href="{{ url_for('recursos') }}">hub de recursos</a>.</p>
+        </aside>
+        {% endif %}
+        {% if mostrar_video %}
         <blockquote style="margin: 2rem 0; padding: 1rem 1.5rem; border-left: 4px solid #3b82f6; background: #f8fafc; border-radius: 0 8px 8px 0;">
             Este artículo es un resumen elaborado por Megasoluciones a partir del vídeo
             «<a href="{{ articulo.video_url }}" target="_blank" rel="noopener nofollow">{{ articulo.video_titulo }}</a>»
             {% if articulo.canal_nombre %}publicado por <a href="{{ articulo.canal_url }}" target="_blank" rel="noopener nofollow">{{ articulo.canal_nombre }}</a>{% endif %}.
             Todo el crédito del contenido original corresponde a su autor.
+        </blockquote>
+        {% elif articulo.video_id and sin_video_canal %}
+        <blockquote style="margin: 2rem 0; padding: 1rem 1.5rem; border-left: 4px solid #3b82f6; background: #f8fafc; border-radius: 0 8px 8px 0;">
+            Artículo elaborado por <strong>Megasoluciones</strong> sobre IA y automatización aplicada a empresas.
+            Si quieres valorar un piloto en tu organización, <a href="{{ url_for('contacto') }}">contacta con nosotros</a>.
         </blockquote>
         {% endif %}
 
