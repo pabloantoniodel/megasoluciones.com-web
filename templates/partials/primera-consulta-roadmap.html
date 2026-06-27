@@ -1,0 +1,42 @@
+<section class="section bg-light primera-consulta-roadmap" id="primera-consulta">
+    <div class="container">
+        <div class="roadmap-consulta-header text-center">
+            <h2>Qué hacemos en la <span class="gradient-text">primera consulta</span></h2>
+            <p class="lead">Antes de proponer desarrollo, automatización o IA, mapeamos tu situación real en cuatro pasos. Sin compromiso y con entregables claros.</p>
+        </div>
+        <div class="roadmap-consulta-grid">
+            <div class="process-steps roadmap-consulta-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Auditoría de procesos</h3>
+                    <p>Dibujo BPMN de cómo trabajáis hoy: actores, sistemas, cuellos de botella y tiempos.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Análisis de oportunidades</h3>
+                    <p>Priorizamos qué automatizar, desarrollar o potenciar con IA según impacto, coste y viabilidad.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Estudio de vulnerabilidades</h3>
+                    <p>Riesgos técnicos, de datos, dependencias y cumplimiento antes de invertir en una solución.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Roadmap técnico</h3>
+                    <p>Hoja de ruta por fases: piloto, integraciones, plazos orientativos y criterios de éxito medibles.</p>
+                </div>
+            </div>
+            {% if show_roadmap_image|default(true) %}
+            <figure class="roadmap-consulta-visual">
+                <img src="{{ url_for('static', filename='images/primera-consulta-roadmap.png') }}"
+                     alt="Roadmap de primera consulta Megasoluciones: auditoría BPMN, oportunidades, vulnerabilidades y roadmap técnico"
+                     width="960" height="540" loading="lazy">
+            </figure>
+            {% endif %}
+        </div>
+        <p class="text-center roadmap-consulta-cta">
+            <a href="{{ url_for('recurso_articulo', slug='primera-consulta-roadmap-auditoria-bpmn') }}">Leer la guía completa de la primera consulta →</a>
+        </p>
+    </div>
+</section>

@@ -758,6 +758,65 @@ a {
     font-style: italic;
 }
 
+/* Primera consulta roadmap */
+.primera-consulta-roadmap .lead {
+    max-width: 720px;
+    margin: 0 auto 2rem;
+}
+
+.roadmap-consulta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.roadmap-consulta-steps {
+    align-items: flex-start;
+}
+
+.roadmap-consulta-steps .process-step {
+    text-align: left;
+}
+
+.roadmap-consulta-steps .step-number {
+    margin: 0 0 1rem;
+}
+
+.roadmap-consulta-visual {
+    margin: 0;
+}
+
+.roadmap-consulta-visual img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.roadmap-consulta-cta {
+    margin-top: 1rem;
+}
+
+.roadmap-consulta-cta a {
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .roadmap-consulta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .roadmap-consulta-steps .process-step {
+        text-align: center;
+    }
+
+    .roadmap-consulta-steps .step-number {
+        margin: 0 auto 1rem;
+    }
+}
+
 /* Process Steps */
 .process-steps {
     display: flex;

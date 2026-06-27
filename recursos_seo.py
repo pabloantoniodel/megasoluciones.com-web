@@ -208,6 +208,7 @@ STATIC_SEO_DEFAULTS: dict[str, dict] = {
     'coste-desarrollo-software-2026': {'subtema': 'desarrollo-general', 'indexable': True},
     'integrar-odoo-web-crm': {'subtema': 'desarrollo-general', 'indexable': True},
     'automatizar-procesos-pyme': {'subtema': 'automatizacion-general', 'indexable': True},
+    'primera-consulta-roadmap-auditoria-bpmn': {'subtema': 'automatizacion-general', 'indexable': True},
     'rpa-vs-automatizacion-apis': {'subtema': 'automatizacion-general', 'indexable': True},
     'procesos-automatizar-empresa': {'subtema': 'automatizacion-general', 'indexable': True},
     'memoria-persistente-agentes-ia-desarrollo': {'subtema': 'automatizacion-general', 'indexable': True},

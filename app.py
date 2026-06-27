@@ -144,7 +144,9 @@ COM_HOSTS = frozenset({'megasolucion.com', 'www.megasolucion.com'})
 def redirect_to_primary_host():
     """301 megasolucion.com → megasolucion.es (Google Search Console cambio de dominio)."""
     host = (request.host or '').split(':')[0].lower()
-    if host in COM_HOSTS and request.path == '/robots.txt':
+    if request.path in ('/robots.txt', '/llms.txt') and (
+        host in COM_HOSTS or host in REDIRECT_TO_PRIMARY_HOSTS
+    ):
         return None
     if host in REDIRECT_TO_PRIMARY_HOSTS:
         target = f"{HREFLANG_ES}{request.path or '/'}"
@@ -454,9 +456,31 @@ CONTACTO_FAQS = [
         'question': '¿Ofrecéis mantenimiento y soporte post-implementación?',
         'answer': 'Sí, todos nuestros proyectos incluyen soporte continuo. Ofrecemos planes mensuales de mantenimiento, monitorización de automatizaciones y evolutivos de software.'
     },
+    {
+        'question': '¿Qué incluye la primera consulta?',
+        'answer': 'Auditoría de procesos con diagrama BPMN, análisis de oportunidades (automatización, desarrollo o IA), estudio de vulnerabilidades técnicas y un roadmap por fases. Sin compromiso; con entregables claros antes de presupuestar.'
+    },
 ]
 
 RECURSOS = [
+    {
+        'slug': 'primera-consulta-roadmap-auditoria-bpmn',
+        'titulo': 'Primera consulta: roadmap de auditoría BPMN, oportunidades y roadmap técnico',
+        'resumen': 'Qué hace Megasoluciones en la primera consulta: auditoría de procesos con BPMN, análisis de oportunidades, estudio de vulnerabilidades y hoja de ruta técnica antes de desarrollar o automatizar.',
+        'fecha': '2026-06-25',
+        'fecha_modificacion': '2026-06-25',
+        'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'comercial',
+        'keyword_principal': 'primera consulta auditoria procesos bpmn roadmap',
+        'relacionados': [
+            'automatizar-procesos-pyme',
+            'automatizar-pyme-sin-direccion-error-estrategia',
+            'elegir-empresa-desarrollo-software',
+        ],
+        'cta_servicio': 'consultoria-ia',
+        'imagen': 'images/primera-consulta-roadmap.png',
+    },
     {
         'slug': 'automatizar-pyme-sin-direccion-error-estrategia',
         'titulo': 'Automatizar una pyme sin procesos claros: por qué la tecnología no arregla el desorden',
@@ -1256,7 +1280,7 @@ def llms_txt():
     path = os.path.join(os.path.dirname(__file__), 'llms.txt')
     with open(path, encoding='utf-8') as f:
         body = f.read()
-    return Response(body, mimetype='text/plain; charset=utf-8')
+    return Response(body, content_type='text/plain; charset=utf-8')
 
 
 @app.route('/sitemap.xml')

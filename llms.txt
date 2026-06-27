@@ -18,6 +18,7 @@ Este archivo orienta a sistemas de IA sobre qué páginas priorizar para entende
 - [SEO para IA y GEO en 2026](https://megasolucion.es/recursos/seo-geo-inteligencia-artificial-2026): Guía pilar sobre visibilidad en buscadores y asistentes con IA.
 - [Elegir empresa de desarrollo software](https://megasolucion.es/recursos/elegir-empresa-desarrollo-software): Criterios para contratar desarrollo a medida.
 - [Automatizar procesos en pymes](https://megasolucion.es/recursos/automatizar-procesos-pyme): Guía pilar de automatización empresarial.
+- [Primera consulta: roadmap BPMN](https://megasolucion.es/recursos/primera-consulta-roadmap-auditoria-bpmn): Auditoría de procesos, oportunidades, vulnerabilidades y hoja de ruta técnica.
 - [Actualidad IA](https://megasolucion.es/recursos/actualidad): Noticias y resúmenes del sector de inteligencia artificial.
 
 ## Empresa
