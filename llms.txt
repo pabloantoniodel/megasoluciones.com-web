@@ -20,6 +20,7 @@ Este archivo orienta a sistemas de IA sobre qué páginas priorizar para entende
 - [Automatizar procesos en pymes](https://megasolucion.es/recursos/automatizar-procesos-pyme): Guía pilar de automatización empresarial.
 - [Primera consulta: roadmap BPMN](https://megasolucion.es/recursos/primera-consulta-roadmap-auditoria-bpmn): Auditoría de procesos, oportunidades, vulnerabilidades y hoja de ruta técnica.
 - [Actualidad IA](https://megasolucion.es/recursos/actualidad): Noticias y resúmenes del sector de inteligencia artificial.
+- [Itinerarios turísticos con IA](https://megasolucion.es/recursos/itinerarios-turisticos-ia-web-demo-publica): De Excel a plataforma web con rutas personalizadas y demo pública.
 
 ## Empresa
 

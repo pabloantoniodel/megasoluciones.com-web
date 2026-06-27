@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="title desc">
+  <title id="title">Roadmap de primera consulta Megasoluciones</title>
+  <desc id="desc">Cuatro pasos: auditoria BPMN, analisis de oportunidades, estudio de vulnerabilidades y roadmap tecnico</desc>
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00164f"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#00164f" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="#f9fbfa"/>
+  <rect width="1200" height="120" fill="url(#headerGrad)"/>
+  <rect y="118" width="1200" height="4" fill="url(#brandGrad)"/>
+  <text x="600" y="52" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, system-ui, sans-serif" font-size="28" font-weight="700">Primera consulta</text>
+  <text x="600" y="88" text-anchor="middle" fill="#93c5fd" font-family="Segoe UI, system-ui, sans-serif" font-size="16">Megasoluciones &#183; Desarrollo &#183; Automatizaci&#243;n &#183; IA</text>
+  <line x1="210" y1="340" x2="990" y2="340" stroke="#dbeafe" stroke-width="4" stroke-linecap="round"/>
+  <g filter="url(#shadow)">
+    <rect x="60" y="200" width="240" height="320" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+    <circle cx="180" cy="260" r="32" fill="url(#brandGrad)"/>
+    <text x="180" y="270" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, system-ui, sans-serif" font-size="26" font-weight="700">1</text>
+    <text x="180" y="330" text-anchor="middle" fill="#00164f" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-weight="700">Auditor&#237;a de procesos</text>
+    <text x="180" y="358" text-anchor="middle" fill="#3b82f6" font-family="Segoe UI, system-ui, sans-serif" font-size="13" font-weight="600">Dibujo BPMN</text>
+    <text x="180" y="400" text-anchor="middle" fill="#6b7280" font-family="Segoe UI, system-ui, sans-serif" font-size="13"><tspan x="180" dy="0">Mapeo del flujo real,</tspan><tspan x="180" dy="20">actores y sistemas</tspan></text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="340" y="200" width="240" height="320" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+    <circle cx="460" cy="260" r="32" fill="url(#brandGrad)"/>
+    <text x="460" y="270" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, system-ui, sans-serif" font-size="26" font-weight="700">2</text>
+    <text x="460" y="330" text-anchor="middle" fill="#00164f" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-weight="700">An&#225;lisis de</text>
+    <text x="460" y="352" text-anchor="middle" fill="#00164f" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-weight="700">oportunidades</text>
+    <text x="460" y="400" text-anchor="middle" fill="#6b7280" font-family="Segoe UI, system-ui, sans-serif" font-size="13"><tspan x="460" dy="0">Priorizaci&#243;n por impacto,</tspan><tspan x="460" dy="20">coste y viabilidad</tspan></text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="620" y="200" width="240" height="320" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+    <circle cx="740" cy="260" r="32" fill="url(#brandGrad)"/>
+    <text x="740" y="270" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, system-ui, sans-serif" font-size="26" font-weight="700">3</text>
+    <text x="740" y="330" text-anchor="middle" fill="#00164f" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-weight="700">Estudio de</text>
+    <text x="740" y="352" text-anchor="middle" fill="#00164f" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-weight="700">vulnerabilidades</text>
+    <text x="740" y="400" text-anchor="middle" fill="#6b7280" font-family="Segoe UI, system-ui, sans-serif" font-size="13"><tspan x="740" dy="0">Riesgos t&#233;cnicos, datos</tspan><tspan x="740" dy="20">y cumplimiento</tspan></text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="900" y="200" width="240" height="320" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+    <circle cx="1020" cy="260" r="32" fill="url(#brandGrad)"/>
+    <text x="1020" y="270" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, system-ui, sans-serif" font-size="26" font-weight="700">4</text>
+    <text x="1020" y="330" text-anchor="middle" fill="#00164f" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-weight="700">Roadmap t&#233;cnico</text>
+    <text x="1020" y="358" text-anchor="middle" fill="#10b981" font-family="Segoe UI, system-ui, sans-serif" font-size="13" font-weight="600">Por fases</text>
+    <text x="1020" y="400" text-anchor="middle" fill="#6b7280" font-family="Segoe UI, system-ui, sans-serif" font-size="13"><tspan x="1020" dy="0">Piloto, integraciones</tspan><tspan x="1020" dy="20">y criterios de &#233;xito</tspan></text>
+  </g>
+  <rect x="60" y="560" width="1080" height="56" rx="12" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="600" y="594" text-anchor="middle" fill="#1e3a8a" font-family="Segoe UI, system-ui, sans-serif" font-size="15" font-weight="600">Sin compromiso &#183; Entregables claros antes de presupuestar</text>
+  <text x="600" y="655" text-anchor="middle" fill="#9ca3af" font-family="Segoe UI, system-ui, sans-serif" font-size="13">megasolucion.es</text>
+</svg>

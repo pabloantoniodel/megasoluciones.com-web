@@ -462,11 +462,120 @@ CONTACTO_FAQS = [
     },
 ]
 
+PRIMERA_CONSULTA_PASOS_META = [
+    {
+        'num': 1,
+        'titulo': 'Auditoría de procesos',
+        'badge': 'Dibujo BPMN',
+        'desc': 'Taller con tu equipo, entrevistas y diagrama BPMN del flujo real (no del PowerPoint).',
+        'anchor': 'paso-1-auditoria-bpmn',
+        'entregables': [
+            'Diagrama BPMN 2.0 (PDF + editable)',
+            'Inventario de actores y sistemas',
+            'Cuellos de botella y tiempos por etapa',
+        ],
+        'ejemplos': [
+            {'slug': 'automatizar-pyme-sin-direccion-error-estrategia', 'label': 'Por qué mapear antes de automatizar'},
+            {'slug': 'automatizar-procesos-pyme', 'label': 'Procesos típicos en pymes'},
+        ],
+    },
+    {
+        'num': 2,
+        'titulo': 'Análisis de oportunidades',
+        'badge': 'Impacto · coste · viabilidad',
+        'desc': 'Matriz de priorización: qué automatizar, desarrollar o potenciar con IA y por qué.',
+        'anchor': 'paso-2-oportunidades',
+        'entregables': [
+            'Matriz impacto / esfuerzo / riesgo',
+            'Estimación orientativa de ROI',
+            'Recomendación RPA, API, desarrollo o IA',
+        ],
+        'ejemplos': [
+            {'slug': 'rpa-vs-automatizacion-apis', 'label': 'RPA vs APIs'},
+            {'slug': 'procesos-automatizar-empresa', 'label': 'Procesos con más ROI'},
+        ],
+    },
+    {
+        'num': 3,
+        'titulo': 'Estudio de vulnerabilidades',
+        'badge': 'Datos · integraciones · cumplimiento',
+        'desc': 'Checklist técnico y legal antes de invertir: datos, APIs, continuidad y RGPD.',
+        'anchor': 'paso-3-vulnerabilidades',
+        'entregables': [
+            'Informe de riesgos técnicos y de datos',
+            'Mapa de integraciones y dependencias',
+            'Medidas de mitigación priorizadas',
+        ],
+        'ejemplos': [
+            {'slug': 'integrar-datos-ia-metodos-estrategias', 'label': 'Integrar datos en IA con seguridad'},
+            {'endpoint': 'privacidad', 'label': 'Tratamiento de datos (RGPD)'},
+        ],
+    },
+    {
+        'num': 4,
+        'titulo': 'Roadmap técnico',
+        'badge': 'Piloto · integración · escala',
+        'desc': 'Plan por fases con plazos, dependencias, criterios de éxito y presupuesto orientativo.',
+        'anchor': 'paso-4-roadmap',
+        'entregables': [
+            'Roadmap fase 0 (piloto) · fase 1 · fase 2',
+            'Cronograma y responsables internos',
+            'Propuesta económica por fases (si procede)',
+        ],
+        'ejemplos': [
+            {'slug': 'coste-desarrollo-software-2026', 'label': 'Cómo presupuestamos desarrollo'},
+            {'endpoint': 'portfolio_caso', 'slug': 'automatizacion-erp-crm', 'label': 'Caso piloto ERP-CRM'},
+        ],
+    },
+]
+
+
+def primera_consulta_pasos() -> list[dict]:
+    """Pasos del roadmap con URLs resueltas para plantillas."""
+    articulo_url = url_for('recurso_articulo', slug='primera-consulta-roadmap-auditoria-bpmn')
+    pasos = []
+    for meta in PRIMERA_CONSULTA_PASOS_META:
+        paso = dict(meta)
+        paso['url'] = f"{articulo_url}#{meta['anchor']}"
+        paso['pagina_label'] = 'Ver metodología y entregables'
+        ejemplos = []
+        for ex in meta['ejemplos']:
+            item = {'label': ex['label']}
+            if ex.get('endpoint') == 'portfolio_caso':
+                item['url'] = url_for('portfolio_caso', slug=ex['slug'])
+            elif ex.get('endpoint'):
+                item['url'] = url_for(ex['endpoint'])
+            else:
+                item['url'] = url_for('recurso_articulo', slug=ex['slug'])
+            ejemplos.append(item)
+        paso['ejemplos'] = ejemplos
+        pasos.append(paso)
+    return pasos
+
+
 RECURSOS = [
+    {
+        'slug': 'itinerarios-turisticos-ia-web-demo-publica',
+        'titulo': 'Itinerarios turísticos con IA: de la hoja de cálculo a una web lista para demo pública',
+        'resumen': 'Cómo convertir un catálogo de lugares de interés en una plataforma que genera rutas personalizadas, gestiona varias ciudades desde un panel admin y se expone en internet en un solo paso — sin reescribir datos ni perder trazabilidad.',
+        'fecha': '2026-06-27',
+        'fecha_modificacion': '2026-06-27',
+        'cluster': 'desarrollo',
+        'tipo': 'noticia',
+        'intencion': 'noticia',
+        'keyword_principal': 'itinerarios turisticos ia plataforma web',
+        'relacionados': [
+            'elegir-empresa-desarrollo-software',
+            'coste-desarrollo-software-2026',
+            'desarrolladores-ia-gestion-automatizacion-empresas',
+        ],
+        'cta_servicio': 'desarrollo-software',
+        'imagen': 'images/recursos/itinerarios-turisticos-ia-web-demo-publica.png',
+    },
     {
         'slug': 'primera-consulta-roadmap-auditoria-bpmn',
         'titulo': 'Primera consulta: roadmap de auditoría BPMN, oportunidades y roadmap técnico',
-        'resumen': 'Qué hace Megasoluciones en la primera consulta: auditoría de procesos con BPMN, análisis de oportunidades, estudio de vulnerabilidades y hoja de ruta técnica antes de desarrollar o automatizar.',
+        'resumen': 'Metodología completa de la primera consulta: taller BPMN con diagrama entregable, matriz de oportunidades, informe de vulnerabilidades y roadmap técnico por fases.',
         'fecha': '2026-06-25',
         'fecha_modificacion': '2026-06-25',
         'cluster': 'automatizaciones',
@@ -728,6 +837,26 @@ TESTIMONIOS = [
 
 PORTFOLIO = [
     {
+        'slug': 'itinerarios-turisticos-ia',
+        'titulo': 'Plataforma de itinerarios turísticos con IA',
+        'cliente': 'Turismo cultural y patrimonio, España',
+        'descripcion': 'Web app a medida que genera rutas personalizadas según preferencias del visitante, con gestión multi-ciudad, panel de administración y demo pública segura.',
+        'problema': 'El catálogo turístico vivía en hojas de cálculo: difícil de mantener, inútil para el visitante y sin forma ágil de probar nuevas ciudades o rutas con usuarios reales.',
+        'solucion': 'Plataforma web a medida que unifica mapas, eventos culturales y comercio local. El visitante elige preferencias y recibe rutas optimizadas; el equipo gestiona ciudades, contenidos y usuarios desde un panel sin depender de cambios de código.',
+        'resultados': [
+            'Itinerarios en segundos con cientos de puntos de interés por ciudad',
+            'Multi-destino: misma plataforma, catálogos distintos por ciudad',
+            'Demo pública con URL lista para compartir en minutos',
+            'Trazabilidad: logs, correos y mantenimiento desde el panel admin',
+        ],
+        'tecnologias': ['App web a medida', 'Mapas interactivos', 'IA personalizada', 'Panel multi-ciudad', 'Demo pública segura'],
+        'imagen': 'portfolio-itinerarios-turisticos',
+        'categoria': 'Desarrollo',
+        'real': True,
+        'testimonial': None,
+        'articulo_slug': 'itinerarios-turisticos-ia-web-demo-publica',
+    },
+    {
         'slug': 'plataforma-gestion-medida',
         'titulo': 'Plataforma de Gestión a Medida',
         'cliente': 'Empresa de servicios, España',
@@ -782,7 +911,7 @@ PORTFOLIO = [
         'categoria': 'Automatización',
         'real': False,
         'testimonial': None,
-    }
+    },
 ]
 
 
@@ -841,6 +970,14 @@ def get_caso(slug: str) -> dict | None:
 
 def render_recurso_body(slug: str) -> str:
     path = os.path.join(os.path.dirname(__file__), 'content', 'recursos', f'{slug}.html')
+    if not os.path.isfile(path):
+        return ''
+    with open(path, encoding='utf-8') as f:
+        return render_template_string(f.read())
+
+
+def render_portfolio_body(slug: str) -> str:
+    path = os.path.join(os.path.dirname(__file__), 'content', 'portfolio', f'{slug}.html')
     if not os.path.isfile(path):
         return ''
     with open(path, encoding='utf-8') as f:
@@ -955,10 +1092,12 @@ def portfolio_caso(slug):
     if not caso:
         abort(404)
     servicio = 'desarrollo-software' if caso['categoria'] == 'Desarrollo' else 'automatizaciones-rpa'
+    portfolio_body = render_portfolio_body(slug)
     return render_template(
         'caso-exito.html',
         caso=caso,
         servicio=servicio,
+        portfolio_body=portfolio_body,
         breadcrumbs=[
             {'name': 'Portfolio', 'url': url_for('portfolio', _external=True)},
             {'name': caso['titulo'], 'url': canonical_url()},
@@ -1321,6 +1460,7 @@ def inject_globals():
         'linkedin_url': LINKEDIN_URL,
         'x_url': X_URL,
         'servicios': SERVICIOS,
+        'primera_consulta_pasos': primera_consulta_pasos(),
     }
 
 

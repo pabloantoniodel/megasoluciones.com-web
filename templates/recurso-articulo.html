@@ -60,7 +60,11 @@
             <h1>{{ articulo.titulo }}</h1>
             {% if not mostrar_video %}<p class="lead">{{ articulo.resumen }}</p>{% endif %}
         </header>
-        {% if articulo.imagen %}
+        {% if articulo.slug == 'primera-consulta-roadmap-auditoria-bpmn' %}
+        {% with roadmap_embed=true %}
+        {% include 'partials/primera-consulta-roadmap.html' %}
+        {% endwith %}
+        {% elif articulo.imagen %}
         <figure style="margin: 1.5rem 0 2rem;">
             <img src="{{ url_for('static', filename=articulo.imagen) }}"
                  alt="{{ articulo.titulo }}"

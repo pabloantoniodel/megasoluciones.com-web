@@ -1,0 +1,40 @@
+<p class="lead">Muchos proyectos turísticos arrancan con Excel: museos, monumentos, horarios, coordenadas. El reto no es solo digitalizar esa información, sino hacerla <strong>útil para el visitante</strong> y <strong>operable para el equipo</strong> que la mantiene. Hemos construido una aplicación web que importa catálogos por ciudad, aplica preferencias del usuario y genera itinerarios con inteligencia artificial, manteniendo control humano sobre datos, usuarios y despliegue.</p>
+
+<figure class="bpmn-ejemplo-fig">
+  <img src="{{ url_for('static', filename='images/recursos/itinerarios-turisticos-ia-web-demo-publica.png') }}"
+       alt="Esquema: catálogo turístico en hoja de cálculo convertido en plataforma web con rutas personalizadas por IA"
+       width="1200" height="630" loading="lazy">
+  <figcaption>Del catálogo estático a una experiencia móvil con rutas personalizadas y gestión multi-ciudad.</figcaption>
+</figure>
+
+<h2>Datos como fuente de verdad</h2>
+<p>Los puntos de interés viven en una base de datos central: horarios, categorías, coordenadas, accesibilidad y notas editoriales. Se pueden importar desde hojas de cálculo y actualizar desde el panel de administración. Así el destino no depende de un desarrollador para cambiar un horario de verano o añadir un evento puntual.</p>
+<p>Para oficinas de turismo y gestores patrimoniales, esto significa <strong>una sola fuente de verdad</strong> compartida entre web pública, equipo interno y futuras integraciones (QR en monumentos, newsletters, etc.).</p>
+
+<h2>Personalización real para el visitante</h2>
+<p>No basta con listar lugares. El visitante indica cuánto tiempo tiene, qué le interesa y cómo prefiere moverse. El sistema combina criterio editorial (qué encaja con qué) con optimización de ruta (distancia, tiempo a pie, orden lógico de paradas).</p>
+<ul>
+  <li>Intereses: arte, historia, gastronomía, naturaleza, compras locales…</li>
+  <li>Ritmo: visita relajada o intensa; familia o pareja; mañana o tarde.</li>
+  <li>Resultado: itinerario legible en móvil, no una lista aleatoria de POIs.</li>
+</ul>
+
+<h2>IA con límites claros</h2>
+<p>Los modelos de lenguaje ayudan a resumir, sugerir combinaciones y redactar textos accesibles. Pero las reglas de negocio — qué está abierto, qué requiere reserva, qué no debe mezclarse — siguen en el backend y en manos del equipo del destino. La IA acelera; no sustituye el criterio de quien conoce la ciudad.</p>
+
+<h2>Operación sin fricción para el equipo</h2>
+<p>Un proyecto turístico digital solo funciona si el equipo puede operarlo después del lanzamiento:</p>
+<ul>
+  <li>Logs centralizados para ver qué ocurre cuando algo falla.</li>
+  <li>Correos de verificación y recuperación de contraseña integrados.</li>
+  <li>Configuración operativa editable desde el panel (sin despliegues de emergencia por un cambio menor).</li>
+  <li>Gestión de usuarios y ciudades desde la misma interfaz.</li>
+</ul>
+
+<h2>Demo pública en minutos</h2>
+<p>Antes de invertir en marketing o acuerdos institucionales, hace falta validar con visitantes reales. La plataforma permite publicar una demo en internet con acceso seguro, mostrando una URL lista para compartir con prensa, socios o focus groups — sin montar infraestructura compleja para cada prueba.</p>
+
+<h2>Para quién encaja este enfoque</h2>
+<p>Destinos culturales, rutas patrimoniales, diputaciones con varios municipios, fundaciones que gestionan patrimonio o proyectos de turismo inteligente que necesitan <strong>iterar rápido</strong>: cargar una ciudad nueva, probar con visitantes, ajustar catálogo y reglas, y volver a medir.</p>
+
+<p>Ver el <a href="{{ url_for('portfolio_caso', slug='itinerarios-turisticos-ia') }}">caso completo en portfolio</a> · <a href="{{ url_for('desarrollo_software') }}">Desarrollo a medida</a> · <a href="{{ url_for('contacto', servicio='desarrollo-software') }}">Solicitar proyecto similar</a></p>

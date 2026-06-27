@@ -32,7 +32,11 @@
 <section class="page-header">
     <div class="container">
         <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if caso.categoria == 'Desarrollo' else 'automatizacion' }}">{{ caso.categoria }}</span>
-        {% if caso.real %}<span class="portfolio-badge portfolio-badge-real">Caso real</span>{% endif %}
+        {% if caso.real %}
+            <span class="portfolio-badge portfolio-badge-real">Listo para producción</span>
+        {% else %}
+            <span class="portfolio-badge portfolio-badge-mvp">MVP</span>
+        {% endif %}
         <h1>{{ caso.titulo }}</h1>
         <p class="lead">{{ caso.cliente }}</p>
     </div>
@@ -51,6 +55,9 @@
                 {% include 'partials/responsive-image.html' with context %}
             </div>
             <div>
+                {% if portfolio_body %}
+                <div class="landing-content">{{ portfolio_body|safe }}</div>
+                {% else %}
                 <h2>El problema</h2>
                 <p>{{ caso.problema }}</p>
                 <h2>La solución</h2>
@@ -61,7 +68,8 @@
                     <li>{{ r }}</li>
                     {% endfor %}
                 </ul>
-                <h2>Tecnologías</h2>
+                {% endif %}
+                <h2>Enfoque del proyecto</h2>
                 <div class="portfolio-tech">
                     {% for tech in caso.tecnologias %}
                     <span class="tech-badge">{{ tech }}</span>
@@ -69,6 +77,9 @@
                 </div>
                 {% if caso.testimonial %}
                 <blockquote class="caso-quote">"{{ caso.testimonial }}"</blockquote>
+                {% endif %}
+                {% if caso.articulo_slug %}
+                <p style="margin-top:1rem"><a href="{{ url_for('recurso_articulo', slug=caso.articulo_slug) }}">Leer noticia del proyecto →</a></p>
                 {% endif %}
                 <a href="{{ url_for('contacto', servicio=servicio) }}" class="btn-primary btn-lg">Proyecto similar</a>
             </div>
@@ -78,5 +89,5 @@
 {% endblock %}
 
 {% block extra_head %}
-<style>.caso-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start}@media(max-width:768px){.caso-layout{grid-template-columns:1fr}}.caso-quote{margin:1.5rem 0;padding:1rem 1.5rem;border-left:4px solid #3b82f6;background:#f9fafb;font-style:italic}.portfolio-badge-real{background:#fef3c7;color:#92400e;margin-left:.5rem}</style>
+<style>.caso-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start}@media(max-width:768px){.caso-layout{grid-template-columns:1fr}}.caso-quote{margin:1.5rem 0;padding:1rem 1.5rem;border-left:4px solid #3b82f6;background:#f9fafb;font-style:italic}.portfolio-badge-real{background:#dcfce7;color:#166534;margin-left:.5rem}.portfolio-badge-mvp{background:#f1f5f9;color:#475569;margin-left:.5rem}</style>
 {% endblock %}

@@ -1,42 +1,56 @@
+{% set embed = roadmap_embed|default(false) %}
+{% if not embed %}
 <section class="section bg-light primera-consulta-roadmap" id="primera-consulta">
     <div class="container">
         <div class="roadmap-consulta-header text-center">
             <h2>Qué hacemos en la <span class="gradient-text">primera consulta</span></h2>
-            <p class="lead">Antes de proponer desarrollo, automatización o IA, mapeamos tu situación real en cuatro pasos. Sin compromiso y con entregables claros.</p>
+            <p class="lead">Cuatro fases con metodología y entregables concretos: diagrama BPMN, matriz de oportunidades, informe de riesgos y roadmap por fases.</p>
         </div>
-        <div class="roadmap-consulta-grid">
-            <div class="process-steps roadmap-consulta-steps">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <h3>Auditoría de procesos</h3>
-                    <p>Dibujo BPMN de cómo trabajáis hoy: actores, sistemas, cuellos de botella y tiempos.</p>
+{% else %}
+<div class="roadmap-consulta-embed">
+{% endif %}
+
+        <div class="roadmap-flow" role="list" aria-label="Pasos de la primera consulta">
+            {% for paso in primera_consulta_pasos %}
+            <article class="roadmap-flow-card" role="listitem">
+                <a class="roadmap-flow-card-main" href="{{ paso.url }}">
+                    <span class="roadmap-flow-num">{{ paso.num }}</span>
+                    <span class="roadmap-flow-badge">{{ paso.badge }}</span>
+                    <h3>{{ paso.titulo }}</h3>
+                    <p>{{ paso.desc }}</p>
+                    <span class="roadmap-flow-cta">{{ paso.pagina_label }} →</span>
+                </a>
+                {% if paso.entregables %}
+                <div class="roadmap-flow-entregables">
+                    <strong>Entregables:</strong>
+                    <ul>
+                        {% for e in paso.entregables %}
+                        <li>{{ e }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <h3>Análisis de oportunidades</h3>
-                    <p>Priorizamos qué automatizar, desarrollar o potenciar con IA según impacto, coste y viabilidad.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <h3>Estudio de vulnerabilidades</h3>
-                    <p>Riesgos técnicos, de datos, dependencias y cumplimiento antes de invertir en una solución.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <h3>Roadmap técnico</h3>
-                    <p>Hoja de ruta por fases: piloto, integraciones, plazos orientativos y criterios de éxito medibles.</p>
-                </div>
-            </div>
-            {% if show_roadmap_image|default(true) %}
-            <figure class="roadmap-consulta-visual">
-                <img src="{{ url_for('static', filename='images/primera-consulta-roadmap.png') }}"
-                     alt="Roadmap de primera consulta Megasoluciones: auditoría BPMN, oportunidades, vulnerabilidades y roadmap técnico"
-                     width="960" height="540" loading="lazy">
-            </figure>
+                {% endif %}
+                {% if paso.ejemplos %}
+                <ul class="roadmap-flow-ejemplos">
+                    {% for ex in paso.ejemplos %}
+                    <li><a href="{{ ex.url }}">{{ ex.label }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </article>
+            {% if not loop.last %}
+            <div class="roadmap-flow-arrow" aria-hidden="true">→</div>
             {% endif %}
+            {% endfor %}
         </div>
+
+{% if not embed %}
         <p class="text-center roadmap-consulta-cta">
-            <a href="{{ url_for('recurso_articulo', slug='primera-consulta-roadmap-auditoria-bpmn') }}">Leer la guía completa de la primera consulta →</a>
+            <a href="{{ url_for('contacto') }}#primera-consulta" class="btn-primary">Reservar primera consulta</a>
+            <a href="{{ url_for('recurso_articulo', slug='primera-consulta-roadmap-auditoria-bpmn') }}" class="roadmap-consulta-link-sec">Metodología completa (BPMN y resto de fases) →</a>
         </p>
     </div>
 </section>
+{% else %}
+</div>
+{% endif %}

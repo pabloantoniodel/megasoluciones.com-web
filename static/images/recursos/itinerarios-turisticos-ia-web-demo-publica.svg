@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="De Excel a plataforma turistica con rutas personalizadas">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#172554"/>
+      <stop offset="55%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#e2e8f0" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg2)"/>
+  <text x="600" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="34" fill="#eff6ff" font-weight="700">Itinerarios turisticos con IA</text>
+  <text x="600" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" fill="#bfdbfe">Del catalogo en Excel a la demo publica en minutos</text>
+  <rect x="80" y="170" width="340" height="360" rx="16" fill="url(#shine)"/>
+  <rect x="80" y="170" width="340" height="48" rx="16" fill="#16a34a"/>
+  <rect x="80" y="202" width="340" height="16" fill="#16a34a"/>
+  <text x="250" y="202" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#fff" font-weight="700">Catalogo Excel</text>
+  <rect x="100" y="230" width="300" height="28" fill="#dcfce7"/>
+  <text x="110" y="249" font-family="monospace" font-size="14" fill="#334155">Museo - horario - coordenadas</text>
+  <rect x="100" y="268" width="300" height="28" fill="#f1f5f9"/>
+  <text x="110" y="287" font-family="monospace" font-size="14" fill="#334155">Monumento - visita 45 min</text>
+  <rect x="100" y="306" width="300" height="28" fill="#dcfce7"/>
+  <text x="110" y="325" font-family="monospace" font-size="14" fill="#334155">Mercado - gastronomia</text>
+  <rect x="100" y="344" width="300" height="28" fill="#f1f5f9"/>
+  <text x="110" y="363" font-family="monospace" font-size="14" fill="#334155">Teatro - evento nocturno</text>
+  <path d="M450 350 H520" stroke="#fde68a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M510 330 L540 350 L510 370 Z" fill="#fde68a"/>
+  <rect x="560" y="150" width="560" height="400" rx="20" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/>
+  <rect x="580" y="170" width="520" height="48" rx="10" fill="#1e293b"/>
+  <text x="840" y="202" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#e2e8f0" font-weight="600">Plataforma web multi-ciudad</text>
+  <rect x="580" y="240" width="250" height="280" rx="12" fill="#f8fafc"/>
+  <path d="M620 420 C680 360,720 320,780 300 S860 280,790 360" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="620" cy="420" r="10" fill="#2563eb"/>
+  <circle cx="790" cy="360" r="10" fill="#ef4444"/>
+  <rect x="860" y="240" width="240" height="130" rx="12" fill="#dbeafe"/>
+  <text x="980" y="305" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#334155">Arte - Historia - Ritmo</text>
+  <rect x="860" y="390" width="240" height="130" rx="12" fill="#cffafe"/>
+  <text x="980" y="465" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#334155">Ruta optimizada en segundos</text>
+  <text x="600" y="590" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#bae6fd">Megasoluciones - Turismo cultural</text>
+</svg>

@@ -54,7 +54,11 @@
                 </a>
                 <div class="portfolio-content">
                     <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if proyecto.categoria == 'Desarrollo' else 'automatizacion' }}">{{ proyecto.categoria }}</span>
-                    {% if proyecto.real %}<span class="portfolio-badge portfolio-badge-real">Caso real</span>{% endif %}
+                    {% if proyecto.real %}
+                        <span class="portfolio-badge portfolio-badge-real">Listo para producción</span>
+                    {% else %}
+                        <span class="portfolio-badge portfolio-badge-mvp">MVP</span>
+                    {% endif %}
                     <span class="portfolio-category">{{ proyecto.cliente }}</span>
                     <h3><a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}">{{ proyecto.titulo }}</a></h3>
                     <p>{{ proyecto.descripcion }}</p>
@@ -110,5 +114,5 @@
 {% endblock %}
 
 {% block extra_head %}
-<style>.portfolio-badge-real{background:#fef3c7;color:#92400e;margin-left:.35rem;font-size:.75rem}</style>
+<style>.portfolio-badge-real{background:#dcfce7;color:#166534;margin-left:.35rem;font-size:.75rem} .portfolio-badge-mvp{background:#f1f5f9;color:#475569;margin-left:.35rem;font-size:.75rem}</style>
 {% endblock %}

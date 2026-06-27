@@ -1,59 +1,146 @@
-<p class="lead">La primera consulta con Megasoluciones no es una llamada comercial genérica: es un <strong>diagnóstico estructurado</strong> para decidir si conviene desarrollar software, automatizar procesos o aplicar IA — y en qué orden. Estas son las cuatro fases que seguimos antes de proponer un presupuesto.</p>
+<p class="lead">La primera consulta con Megasoluciones es un <strong>diagnóstico de cuatro fases</strong> con entregables reales — no una llamada comercial. Empezamos dibujando el proceso en <strong>BPMN</strong>, seguimos con una matriz de oportunidades, un estudio de vulnerabilidades y un roadmap técnico por fases. Abajo tienes el detalle de qué hacemos en cada paso.</p>
 
-<h2>1. Auditoría de procesos (dibujo BPMN)</h2>
-<p>Empezamos entendiendo <strong>cómo funciona la operación hoy</strong>, no cómo está escrito en un PowerPoint. Mapeamos el flujo real: quién hace qué, con qué herramientas, dónde se duplica trabajo y dónde aparecen errores recurrentes.</p>
-<p>Usamos notación <strong>BPMN</strong> (Business Process Model and Notation) porque permite que dirección, operaciones y equipos técnicos hablen el mismo idioma. Un diagrama BPMN deja visible:</p>
-<ul>
-  <li>Pasos manuales repetitivos (candidatos a automatización).</li>
-  <li>Puntos de decisión y excepciones (donde suele fallar el RPA si no se documentan).</li>
-  <li>Sistemas implicados (ERP, CRM, hojas de cálculo, email, APIs).</li>
-  <li>Tiempos y responsables por etapa.</li>
-</ul>
-<p>Sin este mapa, muchos proyectos de IA o RPA solo <strong>aceleran el desorden</strong>. La auditoría evita invertir en la herramienta equivocada.</p>
+<h2 id="paso-1-auditoria-bpmn">1. Auditoría de procesos (dibujo BPMN)</h2>
 
-<h2>2. Análisis de oportunidades</h2>
-<p>Con el proceso documentado, clasificamos oportunidades en tres ejes: <strong>impacto</strong> (horas ahorradas, errores evitados, ingresos protegidos), <strong>esfuerzo</strong> (complejidad técnica e integraciones) y <strong>riesgo</strong> (dependencia de un proveedor, datos sensibles, cambio organizativo).</p>
-<p>Priorizamos escenarios concretos, por ejemplo:</p>
-<ul>
-  <li>Automatizar la sincronización entre CRM y ERP en lugar de contratar otro SaaS.</li>
-  <li>Desarrollar un portal a medida cuando no existe producto que encaje con vuestro flujo.</li>
-  <li>Introducir IA donde hay volumen de documentos o consultas repetitivas con reglas claras.</li>
-</ul>
-<p>El resultado es una <strong>lista priorizada</strong> con estimación orientativa de ROI, no una lista infinita de ideas.</p>
+<h3>Qué es y por qué lo hacemos</h3>
+<p>Antes de hablar de software, RPA o IA, necesitamos ver <strong>cómo trabajáis de verdad</strong>. No el organigrama ni un PowerPoint ideal: el flujo que sigue una persona cuando entra un pedido, llega una factura o se cierra un ticket.</p>
+<p>Usamos la notación <strong>BPMN 2.0</strong> (Business Process Model and Notation) porque es estándar internacional: dirección, operaciones y desarrollo leen el mismo diagrama sin malentendidos.</p>
 
-<h2>3. Estudio de vulnerabilidades</h2>
-<p>Antes de diseñar la solución, identificamos qué puede salir mal. Revisamos:</p>
-<ul>
-  <li><strong>Datos:</strong> qué información es personal, financiera o contractual; dónde reside y quién accede.</li>
-  <li><strong>Integraciones:</strong> APIs disponibles, credenciales, límites de rate y proveedores críticos.</li>
-  <li><strong>Operación:</strong> qué pasa si falla un workflow, un servidor o un modelo de IA externo.</li>
-  <li><strong>Cumplimiento:</strong> RGPD, retención de logs, backups y trazabilidad de decisiones automatizadas.</li>
-</ul>
-<p>Este paso separa un piloto seguro de un experimento que expone la empresa a fugas de datos o paradas de negocio.</p>
-
-<h2>4. Roadmap técnico</h2>
-<p>Cerramos con una <strong>hoja de ruta por fases</strong>, alineada con presupuesto y capacidad interna:</p>
+<h3>Cómo trabajamos (metodología)</h3>
 <ol>
-  <li><strong>Fase 0 — Piloto acotado:</strong> un proceso o módulo, métricas de éxito y plazo corto (suele ser 3–6 semanas).</li>
-  <li><strong>Fase 1 — Integración y despliegue:</strong> conexión con sistemas existentes, formación y monitorización.</li>
+  <li><strong>Kick-off (30–45 min):</strong> acordamos alcance (un proceso o un departamento), interlocutores y acceso a sistemas de ejemplo.</li>
+  <li><strong>Entrevistas y shadowing:</strong> hablamos con quien ejecuta el proceso y, si es posible, observamos una jornada real (presencial o remoto).</li>
+  <li><strong>Redacción BPMN:</strong> modelamos eventos de inicio/fin, tareas, decisiones (compuertas), actores (pools/lanes) y sistemas implicados (ERP, CRM, Excel, email…).</li>
+  <li><strong>Validación contigo:</strong> revisamos el diagrama contigo antes de pasar al análisis de oportunidades. Corregimos excepciones que solo conoce quien lo vive día a día.</li>
+</ol>
+
+<h3>Qué incluye el diagrama BPMN</h3>
+<ul>
+  <li><strong>Eventos</strong> (círculos): inicio, fin y puntos de interrupción relevantes.</li>
+  <li><strong>Tareas</strong> (rectángulos): pasos manuales o automáticos, con responsable.</li>
+  <li><strong>Compuertas</strong> (rombos): decisiones («¿stock OK?», «¿requiere aprobación?»).</li>
+  <li><strong>Flujos</strong> (flechas): orden real, incluidas rutas de excepción.</li>
+  <li><strong>Actores y sistemas:</strong> quién hace qué y en qué herramienta (Odoo, Salesforce, hoja de cálculo…).</li>
+  <li><strong>Tiempos orientativos</strong> por etapa cuando los conocéis (horas/día, días/semana).</li>
+</ul>
+
+<figure class="bpmn-ejemplo-fig">
+  <img src="{{ url_for('static', filename='images/ejemplo-bpmn-pedido-factura.svg') }}"
+       alt="Ejemplo de diagrama BPMN: recibir pedido, validar stock en ERP, generar factura y enviar al cliente"
+       width="920" height="280" loading="lazy">
+  <figcaption>Ejemplo simplificado. En la consulta real modelamos vuestro proceso completo, con excepciones y roles.</figcaption>
+</figure>
+
+<h3>Entregables de esta fase</h3>
+<ul>
+  <li>Diagrama BPMN 2.0 en <strong>PDF</strong> y formato editable (BPMN XML o fuente del modelador).</li>
+  <li>Inventario de <strong>actores, sistemas y handoffs</strong> (dónde se pierde tiempo o se duplica trabajo).</li>
+  <li>Listado de <strong>cuellos de botella</strong> y tareas repetitivas (candidatas a automatización).</li>
+</ul>
+<p>Lectura relacionada: <a href="{{ url_for('recurso_articulo', slug='automatizar-pyme-sin-direccion-error-estrategia') }}">por qué hay que ordenar procesos antes de automatizar</a> · <a href="{{ url_for('recurso_articulo', slug='automatizar-procesos-pyme') }}">qué procesos mapear en una pyme</a>.</p>
+
+<h2 id="paso-2-oportunidades">2. Análisis de oportunidades</h2>
+
+<h3>Qué hacemos</h3>
+<p>Con el BPMN validado, evaluamos cada mejora posible en tres ejes:</p>
+<ul>
+  <li><strong>Impacto:</strong> horas ahorradas, errores evitados, ingresos protegidos o acelerados.</li>
+  <li><strong>Esfuerzo:</strong> complejidad técnica, integraciones necesarias, cambio organizativo.</li>
+  <li><strong>Riesgo:</strong> datos sensibles, dependencia de proveedor, continuidad del negocio.</li>
+</ul>
+
+<h3>Matriz de priorización</h3>
+<p>Construimos una matriz donde cada oportunidad recibe puntuación y una recomendación clara:</p>
+<ul>
+  <li><strong>Automatización (RPA o APIs):</strong> cuando hay reglas claras y sistemas repetitivos — ver <a href="{{ url_for('recurso_articulo', slug='rpa-vs-automatizacion-apis') }}">RPA vs APIs</a>.</li>
+  <li><strong>Desarrollo a medida:</strong> cuando no existe producto que encaje con vuestro flujo.</li>
+  <li><strong>IA aplicada:</strong> cuando hay volumen de documentos, consultas o clasificación con reglas aprendibles.</li>
+  <li><strong>Descartar o posponer:</strong> cuando el ROI no cierra o el proceso aún no está estable.</li>
+</ul>
+
+<h3>Entregables de esta fase</h3>
+<ul>
+  <li>Matriz <strong>impacto / esfuerzo / riesgo</strong> con ranking de iniciativas.</li>
+  <li>Estimación orientativa de <strong>ROI</strong> (horas × coste hora vs inversión).</li>
+  <li>Recomendación de enfoque: piloto concreto y qué no tocar todavía.</li>
+</ul>
+<p>Más contexto: <a href="{{ url_for('recurso_articulo', slug='procesos-automatizar-empresa') }}">procesos que más ROI suelen dar</a> · <a href="{{ url_for('automatizaciones') }}">servicio de automatizaciones</a>.</p>
+
+<h2 id="paso-3-vulnerabilidades">3. Estudio de vulnerabilidades</h2>
+
+<h3>Qué revisamos</h3>
+<p>Antes de presupuestar desarrollo o desplegar un bot, identificamos qué puede fallar o exponer a la empresa:</p>
+<ul>
+  <li><strong>Datos:</strong> categorías (personales, financieros, contractuales), dónde residen, quién accede, retención.</li>
+  <li><strong>Integraciones:</strong> APIs disponibles, credenciales, límites, proveedor crítico único.</li>
+  <li><strong>Operación:</strong> qué pasa si cae un workflow, un servidor o un modelo de IA externo.</li>
+  <li><strong>Cumplimiento:</strong> RGPD, logs, backups, trazabilidad de decisiones automatizadas.</li>
+  <li><strong>Seguridad:</strong> accesos, entornos (dev/prod), datos de prueba anonimizados.</li>
+</ul>
+
+<h3>Entregables de esta fase</h3>
+<ul>
+  <li>Informe breve de <strong>riesgos</strong> clasificados (alto / medio / bajo).</li>
+  <li>Mapa de <strong>integraciones y dependencias</strong> entre sistemas.</li>
+  <li>Lista de <strong>medidas de mitigación</strong> priorizadas antes del piloto.</li>
+</ul>
+<p>Referencias: <a href="{{ url_for('recurso_articulo', slug='integrar-datos-ia-metodos-estrategias') }}">integrar datos en IA</a> · <a href="{{ url_for('recurso_articulo', slug='claude-fable-5-ia-local-estrategia-empresas') }}">estrategia híbrida cloud/local</a> · <a href="{{ url_for('privacidad') }}">privacidad y RGPD</a>.</p>
+
+<h2 id="paso-4-roadmap">4. Roadmap técnico</h2>
+
+<h3>Estructura por fases</h3>
+<p>Cerramos con un plan ejecutable, no un documento genérico:</p>
+<ol>
+  <li><strong>Fase 0 — Piloto (3–6 semanas):</strong> un proceso o módulo acotado, métricas de éxito definidas, entorno de prueba.</li>
+  <li><strong>Fase 1 — Integración y despliegue:</strong> conexión con sistemas existentes, formación, monitorización y alertas.</li>
   <li><strong>Fase 2 — Escala:</strong> extensión a otros departamentos, evolutivos y soporte continuo.</li>
 </ol>
-<p>Incluimos entregables, dependencias (accesos, datos de prueba, interlocutor interno) y criterios para pasar de una fase a la siguiente. Así sabes qué compras, qué no y cuándo esperar resultados.</p>
 
-<h2>Qué obtienes al terminar la primera consulta</h2>
+<h3>Qué incluye el roadmap</h3>
 <ul>
-  <li>Mapa BPMN del proceso analizado (o del ámbito acordado).</li>
-  <li>Matriz de oportunidades priorizadas con impacto y viabilidad.</li>
-  <li>Informe breve de riesgos y recomendaciones de mitigación.</li>
-  <li>Propuesta de roadmap técnico y, si procede, presupuesto orientativo por fases.</li>
+  <li>Cronograma orientativo por fase y <strong>dependencias</strong> (accesos, datos de prueba, interlocutor interno).</li>
+  <li><strong>Criterios de paso</strong> entre fases (qué debe cumplirse para escalar).</li>
+  <li>KPIs acordados (horas ahorradas, errores, tiempos de ciclo).</li>
+  <li>Propuesta económica <strong>por fases</strong>, si procede, sin compromiso hasta que validéis el alcance.</li>
 </ul>
 
-<h2>Para quién encaja este enfoque</h2>
-<p>Empresas y pymes en España que quieren <strong>desarrollo a medida</strong>, <strong>automatización (RPA o APIs)</strong> o <strong>IA aplicada</strong> con criterio — no un chatbot suelto ni un ERP genérico mal encajado. Si aún no tenéis procesos claros, la auditoría también sirve para ordenar antes de automatizar.</p>
+<h3>Entregables de esta fase</h3>
+<ul>
+  <li>Documento de roadmap (PDF) con fases 0, 1 y 2.</li>
+  <li>Tabla de responsables internos y externos.</li>
+  <li>Presupuesto orientativo desglosado (cuando el alcance lo permite).</li>
+</ul>
+<p>Ejemplos: <a href="{{ url_for('recurso_articulo', slug='coste-desarrollo-software-2026') }}">coste de desarrollo por fases</a> · <a href="{{ url_for('portfolio_caso', slug='automatizacion-erp-crm') }}">caso piloto ERP-CRM</a> · <a href="{{ url_for('recurso_articulo', slug='elegir-empresa-desarrollo-software') }}">cómo elegir proveedor</a>.</p>
+
+<h2>Resumen: qué te llevas de la primera consulta</h2>
+<div class="landing-grid">
+  <div class="landing-card">
+    <h3>BPMN</h3>
+    <p>Diagrama del proceso real, validado contigo, con actores y sistemas.</p>
+  </div>
+  <div class="landing-card">
+    <h3>Matriz</h3>
+    <p>Oportunidades priorizadas con impacto, esfuerzo, riesgo y ROI orientativo.</p>
+  </div>
+  <div class="landing-card">
+    <h3>Riesgos</h3>
+    <p>Informe de vulnerabilidades técnicas, de datos e integraciones.</p>
+  </div>
+  <div class="landing-card">
+    <h3>Roadmap</h3>
+    <p>Plan por fases con plazos, KPIs y propuesta económica si aplica.</p>
+  </div>
+</div>
+
+<h2>Duración y formato</h2>
+<ul>
+  <li><strong>Duración habitual:</strong> 1–2 semanas desde kick-off hasta entrega del roadmap (según complejidad del proceso).</li>
+  <li><strong>Formato:</strong> remoto o presencial en España; talleres de 60–90 min por fase.</li>
+  <li><strong>Compromiso:</strong> sin obligación de contratar; los entregables son vuestros aunque no sigáis con el proyecto.</li>
+</ul>
 
 <p>
-  <a href="{{ url_for('contacto') }}#primera-consulta">Reserva tu primera consulta</a> ·
-  <a href="{{ url_for('automatizaciones') }}">Automatizaciones empresariales</a> ·
-  <a href="{{ url_for('desarrollo_software') }}">Desarrollo de software a medida</a> ·
-  <a href="{{ url_for('recurso_articulo', slug='automatizar-procesos-pyme') }}">Cómo automatizar procesos en una pyme</a>
+  <a href="{{ url_for('contacto') }}#primera-consulta" class="btn-primary">Reservar primera consulta</a>
+  · <a href="{{ url_for('automatizaciones') }}">Automatizaciones</a>
+  · <a href="{{ url_for('desarrollo_software') }}">Desarrollo a medida</a>
 </p>
