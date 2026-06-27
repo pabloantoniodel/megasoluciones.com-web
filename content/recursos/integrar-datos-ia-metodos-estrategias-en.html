@@ -1,0 +1,101 @@
+<p class="lead">Connecting your data — databases, ERP, CRM, files, or APIs — with AI is no longer a lab experiment: it's what separates a generic chat from an application that responds with real business context. In this article, we review the four most common approaches (<strong>context stuffing</strong>, MCP, CLI, and RAG) and how we evaluate them at Megasoluciones when designing <a href="{{ url_for('desarrollo_software') }}">custom development</a> and <a href="{{ url_for('automatizaciones') }}">AI automations</a> for companies in Spain.</p>
+
+<h2>Why it matters how you connect the data</h2>
+<p>A language model doesn't know your Odoo, your pending orders, or the exception that only applies in logistics on Fridays. Without a layer that provides reliable context, AI improvises — and in production, that costs time, money, or reputation.</p>
+<p>The good news: you don't need to go directly to the most complex architecture. What you do need is to choose the method according to the use case, the volume of data, and who will maintain the solution six months after deployment.</p>
+
+<h2>Four methods to integrate data into AI</h2>
+<p>There are several ways for AI to communicate with data stored in databases, files, or APIs. These are the four approaches we see most often in real projects:</p>
+
+<h3>1. Context stuffing (prompt with injected context)</h3>
+<p>It's the most direct method: you include relevant information in the prompt — an excerpt from documentation, a JSON with recent orders, business rules — and the AI responds based on that context.</p>
+<p><strong>When it fits:</strong> prototypes, limited internal assistants, small volumes of text, specific responses.</p>
+<p><strong>Limits in business:</strong> finite context window, risk of leaking sensitive data if the input is not well filtered, difficult to scale when the corpus grows.</p>
+<p><strong>How we use it at Megasoluciones:</strong> as phase 0 of a pilot. We validate the usefulness of the use case before investing in integrations. If it works with 2,000 tokens of context, we scale; if not, we don't build an entire RAG to discover it.</p>
+
+<h3>2. MCP (Model Context Protocol)</h3>
+<p>MCP acts as a standardized intermediary between the model and external services: the AI can invoke tools, query APIs, or read resources with a common protocol, instead of hardcoding each integration in the prompt.</p>
+<p><strong>When it fits:</strong> teams that want to connect multiple sources (Git, tickets, CRM, databases) to the same assistant; environments where the model must <em>decide</em> which tool to use.</p>
+<p><strong>Limits:</strong> more moving parts (MCP server, permissions, observability); you have to define what the agent can and cannot do.</p>
+<p><strong>How we use it at Megasoluciones:</strong> in projects where the client already has stable APIs and wants a copilot that queries real systems — not just static text. We combine it with business rules, role-based authentication, and logs of each tool call. It complements well the <a href="{{ url_for('recurso_articulo', slug='memoria-persistente-agentes-ia-desarrollo') }}">persistent memory in agents</a> when the context must evolve with the project.</p>
+
+<h3>3. CLI and agents with system access</h3>
+<p>Some architectures allow an agent to execute commands — scripts, internal utilities, API clients — from an orchestrated command-line interface. The AI does not "see" the database directly: it delegates to processes that already exist in your infrastructure.</p>
+<p><strong>When it fits:</strong> technical teams with mature scripts, data pipelines, controlled environments; automations that already work via terminal or jobs.</p>
+<p><strong>Limits:</strong> critical security (sandbox, command allowlist, audit); not the first choice for non-technical users.</p>
+<p><strong>How we use it at Megasoluciones:</strong> in <a href="{{ url_for('automatizaciones') }}">business automation</a> flows where AI triggers already proven actions: synchronizing a batch, regenerating a report, launching an ETL. The value is in secure orchestration, not in giving free access to the shell. Same philosophy as in <a href="{{ url_for('recurso_articulo', slug='rpa-vs-automatizacion-apis') }}">RPA vs APIs</a>: stability before spectacle.</p>
+
+<h3>4. RAG (Retrieval-Augmented Generation)</h3>
+<p>RAG retrieves relevant fragments from a knowledge base — documents, tickets, manuals, vectorized records — and injects them into the prompt at query time. It is the most robust approach when the volume of information is large and changes frequently.</p>
+<p><strong>When it fits:</strong> extensive documentary bases, customer support, queries about internal regulations, technical catalogs, incident history.</p>
+<p><strong>Limits:</strong> greater complexity (indexing, chunking, re-ranking, embedding updates, quality evaluation); maintenance cost if the data changes daily.</p>
+<p><strong>How we use it at Megasoluciones:</strong> when the pilot with context stuffing confirms the use case and the corpus exceeds what fits in a prompt. We design ingestion pipelines, permission filters (a salesperson should not see payroll data), and precision metrics before exposing it to end users.</p>
+
+<h2>Quick comparison table</h2>
+<ul>
+  <li><strong>Implementation speed:</strong> context stuffing &gt; CLI/MCP &gt; RAG</li>
+  <li><strong>Data scalability:</strong> RAG &gt; MCP &gt; context stuffing</li>
+  <li><strong>Control and audit:</strong> CLI/MCP (well-defined) &gt; RAG &gt; manual context stuffing</li>
+  <li><strong>Maintenance cost:</strong> context stuffing (low volume) &lt; MCP &lt; RAG</li>
+  <li><strong>Suitability for business production:</strong> integrated RAG and MCP &gt; CLI in sandbox &gt; stuffing without governance</li>
+</ul>
+
+<h2>How we choose the method in a real project</h2>
+<p>At Megasoluciones, we don't start by asking "RAG or MCP?". We start with three questions:</p>
+<ol>
+  <li><strong>What decision or task should the AI improve?</strong> (responding to tickets, generating reports, assisting in code, classifying documents…)</li>
+  <li><strong>Where do the data come from and who can see them?</strong> (GDPR, roles, retention, personal data)</li>
+  <li><strong>What happens if the AI makes a mistake?</strong> (human review, rollback, impact on customers or billing)</li>
+</ol>
+<p>With that, we define a limited pilot — a department, a flow, clear metrics — and only then do we scale the architecture.</p>
+
+<div class="landing-grid">
+  <div class="landing-card">
+    <h3>Custom Development</h3>
+    <ul>
+      <li>Own APIs and data layers</li>
+      <li>ERP/CRM Integration (Odoo, Salesforce…)</li>
+      <li>Web interfaces and control panels</li>
+      <li>Testing, deployment, and evolutions</li>
+    </ul>
+  </div>
+  <div class="landing-card">
+    <h3>Automations</h3>
+    <ul>
+      <li>Workflows that feed context to AI</li>
+      <li>Synchronization between systems without duplicating data</li>
+      <li>Agents that execute already validated actions</li>
+      <li>Monitoring and post-launch alerts</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Recommendations based on your situation</h2>
+<ul>
+  <li><strong>You need to validate an idea in days:</strong> context stuffing in an internal environment, with anonymized data.</li>
+  <li><strong>You want an assistant connected to multiple tools:</strong> MCP + permissions + logging.</li>
+  <li><strong>You already have reliable scripts and jobs:</strong> CLI agent in a restricted environment, integrated into automations.</li>
+  <li><strong>Large documentary volume and precise responses:</strong> RAG with continuous quality evaluation.</li>
+  <li><strong>Critical process (billing, orders, customers):</strong> hybrid: data retrieval + deterministic rules + human review in exceptions.</li>
+</ul>
+<p>In many clients, the final solution mixes two or three approaches. A support chatbot can use RAG for the knowledge base, MCP to check the status of an order in the ERP, and API automations to escalate tickets — all orchestrated, not stacked without criteria.</p>
+
+<h2>Common mistakes we see</h2>
+<ul>
+  <li><strong>Going to RAG on the first day</strong> without having validated the use case with something simpler.</li>
+  <li><strong>Connecting production without role-based permissions</strong> and trusting that "the prompt prohibits it".</li>
+  <li><strong>Ignoring data updates</strong>: an obsolete vector index is worse than having no AI.</li>
+  <li><strong>Treating AI as a substitute for integration</strong> when the real problem is that CRM and ERP don't talk to each other — there first <a href="{{ url_for('recurso_articulo', slug='integrar-odoo-web-crm') }}">solid integration</a>, then AI on top.</li>
+</ul>
+
+<h2>Conclusion: the right method is the one that withstands production</h2>
+<p>Integrating data into AI can be accessible and efficient if you choose the approach according to your technical maturity, information volume, and error tolerance. Context stuffing, MCP, CLI, and RAG do not compete with each other: they cover different sections of the same path, from prototype to daily operation.</p>
+<p>At Megasoluciones, we help companies and SMEs design that layer with engineering criteria: small pilot, data under control, integration with what you already use, and scaling only when the return is demonstrated.</p>
+
+<p>
+  <a href="{{ url_for('recurso_articulo', slug='desarrolladores-ia-gestion-automatizacion-empresas') }}">Developers and AI in companies</a> ·
+  <a href="{{ url_for('recurso_articulo', slug='memoria-persistente-agentes-ia-desarrollo') }}">Persistent memory in agents</a> ·
+  <a href="{{ url_for('desarrollo_software') }}">Custom Development</a> ·
+  <a href="{{ url_for('automatizaciones') }}">Automations</a> ·
+  <a href="{{ url_for('contacto', servicio='consultoria-ia') }}">Consultation without commitment</a>
+</p>

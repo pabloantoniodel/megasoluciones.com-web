@@ -3,14 +3,14 @@
 <section class="section bg-light primera-consulta-roadmap" id="primera-consulta">
     <div class="container">
         <div class="roadmap-consulta-header text-center">
-            <h2>Qué hacemos en la <span class="gradient-text">primera consulta</span></h2>
-            <p class="lead">Cuatro fases con metodología y entregables concretos: diagrama BPMN, matriz de oportunidades, informe de riesgos y roadmap por fases.</p>
+            <h2>{{ _('Qué hacemos en la') }} <span class="gradient-text">{{ _('primera consulta') }}</span></h2>
+            <p class="lead">{{ _('Cuatro fases con metodología y entregables concretos: diagrama BPMN, matriz de oportunidades, informe de riesgos y roadmap por fases.') }}</p>
         </div>
 {% else %}
 <div class="roadmap-consulta-embed">
 {% endif %}
 
-        <div class="roadmap-flow" role="list" aria-label="Pasos de la primera consulta">
+        <div class="roadmap-flow" role="list" aria-label="{{ _('Pasos de la primera consulta') }}">
             {% for paso in primera_consulta_pasos %}
             <article class="roadmap-flow-card" role="listitem">
                 <a class="roadmap-flow-card-main" href="{{ paso.url }}">
@@ -22,7 +22,7 @@
                 </a>
                 {% if paso.entregables %}
                 <div class="roadmap-flow-entregables">
-                    <strong>Entregables:</strong>
+                    <strong>{{ _('Entregables:') }}</strong>
                     <ul>
                         {% for e in paso.entregables %}
                         <li>{{ e }}</li>
@@ -46,8 +46,8 @@
 
 {% if not embed %}
         <p class="text-center roadmap-consulta-cta">
-            <a href="{{ url_for('contacto') }}#primera-consulta" class="btn-primary">Reservar primera consulta</a>
-            <a href="{{ url_for('recurso_articulo', slug='primera-consulta-roadmap-auditoria-bpmn') }}" class="roadmap-consulta-link-sec">Metodología completa (BPMN y resto de fases) →</a>
+            <a href="{{ url_for('contacto') }}#primera-consulta" class="btn-primary">{{ _('Reservar primera consulta') }}</a>
+            <a href="{{ url_for('recurso_articulo', slug='primera-consulta-roadmap-auditoria-bpmn') }}" class="roadmap-consulta-link-sec">{{ _('Metodología completa (BPMN y resto de fases)') }} →</a>
         </p>
     </div>
 </section>

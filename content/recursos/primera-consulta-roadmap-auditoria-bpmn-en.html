@@ -1,0 +1,146 @@
+<p class="lead">The first consultation with Megasoluciones is a <strong>four-phase diagnosis</strong> with real deliverables — not a sales call. We start by drawing the process in <strong>BPMN</strong>, followed by an opportunity matrix, a vulnerability study, and a phased technical roadmap. Below is the detail of what we do in each step.</p>
+
+<h2 id="paso-1-auditoria-bpmn">1. Process Audit (BPMN Drawing)</h2>
+
+<h3>What it is and why we do it</h3>
+<p>Before talking about software, RPA, or AI, we need to see <strong>how you really work</strong>. Not the organizational chart or an ideal PowerPoint: the flow that a person follows when an order comes in, an invoice arrives, or a ticket is closed.</p>
+<p>We use the <strong>BPMN 2.0</strong> notation (Business Process Model and Notation) because it is an international standard: management, operations, and development read the same diagram without misunderstandings.</p>
+
+<h3>How we work (methodology)</h3>
+<ol>
+  <li><strong>Kick-off (30–45 min):</strong> we agree on scope (a process or a department), interlocutors, and access to example systems.</li>
+  <li><strong>Interviews and shadowing:</strong> we talk to those who execute the process and, if possible, observe a real day (in-person or remote).</li>
+  <li><strong>BPMN Drafting:</strong> we model start/end events, tasks, decisions (gateways), actors (pools/lanes), and involved systems (ERP, CRM, Excel, email…).</li>
+  <li><strong>Validation with you:</strong> we review the diagram with you before moving on to the opportunity analysis. We correct exceptions that only those who live it day by day know.</li>
+</ol>
+
+<h3>What the BPMN diagram includes</h3>
+<ul>
+  <li><strong>Events</strong> (circles): start, end, and relevant interruption points.</li>
+  <li><strong>Tasks</strong> (rectangles): manual or automatic steps, with responsible parties.</li>
+  <li><strong>Gateways</strong> (diamonds): decisions (“stock OK?”, “requires approval?”).</li>
+  <li><strong>Flows</strong> (arrows): real order, including exception routes.</li>
+  <li><strong>Actors and systems:</strong> who does what and in which tool (Odoo, Salesforce, spreadsheet…).</li>
+  <li><strong>Indicative times</strong> per stage when you know them (hours/day, days/week).</li>
+</ul>
+
+<figure class="bpmn-ejemplo-fig">
+  <img src="{{ url_for('static', filename='images/ejemplo-bpmn-pedido-factura.svg') }}"
+       alt="Example of BPMN diagram: receive order, validate stock in ERP, generate invoice and send to client"
+       width="920" height="280" loading="lazy">
+  <figcaption>Simplified example. In the real consultation, we model your complete process, with exceptions and roles.</figcaption>
+</figure>
+
+<h3>Deliverables of this phase</h3>
+<ul>
+  <li>BPMN 2.0 diagram in <strong>PDF</strong> and editable format (BPMN XML or modeler source).</li>
+  <li>Inventory of <strong>actors, systems, and handoffs</strong> (where time is lost or work is duplicated).</li>
+  <li>List of <strong>bottlenecks</strong> and repetitive tasks (candidates for automation).</li>
+</ul>
+<p>Related reading: <a href="{{ url_for('recurso_articulo', slug='automatizar-pyme-sin-direccion-error-estrategia') }}">why processes need to be organized before automating</a> · <a href="{{ url_for('recurso_articulo', slug='automatizar-procesos-pyme') }}">which processes to map in an SME</a>.</p>
+
+<h2 id="paso-2-oportunidades">2. Opportunity Analysis</h2>
+
+<h3>What we do</h3>
+<p>With the validated BPMN, we evaluate each possible improvement on three axes:</p>
+<ul>
+  <li><strong>Impact:</strong> hours saved, errors avoided, income protected or accelerated.</li>
+  <li><strong>Effort:</strong> technical complexity, necessary integrations, organizational change.</li>
+  <li><strong>Risk:</strong> sensitive data, supplier dependency, business continuity.</li>
+</ul>
+
+<h3>Prioritization Matrix</h3>
+<p>We build a matrix where each opportunity receives a score and a clear recommendation:</p>
+<ul>
+  <li><strong>Automation (RPA or APIs):</strong> when there are clear rules and repetitive systems — see <a href="{{ url_for('recurso_articulo', slug='rpa-vs-automatizacion-apis') }}">RPA vs APIs</a>.</li>
+  <li><strong>Custom development:</strong> when there is no product that fits your flow.</li>
+  <li><strong>Applied AI:</strong> when there is a volume of documents, queries, or classification with learnable rules.</li>
+  <li><strong>Discard or postpone:</strong> when the ROI does not close or the process is not yet stable.</li>
+</ul>
+
+<h3>Deliverables of this phase</h3>
+<ul>
+  <li><strong>Impact / Effort / Risk</strong> matrix with initiative ranking.</li>
+  <li>Indicative <strong>ROI</strong> estimation (hours × hourly cost vs investment).</li>
+  <li>Recommendation of approach: specific pilot and what not to touch yet.</li>
+</ul>
+<p>More context: <a href="{{ url_for('recurso_articulo', slug='procesos-automatizar-empresa') }}">processes that usually give the most ROI</a> · <a href="{{ url_for('automatizaciones') }}">automation service</a>.</p>
+
+<h2 id="paso-3-vulnerabilidades">3. Vulnerability Study</h2>
+
+<h3>What we review</h3>
+<p>Before budgeting development or deploying a bot, we identify what can fail or expose the company:</p>
+<ul>
+  <li><strong>Data:</strong> categories (personal, financial, contractual), where they reside, who accesses them, retention.</li>
+  <li><strong>Integrations:</strong> available APIs, credentials, limits, single critical supplier.</li>
+  <li><strong>Operation:</strong> what happens if a workflow, a server, or an external AI model fails.</li>
+  <li><strong>Compliance:</strong> GDPR, logs, backups, traceability of automated decisions.</li>
+  <li><strong>Security:</strong> access, environments (dev/prod), anonymized test data.</li>
+</ul>
+
+<h3>Deliverables of this phase</h3>
+<ul>
+  <li>Brief report of <strong>risks</strong> classified (high / medium / low).</li>
+  <li>Map of <strong>integrations and dependencies</strong> between systems.</li>
+  <li>List of <strong>mitigation measures</strong> prioritized before the pilot.</li>
+</ul>
+<p>References: <a href="{{ url_for('recurso_articulo', slug='integrar-datos-ia-metodos-estrategias') }}">integrate data in AI</a> · <a href="{{ url_for('recurso_articulo', slug='claude-fable-5-ia-local-estrategia-empresas') }}">hybrid cloud/local strategy</a> · <a href="{{ url_for('privacidad') }}">privacy and GDPR</a>.</p>
+
+<h2 id="paso-4-roadmap">4. Technical Roadmap</h2>
+
+<h3>Phase Structure</h3>
+<p>We close with an executable plan, not a generic document:</p>
+<ol>
+  <li><strong>Phase 0 — Pilot (3–6 weeks):</strong> a limited process or module, defined success metrics, test environment.</li>
+  <li><strong>Phase 1 — Integration and Deployment:</strong> connection with existing systems, training, monitoring, and alerts.</li>
+  <li><strong>Phase 2 — Scale:</strong> extension to other departments, evolutions, and continuous support.</li>
+</ol>
+
+<h3>What the roadmap includes</h3>
+<ul>
+  <li>Indicative schedule per phase and <strong>dependencies</strong> (access, test data, internal interlocutor).</li>
+  <li><strong>Criteria for transition</strong> between phases (what must be met to scale).</li>
+  <li>Agreed KPIs (hours saved, errors, cycle times).</li>
+  <li>Economic proposal <strong>per phase</strong>, if applicable, without commitment until you validate the scope.</li>
+</ul>
+
+<h3>Deliverables of this phase</h3>
+<ul>
+  <li>Roadmap document (PDF) with phases 0, 1, and 2.</li>
+  <li>Table of internal and external responsible parties.</li>
+  <li>Detailed indicative budget (when the scope allows).</li>
+</ul>
+<p>Examples: <a href="{{ url_for('recurso_articulo', slug='coste-desarrollo-software-2026') }}">development cost by phases</a> · <a href="{{ url_for('portfolio_caso', slug='automatizacion-erp-crm') }}">ERP-CRM pilot case</a> · <a href="{{ url_for('recurso_articulo', slug='elegir-empresa-desarrollo-software') }}">how to choose a provider</a>.</p>
+
+<h2>Summary: what you get from the first consultation</h2>
+<div class="landing-grid">
+  <div class="landing-card">
+    <h3>BPMN</h3>
+    <p>Diagram of the real process, validated with you, with actors and systems.</p>
+  </div>
+  <div class="landing-card">
+    <h3>Matrix</h3>
+    <p>Prioritized opportunities with impact, effort, risk, and indicative ROI.</p>
+  </div>
+  <div class="landing-card">
+    <h3>Risks</h3>
+    <p>Report of technical, data, and integration vulnerabilities.</p>
+  </div>
+  <div class="landing-card">
+    <h3>Roadmap</h3>
+    <p>Phase plan with timelines, KPIs, and economic proposal if applicable.</p>
+  </div>
+</div>
+
+<h2>Duration and format</h2>
+<ul>
+  <li><strong>Usual duration:</strong> 1–2 weeks from kick-off to roadmap delivery (depending on process complexity).</li>
+  <li><strong>Format:</strong> remote or in-person in Spain; 60–90 min workshops per phase.</li>
+  <li><strong>Commitment:</strong> no obligation to hire; the deliverables are yours even if you do not continue with the project.</li>
+</ul>
+
+<p>
+  <a href="{{ url_for('contacto') }}#primera-consulta" class="btn-primary">Book first consultation</a>
+  · <a href="{{ url_for('automatizaciones') }}">Automations</a>
+  · <a href="{{ url_for('desarrollo_software') }}">Custom Development</a>
+</p>

@@ -1,0 +1,84 @@
+<p class="lead">Every week a new AI model "for home use" appears. And every week we hear the same question in companies: <strong>"Why do we need developers if AI already does it?"</strong> The short answer: because managing, automating, and scaling real processes in a company is not the same as chatting with a model on a laptop. More context in our <a href="{{ url_for('recursos') }}">resources on development and automations</a>.</p>
+
+<h2>Home AI vs. Business Production AI</h2>
+<p>Installing a local LLM, testing ChatGPT, or generating a script with a prompt is useful for exploring ideas. But the website your client uses, the ERP that invoices, the CRM that stores personal data, and the automations that move orders between systems require another layer: <strong>software engineering</strong>.</p>
+<div class="landing-grid">
+  <div class="landing-card">
+    <h3>In a home environment</h3>
+    <ul>
+      <li>One user, no real concurrency</li>
+      <li>No integration with SAP, Odoo, or Salesforce</li>
+      <li>No auditing, logs, or version control</li>
+      <li>No GDPR compliance or SLAs</li>
+      <li>Tolerable errors ("I'll ask again")</li>
+    </ul>
+  </div>
+  <div class="landing-card">
+    <h3>In a company in production</h3>
+    <ul>
+      <li>Hundreds of users and critical processes</li>
+      <li>APIs, queues, databases, and role-based permissions</li>
+      <li>Traceability, monitoring, and 24/7 alerts</li>
+      <li>Sensitive data with retention and encryption</li>
+      <li>Errors that cost money, clients, or reputation</li>
+    </ul>
+  </div>
+</div>
+
+<h2>What a "living room" model doesn't solve alone</h2>
+<p>A generalist model — no matter how powerful — doesn't know your Odoo, your purchase approval flow, or the exception that only applies on Tuesdays in logistics. It also doesn't maintain an integration alone when the provider changes its API.</p>
+<p>To bring AI to business management and automation, you need:</p>
+<ul>
+  <li><strong>Architecture design:</strong> where the model goes, where the business rules go, and what the AI should not decide.</li>
+  <li><strong>Integrations:</strong> connecting ERP, CRM, banking, email, storage, and internal tools without duplicating data.</li>
+  <li><strong>Orchestration:</strong> workflows that combine AI, RPA, and deterministic logic (because not everything should be probabilistic).</li>
+  <li><strong>Validation and testing:</strong> edge cases, regressions, and staging environments before touching production.</li>
+  <li><strong>Security:</strong> secrets, minimal access, logging sensitive prompts, and retention policies.</li>
+</ul>
+<p>This is built by <strong>developers and automation teams</strong>, not a well-written prompt in a home chat.</p>
+
+<h2>Business Management: AI assists, software governs</h2>
+<p>In management and operations, "having AI" is often confused with "having a better process." AI can classify emails, summarize reports, draft documents, or suggest the next action. But who defines <em>what</em> is automated, <em>when</em> a human intervenes, and <em>how</em> each decision is recorded is the system — custom software or a well-integrated platform.</p>
+<p>Common examples in SMEs and medium-sized companies in Spain:</p>
+<ul>
+  <li>Synchronizing orders between online store and ERP without manual intervention.</li>
+  <li>Generating delivery notes and alerts when stock crosses a threshold.</li>
+  <li>Routing support tickets with AI and escalating only complex cases.</li>
+  <li>Extracting data from PDF invoices to accounting with optional human review.</li>
+</ul>
+<p>In all of them, there are possible AI models, but the value lies in the <strong>complete flow</strong>: triggers, validations, rollback, permissions, and control panel. That is development.</p>
+
+<h2>Automation: beyond "copy and paste with ChatGPT"</h2>
+<p>Automating is not asking a chatbot to "make an Excel." It's identifying the repetitive process, measuring its volume, eliminating dangerous exceptions, and letting it run for months without surprises.</p>
+<p>Technical teams provide what a home experiment does not guarantee:</p>
+<ol>
+  <li><strong>Idempotency:</strong> if the job fails halfway, it doesn't duplicate orders or charges.</li>
+  <li><strong>Observability:</strong> knowing what happened, when, and with what input data.</li>
+  <li><strong>Evolution:</strong> changing a rule without rewriting the entire business by hand.</li>
+  <li><strong>Predictable cost:</strong> tokens, infrastructure, and licenses under control.</li>
+</ol>
+<p>That's why companies that have already tried "AI only" end up calling automation consultants or a <a href="{{ url_for('desarrollo_software') }}">custom development company</a>: they need to move from demo to production.</p>
+
+<h2>Frequent Myths (and the Technical Reality)</h2>
+<ul>
+  <li><strong>"With an open-source model on a NAS, we have it."</strong> — For testing, yes; for real clients, you need deployment, backups, model updates, and fallback if the service goes down.</li>
+  <li><strong>"AI replaces the programmer."</strong> — It accelerates specific tasks (boilerplate, tests, documentation), but it doesn't replace architectural criteria or legal responsibility over data.</li>
+  <li><strong>"No-code + AI does it all."</strong> — It's useful for prototypes; as soon as custom integrations, volume, or regulations appear, code is needed.</li>
+  <li><strong>"If it works on my PC, it works on the web."</strong> — Latency, concurrent sessions, SEO, security, and deployment are separate disciplines.</li>
+</ul>
+
+<h2>The Profile That Does Make a Difference</h2>
+<p>In 2026, the developer relevant for business AI is not just someone who writes code: they understand business processes, APIs, data, and the limits of models. They work alongside operations to automate the repetitive and leave the strategic to people.</p>
+<p>At Megasoluciones, we combine <strong>custom development</strong>, <strong>automations</strong>, and <strong>applied AI</strong> with production criteria: small pilot, clear metrics, and scaling only if ROI is demonstrated.</p>
+
+<h2>Conclusion: AI amplifies; it doesn't replace engineering</h2>
+<p>Home models democratize access to artificial intelligence. That's good. But turning that capability into efficient management, reliable automations, and web products that withstand real traffic is still the work of those who know how to build systems — not those who only know how to ask questions to a chat.</p>
+<p>If you are evaluating AI for your company, start with a specific process, measure results, and rely on those who can bring it to production with the same demands as the rest of your critical software.</p>
+
+<p>
+  <a href="{{ url_for('recurso_articulo', slug='seo-geo-inteligencia-artificial-2026') }}">SEO and GEO Guide for AI 2026</a> ·
+  <a href="{{ url_for('recurso_articulo', slug='elegir-empresa-desarrollo-software') }}">How to choose a development company</a> ·
+  <a href="{{ url_for('desarrollo_software') }}">Custom software development</a> ·
+  <a href="{{ url_for('automatizaciones') }}">Business automations</a> ·
+  <a href="{{ url_for('contacto', servicio='desarrollo-software') }}">Consultation without obligation</a>
+</p>

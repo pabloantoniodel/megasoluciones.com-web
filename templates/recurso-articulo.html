@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{{ articulo.titulo }} | Megasoluciones{% endblock %}
-{% block meta_description %}{{ articulo.resumen }}{% endblock %}
-{% block og_title %}{{ articulo.titulo }} | Megasoluciones{% endblock %}
-{% block og_description %}{{ articulo.resumen }}{% endblock %}
+{% block title %}{{ get_field(articulo, 'titulo') }} | Megasoluciones{% endblock %}
+{% block meta_description %}{{ get_field(articulo, 'resumen') }}{% endblock %}
+{% block og_title %}{{ get_field(articulo, 'titulo') }} | Megasoluciones{% endblock %}
+{% block og_description %}{{ get_field(articulo, 'resumen') }}{% endblock %}
 {% block og_type %}{% if mostrar_video %}video.other{% else %}article{% endif %}{% endblock %}
 {% block og_image %}{% if articulo.imagen %}{{ url_for('static', filename=articulo.imagen, _external=True) }}{% elif mostrar_video %}https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg{% else %}{{ super() }}{% endif %}{% endblock %}
 
@@ -21,8 +21,8 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": {{ articulo.titulo|tojson }},
-  "description": {{ articulo.resumen|tojson }},
+  "headline": {{ get_field(articulo, 'titulo')|tojson }},
+  "description": {{ get_field(articulo, 'resumen')|tojson }},
   "datePublished": {{ articulo.fecha|tojson }},
   "dateModified": {{ (articulo.fecha_modificacion or articulo.fecha)|tojson }},
   "author": {"@type": "Organization", "name": "Megasoluciones"},
@@ -43,12 +43,12 @@
 {% block content %}
 <nav class="breadcrumb" aria-label="Breadcrumb">
     <div class="container">
-        <a href="{{ url_for('index') }}">Inicio</a> ›
-        <a href="{{ url_for('recursos') }}">Recursos</a> ›
+        <a href="{{ url_for('index') }}">{{ _('Inicio') }}</a> ›
+        <a href="{{ url_for('recursos') }}">{{ _('Recursos') }}</a> ›
         {% if cluster_meta.ancla %}
         <a href="{{ url_for('recursos') }}#{{ cluster_meta.ancla }}">{{ articulo.cluster|capitalize }}</a> ›
         {% endif %}
-        <span>{{ articulo.titulo }}</span>
+        <span>{{ get_field(articulo, 'titulo') }}</span>
     </div>
 </nav>
 
@@ -57,8 +57,8 @@
         <header>
             <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
             {% if articulo.tipo == 'pilar' %}<span class="recursos-badge-pilar">Guía pilar</span>{% endif %}
-            <h1>{{ articulo.titulo }}</h1>
-            {% if not mostrar_video %}<p class="lead">{{ articulo.resumen }}</p>{% endif %}
+            <h1>{{ get_field(articulo, 'titulo') }}</h1>
+            {% if not mostrar_video %}<p class="lead">{{ get_field(articulo, 'resumen') }}</p>{% endif %}
         </header>
         {% if articulo.slug == 'primera-consulta-roadmap-auditoria-bpmn' %}
         {% with roadmap_embed=true %}
@@ -67,7 +67,7 @@
         {% elif articulo.imagen %}
         <figure style="margin: 1.5rem 0 2rem;">
             <img src="{{ url_for('static', filename=articulo.imagen) }}"
-                 alt="{{ articulo.titulo }}"
+                 alt="{{ get_field(articulo, 'titulo') }}"
                  width="1200" height="630"
                  style="width:100%;max-width:900px;border-radius:12px;display:block;"
                  loading="eager">
@@ -76,7 +76,7 @@
         {% if mostrar_video %}
         <section id="video-principal" class="articulo-video" style="margin: 1.25rem 0 2rem;" itemprop="video" itemscope itemtype="https://schema.org/VideoObject">
             <meta itemprop="name" content="{{ articulo.video_titulo }}">
-            <meta itemprop="description" content="{{ articulo.resumen }}">
+            <meta itemprop="description" content="{{ get_field(articulo, 'resumen') }}">
             <meta itemprop="thumbnailUrl" content="https://i.ytimg.com/vi/{{ articulo.video_id }}/maxresdefault.jpg">
             <meta itemprop="uploadDate" content="{{ articulo.publicado_video or articulo.fecha }}">
             <meta itemprop="embedUrl" content="https://www.youtube.com/embed/{{ articulo.video_id }}">
@@ -96,7 +96,7 @@
                 en YouTube.
             </p>
         </section>
-        <p class="lead">{{ articulo.resumen }}</p>
+        <p class="lead">{{ get_field(articulo, 'resumen') }}</p>
         {% endif %}
         {% if articulo.tipo == 'noticia' and pilar_slug and not mostrar_video %}
         <aside class="articulo-noticia-contexto" aria-label="Guía relacionada">

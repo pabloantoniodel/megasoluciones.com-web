@@ -132,17 +132,23 @@ def _termino_distintivo(token: str) -> bool:
 CLUSTER_META: dict[str, dict] = {
     'ia': {
         'nombre': 'IA aplicada a empresas',
+        'nombre_en': 'AI applied to businesses',
         'descripcion': 'Guías sobre inteligencia artificial, GEO y consultoría IA para pymes en España.',
+        'descripcion_en': 'Guides on artificial intelligence, GEO, and AI consulting for SMEs in Spain.',
         'ancla': 'cluster-ia',
     },
     'desarrollo': {
         'nombre': 'Desarrollo a medida',
+        'nombre_en': 'Custom development',
         'descripcion': 'Cómo elegir proveedor, costes e integraciones de software a medida.',
+        'descripcion_en': 'How to choose a provider, costs, and custom software integrations.',
         'ancla': 'cluster-desarrollo',
     },
     'automatizaciones': {
         'nombre': 'Automatización y RPA',
+        'nombre_en': 'Automation and RPA',
         'descripcion': 'Procesos, ROI y comparativas RPA vs APIs para empresas.',
+        'descripcion_en': 'Processes, ROI, and RPA vs API comparisons for businesses.',
         'ancla': 'cluster-automatizaciones',
     },
 }

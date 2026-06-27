@@ -2,15 +2,15 @@
     <div class="service-detail-header">
         <div class="service-icon-large">{{ servicio.icon }}</div>
         <div>
-            <h2>{{ servicio.titulo }}</h2>
-            <p class="service-tagline">{{ servicio.descripcion }}</p>
+            <h2>{{ get_field(servicio, 'titulo') }}</h2>
+            <p class="service-tagline">{{ get_field(servicio, 'descripcion') }}</p>
         </div>
     </div>
     <div class="service-detail-content">
         <div class="service-features-list">
             <h3>Características principales:</h3>
             <ul>
-                {% for caracteristica in servicio.caracteristicas %}
+                {% for caracteristica in get_field(servicio, 'caracteristicas') %}
                 <li>✓ {{ caracteristica }}</li>
                 {% endfor %}
             </ul>

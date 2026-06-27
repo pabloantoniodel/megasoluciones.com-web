@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Servicios de Desarrollo y Automatización | Megasoluciones{% endblock %}
-{% block meta_description %}Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.{% endblock %}
-{% block og_title %}Servicios de Desarrollo y Automatización | Megasoluciones{% endblock %}
-{% block og_description %}Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.{% endblock %}
+{% block title %}{{ _('Servicios de Desarrollo y Automatización | Megasoluciones') }}{% endblock %}
+{% block meta_description %}{{ _('Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.') }}{% endblock %}
+{% block og_title %}{{ _('Servicios de Desarrollo y Automatización | Megasoluciones') }}{% endblock %}
+{% block og_description %}{{ _('Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.') }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -19,8 +19,8 @@
       "position": {{ loop.index }},
       "item": {
         "@type": "Service",
-        "name": {{ servicio.titulo|tojson }},
-        "description": {{ servicio.descripcion|tojson }},
+        "name": {{ get_field(servicio, 'titulo')|tojson }},
+        "description": {{ get_field(servicio, 'descripcion')|tojson }},
         "provider": {"@type": "Organization", "name": "Megasoluciones"},
         "url": "{{ url_for('servicios', _external=True) }}#{{ servicio.slug }}"
       }
@@ -34,15 +34,15 @@
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>Desarrollo, <span class="gradient-text">automatizaciones</span> e IA aplicada</h1>
-        <p>Software a medida, automatizaciones empresariales y soluciones de IA para empresas en España</p>
+        <h1>{{ _('Desarrollo,') }} <span class="gradient-text">{{ _('automatizaciones') }}</span> {{ _('e IA aplicada') }}</h1>
+        <p>{{ _('Software a medida, automatizaciones empresariales y soluciones de IA para empresas en España') }}</p>
     </div>
 </section>
 
 <section class="section">
     <div class="container">
-        <h2 class="pilar-heading">Desarrollo de software</h2>
-        <p class="lead">Aplicaciones web, APIs e integraciones a medida. <a href="{{ url_for('desarrollo_software') }}">Ver landing de desarrollo →</a> · <a href="{{ url_for('recursos') }}">Artículos sobre desarrollo →</a></p>
+        <h2 class="pilar-heading">{{ _('Desarrollo de software') }}</h2>
+        <p class="lead">{{ _('Aplicaciones web, APIs e integraciones a medida.') }} <a href="{{ url_for('desarrollo_software') }}">{{ _('Ver landing de desarrollo →') }}</a> · <a href="{{ url_for('recursos') }}">{{ _('Artículos sobre desarrollo →') }}</a></p>
         <div class="services-list">
             {% for servicio in servicios_desarrollo %}
             {% include 'partials/service-detail-card.html' %}
@@ -53,8 +53,8 @@
 
 <section class="section bg-light">
     <div class="container">
-        <h2 class="pilar-heading">Automatizaciones empresariales</h2>
-        <p class="lead">RPA, workflows e integración entre sistemas. <a href="{{ url_for('automatizaciones') }}">Ver landing de automatizaciones →</a> · <a href="{{ url_for('portfolio') }}">Casos de automatización →</a></p>
+        <h2 class="pilar-heading">{{ _('Automatizaciones empresariales') }}</h2>
+        <p class="lead">{{ _('RPA, workflows e integración entre sistemas.') }} <a href="{{ url_for('automatizaciones') }}">{{ _('Ver landing de automatizaciones →') }}</a> · <a href="{{ url_for('portfolio') }}">{{ _('Casos de automatización →') }}</a></p>
         <div class="services-list">
             {% for servicio in servicios_automatizacion %}
             {% include 'partials/service-detail-card.html' %}
@@ -65,8 +65,8 @@
 
 <section class="section">
     <div class="container">
-        <h2 class="pilar-heading">IA aplicada</h2>
-        <p class="lead">Chatbots, machine learning y visión artificial como complemento a desarrollo y automatizaciones. Si estás en Madrid, lee <a href="{{ url_for('recurso_articulo', slug='agencia-ia-madrid-apuesta-comunidad-pymes') }}">cómo encaja la apuesta de la Comunidad de Madrid en IA con tu pyme</a>.</p>
+        <h2 class="pilar-heading">{{ _('IA aplicada') }}</h2>
+        <p class="lead">{{ _('Chatbots, machine learning y visión artificial como complemento a desarrollo y automatizaciones. Si estás en Madrid, lee') }} <a href="{{ url_for('recurso_articulo', slug='agencia-ia-madrid-apuesta-comunidad-pymes') }}">{{ _('cómo encaja la apuesta de la Comunidad de Madrid en IA con tu pyme') }}</a>.</p>
         <div class="services-list">
             {% for servicio in servicios_ia %}
             {% include 'partials/service-detail-card.html' %}
@@ -79,45 +79,45 @@
 
 <section class="section bg-light">
     <div class="container">
-        <h2 class="text-center">Comparativa de Servicios</h2>
-        <p class="text-center lead">Encuentra el servicio perfecto para tu empresa</p>
+        <h2 class="text-center">{{ _('Comparativa de Servicios') }}</h2>
+        <p class="text-center lead">{{ _('Encuentra el servicio perfecto para tu empresa') }}</p>
         <div class="comparison-table-wrapper">
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Servicio</th>
-                        <th>Desde</th>
-                        <th>Ideal Para</th>
-                        <th>Tiempo Impl.</th>
+                        <th>{{ _('Servicio') }}</th>
+                        <th>{{ _('Desde') }}</th>
+                        <th>{{ _('Ideal Para') }}</th>
+                        <th>{{ _('Tiempo Impl.') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for servicio in servicios %}
                     <tr>
-                        <td><strong>{{ servicio.titulo }}</strong></td>
+                        <td><strong>{{ get_field(servicio, 'titulo') }}</strong></td>
                         <td>{{ servicio.precio_desde }}</td>
-                        <td>{% if servicio.pilar == 'desarrollo' %}Apps, webs, integraciones{% elif servicio.pilar == 'automatizacion' %}Procesos, RPA, workflows{% else %}IA avanzada{% endif %}</td>
-                        <td>{% if servicio.pilar == 'desarrollo' %}2–6 meses{% elif servicio.pilar == 'automatizacion' %}3–6 semanas{% else %}2–8 meses{% endif %}</td>
+                        <td>{% if servicio.pilar == 'desarrollo' %}{{ _('Apps, webs, integraciones') }}{% elif servicio.pilar == 'automatizacion' %}{{ _('Procesos, RPA, workflows') }}{% else %}{{ _('IA avanzada') }}{% endif %}</td>
+                        <td>{% if servicio.pilar == 'desarrollo' %}{{ _('2–6 meses') }}{% elif servicio.pilar == 'automatizacion' %}{{ _('3–6 semanas') }}{% else %}{{ _('2–8 meses') }}{% endif %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
         <div class="text-center" style="margin-top: 2rem;">
-            <p class="note">* Precios orientativos según alcance y complejidad</p>
+            <p class="note">{{ _('* Precios orientativos según alcance y complejidad') }}</p>
         </div>
     </div>
 </section>
 
 <section class="section">
     <div class="container">
-        <h2 class="text-center">Proceso de Trabajo</h2>
+        <h2 class="text-center">{{ _('Proceso de Trabajo') }}</h2>
         <div class="process-steps">
-            <div class="process-step"><div class="step-number">1</div><h3>Consulta Inicial</h3><p>Analizamos necesidades y objetivos</p></div>
-            <div class="process-step"><div class="step-number">2</div><h3>Propuesta Técnica</h3><p>Alcance, plazos y presupuesto</p></div>
-            <div class="process-step"><div class="step-number">3</div><h3>Desarrollo Ágil</h3><p>Entregas parciales cada 2 semanas</p></div>
-            <div class="process-step"><div class="step-number">4</div><h3>Testing & Deploy</h3><p>Pruebas y puesta en producción</p></div>
-            <div class="process-step"><div class="step-number">5</div><h3>Soporte Continuo</h3><p>Mantenimiento y evolutivos</p></div>
+            <div class="process-step"><div class="step-number">1</div><h3>{{ _('Consulta Inicial') }}</h3><p>{{ _('Analizamos necesidades y objetivos') }}</p></div>
+            <div class="process-step"><div class="step-number">2</div><h3>{{ _('Propuesta Técnica') }}</h3><p>{{ _('Alcance, plazos y presupuesto') }}</p></div>
+            <div class="process-step"><div class="step-number">3</div><h3>{{ _('Desarrollo Ágil') }}</h3><p>{{ _('Entregas parciales cada 2 semanas') }}</p></div>
+            <div class="process-step"><div class="step-number">4</div><h3>{{ _('Testing & Deploy') }}</h3><p>{{ _('Pruebas y puesta en producción') }}</p></div>
+            <div class="process-step"><div class="step-number">5</div><h3>{{ _('Soporte Continuo') }}</h3><p>{{ _('Mantenimiento y evolutivos') }}</p></div>
         </div>
     </div>
 </section>
@@ -125,9 +125,9 @@
 <section class="section-cta">
     <div class="container">
         <div class="cta-content">
-            <h2>¿Necesitas desarrollo o automatizaciones?</h2>
-            <p>Cuéntanos tu proyecto y te preparamos una propuesta a medida</p>
-            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Solicitar Consulta Gratis</a>
+            <h2>{{ _('¿Necesitas desarrollo o automatizaciones?') }}</h2>
+            <p>{{ _('Cuéntanos tu proyecto y te preparamos una propuesta a medida') }}</p>
+            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">{{ _('Solicitar Consulta Gratis') }}</a>
         </div>
     </div>
 </section>

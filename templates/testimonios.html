@@ -27,7 +27,7 @@
       "@type": "Review",
       "author": {"@type": "Person", "name": {{ testimonio.nombre|tojson }}},
       "reviewRating": {"@type": "Rating", "ratingValue": "{{ testimonio.rating }}", "bestRating": "5"},
-      "reviewBody": {{ testimonio.texto|tojson }},
+      "reviewBody": {{ get_field(testimonio, 'texto')|tojson }},
       "itemReviewed": {"@type": "Organization", "name": "Megasoluciones"}
     }{% if not loop.last %},{% endif %}
     {% endfor %}
@@ -56,12 +56,12 @@
                 <span class="portfolio-badge portfolio-badge-automatizacion">Automatización</span>
                 {% endif %}
                 <div class="stars-large">{% for i in range(testimonio.rating) %}★{% endfor %}</div>
-                <p class="testimonial-text-large">{{ testimonio.texto }}</p>
+                <p class="testimonial-text-large">{{ get_field(testimonio, 'texto') }}</p>
                 <div class="testimonial-author-full">
                     <div class="author-avatar-large">{{ testimonio.nombre[0] }}</div>
                     <div>
                         <h3>{{ testimonio.nombre }}</h3>
-                        <p class="author-role">{{ testimonio.cargo }}</p>
+                        <p class="author-role">{{ get_field(testimonio, 'cargo') }}</p>
                     </div>
                 </div>
             </div>

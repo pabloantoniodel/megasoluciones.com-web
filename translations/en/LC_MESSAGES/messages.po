@@ -1,0 +1,2722 @@
+# English translations for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-27 23:31+0000\n"
+"PO-Revision-Date: 2026-06-27 22:51+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: en <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: app.py:1591 app.py:1666
+#, python-format
+msgid ""
+"¡Gracias %(nombre)s! Tu mensaje ha sido enviado. Te contactaremos pronto."
+msgstr ""
+"Thank you %(nombre)s! Your message has been sent. We will contact you soon."
+
+#: app.py:1601
+msgid "No pudimos verificar el envío. Inténtalo de nuevo."
+msgstr "We couldn't verify the submission. Please try again."
+
+#: app.py:1669
+#, python-format
+msgid ""
+"¡Gracias %(nombre)s! Hemos recibido tu mensaje y te contactaremos pronto."
+msgstr ""
+"Thank you %(nombre)s! We have received your message and will contact you "
+"soon."
+
+#: templates/automatizaciones.html:3 templates/automatizaciones.html:7
+msgid "Automatización de Procesos y RPA para Empresas | Megasoluciones"
+msgstr "Automation of Processes and RPA for Companies | Megasoluciones"
+
+#: templates/automatizaciones.html:4 templates/automatizaciones.html:8
+msgid ""
+"Automatizaciones empresariales y RPA en España. Automatiza procesos "
+"repetitivos, integra sistemas y reduce costes operativos con workflows "
+"inteligentes. Consulta gratuita."
+msgstr ""
+"Business automations and RPA in Spain. Automate repetitive processes, "
+"integrate systems, and reduce operational costs with intelligent workflows. "
+"Free consultation."
+
+#: templates/automatizaciones.html:5
+msgid ""
+"automatizaciones empresariales, automatización procesos, RPA empresas, "
+"automatizar procesos empresa, workflows automatizados España"
+msgstr ""
+"business automations, process automation, RPA companies, automate company "
+"processes, automated workflows Spain"
+
+#: templates/automatizaciones.html:11 templates/automatizaciones.html:40
+#: templates/base.html:99 templates/base.html:157 templates/recursos.html:135
+msgid "Automatizaciones"
+msgstr "Automations"
+
+#: templates/automatizaciones.html:17
+msgid "Automatizaciones y RPA para Empresas"
+msgstr "Automations and RPA for Companies"
+
+#: templates/automatizaciones.html:19 templates/desarrollo-software.html:19
+msgid "España"
+msgstr "Spain"
+
+#: templates/automatizaciones.html:20
+msgid ""
+"Automatización de procesos empresariales, RPA e integración entre sistemas "
+"para empresas en España"
+msgstr ""
+"Business process automation, RPA, and system integration for companies in "
+"Spain"
+
+#: templates/automatizaciones.html:40 templates/base.html:97
+#: templates/caso-exito.html:26 templates/desarrollo-software.html:40
+#: templates/recurso-articulo.html:46
+msgid "Inicio"
+msgstr "Home"
+
+#: templates/automatizaciones.html:46
+msgid "Automatizaciones empresariales que ahorran"
+msgstr "Business automations that save"
+
+#: templates/automatizaciones.html:46
+msgid "tiempo y costes"
+msgstr "time and costs"
+
+#: templates/automatizaciones.html:47
+msgid ""
+"Automatización de procesos, RPA e integración entre sistemas para empresas "
+"en España que quieren dejar de perder horas en tareas repetitivas"
+msgstr ""
+"Process automation, RPA, and system integration for companies in Spain that "
+"want to stop wasting hours on repetitive tasks"
+
+#: templates/automatizaciones.html:48 templates/recursos.html:138
+msgid "Consulta gratuita"
+msgstr "Free consultation"
+
+#: templates/automatizaciones.html:54
+msgid "¿Qué son las automatizaciones empresariales?"
+msgstr "What are business automations?"
+
+#: templates/automatizaciones.html:55
+msgid "Las"
+msgstr "Business"
+
+#: templates/automatizaciones.html:55
+msgid "automatizaciones empresariales"
+msgstr "automations"
+
+#: templates/automatizaciones.html:55
+msgid ""
+"son sistemas que ejecutan tareas repetitivas sin intervención humana: copiar"
+" datos entre Excel y ERP, generar informes semanales, enviar facturas, "
+"sincronizar stock o clasificar emails entrantes. Cuando el proceso tiene "
+"reglas claras, se puede automatizar."
+msgstr ""
+"are systems that perform repetitive tasks without human intervention: "
+"copying data between Excel and ERP, generating weekly reports, sending "
+"invoices, synchronizing stock, or classifying incoming emails. When the "
+"process has clear rules, it can be automated."
+
+#: templates/automatizaciones.html:56
+msgid ""
+"En Megasoluciones implementamos automatizaciones con dos enfoques "
+"complementarios:"
+msgstr ""
+"At Megasoluciones, we implement automations with two complementary "
+"approaches:"
+
+#: templates/automatizaciones.html:56
+msgid "RPA"
+msgstr "RPA"
+
+#: templates/automatizaciones.html:56
+msgid "(robots que interactúan con interfaces gráficas) y"
+msgstr "(robots that interact with graphical interfaces) and"
+
+#: templates/automatizaciones.html:56
+msgid "automatización con APIs"
+msgstr "API automation"
+
+#: templates/automatizaciones.html:56
+msgid ""
+"(más rápida y estable cuando los sistemas lo permiten). El resultado: menos "
+"errores, equipos liberados para trabajo de valor y ROI medible en meses."
+msgstr ""
+"(faster and more stable when systems allow it). The result: fewer errors, "
+"teams freed for value work, and measurable ROI in months."
+
+#: templates/automatizaciones.html:58
+msgid "Procesos que automatizamos con frecuencia"
+msgstr "Processes we frequently automate"
+
+#: templates/automatizaciones.html:61
+msgid "Facturación y administración"
+msgstr "Billing and administration"
+
+#: templates/automatizaciones.html:62
+msgid ""
+"Generación de facturas, conciliación bancaria, envío a gestoría y "
+"recordatorios de cobro automáticos."
+msgstr ""
+"Invoice generation, bank reconciliation, automatic sending to management, "
+"and payment reminders."
+
+#: templates/automatizaciones.html:65
+msgid "Sincronización ERP-CRM"
+msgstr "ERP-CRM synchronization"
+
+#: templates/automatizaciones.html:66
+msgid ""
+"Pedidos, clientes, stock y oportunidades comerciales sincronizados entre "
+"Odoo, Salesforce, HubSpot y más."
+msgstr ""
+"Orders, customers, stock, and business opportunities synchronized between "
+"Odoo, Salesforce, HubSpot, and more."
+
+#: templates/automatizaciones.html:69
+msgid "Gestión documental"
+msgstr "Document management"
+
+#: templates/automatizaciones.html:70
+msgid ""
+"Extracción de datos de PDFs y emails, clasificación automática y archivo en "
+"carpetas o DMS."
+msgstr ""
+"Data extraction from PDFs and emails, automatic classification, and filing "
+"in folders or DMS."
+
+#: templates/automatizaciones.html:73
+msgid "Reporting y dashboards"
+msgstr "Reporting and dashboards"
+
+#: templates/automatizaciones.html:74
+msgid ""
+"Informes diarios/semanales generados y distribuidos automáticamente a "
+"responsables de departamento."
+msgstr ""
+"Daily/weekly reports generated and automatically distributed to department "
+"heads."
+
+#: templates/automatizaciones.html:78
+msgid "Cómo implementamos tus automatizaciones"
+msgstr "How we implement your automations"
+
+#: templates/automatizaciones.html:82
+msgid "Auditoría de procesos"
+msgstr "Process audit"
+
+#: templates/automatizaciones.html:83
+msgid ""
+"Mapeamos flujos actuales, identificamos cuellos de botella y calculamos "
+"horas/coste que se pueden ahorrar."
+msgstr ""
+"We map current flows, identify bottlenecks, and calculate hours/costs that "
+"can be saved."
+
+#: templates/automatizaciones.html:87
+msgid "Diseño del workflow"
+msgstr "Workflow design"
+
+#: templates/automatizaciones.html:88
+msgid ""
+"Definimos triggers, reglas, excepciones y puntos de supervisión humana "
+"cuando sea necesario."
+msgstr ""
+"We define triggers, rules, exceptions, and human supervision points when "
+"necessary."
+
+#: templates/automatizaciones.html:92
+msgid "Piloto controlado"
+msgstr "Controlled pilot"
+
+#: templates/automatizaciones.html:93
+msgid ""
+"Implementamos 1–2 procesos prioritarios, medimos resultados y ajustamos "
+"antes de escalar."
+msgstr ""
+"We implement 1–2 priority processes, measure results, and adjust before "
+"scaling."
+
+#: templates/automatizaciones.html:97
+msgid "Despliegue y monitorización"
+msgstr "Deployment and monitoring"
+
+#: templates/automatizaciones.html:98
+msgid ""
+"Puesta en producción con alertas, logs y soporte continuo. Formación para tu"
+" equipo interno."
+msgstr ""
+"Production launch with alerts, logs, and continuous support. Training for "
+"your internal team."
+
+#: templates/automatizaciones.html:101
+msgid "Antes de implementar, la"
+msgstr "Before implementing, the"
+
+#: templates/automatizaciones.html:101
+#: templates/partials/primera-consulta-roadmap.html:6
+msgid "primera consulta"
+msgstr "First consultation"
+
+#: templates/automatizaciones.html:101
+msgid ""
+"incluye auditoría BPMN, análisis de oportunidades, estudio de "
+"vulnerabilidades y roadmap técnico por fases."
+msgstr ""
+"includes BPMN audit, opportunity analysis, vulnerability study, and phased "
+"technical roadmap."
+
+#: templates/automatizaciones.html:103
+msgid "RPA vs automatización con APIs"
+msgstr "RPA vs automation with APIs"
+
+#: templates/automatizaciones.html:104
+msgid "No existe una solución única. Evaluamos cada caso:"
+msgstr "There is no one-size-fits-all solution. We evaluate each case:"
+
+#: templates/automatizaciones.html:106
+msgid "RPA:"
+msgstr "RPA:"
+
+#: templates/automatizaciones.html:106
+msgid ""
+"ideal cuando el software no tiene API (aplicaciones desktop, portales "
+"antiguos, Excel complejo)."
+msgstr ""
+"ideal when the software does not have an API (desktop applications, old "
+"portals, complex Excel)."
+
+#: templates/automatizaciones.html:107
+msgid "APIs y scripts:"
+msgstr "APIs and scripts:"
+
+#: templates/automatizaciones.html:107
+msgid ""
+"más rápidos, baratos de mantener y fiables para Odoo, Google Sheets, Slack, "
+"email, etc."
+msgstr ""
+"faster, cheaper to maintain, and reliable for Odoo, Google Sheets, Slack, "
+"email, etc."
+
+#: templates/automatizaciones.html:108
+msgid "Híbrido:"
+msgstr "Hybrid:"
+
+#: templates/automatizaciones.html:108
+msgid ""
+"muchos proyectos combinan ambos: API donde se puede, RPA donde no hay "
+"alternativa."
+msgstr ""
+"many projects combine both: API where possible, RPA where there is no "
+"alternative."
+
+#: templates/automatizaciones.html:111
+msgid "Herramientas y tecnologías"
+msgstr "Tools and technologies"
+
+#: templates/automatizaciones.html:113
+msgid "Python, n8n, Zapier/Make (según complejidad)"
+msgstr "Python, n8n, Zapier/Make (depending on complexity)"
+
+#: templates/automatizaciones.html:114
+msgid "Integraciones REST, webhooks, OAuth2"
+msgstr "REST integrations, webhooks, OAuth2"
+
+#: templates/automatizaciones.html:115
+msgid "Odoo, Salesforce, Google Workspace, Microsoft 365"
+msgstr "Odoo, Salesforce, Google Workspace, Microsoft 365"
+
+#: templates/automatizaciones.html:116
+msgid "Monitorización con logs, alertas y dashboards de ejecución"
+msgstr "Monitoring with logs, alerts, and execution dashboards"
+
+#: templates/automatizaciones.html:119
+msgid "Inversión y retorno"
+msgstr "Investment and return"
+
+#: templates/automatizaciones.html:120
+msgid "Las automatizaciones parten desde"
+msgstr "Automations start from"
+
+#: templates/automatizaciones.html:120
+msgid "mes"
+msgstr "month"
+
+#: templates/automatizaciones.html:120
+msgid ""
+"para procesos sencillos. Proyectos RPA multi-departamento desde 3.000€ de "
+"implementación. La mayoría de clientes recuperan la inversión en 3–6 meses."
+msgstr ""
+"for simple processes. Multi-department RPA projects from €3,000 of "
+"implementation. Most clients recover the investment in 3–6 months."
+
+#: templates/automatizaciones.html:121
+msgid ""
+"Si además necesitas una aplicación a medida, combina este servicio con "
+"nuestro"
+msgstr "If you also need a custom application, combine this service with our"
+
+#: templates/automatizaciones.html:121
+msgid "desarrollo de software"
+msgstr "software development"
+
+#: templates/automatizaciones.html:121
+msgid "Revisa"
+msgstr "Review"
+
+#: templates/automatizaciones.html:121
+msgid "casos de automatización"
+msgstr "automation cases"
+
+#: templates/automatizaciones.html:121 templates/desarrollo-software.html:121
+msgid "lee"
+msgstr "read"
+
+#: templates/automatizaciones.html:121
+msgid "cómo automatizar procesos en una pyme"
+msgstr "how to automate processes in an SME"
+
+#: templates/automatizaciones.html:121 templates/desarrollo-software.html:121
+msgid "o"
+msgstr "or"
+
+#: templates/automatizaciones.html:121 templates/desarrollo-software.html:121
+msgid "por qué la IA empresarial necesita desarrolladores"
+msgstr "why business AI needs developers"
+
+#: templates/automatizaciones.html:123
+msgid "Preguntas frecuentes sobre automatizaciones"
+msgstr "Frequently asked questions about automations"
+
+#: templates/automatizaciones.html:138
+msgid "¿Quieres automatizar procesos en tu empresa?"
+msgstr "Do you want to automate processes in your company?"
+
+#: templates/automatizaciones.html:139
+msgid "Te hacemos un diagnóstico inicial sin compromiso"
+msgstr "We offer you an initial diagnosis without obligation"
+
+#: templates/automatizaciones.html:140
+msgid "Solicitar diagnóstico de automatización"
+msgstr "Request automation diagnosis"
+
+#: templates/base.html:6 templates/base.html:19
+msgid ""
+"Megasoluciones — desarrollo de software a medida y automatizaciones "
+"empresariales (RPA) para empresas en España. Integraciones, APIs y workflows"
+" inteligentes."
+msgstr ""
+"Megasoluciones — custom software development and business automations (RPA) "
+"for companies in Spain. Integrations, APIs, and intelligent workflows."
+
+#: templates/base.html:7
+msgid ""
+"desarrollo software a medida, automatizaciones empresariales, RPA, "
+"automatización procesos, desarrollo web España, integración APIs"
+msgstr ""
+"custom software development, business automations, RPA, process automation, "
+"web development Spain, API integration"
+
+#: templates/base.html:18 templates/base.html:31
+msgid "Megasoluciones | Desarrollo de Software y Automatizaciones en España"
+msgstr "Megasoluciones | Software Development and Automations in Spain"
+
+#: templates/base.html:68 templates/index.html:20
+msgid ""
+"Agencia de inteligencia artificial y soluciones de IA para empresas y pymes "
+"en España"
+msgstr ""
+"Artificial intelligence agency and AI solutions for companies and SMEs in "
+"Spain"
+
+#: templates/base.html:86
+msgid "Megasoluciones — desarrollo software y automatizaciones"
+msgstr "Megasoluciones — software development and automations"
+
+#: templates/base.html:90
+msgid "Menú"
+msgstr "Menu"
+
+#: templates/base.html:98
+msgid "Desarrollo"
+msgstr "Development"
+
+#: templates/base.html:100 templates/base.html:152
+msgid "Servicios"
+msgstr "Services"
+
+#: templates/base.html:101 templates/base.html:166
+#: templates/caso-exito.html:27
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: templates/base.html:102 templates/base.html:167
+#: templates/recurso-articulo.html:47 templates/recursos-actualidad.html:15
+#: templates/recursos-tema.html:15
+msgid "Recursos"
+msgstr "Resources"
+
+#: templates/base.html:103 templates/base.html:165
+msgid "Sobre Nosotros"
+msgstr "About Us"
+
+#: templates/base.html:111 templates/base.html:171 templates/base.html:176
+msgid "Contacto"
+msgstr "Contact"
+
+#: templates/base.html:143
+msgid ""
+"Desarrollo de software a medida y automatizaciones empresariales para "
+"empresas en España y LATAM."
+msgstr ""
+"Custom software development and business automations for companies in Spain "
+"and LATAM."
+
+#: templates/base.html:154
+msgid "Desarrollo Software"
+msgstr "Software Development"
+
+#: templates/base.html:155
+msgid "Automatizaciones y RPA"
+msgstr "Automations and RPA"
+
+#: templates/base.html:156 templates/recursos.html:134
+msgid "Desarrollo a medida"
+msgstr "Custom Development"
+
+#: templates/base.html:158 templates/index.html:38
+msgid "Chatbots IA"
+msgstr "AI Chatbots"
+
+#: templates/base.html:163
+msgid "Empresa"
+msgstr "Company"
+
+#: templates/base.html:168
+msgid "Zona Madrid (GEO)"
+msgstr "Madrid Area (GEO)"
+
+#: templates/base.html:169
+msgid "Testimonios"
+msgstr "Testimonials"
+
+#: templates/base.html:170
+msgid "Área clientes"
+msgstr "Client area"
+
+#: templates/base.html:179 templates/contacto.html:60 templates/index.html:85
+msgid "España & LATAM"
+msgstr "Spain & LATAM"
+
+#: templates/base.html:185
+msgid "Todos los derechos reservados."
+msgstr "All rights reserved."
+
+#: templates/base.html:186
+msgid "Privacidad"
+msgstr "Privacy"
+
+#: templates/base.html:187
+msgid "Aviso legal"
+msgstr "Legal notice"
+
+#: templates/caso-exito.html:36 templates/portfolio.html:58
+msgid "Listo para producción"
+msgstr "Ready for production"
+
+#: templates/caso-exito.html:38 templates/portfolio.html:60
+msgid "MVP"
+msgstr "MVP"
+
+#: templates/caso-exito.html:61
+#, fuzzy
+msgid "El problema"
+msgstr "The problem"
+
+#: templates/caso-exito.html:63
+#, fuzzy
+msgid "La solución"
+msgstr "The solution"
+
+#: templates/caso-exito.html:65
+#, fuzzy
+msgid "Resultados"
+msgstr "Results"
+
+#: templates/caso-exito.html:72
+#, fuzzy
+msgid "Enfoque del proyecto"
+msgstr "Project approach"
+
+#: templates/caso-exito.html:82
+#, fuzzy
+msgid "Leer noticia del proyecto"
+msgstr "Read project news"
+
+#: templates/caso-exito.html:84
+#, fuzzy
+msgid "Proyecto similar"
+msgstr "Similar project"
+
+#: templates/contacto.html:3
+msgid "Contacto — Presupuesto Desarrollo o Automatización | Megasoluciones"
+msgstr "Contact — Development or Automation Quote | Megasoluciones"
+
+#: templates/contacto.html:4 templates/contacto.html:6
+msgid ""
+"Contacta con Megasoluciones para presupuesto de desarrollo de software a "
+"medida o automatizaciones empresariales en España. Respuesta en menos de 24 "
+"horas."
+msgstr ""
+"Contact Megasoluciones for a custom software development or business "
+"automation quote in Spain. Response in less than 24 hours."
+
+#: templates/contacto.html:5
+msgid "Presupuesto Desarrollo o Automatización | Megasoluciones"
+msgstr "Development or Automation Quote | Megasoluciones"
+
+#: templates/contacto.html:14
+msgid "Contacto Megasoluciones"
+msgstr "Contact Megasoluciones"
+
+#: templates/contacto.html:40
+msgid "Hablemos de tu"
+msgstr "Let's talk about your"
+
+#: templates/contacto.html:40
+msgid "proyecto"
+msgstr "project"
+
+#: templates/contacto.html:41
+msgid ""
+"Desarrollo de software, automatizaciones o integraciones — te respondemos en"
+" menos de 24 horas"
+msgstr ""
+"Software development, automations, or integrations — we will respond in less"
+" than 24 hours"
+
+#: templates/contacto.html:51
+msgid "Información de Contacto"
+msgstr "Contact Information"
+
+#: templates/contacto.html:52
+msgid ""
+"Cuéntanos si necesitas desarrollo a medida, automatizar procesos o integrar "
+"sistemas. En la primera consulta seguimos nuestro"
+msgstr ""
+"Tell us if you need custom development, process automation, or system "
+"integration. In the first consultation, we follow our"
+
+#: templates/contacto.html:52
+msgid "roadmap de auditoría BPMN"
+msgstr "BPMN audit roadmap"
+
+#: templates/contacto.html:52
+msgid "antes de proponer nada."
+msgstr "before proposing anything."
+
+#: templates/contacto.html:56
+msgid "Email"
+msgstr "Email"
+
+#: templates/contacto.html:56
+msgid "Respuesta en menos de 24h"
+msgstr "Response in less than 24h"
+
+#: templates/contacto.html:60
+msgid "Ubicación"
+msgstr "Location"
+
+#: templates/contacto.html:60
+msgid "Remoto y presencial"
+msgstr "Remote and in-person"
+
+#: templates/contacto.html:65
+msgid "X (Twitter)"
+msgstr "X (Twitter)"
+
+#: templates/contacto.html:67
+msgid "Novedades y contenido sobre IA"
+msgstr "News and content about AI"
+
+#: templates/contacto.html:73
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: templates/contacto.html:75
+msgid "Síguenos para novedades"
+msgstr "Follow us for updates"
+
+#: templates/contacto.html:80
+msgid "Horario de Atención"
+msgstr "Customer Service Hours"
+
+#: templates/contacto.html:81
+msgid "Lunes a Viernes: 9:00 - 18:00 (CET)"
+msgstr "Monday to Friday: 9:00 - 18:00 (CET)"
+
+#: templates/contacto.html:82
+msgid "Sábados: 10:00 - 14:00 (CET)"
+msgstr "Saturdays: 10:00 - 14:00 (CET)"
+
+#: templates/contacto.html:87
+msgid "Envíanos un Mensaje"
+msgstr "Send us a Message"
+
+#: templates/contacto.html:88
+msgid "Indica el servicio que te interesa para una respuesta más precisa"
+msgstr ""
+"Indicate the service you are interested in for a more precise response"
+
+#: templates/contacto.html:93
+msgid "Tu nombre completo"
+msgstr "Your full name"
+
+#: templates/contacto.html:98
+msgid "tu@email.com"
+msgstr "your@email.com"
+
+#: templates/contacto.html:104
+msgid "+34 XXX XXX XXX"
+msgstr "+34 XXX XXX XXX"
+
+#: templates/contacto.html:108
+msgid "Nombre de tu empresa"
+msgstr "Your company's name"
+
+#: templates/contacto.html:117
+msgid "Describe tu proyecto: qué quieres desarrollar o automatizar..."
+msgstr "Describe your project: what you want to develop or automate..."
+
+#: templates/contacto.html:121
+msgid "Segundo nombre"
+msgstr "Middle name"
+
+#: templates/contacto.html:129
+msgid "Enviar Mensaje"
+msgstr "Send Message"
+
+#: templates/contacto.html:131
+msgid "Al enviar aceptas nuestra"
+msgstr "By sending you accept our"
+
+#: templates/contacto.html:131
+msgid "política de privacidad"
+msgstr "privacy policy"
+
+#: templates/contacto.html:131
+msgid "y el tratamiento de datos según el RGPD."
+msgstr "and data processing according to the GDPR."
+
+#: templates/contacto.html:141
+msgid "Preguntas Frecuentes"
+msgstr "Frequently Asked Questions"
+
+#: templates/desarrollo-software.html:3 templates/desarrollo-software.html:7
+msgid "Desarrollo de Software a Medida en España | Megasoluciones"
+msgstr "Custom Software Development in Spain | Megasoluciones"
+
+#: templates/desarrollo-software.html:4 templates/desarrollo-software.html:8
+msgid ""
+"Desarrollo de software a medida en España: aplicaciones web, APIs, "
+"integraciones ERP/CRM y plataformas SaaS. Presupuesto transparente, "
+"metodología ágil y soporte continuo."
+msgstr ""
+"Custom software development in Spain: web applications, APIs, ERP/CRM "
+"integrations, and SaaS platforms. Transparent budgeting, agile methodology, "
+"and continuous support."
+
+#: templates/desarrollo-software.html:5
+msgid ""
+"desarrollo software a medida, desarrollo web España, software a medida "
+"empresas, integración APIs, desarrollo aplicaciones"
+msgstr ""
+"custom software development, web development Spain, custom software for "
+"businesses, API integration, application development"
+
+#: templates/desarrollo-software.html:11 templates/desarrollo-software.html:40
+msgid "Desarrollo de Software"
+msgstr "Software Development"
+
+#: templates/desarrollo-software.html:17
+msgid "Desarrollo de Software a Medida"
+msgstr "Custom Software Development"
+
+#: templates/desarrollo-software.html:20
+msgid ""
+"Desarrollo de software a medida: webs, apps, APIs e integraciones para "
+"empresas en España"
+msgstr ""
+"Custom software development: websites, apps, APIs, and integrations for "
+"businesses in Spain"
+
+#: templates/desarrollo-software.html:46
+msgid "Desarrollo de software a medida para tu"
+msgstr "Custom software development for your"
+
+#: templates/desarrollo-software.html:46
+msgid "empresa"
+msgstr "company"
+
+#: templates/desarrollo-software.html:47
+msgid ""
+"Aplicaciones web, APIs, integraciones y plataformas diseñadas para resolver "
+"problemas reales de negocio en España"
+msgstr ""
+"Web applications, APIs, integrations, and platforms designed to solve real "
+"business problems in Spain"
+
+#: templates/desarrollo-software.html:48
+msgid "Solicitar presupuesto"
+msgstr "Request a quote"
+
+#: templates/desarrollo-software.html:54
+msgid "¿Por qué desarrollo de software a medida?"
+msgstr "Why custom software development?"
+
+#: templates/desarrollo-software.html:55
+msgid ""
+"Las herramientas genéricas rara vez encajan con los procesos únicos de tu "
+"empresa. Un"
+msgstr "Generic tools rarely fit the unique processes of your company. Custom"
+
+#: templates/desarrollo-software.html:55
+msgid "desarrollo de software a medida"
+msgstr "software development"
+
+#: templates/desarrollo-software.html:55
+msgid ""
+"te permite automatizar flujos específicos, conectar sistemas que no hablan "
+"entre sí y escalar sin depender de limitaciones de software estándar."
+msgstr ""
+"allows you to automate specific workflows, connect systems that don't "
+"communicate with each other, and scale without relying on the limitations of"
+" standard software."
+
+#: templates/desarrollo-software.html:56
+msgid ""
+"En Megasoluciones diseñamos y construimos soluciones desde cero o sobre "
+"plataformas existentes: portales de clientes, dashboards internos, "
+"integraciones bancarias, sincronización ERP-CRM y APIs REST documentadas. "
+"Trabajamos con empresas en toda España, con equipos ágiles y entregas cada "
+"dos semanas."
+msgstr ""
+"At Megasoluciones, we design and build solutions from scratch or on existing"
+" platforms: client portals, internal dashboards, banking integrations, ERP-"
+"CRM synchronization, and documented REST APIs. We work with companies "
+"throughout Spain, with agile teams and deliveries every two weeks."
+
+#: templates/desarrollo-software.html:58
+msgid "Qué desarrollamos"
+msgstr "What we develop"
+
+#: templates/desarrollo-software.html:61
+msgid "Aplicaciones web a medida"
+msgstr "Custom web applications"
+
+#: templates/desarrollo-software.html:62
+msgid ""
+"Portales de clientes, intranets, paneles de administración y plataformas "
+"SaaS con React, Vue o interfaces server-side según el proyecto."
+msgstr ""
+"Client portals, intranets, admin panels, and SaaS platforms with React, Vue,"
+" or server-side interfaces depending on the project."
+
+#: templates/desarrollo-software.html:65
+msgid "APIs e integraciones"
+msgstr "APIs and integrations"
+
+#: templates/desarrollo-software.html:66
+msgid ""
+"Conectamos Odoo, Salesforce, Google Workspace, pasarelas de pago y APIs "
+"bancarias. Sincronización bidireccional en tiempo real o por lotes."
+msgstr ""
+"We connect Odoo, Salesforce, Google Workspace, payment gateways, and banking"
+" APIs. Bidirectional synchronization in real-time or batch."
+
+#: templates/desarrollo-software.html:69
+msgid "Modernización de sistemas"
+msgstr "System modernization"
+
+#: templates/desarrollo-software.html:70
+msgid ""
+"Migración de aplicaciones legacy, refactorización de bases de datos y "
+"despliegue en Docker/cloud con CI/CD."
+msgstr ""
+"Legacy application migration, database refactoring, and deployment in "
+"Docker/cloud with CI/CD."
+
+#: templates/desarrollo-software.html:73
+msgid "MVP y productos digitales"
+msgstr "MVP and digital products"
+
+#: templates/desarrollo-software.html:74
+msgid ""
+"De la idea al MVP en 6–10 semanas. Validación de mercado con funcionalidad "
+"mínima viable y roadmap de evolutivos."
+msgstr ""
+"From idea to MVP in 6–10 weeks. Market validation with minimum viable "
+"functionality and evolutionary roadmap."
+
+#: templates/desarrollo-software.html:78
+msgid "Nuestro proceso de desarrollo"
+msgstr "Our development process"
+
+#: templates/desarrollo-software.html:82
+msgid "Descubrimiento"
+msgstr "Discovery"
+
+#: templates/desarrollo-software.html:83
+msgid ""
+"Analizamos requisitos, sistemas actuales y objetivos de negocio. Definimos "
+"alcance y presupuesto por fases."
+msgstr ""
+"We analyze requirements, current systems, and business objectives. We define"
+" scope and budget by phases."
+
+#: templates/desarrollo-software.html:87
+msgid "Diseño técnico"
+msgstr "Technical design"
+
+#: templates/desarrollo-software.html:88
+msgid ""
+"Arquitectura, stack tecnológico, modelos de datos y plan de integraciones. "
+"Documentación compartida contigo."
+msgstr ""
+"Architecture, technology stack, data models, and integration plan. "
+"Documentation shared with you."
+
+#: templates/desarrollo-software.html:92
+msgid "Desarrollo ágil"
+msgstr "Agile development"
+
+#: templates/desarrollo-software.html:93
+msgid ""
+"Sprints de 2 semanas con demos funcionales. Feedback continuo y ajustes de "
+"prioridades."
+msgstr ""
+"2-week sprints with functional demos. Continuous feedback and priority "
+"adjustments."
+
+#: templates/desarrollo-software.html:97
+msgid "Entrega y soporte"
+msgstr "Delivery and support"
+
+#: templates/desarrollo-software.html:98
+msgid ""
+"Testing, despliegue en producción, formación y plan de mantenimiento con SLA"
+" acordado."
+msgstr ""
+"Testing, production deployment, training, and maintenance plan with agreed "
+"SLA."
+
+#: templates/desarrollo-software.html:102
+msgid "Stack tecnológico"
+msgstr "Technology stack"
+
+#: templates/desarrollo-software.html:103
+msgid ""
+"Seleccionamos tecnologías según el proyecto, priorizando mantenibilidad y "
+"talento disponible en España:"
+msgstr ""
+"We select technologies according to the project, prioritizing "
+"maintainability and available talent in Spain:"
+
+#: templates/desarrollo-software.html:105
+msgid "Backend:"
+msgstr "Backend:"
+
+#: templates/desarrollo-software.html:105
+msgid "Python (Flask, FastAPI, Django), Node.js"
+msgstr "Python (Flask, FastAPI, Django), Node.js"
+
+#: templates/desarrollo-software.html:106
+msgid "Frontend:"
+msgstr "Frontend:"
+
+#: templates/desarrollo-software.html:106
+msgid "React, Vue.js, TypeScript, HTML/CSS responsive"
+msgstr "React, Vue.js, TypeScript, responsive HTML/CSS"
+
+#: templates/desarrollo-software.html:107
+msgid "Bases de datos:"
+msgstr "Databases:"
+
+#: templates/desarrollo-software.html:107
+msgid "PostgreSQL, MongoDB, Redis"
+msgstr "PostgreSQL, MongoDB, Redis"
+
+#: templates/desarrollo-software.html:108
+msgid "Infraestructura:"
+msgstr "Infrastructure:"
+
+#: templates/desarrollo-software.html:108
+msgid "Docker, AWS, Azure, servidores dedicados"
+msgstr "Docker, AWS, Azure, dedicated servers"
+
+#: templates/desarrollo-software.html:109
+msgid "Integraciones:"
+msgstr "Integrations:"
+
+#: templates/desarrollo-software.html:109
+msgid "REST, GraphQL, webhooks, Odoo XML-RPC, OAuth2"
+msgstr "REST, GraphQL, webhooks, Odoo XML-RPC, OAuth2"
+
+#: templates/desarrollo-software.html:112
+msgid "Tipos de proyecto y presupuesto orientativo"
+msgstr "Types of project and indicative budget"
+
+#: templates/desarrollo-software.html:113 templates/index.html:146
+#: templates/servicios.html:89
+msgid "Desde"
+msgstr "From"
+
+#: templates/desarrollo-software.html:113
+msgid "según complejidad. Proyectos habituales:"
+msgstr "depending on complexity. Typical projects:"
+
+#: templates/desarrollo-software.html:115
+msgid "Web corporativa con CMS y formularios: desde 5.000€"
+msgstr "Corporate website with CMS and forms: from €5,000"
+
+#: templates/desarrollo-software.html:116
+msgid "Portal clientes con login y panel: desde 12.000€"
+msgstr "Client portal with login and panel: from €12,000"
+
+#: templates/desarrollo-software.html:117
+msgid "Integración ERP + CRM + facturación: desde 8.000€"
+msgstr "ERP + CRM + billing integration: from €8,000"
+
+#: templates/desarrollo-software.html:118
+msgid "Plataforma SaaS multi-tenant: desde 30.000€"
+msgstr "Multi-tenant SaaS platform: from €30,000"
+
+#: templates/desarrollo-software.html:121
+msgid "¿También necesitas"
+msgstr "Do you also need"
+
+#: templates/desarrollo-software.html:121
+msgid "automatizar procesos"
+msgstr "to automate processes"
+
+#: templates/desarrollo-software.html:121
+msgid ""
+"además del desarrollo? Combinamos ambos servicios para maximizar el ROI. "
+"Consulta nuestros"
+msgstr ""
+"in addition to development? We combine both services to maximize ROI. Check "
+"out our"
+
+#: templates/desarrollo-software.html:121
+msgid "casos de éxito"
+msgstr "success stories"
+
+#: templates/desarrollo-software.html:121
+msgid "cuánto cuesta un desarrollo a medida"
+msgstr "how much does a custom development cost"
+
+#: templates/desarrollo-software.html:123
+msgid "Recursos sobre desarrollo e IA en empresas"
+msgstr "Resources on development and AI in companies"
+
+#: templates/desarrollo-software.html:126
+msgid "Agencia IA Madrid y apuesta regional"
+msgstr "AI Agency Madrid and regional commitment"
+
+#: templates/desarrollo-software.html:127
+msgid ""
+"Qué impulsa la Comunidad de Madrid en IA y qué significa para pymes "
+"madrileñas."
+msgstr ""
+"What drives the Community of Madrid in AI and what it means for Madrid SMEs."
+
+#: templates/desarrollo-software.html:130
+msgid "Desarrolladores e IA en empresas"
+msgstr "Developers and AI in companies"
+
+#: templates/desarrollo-software.html:131
+msgid ""
+"Por qué un modelo doméstico no sustituye integraciones, automatización y "
+"software en producción."
+msgstr ""
+"Why a domestic model does not replace integrations, automation, and "
+"production software."
+
+#: templates/desarrollo-software.html:134
+msgid "Cuánto cuesta un desarrollo a medida"
+msgstr "How much does a custom development cost"
+
+#: templates/desarrollo-software.html:135
+msgid "Rangos de presupuesto por tipo de proyecto en España (2026)."
+msgstr "Budget ranges by type of project in Spain (2026)."
+
+#: templates/desarrollo-software.html:138
+msgid "Elegir empresa de desarrollo"
+msgstr "Choosing a development company"
+
+#: templates/desarrollo-software.html:139
+msgid "Checklist de 8 criterios antes de contratar."
+msgstr "Checklist of 8 criteria before hiring."
+
+#: templates/desarrollo-software.html:143
+msgid "Preguntas frecuentes sobre desarrollo de software"
+msgstr "Frequently asked questions about software development"
+
+#: templates/desarrollo-software.html:158
+msgid "¿Tienes un proyecto de desarrollo en mente?"
+msgstr "Do you have a development project in mind?"
+
+#: templates/desarrollo-software.html:159
+msgid "Te respondemos en menos de 24 horas con propuesta inicial"
+msgstr "We respond to you in less than 24 hours with an initial proposal"
+
+#: templates/desarrollo-software.html:160
+msgid "Pedir presupuesto de desarrollo"
+msgstr "Request development quote"
+
+#: templates/index.html:3 templates/index.html:6
+msgid ""
+"Soluciones de IA para Empresas: Software y Automatización | Megasoluciones"
+msgstr "AI Solutions for Businesses: Software and Automation | Megasoluciones"
+
+#: templates/index.html:4 templates/index.html:7
+msgid ""
+"Agencia IA en Madrid: chatbots, automatización de procesos, desarrollo a "
+"medida y consultoría para empresas y pymes en España. Primera consulta sin "
+"compromiso."
+msgstr ""
+"AI Agency in Madrid: chatbots, process automation, custom development, and "
+"consulting for companies and SMEs in Spain. First consultation without "
+"obligation."
+
+#: templates/index.html:5
+msgid ""
+"agencia inteligencia artificial, agencia IA Madrid, soluciones IA empresas, "
+"soluciones IA pymes, automatizar procesos con IA, chatbot inteligencia "
+"artificial, consultoría inteligencia artificial"
+msgstr ""
+"artificial intelligence agency, AI agency Madrid, AI solutions for "
+"businesses, AI solutions for SMEs, automate processes with AI, artificial "
+"intelligence chatbot, artificial intelligence consulting"
+
+#: templates/index.html:29
+msgid ""
+"Agencia de inteligencia artificial en Madrid: chatbots, automatización de "
+"procesos, desarrollo a medida y consultoría IA"
+msgstr ""
+"Artificial intelligence agency in Madrid: chatbots, process automation, "
+"custom development, and AI consulting"
+
+#: templates/index.html:36
+msgid "Servicios principales"
+msgstr "Main services"
+
+#: templates/index.html:39
+msgid "Automatización de procesos con IA"
+msgstr "Process automation with AI"
+
+#: templates/index.html:40
+msgid "Desarrollo a medida con IA"
+msgstr "Custom development with AI"
+
+#: templates/index.html:41 templates/recursos.html:136
+msgid "Consultoría IA"
+msgstr "AI Consulting"
+
+#: templates/index.html:64
+msgid ""
+"Agencia de inteligencia artificial en Madrid — soluciones de IA para "
+"empresas en España"
+msgstr ""
+"Artificial intelligence agency in Madrid — AI solutions for businesses in "
+"Spain"
+
+#: templates/index.html:71
+msgid "Soluciones de"
+msgstr "Solutions of"
+
+#: templates/index.html:72
+msgid "Inteligencia Artificial"
+msgstr "Artificial Intelligence"
+
+#: templates/index.html:73 templates/portfolio.html:97
+msgid "Tecnología"
+msgstr "Technology"
+
+#: templates/index.html:73
+msgid "estratégica aplicada"
+msgstr "strategic applied"
+
+#: templates/index.html:73
+msgid "a tu empresa"
+msgstr "to your company"
+
+#: templates/index.html:76
+msgid ""
+"Integramos inteligencia artificial en tu negocio de forma práctica: "
+"automatizar procesos, desplegar chatbots y asistentes, y convertir tus datos"
+" en decisiones. Ingeniería de software a medida, no solo consultoría en "
+"PowerPoint."
+msgstr ""
+"We integrate artificial intelligence into your business practically: "
+"automate processes, deploy chatbots and assistants, and turn your data into "
+"decisions. Custom software engineering, not just PowerPoint consulting."
+
+#: templates/index.html:79
+msgid "Cuéntanos tu proyecto"
+msgstr "Tell us about your project"
+
+#: templates/index.html:80
+msgid "Ver cómo trabajamos"
+msgstr "See how we work"
+
+#: templates/index.html:82
+msgid "Respuesta en menos de 24 h · Primera consulta sin compromiso"
+msgstr "Response in less than 24 h · First consultation without obligation"
+
+#: templates/index.html:86
+msgid "Proyectos entregados con equipos locales y remotos"
+msgstr "Projects delivered with local and remote teams"
+
+#: templates/index.html:89
+msgid "Procesos medibles"
+msgstr "Measurable processes"
+
+#: templates/index.html:90
+msgid "Pilotos acotados antes de escalar la inversión"
+msgstr "Limited pilots before scaling the investment"
+
+#: templates/index.html:93
+msgid "Soporte continuo"
+msgstr "Continuous support"
+
+#: templates/index.html:94
+msgid "Mantenimiento y evolutivos tras el lanzamiento"
+msgstr "Maintenance and evolution after launch"
+
+#: templates/index.html:105
+msgid "Qué"
+msgstr "What"
+
+#: templates/index.html:105
+msgid "hacemos"
+msgstr "we do"
+
+#: templates/index.html:106
+msgid ""
+"Ayudamos a empresas y pymes a usar la inteligencia artificial donde aporta "
+"retorno real: menos tareas manuales, mejor atención al cliente y sistemas "
+"que escalan con tu negocio."
+msgstr ""
+"We help companies and SMEs use artificial intelligence where it provides "
+"real return: fewer manual tasks, better customer service, and systems that "
+"scale with your business."
+
+#: templates/index.html:111
+msgid "Diagnóstico y priorización"
+msgstr "Diagnosis and prioritization"
+
+#: templates/index.html:112
+msgid ""
+"Identificamos qué procesos merecen IA primero. Sin implementar tecnología "
+"por moda."
+msgstr ""
+"We identify which processes deserve AI first. Without implementing "
+"technology for fashion."
+
+#: templates/index.html:116
+msgid "Implementación en producción"
+msgstr "Implementation in production"
+
+#: templates/index.html:117
+msgid ""
+"Chatbots, automatizaciones, integraciones y software a medida. Entregas por "
+"fases, no proyectos eternos."
+msgstr ""
+"Chatbots, automations, integrations, and custom software. Phased deliveries,"
+" not eternal projects."
+
+#: templates/index.html:121
+msgid "Soporte y evolución"
+msgstr "Support and evolution"
+
+#: templates/index.html:122
+msgid ""
+"Mantenimiento, monitorización y mejoras continuas. La IA no termina el día "
+"del deploy."
+msgstr ""
+"Maintenance, monitoring, and continuous improvements. AI doesn't end on "
+"deployment day."
+
+#: templates/index.html:126
+msgid "Solicitar diagnóstico"
+msgstr "Request diagnosis"
+
+#: templates/index.html:134
+msgid "Servicios de IA para"
+msgstr "AI services for"
+
+#: templates/index.html:134
+msgid "empresas"
+msgstr "companies"
+
+#: templates/index.html:135
+msgid ""
+"Cuatro líneas de trabajo que suelen combinarse según la madurez digital de "
+"cada cliente"
+msgstr ""
+"Four lines of work that are usually combined according to each client's "
+"digital maturity"
+
+#: templates/index.html:144
+msgid "Para quién:"
+msgstr "For whom:"
+
+#: templates/index.html:166
+msgid "Ver todos los servicios"
+msgstr "See all services"
+
+#: templates/index.html:174
+msgid "¿Tienes claro qué proceso automatizar primero?"
+msgstr "Are you clear on which process to automate first?"
+
+#: templates/index.html:175
+msgid "Te ayudamos a priorizar en una consulta de 30 minutos"
+msgstr "We help you prioritize in a 30-minute consultation"
+
+#: templates/index.html:176
+msgid "Reservar consulta"
+msgstr "Book consultation"
+
+#: templates/index.html:184
+msgid "Qué ganas al trabajar con una"
+msgstr "What you gain by working with an"
+
+#: templates/index.html:184
+msgid "agencia IA"
+msgstr "AI agency"
+
+#: templates/index.html:184
+msgid "con base técnica"
+msgstr "with a technical base"
+
+#: templates/index.html:188
+msgid "Menos trabajo manual"
+msgstr "Less manual work"
+
+#: templates/index.html:189
+msgid ""
+"Automatizaciones que liberan horas en reporting, sincronización y gestión "
+"documental."
+msgstr ""
+"Automations that free up hours in reporting, synchronization, and document "
+"management."
+
+#: templates/index.html:192
+msgid "Atención 24/7"
+msgstr "24/7 support"
+
+#: templates/index.html:193
+msgid "Chatbots que resuelven lo repetitivo; humanos para lo complejo."
+msgstr "Chatbots that handle the repetitive; humans for the complex."
+
+#: templates/index.html:196
+msgid "Sistemas conectados"
+msgstr "Connected systems"
+
+#: templates/index.html:197
+msgid "IA integrada en ERP, CRM y herramientas que ya usas."
+msgstr "Integrated AI in ERP, CRM, and tools you already use."
+
+#: templates/index.html:200
+msgid "Decisiones con datos"
+msgstr "Data-driven decisions"
+
+#: templates/index.html:201
+msgid "Análisis predictivo y NLP aplicado a tu operativa."
+msgstr "Predictive analysis and NLP applied to your operations."
+
+#: templates/index.html:204
+msgid "Cumplimiento"
+msgstr "Compliance"
+
+#: templates/index.html:205
+msgid "RGPD, contratos claros y datos en entornos controlados."
+msgstr "GDPR, clear contracts, and data in controlled environments."
+
+#: templates/index.html:208
+msgid "Evolución continua"
+msgstr "Continuous evolution"
+
+#: templates/index.html:209
+msgid "Soporte post-lanzamiento, no entrega y despedida."
+msgstr "Post-launch support, not delivery and goodbye."
+
+#: templates/index.html:219
+msgid "Por qué"
+msgstr "Why"
+
+#: templates/index.html:219
+msgid "Megasoluciones"
+msgstr "Megasolutions"
+
+#: templates/index.html:220
+msgid ""
+"Somos una agencia de inteligencia artificial con ADN de desarrollo. "
+"Diseñamos soluciones que se pueden mantener, escalar y medir — no demos que "
+"caducan en tres meses."
+msgstr ""
+"We are an artificial intelligence agency with a development DNA. We design "
+"solutions that can be maintained, scaled, and measured — not demos that "
+"expire in three months."
+
+#: templates/index.html:226
+msgid "De la idea al deploy"
+msgstr "From idea to deployment"
+
+#: templates/index.html:227
+msgid "Consultoría, desarrollo e integración en el mismo equipo."
+msgstr "Consulting, development, and integration in the same team."
+
+#: templates/index.html:233
+msgid "Enfoque pyme y mediana empresa"
+msgstr "Focus on SMEs and medium-sized businesses"
+
+#: templates/index.html:234
+msgid "Alcance y presupuesto adaptados, con pilotos antes de escalar."
+msgstr "Scope and budget adapted, with pilots before scaling."
+
+#: templates/index.html:240
+msgid "Madrid · España · LATAM"
+msgstr "Madrid · Spain · LATAM"
+
+#: templates/index.html:241
+msgid "Remoto con posibilidad de trabajo presencial."
+msgstr "Remote with the possibility of on-site work."
+
+#: templates/index.html:247
+msgid "Transparencia"
+msgstr "Transparency"
+
+#: templates/index.html:248
+msgid ""
+"Presupuestos por fases, entregas cada 2 semanas, documentación incluida."
+msgstr "Budgets by phases, deliveries every 2 weeks, documentation included."
+
+#: templates/index.html:255
+msgid ""
+"Agencia de inteligencia artificial con desarrollo a medida — Megasoluciones"
+msgstr ""
+"Artificial intelligence agency with custom development — Megasoluciones"
+
+#: templates/index.html:269
+msgid "Casos de uso"
+msgstr "Use cases"
+
+#: templates/index.html:269
+msgid "habituales"
+msgstr "habituales"
+
+#: templates/index.html:270
+msgid ""
+"Ejemplos ilustrativos de sectores y procesos. No representan clientes "
+"concretos."
+msgstr ""
+"Illustrative examples of sectors and processes. They do not represent "
+"specific clients."
+
+#: templates/index.html:276
+msgid "Sector"
+msgstr "Sector"
+
+#: templates/index.html:277
+msgid "Problema"
+msgstr "Problem"
+
+#: templates/index.html:278
+msgid "Solución IA"
+msgstr "AI Solution"
+
+#: templates/index.html:293
+msgid "Ver portfolio de referencia"
+msgstr "See reference portfolio"
+
+#: templates/index.html:301
+msgid "Opiniones de"
+msgstr "Opinions of"
+
+#: templates/index.html:301
+msgid "referencia"
+msgstr "reference"
+
+#: templates/index.html:302
+msgid ""
+"Testimonios ilustrativos basados en tipologías de proyecto reales. "
+"Sustituiremos por reseñas verificadas cuando estén disponibles."
+msgstr ""
+"Illustrative testimonials based on real project typologies. We will replace "
+"them with verified reviews when available."
+
+#: templates/index.html:324
+msgid "Ver más testimonios"
+msgstr "See more testimonials"
+
+#: templates/index.html:325
+msgid "Leer recursos"
+msgstr "Read resources"
+
+#: templates/index.html:333
+msgid "Preguntas frecuentes sobre"
+msgstr "Frequently asked questions about"
+
+#: templates/index.html:333
+msgid "inteligencia artificial"
+msgstr "artificial intelligence"
+
+#: templates/index.html:333
+msgid "para empresas"
+msgstr "for businesses"
+
+#: templates/index.html:341
+msgid "Leer más →"
+msgstr "Read more →"
+
+#: templates/index.html:352
+msgid "¿Listo para integrar IA en tu empresa?"
+msgstr "Ready to integrate AI into your business?"
+
+#: templates/index.html:353
+msgid ""
+"Cuéntanos qué proceso quieres mejorar. Te respondemos en menos de 24 horas "
+"con una propuesta sin compromiso."
+msgstr ""
+"Tell us which process you want to improve. We will respond in less than 24 "
+"hours with a no-obligation proposal."
+
+#: templates/index.html:355
+msgid "Solicitar consultoría"
+msgstr "Request consultancy"
+
+#: templates/index.html:356
+msgid "Ver recursos sobre IA"
+msgstr "See resources on AI"
+
+#: templates/portfolio.html:3 templates/portfolio.html:5
+msgid "Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones"
+msgstr "Success Stories in Development and Automations | Megasoluciones"
+
+#: templates/portfolio.html:4 templates/portfolio.html:6
+msgid ""
+"Casos de éxito en desarrollo de software a medida y automatizaciones "
+"empresariales en España. Proyectos reales con resultados medibles."
+msgstr ""
+"Success stories in custom software development and business automation in "
+"Spain. Real projects with measurable results."
+
+#: templates/portfolio.html:14
+msgid "Casos de éxito Megasoluciones"
+msgstr "Success stories Megasoluciones"
+
+#: templates/portfolio.html:36
+msgid "Portfolio de"
+msgstr "Portfolio of"
+
+#: templates/portfolio.html:36 templates/recursos.html:56
+msgid "desarrollo y automatizaciones"
+msgstr "development and automation"
+
+#: templates/portfolio.html:37
+msgid ""
+"Casos de éxito en software a medida, integraciones y automatización de "
+"procesos"
+msgstr ""
+"Success stories in custom software, integrations, and process automation"
+
+#: templates/portfolio.html:70
+msgid "Ver caso completo"
+msgstr "See full case"
+
+#: templates/portfolio.html:80
+msgid "Resultados Medibles"
+msgstr "Measurable Results"
+
+#: templates/portfolio.html:82
+msgid "Reducción media de tareas manuales"
+msgstr "Average reduction of manual tasks"
+
+#: templates/portfolio.html:83
+msgid "Menos tiempo en reporting"
+msgstr "Less time in reporting"
+
+#: templates/portfolio.html:84
+msgid "Ahorro anual en automatizaciones"
+msgstr "Annual savings in automations"
+
+#: templates/portfolio.html:85
+msgid "Media de entrega MVP"
+msgstr "Average MVP delivery"
+
+#: templates/portfolio.html:92
+msgid "Sectores en los que Trabajamos"
+msgstr "Sectors in which We Work"
+
+#: templates/portfolio.html:94
+msgid "Finanzas"
+msgstr "Finance"
+
+#: templates/portfolio.html:94
+msgid "Integraciones bancarias, reporting y automatización documental"
+msgstr "Bank integrations, reporting, and document automation"
+
+#: templates/portfolio.html:95
+msgid "Retail y e-commerce"
+msgstr "Retail and e-commerce"
+
+#: templates/portfolio.html:95
+msgid "Plataformas web, sincronización stock y atención automatizada"
+msgstr "Web platforms, stock synchronization, and automated customer service"
+
+#: templates/portfolio.html:96
+msgid "Industria"
+msgstr "Industry"
+
+#: templates/portfolio.html:96
+msgid "Integración ERP, automatización de pedidos y calidad"
+msgstr "ERP integration, order automation, and quality"
+
+#: templates/portfolio.html:97
+msgid "Desarrollo SaaS, APIs y productos digitales"
+msgstr "SaaS development, APIs, and digital products"
+
+#: templates/portfolio.html:98
+msgid "Legal y consultoría"
+msgstr "Legal and consulting"
+
+#: templates/portfolio.html:98
+msgid "RPA documental, extracción de datos y workflows"
+msgstr "Document RPA, data extraction, and workflows"
+
+#: templates/portfolio.html:99
+msgid "Servicios B2B"
+msgstr "B2B services"
+
+#: templates/portfolio.html:99
+msgid "Portales clientes, CRM y automatizaciones internas"
+msgstr "Client portals, CRM, and internal automations"
+
+#: templates/portfolio.html:101
+msgid "Guías sobre desarrollo y automatizaciones"
+msgstr "Guides on development and automations"
+
+#: templates/portfolio.html:108
+msgid "¿Quieres ver tu proyecto aquí?"
+msgstr "Do you want to see your project here?"
+
+#: templates/portfolio.html:109
+msgid "Hablemos de tu próximo desarrollo o automatización"
+msgstr "Let's talk about your next development or automation"
+
+#: templates/portfolio.html:110
+msgid "Empezar un Proyecto"
+msgstr "Start a Project"
+
+#: templates/recursos-actualidad.html:3
+#, fuzzy
+msgid "Actualidad IA — Recursos | Megasoluciones"
+msgstr "AI News — Resources | Megasolutions"
+
+#: templates/recursos-actualidad.html:4
+msgid ""
+"Noticias y resúmenes sobre inteligencia artificial, regulación, modelos y "
+"productividad empresarial."
+msgstr ""
+"News and summaries about artificial intelligence, regulation, models, and "
+"business productivity."
+
+#: templates/recursos-actualidad.html:5
+#, fuzzy
+msgid "Actualidad IA | Recursos Megasoluciones"
+msgstr "AI News | Megasolutions Resources"
+
+#: templates/recursos-actualidad.html:6
+msgid "Noticias y resúmenes sobre inteligencia artificial para empresas."
+msgstr "News and summaries about artificial intelligence for businesses."
+
+#: templates/recursos-actualidad.html:15
+#, fuzzy
+msgid "Actualidad IA"
+msgstr "AI News"
+
+#: templates/recursos-actualidad.html:16 templates/recursos.html:105
+msgid "Actualidad IA / Noticias del sector"
+msgstr "AI News / Industry News"
+
+#: templates/recursos-actualidad.html:17
+#, fuzzy
+msgid ""
+"Resúmenes de vídeo y novedades sobre inteligencia artificial. Para guías "
+"evergreen, consulta las"
+msgstr ""
+"Video summaries and news about artificial intelligence. For evergreen "
+"guides, check the"
+
+#: templates/recursos-actualidad.html:18
+#, fuzzy
+msgid "guías por tema"
+msgstr "guides by topic"
+
+#: templates/recursos-actualidad.html:25
+msgid "Guía pilar del cluster IA:"
+msgstr "Pillar guide of the AI cluster:"
+
+#: templates/recursos-actualidad.html:27
+msgid "SEO para IA y GEO en 2026"
+msgstr "SEO for AI and GEO in 2026"
+
+#: templates/recursos-actualidad.html:36
+#, fuzzy
+msgid "Leer resumen →"
+msgstr "Read summary →"
+
+#: templates/recursos-actualidad.html:41
+#, fuzzy
+msgid "← Volver al hub de recursos"
+msgstr "← Back to the resources hub"
+
+#: templates/recursos-tema.html:30
+#, fuzzy
+msgid "Leer artículo →"
+msgstr "Read article →"
+
+#: templates/recursos-tema.html:35
+#, fuzzy
+msgid "← Volver a todos los recursos"
+msgstr "← Back to all resources"
+
+#: templates/recursos.html:3
+msgid "Recursos — Desarrollo y Automatizaciones | Megasoluciones"
+msgstr "Resources — Development and Automations | Megasoluciones"
+
+#: templates/recursos.html:4 templates/recursos.html:6
+msgid ""
+"Guías prácticas sobre desarrollo de software a medida, automatizaciones "
+"empresariales, RPA e inteligencia artificial para empresas en España."
+msgstr ""
+"Practical guides on custom software development, business automation, RPA, "
+"and artificial intelligence for companies in Spain."
+
+#: templates/recursos.html:5
+msgid "Recursos sobre Desarrollo y Automatizaciones | Megasoluciones"
+msgstr "Resources on Development and Automations | Megasoluciones"
+
+#: templates/recursos.html:14
+msgid "Guías Megasoluciones"
+msgstr "Megasoluciones Guides"
+
+#: templates/recursos.html:46
+msgid "Guía pilar"
+msgstr "Pillar guide"
+
+#: templates/recursos.html:49
+msgid "Leer artículo"
+msgstr "Read article"
+
+#: templates/recursos.html:56
+msgid "Recursos sobre"
+msgstr "Resources on"
+
+#: templates/recursos.html:57
+msgid ""
+"Guías evergreen y actualidad sobre IA, software a medida y RPA para empresas"
+" en España"
+msgstr ""
+"Evergreen and current guides on AI, custom software, and RPA for companies "
+"in Spain"
+
+#: templates/recursos.html:63
+msgid "Guías por tema"
+msgstr "Guides by topic"
+
+#: templates/recursos.html:71
+msgid "Guía pilar:"
+msgstr "Pillar guide:"
+
+#: templates/recursos.html:82
+msgid "Ver tema"
+msgstr "View topic"
+
+#: templates/recursos.html:92
+msgid "Guías pilar"
+msgstr "Pillar guides"
+
+#: templates/recursos.html:106
+msgid ""
+"Resúmenes de vídeo y novedades del sector. Las guías evergreen están en los "
+"bloques superiores."
+msgstr ""
+"Video summaries and industry updates. The evergreen guides are in the upper "
+"blocks."
+
+#: templates/recursos.html:115
+#, python-format
+msgid "Ver toda la actualidad (%(total)d artículos) →"
+msgstr "See all the news (%(total)d articles) →"
+
+#: templates/recursos.html:125
+msgid "Todas las guías"
+msgstr "All the guides"
+
+#: templates/recursos.html:132
+msgid "Servicios relacionados:"
+msgstr "Related services:"
+
+#: templates/recursos.html:137
+msgid "Casos de éxito"
+msgstr "Success stories"
+
+#: templates/servicios.html:3 templates/servicios.html:5
+msgid "Servicios de Desarrollo y Automatización | Megasoluciones"
+msgstr "Development and Automation Services | Megasoluciones"
+
+#: templates/servicios.html:4 templates/servicios.html:6
+msgid ""
+"Servicios de desarrollo de software a medida, automatizaciones "
+"empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin "
+"compromiso."
+msgstr ""
+"Custom software development services, business automations, RPA and applied "
+"AI for companies in Spain. No-obligation quote."
+
+#: templates/servicios.html:37
+msgid "Desarrollo,"
+msgstr "Development,"
+
+#: templates/servicios.html:37
+msgid "automatizaciones"
+msgstr "Automations"
+
+#: templates/servicios.html:37
+msgid "e IA aplicada"
+msgstr "and applied AI"
+
+#: templates/servicios.html:38
+msgid ""
+"Software a medida, automatizaciones empresariales y soluciones de IA para "
+"empresas en España"
+msgstr ""
+"Custom software, business automations, and AI solutions for companies in "
+"Spain"
+
+#: templates/servicios.html:44 templates/sobre.html:21
+msgid "Desarrollo de software"
+msgstr "Software development"
+
+#: templates/servicios.html:45
+msgid "Aplicaciones web, APIs e integraciones a medida."
+msgstr "Custom web applications, APIs, and integrations."
+
+#: templates/servicios.html:45
+msgid "Ver landing de desarrollo →"
+msgstr "See development landing →"
+
+#: templates/servicios.html:45
+msgid "Artículos sobre desarrollo →"
+msgstr "Articles about development →"
+
+#: templates/servicios.html:56
+msgid "Automatizaciones empresariales"
+msgstr "Business automations"
+
+#: templates/servicios.html:57
+msgid "RPA, workflows e integración entre sistemas."
+msgstr "RPA, workflows, and system integration."
+
+#: templates/servicios.html:57
+msgid "Ver landing de automatizaciones →"
+msgstr "See automations landing →"
+
+#: templates/servicios.html:57
+msgid "Casos de automatización →"
+msgstr "Automation cases →"
+
+#: templates/servicios.html:68
+msgid "IA aplicada"
+msgstr "Applied AI"
+
+#: templates/servicios.html:69
+msgid ""
+"Chatbots, machine learning y visión artificial como complemento a desarrollo"
+" y automatizaciones. Si estás en Madrid, lee"
+msgstr ""
+"Chatbots, machine learning, and computer vision as a complement to "
+"development and automations. If you are in Madrid, read"
+
+#: templates/servicios.html:69
+msgid "cómo encaja la apuesta de la Comunidad de Madrid en IA con tu pyme"
+msgstr "how the Community of Madrid's commitment to AI fits with your SME"
+
+#: templates/servicios.html:82
+msgid "Comparativa de Servicios"
+msgstr "Service Comparison"
+
+#: templates/servicios.html:83
+msgid "Encuentra el servicio perfecto para tu empresa"
+msgstr "Find the perfect service for your company"
+
+#: templates/servicios.html:88
+msgid "Servicio"
+msgstr "Service"
+
+#: templates/servicios.html:90
+msgid "Ideal Para"
+msgstr "Ideal For"
+
+#: templates/servicios.html:91
+msgid "Tiempo Impl."
+msgstr "Impl. Time"
+
+#: templates/servicios.html:99
+msgid "Apps, webs, integraciones"
+msgstr "Apps, websites, integrations"
+
+#: templates/servicios.html:99
+msgid "Procesos, RPA, workflows"
+msgstr "Processes, RPA, workflows"
+
+#: templates/servicios.html:99
+msgid "IA avanzada"
+msgstr "Advanced AI"
+
+#: templates/servicios.html:100
+msgid "2–6 meses"
+msgstr "2–6 months"
+
+#: templates/servicios.html:100
+msgid "3–6 semanas"
+msgstr "3–6 weeks"
+
+#: templates/servicios.html:100
+msgid "2–8 meses"
+msgstr "2–8 months"
+
+#: templates/servicios.html:107
+msgid "* Precios orientativos según alcance y complejidad"
+msgstr "* Indicative prices according to scope and complexity"
+
+#: templates/servicios.html:114
+msgid "Proceso de Trabajo"
+msgstr "Work Process"
+
+#: templates/servicios.html:116
+msgid "Consulta Inicial"
+msgstr "Initial Consultation"
+
+#: templates/servicios.html:116
+msgid "Analizamos necesidades y objetivos"
+msgstr "We analyze needs and objectives"
+
+#: templates/servicios.html:117
+msgid "Propuesta Técnica"
+msgstr "Technical Proposal"
+
+#: templates/servicios.html:117
+msgid "Alcance, plazos y presupuesto"
+msgstr "Scope, deadlines, and budget"
+
+#: templates/servicios.html:118
+msgid "Desarrollo Ágil"
+msgstr "Agile Development"
+
+#: templates/servicios.html:118
+msgid "Entregas parciales cada 2 semanas"
+msgstr "Partial deliveries every 2 weeks"
+
+#: templates/servicios.html:119
+msgid "Testing & Deploy"
+msgstr "Testing & Deploy"
+
+#: templates/servicios.html:119
+msgid "Pruebas y puesta en producción"
+msgstr "Testing and production deployment"
+
+#: templates/servicios.html:120
+msgid "Soporte Continuo"
+msgstr "Continuous Support"
+
+#: templates/servicios.html:120
+msgid "Mantenimiento y evolutivos"
+msgstr "Maintenance and evolutions"
+
+#: templates/servicios.html:128
+msgid "¿Necesitas desarrollo o automatizaciones?"
+msgstr "Do you need development or automations?"
+
+#: templates/servicios.html:129
+msgid "Cuéntanos tu proyecto y te preparamos una propuesta a medida"
+msgstr "Tell us about your project and we will prepare a tailored proposal"
+
+#: templates/servicios.html:130
+msgid "Solicitar Consulta Gratis"
+msgstr "Request Free Consultation"
+
+#: templates/sobre.html:3
+msgid "Sobre Nosotros — Desarrollo y Automatizaciones | Megasoluciones"
+msgstr "About Us — Development and Automations | Megasoluciones"
+
+#: templates/sobre.html:4 templates/sobre.html:6
+msgid ""
+"Megasoluciones: empresa de desarrollo de software a medida y "
+"automatizaciones empresariales en España. Equipo experto, metodología ágil y"
+" soporte continuo."
+msgstr ""
+"Megasoluciones: custom software development and business automations company"
+" in Spain. Expert team, agile methodology, and continuous support."
+
+#: templates/sobre.html:5
+msgid "Sobre Megasoluciones — Desarrollo y Automatizaciones"
+msgstr "About Megasoluciones — Development and Automations"
+
+#: templates/sobre.html:14
+msgid "Sobre Megasoluciones"
+msgstr "About Megasoluciones"
+
+#: templates/sobre.html:20
+msgid ""
+"Empresa de desarrollo de software a medida y automatizaciones empresariales "
+"en España y LATAM"
+msgstr ""
+"Custom software development and business automations company in Spain and "
+"LATAM"
+
+#: templates/sobre.html:21
+msgid "Automatización de procesos"
+msgstr "Process Automation"
+
+#: templates/sobre.html:21
+msgid "Integración APIs"
+msgstr "API Integration"
+
+#: templates/sobre.html:31
+msgid "Sobre"
+msgstr "About"
+
+#: templates/sobre.html:32
+msgid "Empresa de desarrollo de software y automatizaciones en España y LATAM"
+msgstr "Software development and automations company in Spain and LATAM"
+
+#: templates/sobre.html:40
+msgid "Nuestra Misión"
+msgstr "Our Mission"
+
+#: templates/sobre.html:42
+msgid ""
+"Ayudar a empresas medianas y grandes en España a crecer mediante desarrollo "
+"de software a medida y automatizaciones empresariales que eliminan fricción "
+"operativa."
+msgstr ""
+"Helping medium and large companies in Spain grow through custom software "
+"development and business automations that eliminate operational friction."
+
+#: templates/sobre.html:45
+msgid ""
+"En Megasoluciones creemos que la tecnología debe resolver problemas "
+"concretos: integrar sistemas que no se comunican, eliminar horas de trabajo "
+"manual y construir herramientas que encajen con tu negocio, no al revés."
+msgstr ""
+"At Megasoluciones, we believe that technology should solve specific "
+"problems: integrating systems that do not communicate, eliminating hours of "
+"manual work, and building tools that fit your business, not the other way "
+"around."
+
+#: templates/sobre.html:48
+msgid ""
+"Desde 2015 hemos entregado más de 150 proyectos de desarrollo web, "
+"integraciones API, RPA y automatización de procesos para clientes en España "
+"y Latinoamérica. La IA la aplicamos donde aporta valor real, como acelerador"
+" de desarrollo y automatización inteligente."
+msgstr ""
+"Since 2015, we have delivered more than 150 web development projects, API "
+"integrations, RPA, and process automation for clients in Spain and Latin "
+"America. We apply AI where it provides real value, as a development "
+"accelerator and intelligent automation."
+
+#: templates/sobre.html:53
+msgid "Empresa de desarrollo y automatizaciones Megasoluciones España"
+msgstr "Development and automation company Megasoluciones Spain"
+
+#: templates/sobre.html:66
+msgid "Nuestros Valores"
+msgstr "Our Values"
+
+#: templates/sobre.html:68
+msgid "Resultados medibles"
+msgstr "Measurable results"
+
+#: templates/sobre.html:68
+msgid ""
+"Cada proyecto define KPIs: horas ahorradas, errores reducidos, tiempo de "
+"entrega."
+msgstr ""
+"Each project defines KPIs: hours saved, errors reduced, delivery time."
+
+#: templates/sobre.html:69
+msgid "Partner tecnológico"
+msgstr "Technological partner"
+
+#: templates/sobre.html:69
+msgid ""
+"No solo entregamos código: acompañamos mantenimiento, evolutivos y "
+"formación."
+msgstr ""
+"We not only deliver code: we support maintenance, evolution, and training."
+
+#: templates/sobre.html:70
+msgid "Pragmatismo técnico"
+msgstr "Technical pragmatism"
+
+#: templates/sobre.html:70
+msgid ""
+"Elegimos la solución más simple que resuelva el problema, no la más "
+"compleja."
+msgstr ""
+"We choose the simplest solution that solves the problem, not the most "
+"complex."
+
+#: templates/sobre.html:71
+msgid "Agilidad"
+msgstr "Agility"
+
+#: templates/sobre.html:71
+msgid ""
+"Entregas cada 2 semanas, comunicación transparente y presupuestos por fases."
+msgstr ""
+"Deliveries every 2 weeks, transparent communication, and phased budgets."
+
+#: templates/sobre.html:78
+msgid "Nuestro Equipo"
+msgstr "Our Team"
+
+#: templates/sobre.html:79
+msgid "Desarrolladores, integradores y especialistas en automatización"
+msgstr "Developers, integrators, and automation specialists"
+
+#: templates/sobre.html:81
+msgid "Desarrolladores Full-Stack"
+msgstr "Full-Stack Developers"
+
+#: templates/sobre.html:82
+msgid "Especialistas en automatización/RPA"
+msgstr "Automation/RPA Specialists"
+
+#: templates/sobre.html:83
+msgid "Años de experiencia media"
+msgstr "Years of average experience"
+
+#: templates/sobre.html:84
+msgid "Cobertura remota y presencial"
+msgstr "Remote and on-site coverage"
+
+#: templates/sobre.html:92
+msgid "¿Buscas un partner de desarrollo o automatización?"
+msgstr "Are you looking for a development or automation partner?"
+
+#: templates/sobre.html:93
+msgid "Agenda una videollamada con nuestro equipo"
+msgstr "Schedule a video call with our team"
+
+#: templates/sobre.html:94
+msgid "Contacta con Nosotros"
+msgstr "Contact Us"
+
+#: templates/partials/primera-consulta-roadmap.html:6
+msgid "Qué hacemos en la"
+msgstr "What we do in the"
+
+#: templates/partials/primera-consulta-roadmap.html:7
+msgid ""
+"Cuatro fases con metodología y entregables concretos: diagrama BPMN, matriz "
+"de oportunidades, informe de riesgos y roadmap por fases."
+msgstr ""
+"Four phases with methodology and concrete deliverables: BPMN diagram, "
+"opportunity matrix, risk report, and phased roadmap."
+
+#: templates/partials/primera-consulta-roadmap.html:13
+#, fuzzy
+msgid "Pasos de la primera consulta"
+msgstr "Steps of the first consultation"
+
+#: templates/partials/primera-consulta-roadmap.html:25
+#, fuzzy
+msgid "Entregables:"
+msgstr "Deliverables:"
+
+#: templates/partials/primera-consulta-roadmap.html:49
+#, fuzzy
+msgid "Reservar primera consulta"
+msgstr "Book first consultation"
+
+#: templates/partials/primera-consulta-roadmap.html:50
+msgid "Metodología completa (BPMN y resto de fases)"
+msgstr "Complete methodology (BPMN and other phases)"
+
+#: venv/lib/python3.12/site-packages/click/_termui_impl.py:191
+msgid "d"
+msgstr "d"
+
+#: venv/lib/python3.12/site-packages/click/_termui_impl.py:693
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr "{editor}: Editing failed"
+
+#: venv/lib/python3.12/site-packages/click/_termui_impl.py:697
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr "{editor}: Editing failed: {e}"
+
+#: venv/lib/python3.12/site-packages/click/_winconsole.py:156
+#: venv/lib/python3.12/site-packages/click/_winconsole.py:173
+#, python-brace-format
+msgid "Windows error: {error}"
+msgstr "Windows error: {error}"
+
+#: venv/lib/python3.12/site-packages/click/core.py:98
+msgid "deprecated"
+msgstr "deprecated"
+
+#: venv/lib/python3.12/site-packages/click/core.py:1209
+msgid "Options"
+msgstr "Options"
+
+#: venv/lib/python3.12/site-packages/click/core.py:1284
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/click/core.py:1300
+#, python-brace-format
+msgid "DeprecationWarning: The command {name!r} is deprecated.{extra_message}"
+msgstr ""
+"DeprecationWarning: The command {name!r} is deprecated.{extra_message}"
+
+#: venv/lib/python3.12/site-packages/click/core.py:1487
+msgid "Aborted!"
+msgstr "Aborted!"
+
+#: venv/lib/python3.12/site-packages/click/core.py:1861
+msgid "Commands"
+msgstr "Commands"
+
+#: venv/lib/python3.12/site-packages/click/core.py:1892
+msgid "Missing command."
+msgstr "Missing command."
+
+#: venv/lib/python3.12/site-packages/click/core.py:2404
+msgid "Value must be an iterable."
+msgstr "Value must be an iterable."
+
+#: venv/lib/python3.12/site-packages/click/core.py:2427
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/click/core.py:2624
+#, python-brace-format
+msgid ""
+"DeprecationWarning: The {param_type} {name!r} is deprecated.{extra_message}"
+msgstr ""
+"DeprecationWarning: The {param_type} {name!r} is deprecated.{extra_message}"
+
+#: venv/lib/python3.12/site-packages/click/core.py:3025
+#, python-brace-format
+msgid "Name '{name}' defined twice"
+msgstr "Name '{name}' defined twice"
+
+#: venv/lib/python3.12/site-packages/click/core.py:3041
+#, python-brace-format
+msgid "Boolean option {decl!r} cannot use the same flag for true/false."
+msgstr "Boolean option {decl!r} cannot use the same flag for true/false."
+
+#: venv/lib/python3.12/site-packages/click/core.py:3060
+#, python-brace-format
+msgid "Could not determine name for option with declarations {decls!r}"
+msgstr "Could not determine name for option with declarations {decls!r}"
+
+#: venv/lib/python3.12/site-packages/click/core.py:3067
+#, python-brace-format
+msgid ""
+"No options defined but a name was passed ({name}). Did you mean to declare "
+"an argument instead? Did you mean to pass '--{name}'?"
+msgstr ""
+"No options defined but a name was passed ({name}). Did you mean to declare "
+"an argument instead? Did you mean to pass '--{name}'?"
+
+#: venv/lib/python3.12/site-packages/click/core.py:3144
+#, python-brace-format
+msgid "env var: {var}"
+msgstr "env var: {var}"
+
+#: venv/lib/python3.12/site-packages/click/core.py:3147
+#, python-brace-format
+msgid "default: {default}"
+msgstr "default: {default}"
+
+#: venv/lib/python3.12/site-packages/click/core.py:3151
+msgid "required"
+msgstr "required"
+
+#: venv/lib/python3.12/site-packages/click/core.py:3211
+msgid "(dynamic)"
+msgstr "(dynamic)"
+
+#: venv/lib/python3.12/site-packages/click/core.py:3503
+#, python-brace-format
+msgid ""
+"Arguments take exactly one parameter declaration, got {length}: {decls}."
+msgstr ""
+"Arguments take exactly one parameter declaration, got {length}: {decls}."
+
+#: venv/lib/python3.12/site-packages/click/decorators.py:399
+msgid "Do you want to continue?"
+msgstr "Do you want to continue?"
+
+#: venv/lib/python3.12/site-packages/click/decorators.py:400
+msgid "Confirm the action without prompting."
+msgstr "Confirm the action without prompting."
+
+#: venv/lib/python3.12/site-packages/click/decorators.py:465
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr "%(prog)s, version %(version)s"
+
+#: venv/lib/python3.12/site-packages/click/decorators.py:522
+msgid "Show the version and exit."
+msgstr "Show the version and exit."
+
+#: venv/lib/python3.12/site-packages/click/decorators.py:548
+msgid "Show this message and exit."
+msgstr "Show this message and exit."
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:29
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Did you mean one of: {possibilities}?)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:59
+#: venv/lib/python3.12/site-packages/click/exceptions.py:102
+#: venv/lib/python3.12/site-packages/click/termui.py:228
+#, python-brace-format
+msgid "Error: {message}"
+msgstr "Error: {message}"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:93
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr "Try '{command} {option}' for help."
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:143
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr "Invalid value: {message}"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:145
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr "Invalid value for {param_hint}: {message}"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:203
+msgid "Missing argument"
+msgstr "Missing argument"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:205
+msgid "Missing option"
+msgstr "Missing option"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:207
+msgid "Missing parameter"
+msgstr "Missing parameter"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:209
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr "Missing {param_type}"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:216
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr "Missing parameter: {param_name}"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:235
+#, python-brace-format
+msgid "No such option {name!r}."
+msgstr "No such option {name!r}."
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:265
+#, python-brace-format
+msgid "No such command {name!r}."
+msgstr "No such command {name!r}."
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:321
+msgid "unknown error"
+msgstr "unknown error"
+
+#: venv/lib/python3.12/site-packages/click/exceptions.py:328
+#, python-brace-format
+msgid "Could not open file {filename!r}: {message}"
+msgstr "Could not open file {filename!r}: {message}"
+
+#: venv/lib/python3.12/site-packages/click/formatting.py:162
+msgid "Usage:"
+msgstr "Usage:"
+
+#: venv/lib/python3.12/site-packages/click/parser.py:145
+#, python-brace-format
+msgid "Invalid start character for option ({option})"
+msgstr "Invalid start character for option ({option})"
+
+#: venv/lib/python3.12/site-packages/click/parser.py:203
+#, python-brace-format
+msgid "Argument {name!r} takes {nargs} values."
+msgstr "Argument {name!r} takes {nargs} values."
+
+#: venv/lib/python3.12/site-packages/click/parser.py:382
+#, python-brace-format
+msgid "Option {name!r} does not take a value."
+msgstr "Option {name!r} does not take a value."
+
+#: venv/lib/python3.12/site-packages/click/parser.py:445
+#, python-brace-format
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/click/shell_completion.py:337
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr "Shell completion is not supported for Bash versions older than 4.4."
+
+#: venv/lib/python3.12/site-packages/click/shell_completion.py:344
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+"No se pudo detectar la versión de Bash, la finalización del shell no es "
+"compatible."
+
+#: venv/lib/python3.12/site-packages/click/termui.py:212
+msgid "Repeat for confirmation"
+msgstr "Repetir para confirmación"
+
+#: venv/lib/python3.12/site-packages/click/termui.py:239
+msgid "Error: The two entered values do not match."
+msgstr "Error: Los dos valores ingresados no coinciden."
+
+#: venv/lib/python3.12/site-packages/click/termui.py:293
+msgid "Error: invalid input"
+msgstr "Error: entrada no válida"
+
+#: venv/lib/python3.12/site-packages/click/termui.py:675
+#: venv/lib/python3.12/site-packages/click/termui.py:681
+#, python-brace-format
+msgid "Unknown color {colour!r}"
+msgstr "Color desconocido {colour!r}"
+
+#: venv/lib/python3.12/site-packages/click/termui.py:930
+msgid "Press any key to continue..."
+msgstr "Presione cualquier tecla para continuar..."
+
+#: venv/lib/python3.12/site-packages/click/types.py:364
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+"Elija entre:\n"
+"\t{choices}"
+
+#: venv/lib/python3.12/site-packages/click/types.py:401
+#, python-brace-format
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/click/types.py:407
+#, python-brace-format
+msgid "Choice({choices})"
+msgstr "Elección({choices})"
+
+#: venv/lib/python3.12/site-packages/click/types.py:493
+#, python-brace-format
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/click/types.py:515
+#, python-brace-format
+msgid "{value!r} is not a valid {number_type}."
+msgstr "{value!r} no es un {number_type} válido."
+
+#: venv/lib/python3.12/site-packages/click/types.py:580
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr "{value} no está en el rango {range}."
+
+#: venv/lib/python3.12/site-packages/click/types.py:762
+#, python-brace-format
+msgid "{value!r} is not a valid boolean. Recognized values: {states}"
+msgstr "{value!r} no es un booleano válido. Valores reconocidos: {states}"
+
+#: venv/lib/python3.12/site-packages/click/types.py:788
+#, python-brace-format
+msgid "{value!r} is not a valid UUID."
+msgstr "{value!r} no es un UUID válido."
+
+#: venv/lib/python3.12/site-packages/click/types.py:998
+msgid "file"
+msgstr "archivo"
+
+#: venv/lib/python3.12/site-packages/click/types.py:1000
+msgid "directory"
+msgstr "directorio"
+
+#: venv/lib/python3.12/site-packages/click/types.py:1002
+msgid "path"
+msgstr "ruta"
+
+#: venv/lib/python3.12/site-packages/click/types.py:1048
+#, python-brace-format
+msgid "{name} {filename!r} does not exist."
+msgstr "{name} {filename!r} no existe."
+
+#: venv/lib/python3.12/site-packages/click/types.py:1057
+#, python-brace-format
+msgid "{name} {filename!r} is a file."
+msgstr "{name} {filename!r} es un archivo."
+
+#: venv/lib/python3.12/site-packages/click/types.py:1065
+#, python-brace-format
+msgid "{name} {filename!r} is a directory."
+msgstr "{name} {filename!r} es un directorio."
+
+#: venv/lib/python3.12/site-packages/click/types.py:1074
+#, python-brace-format
+msgid "{name} {filename!r} is not readable."
+msgstr "{name} {filename!r} is not readable."
+
+#: venv/lib/python3.12/site-packages/click/types.py:1083
+#, python-brace-format
+msgid "{name} {filename!r} is not writable."
+msgstr "{name} {filename!r} is not writable."
+
+#: venv/lib/python3.12/site-packages/click/types.py:1092
+#, python-brace-format
+msgid "{name} {filename!r} is not executable."
+msgstr "{name} {filename!r} is not executable."
+
+#: venv/lib/python3.12/site-packages/click/types.py:1164
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/click/utils.py:345
+#: venv/lib/python3.12/site-packages/click/utils.py:366
+#, python-brace-format
+msgid "Unknown standard stream '{name}'"
+msgstr "Unknown standard stream '{name}'"
+
+#: venv/lib/python3.12/site-packages/flask_wtf/file.py:57
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:293
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:323
+msgid "This field is required."
+msgstr "This field is required."
+
+#: venv/lib/python3.12/site-packages/flask_wtf/file.py:96
+#, python-brace-format
+msgid "File does not have an approved extension: {extensions}"
+msgstr "File does not have an approved extension: {extensions}"
+
+#: venv/lib/python3.12/site-packages/flask_wtf/file.py:103
+msgid "File does not have an approved extension."
+msgstr "File does not have an approved extension."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:86
+#, python-format
+msgid "Invalid field name '%s'."
+msgstr "Invalid field name '%s'."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:99
+#, python-format
+msgid "Field must be equal to %(other_name)s."
+msgstr "Field must be equal to %(other_name)s."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:146
+#, python-format
+msgid "Field must be at least %(min)d character long."
+msgid_plural "Field must be at least %(min)d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:152
+#, python-format
+msgid "Field cannot be longer than %(max)d character."
+msgid_plural "Field cannot be longer than %(max)d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:158
+#, python-format
+msgid "Field must be exactly %(max)d character long."
+msgid_plural "Field must be exactly %(max)d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:164
+#, python-format
+msgid "Field must be between %(min)d and %(max)d characters long."
+msgstr "Field must be between %(min)d and %(max)d characters long."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:216
+#, python-format
+msgid "Number must be at least %(min)s."
+msgstr "Number must be at least %(min)s."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:219
+#, python-format
+msgid "Number must be at most %(max)s."
+msgstr "Number must be at most %(max)s."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:222
+#, python-format
+msgid "Number must be between %(min)s and %(max)s."
+msgstr "Number must be between %(min)s and %(max)s."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:358
+msgid "Invalid input."
+msgstr "Invalid input."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:422
+msgid "Invalid email address."
+msgstr "Invalid email address."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:460
+msgid "Invalid IP address."
+msgstr "Invalid IP address."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:503
+msgid "Invalid Mac address."
+msgstr "Dirección MAC no válida."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:540
+msgid "Invalid URL."
+msgstr "URL no válida."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:561
+msgid "Invalid UUID."
+msgstr "UUID no válido."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:595
+#, python-format
+msgid "Invalid value, must be one of: %(values)s."
+msgstr "Valor no válido, debe ser uno de: %(values)s."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:631
+#, python-format
+msgid "Invalid value, can't be any of: %(values)s."
+msgstr "Valor no válido, no puede ser ninguno de: %(values)s."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:700
+msgid "This field cannot be edited."
+msgstr "Este campo no se puede editar."
+
+#: venv/lib/python3.12/site-packages/wtforms/validators.py:716
+msgid "This field is disabled and cannot have a value."
+msgstr "Este campo está deshabilitado y no puede tener un valor."
+
+#: venv/lib/python3.12/site-packages/wtforms/csrf/core.py:96
+msgid "Invalid CSRF Token."
+msgstr "Token CSRF no válido."
+
+#: venv/lib/python3.12/site-packages/wtforms/csrf/session.py:64
+msgid "CSRF token missing."
+msgstr "Falta el token CSRF."
+
+#: venv/lib/python3.12/site-packages/wtforms/csrf/session.py:72
+msgid "CSRF failed."
+msgstr "CSRF fallido."
+
+#: venv/lib/python3.12/site-packages/wtforms/csrf/session.py:77
+msgid "CSRF token expired."
+msgstr "CSRF token expired."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/choices.py:140
+msgid "Invalid Choice: could not coerce."
+msgstr "Invalid Choice: could not coerce."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/choices.py:147
+#: venv/lib/python3.12/site-packages/wtforms/fields/choices.py:201
+msgid "Choices cannot be None."
+msgstr "Choices cannot be None."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/choices.py:153
+msgid "Not a valid choice."
+msgstr "Not a valid choice."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/choices.py:192
+msgid "Invalid choice(s): one or more data inputs could not be coerced."
+msgstr "Invalid choice(s): one or more data inputs could not be coerced."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/choices.py:210
+#, python-format
+msgid "'%(value)s' is not a valid choice for this field."
+msgid_plural "'%(value)s' are not valid choices for this field."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/datetime.py:52
+msgid "Not a valid datetime value."
+msgstr "Not a valid datetime value."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/datetime.py:78
+msgid "Not a valid date value."
+msgstr "Not a valid date value."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/datetime.py:104
+msgid "Not a valid time value."
+msgstr "Not a valid time value."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/datetime.py:149
+msgid "Not a valid week value."
+msgstr "Not a valid week value."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/numeric.py:82
+#: venv/lib/python3.12/site-packages/wtforms/fields/numeric.py:92
+msgid "Not a valid integer value."
+msgstr "Not a valid integer value."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/numeric.py:168
+msgid "Not a valid decimal value."
+msgstr "Not a valid decimal value."
+
+#: venv/lib/python3.12/site-packages/wtforms/fields/numeric.py:197
+msgid "Not a valid float value."
+msgstr "Not a valid float value."

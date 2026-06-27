@@ -1854,3 +1854,4 @@ a {
 .section-note { font-size: 0.9rem; color: #6b7280; font-style: italic; margin-top: 0.5rem; }
 .geo-cta-section { padding-bottom: 4rem; }
 .geo-cta-section .hero-microcopy { margin-top: 1rem; }
+.lang-item { display: flex; align-items: center; margin-left: 0.5rem; } .lang-selector { font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 4px; background: #f1f5f9; color: #334155; text-decoration: none; transition: background 0.2s; } .lang-selector:hover { background: #e2e8f0; }

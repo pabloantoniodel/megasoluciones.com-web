@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{{ caso.titulo }} — Caso de Éxito | Megasoluciones{% endblock %}
-{% block meta_description %}{{ caso.descripcion }}{% endblock %}
-{% block og_title %}{{ caso.titulo }} | Megasoluciones{% endblock %}
-{% block og_description %}{{ caso.descripcion }}{% endblock %}
+{% block title %}{{ get_field(caso, 'titulo') }} — Caso de Éxito | Megasoluciones{% endblock %}
+{% block meta_description %}{{ get_field(caso, 'descripcion') }}{% endblock %}
+{% block og_title %}{{ get_field(caso, 'titulo') }} | Megasoluciones{% endblock %}
+{% block og_description %}{{ get_field(caso, 'descripcion') }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -11,8 +11,8 @@
 {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  "name": {{ caso.titulo|tojson }},
-  "description": {{ caso.descripcion|tojson }},
+  "name": {{ get_field(caso, 'titulo')|tojson }},
+  "description": {{ get_field(caso, 'descripcion')|tojson }},
   "creator": {"@type": "Organization", "name": "Megasoluciones"},
   "about": {{ caso.categoria|tojson }},
   "image": "{{ url_for('static', filename='images/' ~ caso.imagen ~ '.webp', _external=True) }}"
@@ -23,9 +23,9 @@
 {% block content %}
 <nav class="breadcrumb" aria-label="Breadcrumb">
     <div class="container">
-        <a href="{{ url_for('index') }}">Inicio</a> ›
-        <a href="{{ url_for('portfolio') }}">Portfolio</a> ›
-        <span>{{ caso.titulo }}</span>
+        <a href="{{ url_for('index') }}">{{ _('Inicio') }}</a> ›
+        <a href="{{ url_for('portfolio') }}">{{ _('Portfolio') }}</a> ›
+        <span>{{ get_field(caso, 'titulo') }}</span>
     </div>
 </nav>
 
@@ -33,11 +33,11 @@
     <div class="container">
         <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if caso.categoria == 'Desarrollo' else 'automatizacion' }}">{{ caso.categoria }}</span>
         {% if caso.real %}
-            <span class="portfolio-badge portfolio-badge-real">Listo para producción</span>
+            <span class="portfolio-badge portfolio-badge-real">{{ _('Listo para producción') }}</span>
         {% else %}
-            <span class="portfolio-badge portfolio-badge-mvp">MVP</span>
+            <span class="portfolio-badge portfolio-badge-mvp">{{ _('MVP') }}</span>
         {% endif %}
-        <h1>{{ caso.titulo }}</h1>
+        <h1>{{ get_field(caso, 'titulo') }}</h1>
         <p class="lead">{{ caso.cliente }}</p>
     </div>
 </section>
@@ -47,7 +47,7 @@
         <div class="caso-layout">
             <div>
                 {% set img_name = caso.imagen %}
-                {% set alt = caso.titulo %}
+                {% set alt = get_field(caso, 'titulo') %}
                 {% set width = 600 %}
                 {% set height = 400 %}
                 {% set lazy = true %}
@@ -58,30 +58,30 @@
                 {% if portfolio_body %}
                 <div class="landing-content">{{ portfolio_body|safe }}</div>
                 {% else %}
-                <h2>El problema</h2>
-                <p>{{ caso.problema }}</p>
-                <h2>La solución</h2>
-                <p>{{ caso.solucion }}</p>
-                <h2>Resultados</h2>
+                <h2>{{ _('El problema') }}</h2>
+                <p>{{ get_field(caso, 'problema') }}</p>
+                <h2>{{ _('La solución') }}</h2>
+                <p>{{ get_field(caso, 'solucion') }}</p>
+                <h2>{{ _('Resultados') }}</h2>
                 <ul class="landing-list">
-                    {% for r in caso.resultados %}
+                    {% for r in get_field(caso, 'resultados') %}
                     <li>{{ r }}</li>
                     {% endfor %}
                 </ul>
                 {% endif %}
-                <h2>Enfoque del proyecto</h2>
+                <h2>{{ _('Enfoque del proyecto') }}</h2>
                 <div class="portfolio-tech">
-                    {% for tech in caso.tecnologias %}
+                    {% for tech in get_field(caso, 'tecnologias') %}
                     <span class="tech-badge">{{ tech }}</span>
                     {% endfor %}
                 </div>
-                {% if caso.testimonial %}
-                <blockquote class="caso-quote">"{{ caso.testimonial }}"</blockquote>
+                {% if get_field(caso, 'testimonial') %}
+                <blockquote class="caso-quote">"{{ get_field(caso, 'testimonial') }}"</blockquote>
                 {% endif %}
                 {% if caso.articulo_slug %}
-                <p style="margin-top:1rem"><a href="{{ url_for('recurso_articulo', slug=caso.articulo_slug) }}">Leer noticia del proyecto →</a></p>
+                <p style="margin-top:1rem"><a href="{{ url_for('recurso_articulo', slug=caso.articulo_slug) }}">{{ _('Leer noticia del proyecto') }} →</a></p>
                 {% endif %}
-                <a href="{{ url_for('contacto', servicio=servicio) }}" class="btn-primary btn-lg">Proyecto similar</a>
+                <a href="{{ url_for('contacto', servicio=servicio) }}" class="btn-primary btn-lg">{{ _('Proyecto similar') }}</a>
             </div>
         </div>
     </div>

@@ -1,0 +1,1136 @@
+{
+  "GEO_HUB": {
+    "slug": "",
+    "h1": "Servicios por zona en la Comunidad de Madrid",
+    "h1_en": "Services by area in the Community of Madrid",
+    "subtitle": "Automatización, desarrollo de software e inteligencia artificial para empresas en Madrid capital y municipios del Corredor del Henares.",
+    "subtitle_en": "Automation, software development, and artificial intelligence for businesses in Madrid city and municipalities of the Henares Corridor.",
+    "meta_title": "Servicios por zona — Comunidad de Madrid | Megasoluciones",
+    "meta_title_en": "Services by area — Community of Madrid | Megasoluciones",
+    "meta_description": "Mapa de servicios de Megasoluciones por municipio: IA en Madrid, automatización y desarrollo en Alcalá, Torrejón, Coslada, Rivas, Arganda y San Fernando.",
+    "meta_description_en": "Megasoluciones service map by municipality: AI in Madrid, automation and development in Alcalá, Torrejón, Coslada, Rivas, Arganda, and San Fernando.",
+    "sitemap_priority": "0.75"
+  },
+  "GEO_PAGES": {
+    "madrid": {
+      "slug": "madrid",
+      "city_name": "Madrid",
+      "city_name_en": "Madrid",
+      "h1": "Agencia de Inteligencia Artificial en Madrid",
+      "h1_en": "Artificial Intelligence Agency in Madrid",
+      "subtitle": "Soluciones de IA, automatización y desarrollo a medida para empresas y pymes en la capital. Proyectos por fases, con equipos que pueden trabajar contigo en remoto o de forma presencial cuando el proyecto lo requiera.",
+      "subtitle_en": "AI solutions, automation, and custom development for companies and SMEs in the capital. Phased projects, with teams that can work with you remotely or on-site when the project requires it.",
+      "meta_title": "Agencia de Inteligencia Artificial Madrid | Megasoluciones",
+      "meta_title_en": "Artificial Intelligence Agency Madrid | Megasoluciones",
+      "meta_description": "Chatbots, automatización RPA, integraciones Odoo/CRM y desarrollo a medida para empresas en Madrid. Primera consulta sin compromiso.",
+      "meta_description_en": "Chatbots, RPA automation, Odoo/CRM integrations, and custom development for companies in Madrid. First consultation without obligation.",
+      "sitemap_priority": "0.8",
+      "intro_title": "Qué hacemos en Madrid",
+      "intro_title_en": "What We Do in Madrid",
+      "intro_paragraphs": [
+        "Madrid concentra una parte relevante de la actividad empresarial de España: servicios profesionales, retail, logística, finanzas, hostelería y tecnología. En ese contexto, la inteligencia artificial deja de ser un experimento y pasa a resolver problemas concretos: atender consultas fuera de horario, sincronizar datos entre sistemas que no se hablan o reducir horas de trabajo administrativo.",
+        "En Megasoluciones trabajamos con empresas madrileñas — desde oficinas en el centro y el norte de la ciudad hasta operaciones en polígonos del Corredor del Henares — en proyectos de IA aplicada: chatbots, automatización de procesos, integraciones y software a medida. No vendemos presentaciones: entregamos sistemas en producción, con soporte posterior.",
+        "Nuestro enfoque empieza por entender qué proceso te cuesta más tiempo o genera más errores. A partir de ahí definimos un piloto acotado, lo validamos con datos reales y escalamos solo si el retorno está claro."
+      ],
+      "intro_paragraphs_en": [
+        "Madrid concentrates a significant part of Spain's business activity: professional services, retail, logistics, finance, hospitality, and technology. In this context, artificial intelligence stops being an experiment and starts solving specific problems: handling inquiries outside business hours, synchronizing data between systems that don't communicate, or reducing hours of administrative work.",
+        "At Megasoluciones, we work with Madrid-based companies — from offices in the city center and north to operations in industrial areas of the Henares Corridor — on applied AI projects: chatbots, process automation, integrations, and custom software. We don't sell presentations: we deliver production systems with post-support.",
+        "Our approach starts by understanding which process takes you the most time or generates the most errors. From there, we define a limited pilot, validate it with real data, and scale only if the return is clear."
+      ],
+      "resources_article_slug": "agencia-ia-madrid-apuesta-comunidad-pymes",
+      "services_title": "Servicios más demandados en Madrid",
+      "services_title_en": "Most Demanded Services in Madrid",
+      "services": [
+        {
+          "title": "Chatbots IA",
+          "title_en": "AI Chatbots",
+          "description": "Asistentes para web, WhatsApp o CRM que resuelven consultas frecuentes, cualifican leads y derivan a un humano cuando hace falta. Útil para e-commerce, clínicas, inmobiliarias, academias y cualquier negocio con alto volumen de preguntas repetitivas en Madrid.",
+          "description_en": "Assistants for web, WhatsApp, or CRM that resolve frequent inquiries, qualify leads, and refer to a human when necessary. Useful for e-commerce, clinics, real estate, academies, and any business with a high volume of repetitive questions in Madrid."
+        },
+        {
+          "title": "Automatización RPA + APIs",
+          "title_en": "RPA Automation + APIs",
+          "description": "Workflows y robots que conectan ERP, CRM, email, hojas de cálculo y herramientas SaaS. Eliminan la copia manual de datos entre sistemas — un dolor habitual en pymes madrileñas que han crecido acumulando software sin integrar.",
+          "description_en": "Workflows and robots that connect ERP, CRM, email, spreadsheets, and SaaS tools. They eliminate manual data copying between systems — a common pain for Madrid SMEs that have grown by accumulating non-integrated software."
+        },
+        {
+          "title": "Integraciones con Odoo / CRM / ERP",
+          "title_en": "Integrations with Odoo / CRM / ERP",
+          "description": "Conectamos Odoo, HubSpot, Salesforce, Holded y otros sistemas con APIs, webhooks y agentes de IA. Si tu operativa en Madrid depende de varias herramientas que no se sincronizan, aquí está el punto de partida.",
+          "description_en": "We connect Odoo, HubSpot, Salesforce, Holded, and other systems with APIs, webhooks, and AI agents. If your operations in Madrid depend on several tools that don't synchronize, this is the starting point."
+        },
+        {
+          "title": "Desarrollo a medida",
+          "title_en": "Custom Development",
+          "description": "Aplicaciones web, paneles internos, APIs y microservicios con IA embebida. Para empresas que necesitan una herramienta propia, no un SaaS genérico que no encaja con su forma de trabajar.",
+          "description_en": "Web applications, internal dashboards, APIs, and microservices with embedded AI. For companies that need their own tool, not a generic SaaS that doesn't fit their way of working."
+        },
+        {
+          "title": "Modelos predictivos",
+          "title_en": "Predictive Models",
+          "description": "Análisis de datos para prever demanda, detectar anomalías o priorizar leads. Aplicado a inventario, facturación, operaciones logísticas o carteras comerciales — siempre con datos que ya tienes, no con promesas abstractas.",
+          "description_en": "Data analysis to forecast demand, detect anomalies, or prioritize leads. Applied to inventory, billing, logistics operations, or commercial portfolios — always with data you already have, not with abstract promises."
+        }
+      ],
+      "use_cases_title": "Casos de uso reales en Madrid",
+      "use_cases_title_en": "Real Use Cases in Madrid",
+      "use_cases_note": "Ejemplos ilustrativos de procesos habituales. No representan clientes concretos.",
+      "use_cases_note_en": "Illustrative examples of common processes. They do not represent specific clients.",
+      "use_cases": [
+        {
+          "context": "Despacho profesional (Chamberí / Salamanca)",
+          "context_en": "Professional Office (Chamberí / Salamanca)",
+          "situation": "Clasificación manual de documentos entrantes por email",
+          "situation_en": "Manual classification of incoming documents by email",
+          "solution": "Pipeline OCR + clasificación con IA y revisión humana",
+          "solution_en": "OCR pipeline + AI classification and human review"
+        },
+        {
+          "context": "E-commerce con almacén en Getafe o Leganés",
+          "context_en": "E-commerce with warehouse in Getafe or Leganés",
+          "situation": "Consultas repetitivas sobre envíos, devoluciones y stock",
+          "situation_en": "Repetitive inquiries about shipments, returns, and stock",
+          "solution": "Chatbot conectado al ERP con respuestas en tiempo real",
+          "solution_en": "Chatbot connected to ERP with real-time responses"
+        },
+        {
+          "context": "Empresa de servicios B2B (AZCA / Nuevos Ministerios)",
+          "context_en": "B2B Service Company (AZCA / Nuevos Ministerios)",
+          "situation": "Informes semanales copiados entre CRM, Excel y email",
+          "situation_en": "Weekly reports copied between CRM, Excel, and email",
+          "solution": "Dashboard automatizado con datos sincronizados",
+          "solution_en": "Automated dashboard with synchronized data"
+        },
+        {
+          "context": "Distribuidora en polígono sur",
+          "context_en": "Distributor in southern industrial area",
+          "situation": "Pedidos duplicados entre tienda online y ERP",
+          "situation_en": "Duplicate orders between online store and ERP",
+          "solution": "Workflow de sincronización con validación automática",
+          "solution_en": "Synchronization workflow with automatic validation"
+        },
+        {
+          "context": "Clínica o centro sanitario privado",
+          "context_en": "Private clinic or healthcare center",
+          "situation": "Cita previa y FAQs fuera de horario de recepción",
+          "situation_en": "Appointments and FAQs outside reception hours",
+          "solution": "Chatbot multicanal con escalado a personal en horario laboral",
+          "solution_en": "Multichannel chatbot with escalation to staff during working hours"
+        },
+        {
+          "context": "Startup en distrito tecnológico",
+          "context_en": "Startup in tech district",
+          "situation": "MVP con IA embebida sin equipo interno de ML",
+          "situation_en": "MVP with embedded AI without an internal ML team",
+          "solution": "Desarrollo a medida por fases con modelo preentrenado + fine-tuning",
+          "solution_en": "Custom phased development with pre-trained model + fine-tuning"
+        }
+      ],
+      "benefits_title": "Beneficios claros",
+      "benefits_title_en": "Clear Benefits",
+      "benefits": [
+        "Menos horas en tareas repetitivas — reporting, altas, conciliaciones y sincronización de datos.",
+        "Atención al cliente ampliada — el chatbot cubre lo frecuente; tu equipo se centra en lo que aporta valor.",
+        "Sistemas conectados — IA integrada en las herramientas que ya usas, no otro silo más.",
+        "Pilotos antes de escalar — inviertes de forma progresiva, con entregas cada dos semanas.",
+        "Cumplimiento RGPD — datos en entornos controlados, contratos claros y documentación incluida."
+      ],
+      "benefits_en": [
+        "Fewer hours on repetitive tasks — reporting, registrations, reconciliations, and data synchronization.",
+        "Extended customer service — the chatbot covers the frequent; your team focuses on what adds value.",
+        "Connected systems — AI integrated into the tools you already use, not another silo.",
+        "Pilots before scaling — you invest progressively, with deliveries every two weeks.",
+        "GDPR compliance — data in controlled environments, clear contracts, and included documentation."
+      ],
+      "why_title": "Por qué trabajar con nosotros si estás en Madrid",
+      "why_title_en": "Why Work with Us if You Are in Madrid",
+      "why_items": [
+        "Base en Madrid, alcance nacional — reuniones presenciales cuando el proyecto lo pide; remoto para el día a día.",
+        "ADN de desarrollo — no somos consultores que entregan un informe y se van: implementamos, desplegamos y mantenemos.",
+        "Enfoque pyme y mediana empresa — presupuestos adaptados, sin mínimos diseñados solo para corporaciones.",
+        "Transparencia en cada fase — sabes qué se entrega, cuándo y cuánto cuesta antes de seguir adelante."
+      ],
+      "why_items_en": [
+        "Based in Madrid, national reach — face-to-face meetings when the project requires it; remote for day-to-day.",
+        "Development DNA — we are not consultants who deliver a report and leave: we implement, deploy, and maintain.",
+        "SME and medium-sized company focus — adapted budgets, without minimums designed only for corporations.",
+        "Transparency at every stage — you know what is delivered, when, and how much it costs before moving forward."
+      ],
+      "cta_title": "¿Tienes un proceso en Madrid que quieres automatizar o mejorar con IA?",
+      "cta_title_en": "Do You Have a Process in Madrid You Want to Automate or Improve with AI?",
+      "cta_text": "Cuéntanos tu caso. Respondemos en menos de 24 horas y la primera consulta es sin compromiso.",
+      "cta_text_en": "Tell us your case. We respond in less than 24 hours and the first consultation is without obligation.",
+      "contact_servicio": "consultoria-ia",
+      "contact_origen": "geo-madrid",
+      "related_slugs": [
+        "comunidad-de-madrid",
+        "rivas-vaciamadrid"
+      ],
+      "parent_slug": "comunidad-de-madrid"
+    },
+    "comunidad-de-madrid": {
+      "slug": "comunidad-de-madrid",
+      "city_name": "Comunidad de Madrid",
+      "city_name_en": "Community of Madrid",
+      "h1": "Automatización y Desarrollo Tecnológico en la Comunidad de Madrid",
+      "h1_en": "Automation and Technological Development in the Community of Madrid",
+      "subtitle": "Soluciones de software, integraciones e IA aplicada para empresas en toda la región: desde la capital hasta municipios del Corredor del Henares, la zona sur y el resto de provincia.",
+      "subtitle_en": "Software solutions, integrations, and applied AI for companies throughout the region: from the capital to municipalities in the Henares Corridor, the southern area, and the rest of the province.",
+      "meta_title": "Automatización y Desarrollo en la Comunidad de Madrid | Megasoluciones",
+      "meta_title_en": "Automation and Development in the Community of Madrid | Megasoluciones",
+      "meta_description": "Software, integraciones e IA aplicada para empresas de toda la Comunidad de Madrid. Corredor del Henares, sur y capital.",
+      "meta_description_en": "Software, integrations, and applied AI for companies throughout the Community of Madrid. Henares Corridor, south, and capital.",
+      "sitemap_priority": "0.75",
+      "intro_title": "Sectores con los que trabajamos",
+      "intro_title_en": "Sectors We Work With",
+      "sectors": [
+        {
+          "title": "Logística y transporte",
+          "title_en": "Logistics and Transportation",
+          "description": "Operadores en Corredor del Henares, plataformas junto a Barajas, distribución última milla.",
+          "description_en": "Operators in the Henares Corridor, platforms near Barajas, last-mile distribution."
+        },
+        {
+          "title": "Industria y manufactura",
+          "title_en": "Industry and Manufacturing",
+          "description": "Metal, alimentación, cerámica y componentes en polígonos de Coslada, Arganda, San Fernando.",
+          "description_en": "Metal, food, ceramics, and components in industrial areas of Coslada, Arganda, San Fernando."
+        },
+        {
+          "title": "Servicios profesionales",
+          "title_en": "Professional Services",
+          "description": "Despachos, consultoras, inmobiliarias y agencias en Madrid capital y municipios del cinturón.",
+          "description_en": "Offices, consultancies, real estate, and agencies in Madrid capital and surrounding municipalities."
+        },
+        {
+          "title": "Retail y hostelería",
+          "title_en": "Retail and Hospitality",
+          "description": "Cadenas, franquicias y comercio local con necesidad de digitalización operativa.",
+          "description_en": "Chains, franchises, and local commerce in need of operational digitalization."
+        },
+        {
+          "title": "Tecnología y startups",
+          "title_en": "Technology and Startups",
+          "description": "Empresas en parques tecnológicos (Rivas, Tres Cantos, Madrid) que necesitan desarrollo o integraciones.",
+          "description_en": "Companies in technology parks (Rivas, Tres Cantos, Madrid) that need development or integrations."
+        },
+        {
+          "title": "Educación y formación",
+          "title_en": "Education and Training",
+          "description": "Centros con gestión de matrículas, comunicación con familias y administración documental.",
+          "description_en": "Centers with enrollment management, family communication, and document administration."
+        },
+        {
+          "title": "Salud privada",
+          "title_en": "Private Health",
+          "description": "Clínicas y centros con citas, historiales y atención multicanal.",
+          "description_en": "Clinics and centers with appointments, records, and multichannel care."
+        }
+      ],
+      "services_title": "Servicios aplicables a toda la región",
+      "services_title_en": "Services Applicable to the Entire Region",
+      "services": [
+        {
+          "title": "Automatización de procesos",
+          "title_en": "Process Automation",
+          "description": "Workflows, RPA y agentes que eliminan tareas manuales entre ERP, CRM, email y hojas de cálculo. Aplicable a cualquier empresa de la Comunidad que haya crecido usando herramientas desconectadas.",
+          "description_en": "Workflows, RPA, and agents that eliminate manual tasks between ERP, CRM, email, and spreadsheets. Applicable to any company in the Community that has grown using disconnected tools."
+        },
+        {
+          "title": "Desarrollo de software a medida",
+          "title_en": "Custom Software Development",
+          "description": "Aplicaciones web, APIs, paneles internos y conectores. Para empresas que necesitan una solución propia, no un producto genérico.",
+          "description_en": "Web applications, APIs, internal panels, and connectors. For companies that need their own solution, not a generic product."
+        },
+        {
+          "title": "Integraciones entre sistemas",
+          "title_en": "System Integrations",
+          "description": "Odoo, HubSpot, Salesforce, Holded, Google Workspace, Microsoft 365 y herramientas sectoriales. Unificamos datos sin cambiar toda tu operativa de golpe.",
+          "description_en": "Odoo, HubSpot, Salesforce, Holded, Google Workspace, Microsoft 365, and sector-specific tools. We unify data without changing your entire operation at once."
+        },
+        {
+          "title": "Chatbots y asistentes IA",
+          "title_en": "Chatbots and AI Assistants",
+          "description": "Atención al cliente, cualificación de leads y FAQs automatizadas. Web, WhatsApp o integrados en tu CRM.",
+          "description_en": "Customer service, lead qualification, and automated FAQs. Web, WhatsApp, or integrated into your CRM."
+        },
+        {
+          "title": "Consultoría tecnológica",
+          "title_en": "Technology Consulting",
+          "description": "Diagnóstico de madurez digital, hoja de ruta, viabilidad de proyectos de IA y selección de herramientas. Para decidir bien antes de invertir.",
+          "description_en": "Digital maturity diagnosis, roadmap, AI project feasibility, and tool selection. To make informed decisions before investing."
+        }
+      ],
+      "use_cases_title": "Casos de uso por tipo de empresa",
+      "use_cases_title_en": "Use Cases by Type of Company",
+      "use_cases_note": "Ejemplos genéricos. No representan clientes reales.",
+      "use_cases_note_en": "Generic examples. They do not represent real clients.",
+      "use_cases_simple": [
+        {
+          "title": "Pyme industrial (polígono, 20–80 empleados)",
+          "title_en": "Industrial SME (industrial area, 20–80 employees)",
+          "situation": "Pedidos, albaranes y facturas se gestionan en Excel y se pasan a mano al ERP.",
+          "situation_en": "Orders, delivery notes, and invoices are managed in Excel and manually entered into the ERP.",
+          "solution": "Automatización de flujo documental con validación y sincronización al ERP.",
+          "solution_en": "Document flow automation with validation and synchronization to the ERP."
+        },
+        {
+          "title": "Empresa de servicios (10–30 empleados, varios municipios)",
+          "title_en": "Service Company (10–30 employees, various municipalities)",
+          "situation": "El equipo comercial pierde tiempo en tareas administrativas post-visita.",
+          "situation_en": "The sales team loses time on administrative tasks post-visit.",
+          "solution": "Integración CRM + email + generación automática de propuestas.",
+          "solution_en": "CRM + email integration + automatic proposal generation."
+        },
+        {
+          "title": "Comercio con varias tiendas en la región",
+          "title_en": "Retail with Multiple Stores in the Region",
+          "situation": "Stock desactualizado entre tienda física y web.",
+          "situation_en": "Outdated stock between physical store and web.",
+          "solution": "Sincronización en tiempo real entre TPV, e-commerce y almacén.",
+          "solution_en": "Real-time synchronization between POS, e-commerce, and warehouse."
+        },
+        {
+          "title": "Centro formativo o clínica privada",
+          "title_en": "Training Center or Private Clinic",
+          "situation": "Llamadas y emails repetitivos sobre horarios, precios y disponibilidad.",
+          "situation_en": "Repetitive calls and emails about schedules, prices, and availability.",
+          "solution": "Chatbot con acceso a calendario y base de conocimiento interna.",
+          "solution_en": "Chatbot with access to calendar and internal knowledge base."
+        },
+        {
+          "title": "Empresa logística del Corredor del Henares",
+          "title_en": "Logistics Company in the Henares Corridor",
+          "situation": "Incidencias de entrega gestionadas por email sin trazabilidad.",
+          "situation_en": "Delivery issues managed by email without traceability.",
+          "solution": "Panel interno con alertas automáticas y comunicación estructurada con clientes.",
+          "solution_en": "Internal panel with automatic alerts and structured communication with clients."
+        }
+      ],
+      "cta_title": "¿Tu empresa está en la Comunidad de Madrid y quieres modernizar procesos sin parar la operativa?",
+      "cta_title_en": "Is your company in the Community of Madrid and do you want to modernize processes without stopping operations?",
+      "cta_text": "Te ayudamos a identificar por dónde empezar. Primera consulta sin compromiso.",
+      "cta_text_en": "We help you identify where to start. First consultation without obligation.",
+      "contact_origen": "geo-comunidad-madrid",
+      "related_slugs": [
+        "madrid",
+        "alcala-de-henares",
+        "torrejon-de-ardoz",
+        "coslada",
+        "rivas-vaciamadrid",
+        "arganda-del-rey",
+        "san-fernando-de-henares"
+      ],
+      "parent_slug": null,
+      "is_hub": true
+    },
+    "alcala-de-henares": {
+      "slug": "alcala-de-henares",
+      "city_name": "Alcalá de Henares",
+      "city_name_en": "Alcalá de Henares",
+      "h1": "Automatización y Desarrollo de Software en Alcalá de Henares",
+      "h1_en": "Automation and Software Development in Alcalá de Henares",
+      "subtitle": "Soluciones tecnológicas para empresas, comercios y centros de formación en Alcalá: menos tareas manuales, sistemas conectados y software que encaja con tu operativa.",
+      "subtitle_en": "Technological solutions for businesses, shops, and training centers in Alcalá: fewer manual tasks, connected systems, and software that fits your operations.",
+      "meta_title": "Automatización y Software en Alcalá de Henares | Megasoluciones",
+      "meta_title_en": "Automation and Software in Alcalá de Henares | Megasoluciones",
+      "meta_description": "Desarrollo a medida, integraciones y automatización para empresas, comercios y centros formativos en Alcalá de Henares.",
+      "meta_description_en": "Custom development, integrations, and automation for businesses, shops, and training centers in Alcalá de Henares.",
+      "sitemap_priority": "0.7",
+      "intro_title": "Sectores típicos de Alcalá de Henares",
+      "intro_title_en": "Typical Sectors of Alcalá de Henares",
+      "intro_paragraphs": [
+        "Alcalá combina un tejido universitario y cultural con industria ligera, comercio de proximidad y servicios. Trabajamos con academias y centros formativos, hostelería, comercio local, industria ligera y actividades vinculadas al turismo y patrimonio."
+      ],
+      "intro_paragraphs_en": [
+        "Alcalá combines a university and cultural fabric with light industry, local commerce, and services. We work with academies and training centers, hospitality, local commerce, light industry, and activities related to tourism and heritage."
+      ],
+      "sectors": [
+        {
+          "title": "Educación y formación",
+          "title_en": "Education and Training",
+          "description": "Academias, centros de idiomas y entidades con gestión de alumnos y matrículas.",
+          "description_en": "Academies, language centers, and entities with student and enrollment management."
+        },
+        {
+          "title": "Hostelería y restauración",
+          "title_en": "Hospitality and Catering",
+          "description": "Reservas, pedidos y gestión de proveedores sin centralizar.",
+          "description_en": "Reservations, orders, and supplier management without centralization."
+        },
+        {
+          "title": "Comercio y servicios",
+          "title_en": "Commerce and Services",
+          "description": "Tiendas, clínicas y despachos con operativa interna aún manual.",
+          "description_en": "Shops, clinics, and offices with still manual internal operations."
+        },
+        {
+          "title": "Industria ligera y talleres",
+          "title_en": "Light Industry and Workshops",
+          "description": "Fabricación y subcontratas con administración desconectada de la planta.",
+          "description_en": "Manufacturing and subcontracting with administration disconnected from the plant."
+        },
+        {
+          "title": "Turismo y patrimonio",
+          "title_en": "Tourism and Heritage",
+          "description": "Reservas, atención y reporting vinculados al flujo de visitantes.",
+          "description_en": "Reservations, attention, and reporting linked to visitor flow."
+        }
+      ],
+      "services_title": "Servicios más relevantes",
+      "services_title_en": "Most Relevant Services",
+      "services": [
+        {
+          "title": "Automatización administrativa",
+          "title_en": "Administrative Automation",
+          "description": "Altas de alumnos, contratos, documentación y conciliación de pagos.",
+          "description_en": "Student enrollments, contracts, documentation, and payment reconciliation."
+        },
+        {
+          "title": "Desarrollo web y aplicaciones a medida",
+          "title_en": "Custom Web and Application Development",
+          "description": "Portales internos, gestores de reservas y herramientas conectadas a tu backoffice.",
+          "description_en": "Internal portals, reservation managers, and tools connected to your back office."
+        },
+        {
+          "title": "Integraciones CRM / ERP / email",
+          "title_en": "CRM / ERP / Email Integrations",
+          "description": "Holded, Odoo, CRM genérico o Google Workspace sincronizados.",
+          "description_en": "Holded, Odoo, generic CRM, or Google Workspace synchronized."
+        },
+        {
+          "title": "Chatbots para atención y reservas",
+          "title_en": "Chatbots for Customer Service and Reservations",
+          "description": "Horarios, precios y plazas con escalado a persona en horario laboral.",
+          "description_en": "Schedules, prices, and slots with escalation to a person during working hours."
+        },
+        {
+          "title": "Consultoría tecnológica",
+          "title_en": "Technology Consulting",
+          "description": "Diagnóstico y hoja de ruta para modernizar sin parar la operativa.",
+          "description_en": "Diagnosis and roadmap to modernize operations without stopping."
+        }
+      ],
+      "use_cases_title": "Casos de uso aplicables",
+      "use_cases_title_en": "Applicable Use Cases",
+      "use_cases_note": "Ejemplos ilustrativos. No son clientes reales.",
+      "use_cases_note_en": "Illustrative examples. They are not real clients.",
+      "use_cases_simple": [
+        {
+          "situation": "Academia con 200+ alumnos y matrículas en papel/Excel",
+          "situation_en": "Academy with 200+ students and enrollments on paper/Excel",
+          "solution": "Portal de matrícula online + sincronización con contabilidad",
+          "solution_en": "Online enrollment portal + synchronization with accounting"
+        },
+        {
+          "situation": "Restaurante con reservas por teléfono, WhatsApp y web sin centralizar",
+          "situation_en": "Restaurant with reservations by phone, WhatsApp, and web without centralization",
+          "solution": "Sistema unificado de reservas con confirmación automática",
+          "solution_en": "Unified reservation system with automatic confirmation"
+        },
+        {
+          "situation": "Taller industrial que recibe pedidos por email y los pasa a mano al ERP",
+          "situation_en": "Industrial workshop receiving orders by email and manually entering them into the ERP",
+          "solution": "Automatización de entrada de pedidos con validación",
+          "solution_en": "Order entry automation with validation"
+        },
+        {
+          "situation": "Despacho profesional con documentos entrantes sin clasificar",
+          "situation_en": "Professional office with unclassified incoming documents",
+          "solution": "Clasificación automática + archivo por cliente",
+          "solution_en": "Automatic classification + client-based filing"
+        },
+        {
+          "situation": "Comercio con tienda física y online con stock desincronizado",
+          "situation_en": "Commerce with physical and online store with unsynchronized stock",
+          "solution": "Integración TPV–e-commerce en tiempo real",
+          "solution_en": "Real-time POS–e-commerce integration"
+        }
+      ],
+      "cta_title": "¿Tienes una empresa en Alcalá de Henares y quieres reducir trabajo manual?",
+      "cta_title_en": "Do you have a business in Alcalá de Henares and want to reduce manual work?",
+      "cta_text": "Cuéntanos qué proceso te quita más tiempo. Respondemos en menos de 24 h.",
+      "cta_text_en": "Tell us which process takes up most of your time. We respond in less than 24 hours.",
+      "contact_origen": "geo-alcala-henares",
+      "related_slugs": [
+        "comunidad-de-madrid",
+        "torrejon-de-ardoz",
+        "madrid"
+      ],
+      "parent_slug": "comunidad-de-madrid"
+    },
+    "torrejon-de-ardoz": {
+      "slug": "torrejon-de-ardoz",
+      "city_name": "Torrejón de Ardoz",
+      "city_name_en": "Torrejón de Ardoz",
+      "h1": "Automatización y Desarrollo Tecnológico en Torrejón de Ardoz",
+      "h1_en": "Automation and Technological Development in Torrejón de Ardoz",
+      "subtitle": "Software, integraciones y automatización para empresas de Torrejón: comercio, logística, servicios y pymes que necesitan conectar sus sistemas y ganar eficiencia operativa.",
+      "subtitle_en": "Software, integrations, and automation for companies in Torrejón: commerce, logistics, services, and SMEs that need to connect their systems and gain operational efficiency.",
+      "meta_title": "Automatización y Desarrollo en Torrejón de Ardoz | Megasoluciones",
+      "meta_title_en": "Automation and Development in Torrejón de Ardoz | Megasoluciones",
+      "meta_description": "Software, integraciones ERP y automatización para pymes de Torrejón: comercio, logística y servicios del Corredor del Henares.",
+      "meta_description_en": "Software, ERP integrations, and automation for SMEs in Torrejón: commerce, logistics, and services in the Corredor del Henares.",
+      "sitemap_priority": "0.7",
+      "intro_title": "Sectores típicos de Torrejón de Ardoz",
+      "intro_title_en": "Typical Sectors of Torrejón de Ardoz",
+      "intro_paragraphs": [
+        "Torrejón es uno de los municipios más poblados del Corredor del Henares, con comercio urbano, servicios a empresas y actividad logística vinculada a Barajas y la A-2."
+      ],
+      "intro_paragraphs_en": [
+        "Torrejón is one of the most populated municipalities in the Corredor del Henares, with urban commerce, business services, and logistics activity linked to Barajas and the A-2."
+      ],
+      "sectors": [
+        {
+          "title": "Comercio y retail",
+          "title_en": "Commerce and Retail",
+          "description": "Grandes superficies, comercio de barrio y franquicias multicanal.",
+          "description_en": "Large stores, neighborhood commerce, and multichannel franchises."
+        },
+        {
+          "title": "Logística y transporte",
+          "title_en": "Logistics and Transport",
+          "description": "Distribución, mensajería y operadores de última milla.",
+          "description_en": "Distribution, messaging, and last-mile operators."
+        },
+        {
+          "title": "Servicios a empresas",
+          "title_en": "Business Services",
+          "description": "Mantenimiento, limpieza industrial, seguridad y subcontratas.",
+          "description_en": "Maintenance, industrial cleaning, security, and subcontracting."
+        },
+        {
+          "title": "Hostelería y ocio",
+          "title_en": "Hospitality and Leisure",
+          "description": "Reservas, proveedores y gestión operativa diaria.",
+          "description_en": "Reservations, suppliers, and daily operational management."
+        },
+        {
+          "title": "Administración y concesionados",
+          "title_en": "Administration and Concessions",
+          "description": "Procesos documentales y reporting periódico.",
+          "description_en": "Documentary processes and periodic reporting."
+        }
+      ],
+      "services_title": "Servicios más relevantes",
+      "services_title_en": "Most Relevant Services",
+      "services": [
+        {
+          "title": "Automatización de procesos operativos",
+          "title_en": "Operational Process Automation",
+          "description": "Sincronización de pedidos, albaranes, facturas y datos entre sistemas.",
+          "description_en": "Synchronization of orders, delivery notes, invoices, and data between systems."
+        },
+        {
+          "title": "Integraciones ERP / CRM / TPV",
+          "title_en": "ERP / CRM / POS Integrations",
+          "description": "Eliminación de la doble entrada de datos en pymes en crecimiento.",
+          "description_en": "Elimination of double data entry in growing SMEs."
+        },
+        {
+          "title": "Desarrollo de software a medida",
+          "title_en": "Custom Software Development",
+          "description": "Paneles de incidencias, portales de clientes y apps para equipos de campo.",
+          "description_en": "Incident panels, customer portals, and apps for field teams."
+        },
+        {
+          "title": "Chatbots para atención al cliente",
+          "title_en": "Customer Service Chatbots",
+          "description": "Consultas sobre envíos, plazos y estado de servicio en web y WhatsApp.",
+          "description_en": "Inquiries about shipments, deadlines, and service status on the web and WhatsApp."
+        },
+        {
+          "title": "Consultoría y diagnóstico tecnológico",
+          "title_en": "Consulting and Technological Diagnosis",
+          "description": "Mapa de procesos y mejora por fases.",
+          "description_en": "Process map and phased improvement."
+        }
+      ],
+      "use_cases_title": "Casos de uso aplicables",
+      "use_cases_title_en": "Applicable Use Cases",
+      "use_cases_note": "Ejemplos genéricos. No representan clientes concretos.",
+      "use_cases_note_en": "Generic examples. They do not represent specific clients.",
+      "use_cases_simple": [
+        {
+          "situation": "Operador logístico con incidencias gestionadas por email",
+          "situation_en": "Logistics operator with incidents managed by email",
+          "solution": "Panel de incidencias con alertas automáticas y comunicación al cliente",
+          "solution_en": "Incident panel with automatic alerts and customer communication"
+        },
+        {
+          "situation": "Comercio con pedidos online y gestión en tienda desconectados",
+          "situation_en": "Commerce with online orders and disconnected in-store management",
+          "solution": "Integración e-commerce + TPV + almacén",
+          "solution_en": "E-commerce + POS + warehouse integration"
+        },
+        {
+          "situation": "Empresa de servicios con partes de trabajo en papel",
+          "situation_en": "Service company with paper work orders",
+          "solution": "App web para técnicos de campo con sincronización al ERP",
+          "solution_en": "Web app for field technicians with ERP synchronization"
+        },
+        {
+          "situation": "Distribuidora con catálogo en Excel y pedidos por WhatsApp",
+          "situation_en": "Distributor with catalog in Excel and orders via WhatsApp",
+          "solution": "Portal de pedidos B2B conectado al sistema de facturación",
+          "solution_en": "B2B order portal connected to the billing system"
+        },
+        {
+          "situation": "Franquicia con reporting semanal manual entre locales",
+          "situation_en": "Franchise with manual weekly reporting between locations",
+          "solution": "Dashboard centralizado con datos automáticos de cada punto de venta",
+          "solution_en": "Centralized dashboard with automatic data from each point of sale"
+        }
+      ],
+      "cta_title": "¿Tu empresa en Torrejón de Ardoz necesita conectar sistemas o automatizar procesos?",
+      "cta_title_en": "Does your company in Torrejón de Ardoz need to connect systems or automate processes?",
+      "cta_text": "Primera consulta sin compromiso. Trabajamos en remoto y presencial en el Corredor del Henares.",
+      "cta_text_en": "First consultation without obligation. We work remotely and on-site in the Corredor del Henares.",
+      "contact_origen": "geo-torrejon-ardoz",
+      "related_slugs": [
+        "comunidad-de-madrid",
+        "coslada",
+        "alcala-de-henares"
+      ],
+      "parent_slug": "comunidad-de-madrid"
+    },
+    "coslada": {
+      "slug": "coslada",
+      "city_name": "Coslada",
+      "city_name_en": "Coslada",
+      "h1": "Automatización Industrial y Desarrollo de Software en Coslada",
+      "h1_en": "Industrial Automation and Software Development in Coslada",
+      "subtitle": "Soluciones tecnológicas para empresas del polígono industrial y el tejido empresarial de Coslada: integraciones, software a medida y automatización administrativa y operativa.",
+      "subtitle_en": "Technological solutions for companies in the industrial area and business network of Coslada: integrations, custom software, and administrative and operational automation.",
+      "meta_title": "Automatización Industrial en Coslada | Megasoluciones",
+      "meta_title_en": "Industrial Automation in Coslada | Megasoluciones",
+      "meta_description": "Integraciones ERP, RPA y desarrollo de software para empresas del polígono industrial y tejido empresarial de Coslada.",
+      "meta_description_en": "ERP integrations, RPA, and software development for companies in the industrial area and business network of Coslada.",
+      "sitemap_priority": "0.7",
+      "intro_title": "Sectores típicos de Coslada",
+      "intro_title_en": "Typical Sectors of Coslada",
+      "intro_paragraphs": [
+        "Coslada tiene un peso industrial relevante en la Comunidad de Madrid: metal, logística, alimentación y componentes en polígonos consolidados, además de comercio y servicios en el casco urbano."
+      ],
+      "intro_paragraphs_en": [
+        "Coslada has significant industrial weight in the Community of Madrid: metal, logistics, food, and components in established industrial areas, as well as commerce and services in the urban area."
+      ],
+      "sectors": [
+        {
+          "title": "Industria metalúrgica y mecánica",
+          "title_en": "Metallurgical and Mechanical Industry",
+          "description": "Talleres y fabricantes con administración manual pese a planta digitalizada.",
+          "description_en": "Workshops and manufacturers with manual administration despite a digitized plant."
+        },
+        {
+          "title": "Logística y almacenaje",
+          "title_en": "Logistics and Storage",
+          "description": "Operadores junto a la A-2 con gestión documental intensiva.",
+          "description_en": "Operators along the A-2 with intensive document management."
+        },
+        {
+          "title": "Alimentación y distribución",
+          "title_en": "Food and Distribution",
+          "description": "Producción, envasado y trazabilidad con pedidos complejos.",
+          "description_en": "Production, packaging, and traceability with complex orders."
+        },
+        {
+          "title": "Comercio y servicios",
+          "title_en": "Commerce and Services",
+          "description": "Pymes del casco urbano con backoffice por digitalizar.",
+          "description_en": "SMEs in the urban area with backoffice yet to be digitized."
+        },
+        {
+          "title": "Subcontratas industriales",
+          "title_en": "Industrial Subcontracts",
+          "description": "Reporting y documentación exigida por clientes corporativos.",
+          "description_en": "Reporting and documentation required by corporate clients."
+        }
+      ],
+      "services_title": "Servicios más relevantes",
+      "services_title_en": "Most Relevant Services",
+      "services": [
+        {
+          "title": "Automatización documental",
+          "title_en": "Document Automation",
+          "description": "Entrada de pedidos, albaranes, facturas de proveedor y conciliaciones.",
+          "description_en": "Order entry, delivery notes, supplier invoices, and reconciliations."
+        },
+        {
+          "title": "Integraciones ERP / MRP / CRM",
+          "title_en": "ERP / MRP / CRM Integrations",
+          "description": "Producción, almacén y facturación conectados sin intervención manual.",
+          "description_en": "Production, warehouse, and billing connected without manual intervention."
+        },
+        {
+          "title": "Desarrollo de paneles y herramientas internas",
+          "title_en": "Development of Panels and Internal Tools",
+          "description": "Control de producción, incidencias, portales de proveedores y KPIs.",
+          "description_en": "Production control, incidents, supplier portals, and KPIs."
+        },
+        {
+          "title": "RPA y workflows",
+          "title_en": "RPA and Workflows",
+          "description": "Tareas repetitivas entre aplicaciones: informes, alertas y sincronización.",
+          "description_en": "Repetitive tasks between applications: reports, alerts, and synchronization."
+        },
+        {
+          "title": "Consultoría tecnológica industrial",
+          "title_en": "Industrial Technology Consulting",
+          "description": "Diagnóstico de backoffice en empresas con planta ya digitalizada.",
+          "description_en": "Backoffice diagnosis in companies with already digitized plants."
+        }
+      ],
+      "use_cases_title": "Casos de uso aplicables",
+      "use_cases_title_en": "Applicable Use Cases",
+      "use_cases_note": "Ejemplos ilustrativos. No son clientes reales.",
+      "use_cases_note_en": "Illustrative examples. They are not real clients.",
+      "use_cases_simple": [
+        {
+          "situation": "Fabricante con órdenes de producción en Excel y ERP desconectado",
+          "situation_en": "Manufacturer with production orders in Excel and disconnected ERP",
+          "solution": "Integración bidireccional entre planificación y ERP",
+          "solution_en": "Bidirectional integration between planning and ERP"
+        },
+        {
+          "situation": "Operador logístico con albaranes en PDF que se teclean a mano",
+          "situation_en": "Logistics operator with delivery notes in PDF manually entered",
+          "solution": "Extracción automática de datos + validación + carga al sistema",
+          "solution_en": "Automatic data extraction + validation + system upload"
+        },
+        {
+          "situation": "Empresa de componentes con reporting semanal exigido por clientes",
+          "situation_en": "Component company with weekly reporting required by clients",
+          "solution": "Generación automática de informes de calidad y entrega",
+          "solution_en": "Automatic generation of quality and delivery reports"
+        },
+        {
+          "situation": "Pyme industrial con facturación retrasada por carga administrativa",
+          "situation_en": "Industrial SME with delayed billing due to administrative load",
+          "solution": "Automatización de flujo pedido–albarán–factura",
+          "solution_en": "Order–delivery note–invoice flow automation"
+        },
+        {
+          "situation": "Taller con gestión de mantenimiento en papel",
+          "situation_en": "Workshop with maintenance management on paper",
+          "solution": "App de partes de trabajo con historial de máquinas",
+          "solution_en": "Work order app with machine history"
+        }
+      ],
+      "cta_title": "¿Tu empresa en Coslada quiere reducir carga administrativa sin tocar la producción?",
+      "cta_title_en": "Does your company in Coslada want to reduce administrative load without affecting production?",
+      "cta_text": "Empezamos por un diagnóstico de procesos. Sin compromiso.",
+      "cta_text_en": "We start with a process diagnosis. No commitment.",
+      "contact_origen": "geo-coslada",
+      "related_slugs": [
+        "san-fernando-de-henares",
+        "torrejon-de-ardoz",
+        "comunidad-de-madrid"
+      ],
+      "parent_slug": "comunidad-de-madrid"
+    },
+    "rivas-vaciamadrid": {
+      "slug": "rivas-vaciamadrid",
+      "city_name": "Rivas-Vaciamadrid",
+      "h1": "Desarrollo de Software y Automatización en Rivas-Vaciamadrid",
+      "h1_en": "Software Development and Automation in Rivas-Vaciamadrid",
+      "subtitle": "Soluciones tecnológicas para empresas del Parque Tecnológico, el retail de La Garena y el tejido empresarial de Rivas: software a medida, integraciones y automatización práctica.",
+      "subtitle_en": "Technological solutions for companies in the Technology Park, La Garena retail, and the business fabric of Rivas: custom software, integrations, and practical automation.",
+      "meta_title": "Desarrollo de Software en Rivas-Vaciamadrid | Megasoluciones",
+      "meta_title_en": "Software Development in Rivas-Vaciamadrid | Megasoluciones",
+      "meta_description": "Software a medida, integraciones y automatización para empresas del Parque Tecnológico, La Garena y Rivas-Vaciamadrid.",
+      "meta_description_en": "Custom software, integrations, and automation for companies in the Technology Park, La Garena, and Rivas-Vaciamadrid.",
+      "sitemap_priority": "0.7",
+      "intro_title": "Sectores típicos de Rivas-Vaciamadrid",
+      "intro_title_en": "Typical Sectors of Rivas-Vaciamadrid",
+      "intro_paragraphs": [
+        "Rivas combina parque tecnológico, gran área comercial (La Garena), empresas de servicios y una población residencial en crecimiento."
+      ],
+      "intro_paragraphs_en": [
+        "Rivas combines a technology park, large commercial area (La Garena), service companies, and a growing residential population."
+      ],
+      "sectors": [
+        {
+          "title": "Tecnología y servicios digitales",
+          "title_en": "Technology and Digital Services",
+          "description": "Empresas del Parque Tecnológico con necesidad de desarrollo o integraciones.",
+          "description_en": "Companies in the Technology Park needing development or integrations."
+        },
+        {
+          "title": "Retail y gran distribución",
+          "title_en": "Retail and Large Distribution",
+          "description": "Operaciones multicanal, stock y atención al cliente.",
+          "description_en": "Multichannel operations, stock, and customer service."
+        },
+        {
+          "title": "Servicios profesionales",
+          "title_en": "Professional Services",
+          "description": "Consultoras, agencias, clínicas y despachos.",
+          "description_en": "Consultancies, agencies, clinics, and offices."
+        },
+        {
+          "title": "Construcción y servicios auxiliares",
+          "title_en": "Construction and Auxiliary Services",
+          "description": "Proyectos, partes de obra y documentación dispersa.",
+          "description_en": "Projects, work parts, and scattered documentation."
+        },
+        {
+          "title": "Educación y ocio familiar",
+          "title_en": "Education and Family Leisure",
+          "description": "Reservas, matrículas y comunicación con usuarios.",
+          "description_en": "Bookings, enrollments, and user communication."
+        }
+      ],
+      "services_title": "Servicios más relevantes",
+      "services_title_en": "Most Relevant Services",
+      "services": [
+        {
+          "title": "Desarrollo de software a medida",
+          "title_en": "Custom Software Development",
+          "description": "Aplicaciones web, APIs, MVPs y herramientas internas por fases.",
+          "description_en": "Web applications, APIs, MVPs, and internal tools by phases."
+        },
+        {
+          "title": "Integraciones entre plataformas",
+          "title_en": "Platform Integrations",
+          "description": "SaaS, CRM, ERP, pasarelas de pago y marketing conectados.",
+          "description_en": "Connected SaaS, CRM, ERP, payment gateways, and marketing."
+        },
+        {
+          "title": "Automatización de procesos",
+          "title_en": "Process Automation",
+          "description": "Reporting, onboarding, sincronización y tareas administrativas recurrentes.",
+          "description_en": "Reporting, onboarding, synchronization, and recurring administrative tasks."
+        },
+        {
+          "title": "Chatbots y asistentes",
+          "title_en": "Chatbots and Assistants",
+          "description": "Atención automatizada para retail y centros de servicios.",
+          "description_en": "Automated service for retail and service centers."
+        },
+        {
+          "title": "Consultoría tecnológica",
+          "title_en": "Technology Consulting",
+          "description": "Hoja de ruta y viabilidad para escalar sin rehacer todo desde cero.",
+          "description_en": "Roadmap and feasibility to scale without starting from scratch."
+        }
+      ],
+      "use_cases_title": "Casos de uso aplicables",
+      "use_cases_title_en": "Applicable Use Cases",
+      "use_cases_note": "Ejemplos genéricos. No representan clientes concretos.",
+      "use_cases_note_en": "Generic examples. They do not represent specific clients.",
+      "use_cases_simple": [
+        {
+          "situation": "Startup en parque tecnológico con MVP y necesidad de integrar IA",
+          "situation_en": "Startup in technology park with MVP and need to integrate AI",
+          "solution": "Desarrollo por fases con API + modelo preentrenado",
+          "solution_en": "Phased development with API + pre-trained model"
+        },
+        {
+          "situation": "Tienda en La Garena con e-commerce y stock de tienda desincronizado",
+          "situation_en": "Store in La Garena with e-commerce and unsynchronized store stock",
+          "solution": "Integración TPV–web con alertas de rotura de stock",
+          "solution_en": "POS-web integration with stock break alerts"
+        },
+        {
+          "situation": "Agencia de marketing con reporting manual para 15 clientes",
+          "situation_en": "Marketing agency with manual reporting for 15 clients",
+          "solution": "Dashboard automatizado con datos de Analytics, Ads y CRM",
+          "solution_en": "Automated dashboard with Analytics, Ads, and CRM data"
+        },
+        {
+          "situation": "Clínica privada con citas por teléfono y web sin centralizar",
+          "situation_en": "Private clinic with phone and web appointments not centralized",
+          "solution": "Reservas online + recordatorios automáticos",
+          "solution_en": "Online bookings + automatic reminders"
+        },
+        {
+          "situation": "Empresa de servicios con contratos generados a mano",
+          "situation_en": "Service company with manually generated contracts",
+          "solution": "Plantillas automatizadas con datos del CRM",
+          "solution_en": "Automated templates with CRM data"
+        }
+      ],
+      "cta_title": "¿Tienes una empresa en Rivas-Vaciamadrid y necesitas software o integraciones?",
+      "cta_title_en": "Do you have a company in Rivas-Vaciamadrid and need software or integrations?",
+      "cta_text": "Cuéntanos tu proyecto. Primera consulta sin compromiso.",
+      "cta_text_en": "Tell us about your project. First consultation without obligation.",
+      "contact_origen": "geo-rivas-vaciamadrid",
+      "related_slugs": [
+        "madrid",
+        "arganda-del-rey",
+        "comunidad-de-madrid"
+      ],
+      "parent_slug": "comunidad-de-madrid"
+    },
+    "arganda-del-rey": {
+      "slug": "arganda-del-rey",
+      "city_name": "Arganda del Rey",
+      "city_name_en": "Arganda del Rey",
+      "h1": "Automatización y Desarrollo Tecnológico en Arganda del Rey",
+      "h1_en": "Automation and Technological Development in Arganda del Rey",
+      "subtitle": "Soluciones de software e integraciones para empresas de Arganda: industria alimentaria, cerámica, logística y pymes del polígono que quieren modernizar procesos sin frenar la producción.",
+      "subtitle_en": "Software solutions and integrations for companies in Arganda: food industry, ceramics, logistics, and SMEs in the industrial area that want to modernize processes without halting production.",
+      "meta_title": "Automatización Empresas Arganda del Rey | Megasoluciones",
+      "meta_title_en": "Automation Companies Arganda del Rey | Megasoluciones",
+      "meta_description": "Software e integraciones para industria alimentaria, cerámica y logística en Arganda del Rey. Piloto acotado, sin compromiso.",
+      "meta_description_en": "Software and integrations for the food, ceramics, and logistics industries in Arganda del Rey. Limited pilot, no commitment.",
+      "sitemap_priority": "0.7",
+      "intro_title": "Sectores típicos de Arganda del Rey",
+      "intro_title_en": "Typical Sectors of Arganda del Rey",
+      "intro_paragraphs": [
+        "Arganda combina tradición industrial con polígonos activos en alimentación, cerámica, logística y servicios, además de comercio y hostelería en el casco urbano."
+      ],
+      "intro_paragraphs_en": [
+        "Arganda combines industrial tradition with active industrial areas in food, ceramics, logistics, and services, as well as commerce and hospitality in the urban area."
+      ],
+      "sectors": [
+        {
+          "title": "Industria alimentaria y bebidas",
+          "title_en": "Food and Beverage Industry",
+          "description": "Bodegas, procesado, envasado y distribución con trazabilidad regulada.",
+          "description_en": "Wineries, processing, packaging, and distribution with regulated traceability."
+        },
+        {
+          "title": "Cerámica y materiales de construcción",
+          "title_en": "Ceramics and Construction Materials",
+          "description": "Pedidos B2B, materias primas y logística de entrega.",
+          "description_en": "B2B orders, raw materials, and delivery logistics."
+        },
+        {
+          "title": "Logística y transporte",
+          "title_en": "Logistics and Transportation",
+          "description": "Rutas, albaranes e incidencias en polígonos.",
+          "description_en": "Routes, delivery notes, and incidents in industrial areas."
+        },
+        {
+          "title": "Comercio y hostelería",
+          "title_en": "Commerce and Hospitality",
+          "description": "Reservas, pedidos y proveedores aún manuales.",
+          "description_en": "Reservations, orders, and suppliers still manual."
+        },
+        {
+          "title": "Servicios auxiliares industriales",
+          "title_en": "Industrial Auxiliary Services",
+          "description": "Mantenimiento, calidad y subcontratas con reporting exigido.",
+          "description_en": "Maintenance, quality, and subcontracting with required reporting."
+        }
+      ],
+      "services_title": "Servicios más relevantes",
+      "services_title_en": "Most Relevant Services",
+      "services": [
+        {
+          "title": "Automatización de flujos documentales",
+          "title_en": "Automation of Document Flows",
+          "description": "Pedidos, albaranes, certificados de calidad y facturas.",
+          "description_en": "Orders, delivery notes, quality certificates, and invoices."
+        },
+        {
+          "title": "Integraciones ERP / almacén / facturación",
+          "title_en": "ERP / Warehouse / Billing Integrations",
+          "description": "Un solo flujo desde el pedido hasta la factura.",
+          "description_en": "A single flow from order to invoice."
+        },
+        {
+          "title": "Desarrollo de herramientas a medida",
+          "title_en": "Custom Tool Development",
+          "description": "Portales B2B, trazabilidad e incidencias en planta.",
+          "description_en": "B2B portals, traceability, and plant incidents."
+        },
+        {
+          "title": "Consultoría tecnológica",
+          "title_en": "Technological Consulting",
+          "description": "Salto digital en administración sin tocar la línea de producción.",
+          "description_en": "Digital leap in administration without affecting the production line."
+        },
+        {
+          "title": "Chatbots B2B y B2C",
+          "title_en": "B2B and B2C Chatbots",
+          "description": "Consultas sobre pedidos, plazos y catálogo conectadas al ERP.",
+          "description_en": "Inquiries about orders, deadlines, and catalog connected to the ERP."
+        }
+      ],
+      "use_cases_title": "Casos de uso aplicables",
+      "use_cases_title_en": "Applicable Use Cases",
+      "use_cases_note": "Ejemplos ilustrativos. No son clientes reales.",
+      "use_cases_note_en": "Illustrative examples. They are not real clients.",
+      "use_cases_simple": [
+        {
+          "situation": "Bodega con pedidos por email y stock en Excel",
+          "situation_en": "Winery with orders by email and stock in Excel",
+          "solution": "Portal B2B con pedidos online conectado al almacén",
+          "solution_en": "B2B portal with online orders connected to the warehouse"
+        },
+        {
+          "situation": "Fabricante cerámico con albaranes en papel",
+          "situation_en": "Ceramic manufacturer with paper delivery notes",
+          "solution": "Digitalización de albaranes + sincronización con facturación",
+          "solution_en": "Digitization of delivery notes + synchronization with billing"
+        },
+        {
+          "situation": "Planta alimentaria con trazabilidad manual por lote",
+          "situation_en": "Food plant with manual traceability by batch",
+          "solution": "Panel de trazabilidad con datos de producción y expedición",
+          "solution_en": "Traceability panel with production and dispatch data"
+        },
+        {
+          "situation": "Distribuidor con rutas planificadas en hoja de cálculo",
+          "situation_en": "Distributor with routes planned in a spreadsheet",
+          "solution": "Planificación con alertas de incidencias",
+          "solution_en": "Planning with incident alerts"
+        },
+        {
+          "situation": "Restaurante con proveedores gestionados por WhatsApp",
+          "situation_en": "Restaurant with suppliers managed via WhatsApp",
+          "solution": "Pedidos a proveedores con historial y conciliación",
+          "solution_en": "Orders to suppliers with history and reconciliation"
+        }
+      ],
+      "cta_title": "¿Tu empresa en Arganda del Rey quiere automatizar administración o conectar sistemas?",
+      "cta_title_en": "Does your company in Arganda del Rey want to automate administration or connect systems?",
+      "cta_text": "Te proponemos un piloto acotado. Sin compromiso en la primera consulta.",
+      "cta_text_en": "We propose a limited pilot. No commitment in the first consultation.",
+      "contact_origen": "geo-arganda-del-rey",
+      "related_slugs": [
+        "comunidad-de-madrid",
+        "rivas-vaciamadrid"
+      ],
+      "parent_slug": "comunidad-de-madrid"
+    },
+    "san-fernando-de-henares": {
+      "slug": "san-fernando-de-henares",
+      "city_name": "San Fernando de Henares",
+      "city_name_en": "San Fernando de Henares",
+      "h1": "Automatización y Desarrollo de Software en San Fernando de Henares",
+      "h1_en": "Automation and Software Development in San Fernando de Henares",
+      "subtitle": "Soluciones tecnológicas para empresas de San Fernando: logística, comercio mayorista, industria ligera y servicios del Corredor del Henares que necesitan eficiencia operativa.",
+      "subtitle_en": "Technological solutions for companies in San Fernando: logistics, wholesale trade, light industry, and services in the Corredor del Henares that need operational efficiency.",
+      "meta_title": "Automatización San Fernando de Henares | Megasoluciones",
+      "meta_title_en": "Automation San Fernando de Henares | Megasoluciones",
+      "meta_description": "Desarrollo de software, portales B2B e integraciones logísticas para empresas de San Fernando de Henares y el Corredor.",
+      "meta_description_en": "Software development, B2B portals, and logistics integrations for companies in San Fernando de Henares and the Corredor.",
+      "sitemap_priority": "0.7",
+      "intro_title": "Sectores típicos de San Fernando de Henares",
+      "intro_title_en": "Typical Sectors of San Fernando de Henares",
+      "intro_paragraphs": [
+        "San Fernando ocupa una posición estratégica en el Corredor del Henares, con polígonos industriales, actividad logística y comercio mayorista."
+      ],
+      "intro_paragraphs_en": [
+        "San Fernando occupies a strategic position in the Corredor del Henares, with industrial parks, logistics activity, and wholesale trade."
+      ],
+      "sectors": [
+        {
+          "title": "Logística y almacenaje",
+          "title_en": "Logistics and Storage",
+          "description": "Albaranes, incidencias y comunicación con clientes.",
+          "description_en": "Delivery notes, incidents, and communication with clients."
+        },
+        {
+          "title": "Comercio mayorista y distribución",
+          "title_en": "Wholesale Trade and Distribution",
+          "description": "Catálogos amplios, pedidos B2B y rutas.",
+          "description_en": "Extensive catalogs, B2B orders, and routes."
+        },
+        {
+          "title": "Industria ligera y transformación",
+          "title_en": "Light Industry and Transformation",
+          "description": "Administración manual pese a planta semi-automatizada.",
+          "description_en": "Manual administration despite a semi-automated plant."
+        },
+        {
+          "title": "Servicios a empresas",
+          "title_en": "Business Services",
+          "description": "Mantenimiento, mensajería y subcontratas del Corredor.",
+          "description_en": "Maintenance, messaging, and subcontracting in the Corredor."
+        },
+        {
+          "title": "Retail y comercio local",
+          "title_en": "Retail and Local Trade",
+          "description": "Venta y backoffice desconectados.",
+          "description_en": "Disconnected sales and back office."
+        }
+      ],
+      "services_title": "Servicios más relevantes",
+      "services_title_en": "Most Relevant Services",
+      "services": [
+        {
+          "title": "Automatización de procesos logísticos",
+          "title_en": "Automation of Logistics Processes",
+          "description": "Pedidos, albaranes, incidencias y sincronización con clientes.",
+          "description_en": "Orders, delivery notes, incidents, and synchronization with clients."
+        },
+        {
+          "title": "Integraciones ERP / WMS / CRM",
+          "title_en": "ERP / WMS / CRM Integrations",
+          "description": "Almacén, facturación y relación con clientes unificados.",
+          "description_en": "Unified warehouse, billing, and customer relations."
+        },
+        {
+          "title": "Desarrollo de portales B2B",
+          "title_en": "B2B Portal Development",
+          "description": "Catálogo, pedidos recurrentes y estado de envío para mayoristas.",
+          "description_en": "Catalog, recurring orders, and shipping status for wholesalers."
+        },
+        {
+          "title": "RPA y workflows administrativos",
+          "title_en": "RPA and Administrative Workflows",
+          "description": "Conciliaciones, reporting y altas de proveedores.",
+          "description_en": "Reconciliations, reporting, and supplier onboarding."
+        },
+        {
+          "title": "Consultoría tecnológica",
+          "title_en": "Technology Consulting",
+          "description": "Diagnóstico en empresas que han crecido más rápido que su infraestructura digital.",
+          "description_en": "Diagnosis in companies that have grown faster than their digital infrastructure."
+        }
+      ],
+      "use_cases_title": "Casos de uso aplicables",
+      "use_cases_title_en": "Applicable Use Cases",
+      "use_cases_note": "Ejemplos genéricos. No representan clientes concretos.",
+      "use_cases_note_en": "Generic examples. They do not represent specific clients.",
+      "use_cases_simple": [
+        {
+          "situation": "Mayorista con pedidos por fax, email y teléfono sin centralizar",
+          "situation_en": "Wholesaler with orders by fax, email, and phone without centralization",
+          "solution": "Portal B2B unificado conectado al ERP",
+          "solution_en": "Unified B2B portal connected to the ERP"
+        },
+        {
+          "situation": "Operador logístico con incidencias sin trazabilidad",
+          "situation_en": "Logistics operator with incidents without traceability",
+          "solution": "Panel de incidencias con historial y alertas automáticas",
+          "solution_en": "Incident panel with history and automatic alerts"
+        },
+        {
+          "situation": "Empresa industrial con facturación retrasada por carga admin",
+          "situation_en": "Industrial company with delayed billing due to admin load",
+          "solution": "Automatización pedido–albarán–factura",
+          "solution_en": "Order–delivery note–invoice automation"
+        },
+        {
+          "situation": "Distribuidor con rutas asignadas manualmente cada mañana",
+          "situation_en": "Distributor with routes assigned manually every morning",
+          "solution": "Asignación con datos de pedidos del día anterior",
+          "solution_en": "Assignment with order data from the previous day"
+        },
+        {
+          "situation": "Comercio local con TPV y contabilidad desconectados",
+          "situation_en": "Local trade with disconnected POS and accounting",
+          "solution": "Integración diaria de ventas con conciliación automática",
+          "solution_en": "Daily sales integration with automatic reconciliation"
+        }
+      ],
+      "cta_title": "¿Tu empresa en San Fernando de Henares quiere modernizar procesos?",
+      "cta_title_en": "Does your company in San Fernando de Henares want to modernize processes?",
+      "cta_text": "Cuéntanos tu caso. Respondemos en menos de 24 horas.",
+      "cta_text_en": "Tell us your case. We respond in less than 24 hours.",
+      "contact_origen": "geo-san-fernando-henares",
+      "related_slugs": [
+        "coslada",
+        "comunidad-de-madrid",
+        "torrejon-de-ardoz"
+      ],
+      "parent_slug": "comunidad-de-madrid"
+    }
+  }
+}

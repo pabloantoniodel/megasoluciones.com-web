@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Recursos — Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
-{% block meta_description %}Guías prácticas sobre desarrollo de software a medida, automatizaciones empresariales, RPA e inteligencia artificial para empresas en España.{% endblock %}
-{% block og_title %}Recursos sobre Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
-{% block og_description %}Guías prácticas sobre desarrollo de software a medida, automatizaciones empresariales, RPA e inteligencia artificial para empresas en España.{% endblock %}
+{% block title %}{{ _('Recursos — Desarrollo y Automatizaciones | Megasoluciones') }}{% endblock %}
+{% block meta_description %}{{ _('Guías prácticas sobre desarrollo de software a medida, automatizaciones empresariales, RPA e inteligencia artificial para empresas en España.') }}{% endblock %}
+{% block og_title %}{{ _('Recursos sobre Desarrollo y Automatizaciones | Megasoluciones') }}{% endblock %}
+{% block og_description %}{{ _('Guías prácticas sobre desarrollo de software a medida, automatizaciones empresariales, RPA e inteligencia artificial para empresas en España.') }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -11,7 +11,7 @@
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Guías Megasoluciones",
+  "name": "{{ _('Guías Megasoluciones') }}",
   "itemListElement": [
     {% for articulo in guias_evergreen %}
     {
@@ -19,8 +19,8 @@
       "position": {{ loop.index }},
       "item": {
         "@type": "BlogPosting",
-        "headline": {{ articulo.titulo|tojson }},
-        "description": {{ articulo.resumen|tojson }},
+        "headline": {{ get_field(articulo, 'titulo')|tojson }},
+        "description": {{ get_field(articulo, 'resumen')|tojson }},
         "datePublished": {{ articulo.fecha|tojson }},
         "url": "{{ url_for('recurso_articulo', slug=articulo.slug, _external=True) }}"
       }
@@ -43,43 +43,43 @@
     {% endif %}
     <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
     <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if articulo.cluster == 'desarrollo' else ('ia' if articulo.cluster == 'ia' else 'automatizacion') }}">{{ articulo.cluster|capitalize }}</span>
-    {% if articulo.tipo == 'pilar' %}<span class="recursos-badge-pilar">Guía pilar</span>{% endif %}
-    <{{ heading_tag }}><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ articulo.titulo }}</a></{{ heading_tag }}>
-    {% if not compact %}<p>{{ articulo.resumen }}</p>{% endif %}
-    <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">Leer artículo →</a>
+    {% if articulo.tipo == 'pilar' %}<span class="recursos-badge-pilar">{{ _('Guía pilar') }}</span>{% endif %}
+    <{{ heading_tag }}><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ get_field(articulo, 'titulo') }}</a></{{ heading_tag }}>
+    {% if not compact %}<p>{{ get_field(articulo, 'resumen') }}</p>{% endif %}
+    <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">{{ _('Leer artículo') }} →</a>
 </article>
 {% endmacro %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>Recursos sobre <span class="gradient-text">desarrollo y automatizaciones</span></h1>
-        <p>Guías evergreen y actualidad sobre IA, software a medida y RPA para empresas en España</p>
+        <h1>{{ _('Recursos sobre') }} <span class="gradient-text">{{ _('desarrollo y automatizaciones') }}</span></h1>
+        <p>{{ _('Guías evergreen y actualidad sobre IA, software a medida y RPA para empresas en España') }}</p>
     </div>
 </section>
 
 <section class="section recursos-hub-clusters">
     <div class="container">
-        <h2 class="recursos-section-title">Guías por tema</h2>
+        <h2 class="recursos-section-title">{{ _('Guías por tema') }}</h2>
         <div class="recursos-clusters-grid">
             {% for c in clusters_hub %}
             <div class="recursos-cluster-card" id="{{ c.ancla }}">
-                <h3><a href="{{ url_for('recursos_tema', cluster=c.key) }}">{{ c.nombre }}</a></h3>
-                <p>{{ c.descripcion }}</p>
+                <h3><a href="{{ url_for('recursos_tema', cluster=c.key) }}">{{ get_field(c, 'nombre') }}</a></h3>
+                <p>{{ get_field(c, 'descripcion') }}</p>
                 {% if c.pilar %}
                 <p class="recursos-pilar-link">
-                    <strong>Guía pilar:</strong>
-                    <a href="{{ url_for('recurso_articulo', slug=c.pilar.slug) }}">{{ c.pilar.titulo }}</a>
+                    <strong>{{ _('Guía pilar:') }}</strong>
+                    <a href="{{ url_for('recurso_articulo', slug=c.pilar.slug) }}">{{ get_field(c.pilar, 'titulo') }}</a>
                 </p>
                 {% endif %}
                 {% if c.soporte %}
                 <ul class="recursos-soporte-list">
                     {% for s in c.soporte %}
-                    <li><a href="{{ url_for('recurso_articulo', slug=s.slug) }}">{{ s.titulo }}</a></li>
+                    <li><a href="{{ url_for('recurso_articulo', slug=s.slug) }}">{{ get_field(s, 'titulo') }}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}
-                <a href="{{ url_for('recursos_tema', cluster=c.key) }}" class="btn-outline btn-sm">Ver tema →</a>
+                <a href="{{ url_for('recursos_tema', cluster=c.key) }}" class="btn-outline btn-sm">{{ _('Ver tema') }} →</a>
             </div>
             {% endfor %}
         </div>
@@ -89,7 +89,7 @@
 {% if destacados %}
 <section class="section recursos-hub-destacados">
     <div class="container">
-        <h2 class="recursos-section-title">Guías pilar</h2>
+        <h2 class="recursos-section-title">{{ _('Guías pilar') }}</h2>
         <div class="landing-grid">
             {% for articulo in destacados %}
             {{ recurso_card(articulo) }}
@@ -102,8 +102,8 @@
 {% if feed_actualidad %}
 <section class="section recursos-hub-feed">
     <div class="container">
-        <h2 class="recursos-section-title">Actualidad IA / Noticias del sector</h2>
-        <p class="recursos-feed-intro">Resúmenes de vídeo y novedades del sector. Las guías evergreen están en los bloques superiores.</p>
+        <h2 class="recursos-section-title">{{ _('Actualidad IA / Noticias del sector') }}</h2>
+        <p class="recursos-feed-intro">{{ _('Resúmenes de vídeo y novedades del sector. Las guías evergreen están en los bloques superiores.') }}</p>
         <div class="landing-grid">
             {% for articulo in feed_actualidad %}
             {{ recurso_card(articulo, heading_tag='h3', show_thumb=false) }}
@@ -112,7 +112,7 @@
         {% if feed_actualidad_total > feed_actualidad|length %}
         <p class="text-center recursos-ver-mas">
             <a href="{{ url_for('recursos_actualidad') }}" class="btn-outline">
-                Ver toda la actualidad ({{ feed_actualidad_total }} artículos) →
+                {{ _('Ver toda la actualidad (%(total)d artículos) →', total=feed_actualidad_total) }}
             </a>
         </p>
         {% endif %}
@@ -122,20 +122,20 @@
 
 <section class="section recursos-hub-all">
     <div class="container">
-        <h2 class="recursos-section-title">Todas las guías</h2>
+        <h2 class="recursos-section-title">{{ _('Todas las guías') }}</h2>
         <div class="landing-grid">
             {% for articulo in guias_todas %}
             {{ recurso_card(articulo, compact=true) }}
             {% endfor %}
         </div>
         <div class="text-center recursos-hub-footer">
-            <p class="lead">Servicios relacionados:</p>
+            <p class="lead">{{ _('Servicios relacionados:') }}</p>
             <p>
-                <a href="{{ url_for('desarrollo_software') }}">Desarrollo a medida</a> ·
-                <a href="{{ url_for('automatizaciones') }}">Automatizaciones</a> ·
-                <a href="{{ url_for('servicios') }}#consultoria-ia">Consultoría IA</a> ·
-                <a href="{{ url_for('portfolio') }}">Casos de éxito</a> ·
-                <a href="{{ url_for('contacto') }}">Consulta gratuita</a>
+                <a href="{{ url_for('desarrollo_software') }}">{{ _('Desarrollo a medida') }}</a> ·
+                <a href="{{ url_for('automatizaciones') }}">{{ _('Automatizaciones') }}</a> ·
+                <a href="{{ url_for('servicios') }}#consultoria-ia">{{ _('Consultoría IA') }}</a> ·
+                <a href="{{ url_for('portfolio') }}">{{ _('Casos de éxito') }}</a> ·
+                <a href="{{ url_for('contacto') }}">{{ _('Consulta gratuita') }}</a>
             </p>
         </div>
     </div>

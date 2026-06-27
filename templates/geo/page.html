@@ -34,8 +34,8 @@
 {% block content %}
 <nav class="breadcrumb" aria-label="Breadcrumb">
     <div class="container">
-        <a href="{{ url_for('index') }}">Inicio</a> ›
-        <a href="{{ url_for('geo_index') }}">Zona Madrid</a> ›
+        <a href="{{ url_for('index') }}">{{ _('Inicio') }}</a> ›
+        <a href="{{ url_for('geo_index') }}">{{ _('Zona Madrid') }}</a> ›
         {% if parent_page %}
         <a href="{{ url_for('geo_page', slug=parent_page.slug) }}">{{ parent_page.city_name }}</a> ›
         {% endif %}

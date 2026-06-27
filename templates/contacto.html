@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Contacto — Presupuesto Desarrollo o Automatización | Megasoluciones{% endblock %}
-{% block meta_description %}Contacta con Megasoluciones para presupuesto de desarrollo de software a medida o automatizaciones empresariales en España. Respuesta en menos de 24 horas.{% endblock %}
-{% block og_title %}Presupuesto Desarrollo o Automatización | Megasoluciones{% endblock %}
-{% block og_description %}Contacta con Megasoluciones para presupuesto de desarrollo de software a medida o automatizaciones empresariales en España. Respuesta en menos de 24 horas.{% endblock %}
+{% block title %}{{ _('Contacto — Presupuesto Desarrollo o Automatización | Megasoluciones') }}{% endblock %}
+{% block meta_description %}{{ _('Contacta con Megasoluciones para presupuesto de desarrollo de software a medida o automatizaciones empresariales en España. Respuesta en menos de 24 horas.') }}{% endblock %}
+{% block og_title %}{{ _('Presupuesto Desarrollo o Automatización | Megasoluciones') }}{% endblock %}
+{% block og_description %}{{ _('Contacta con Megasoluciones para presupuesto de desarrollo de software a medida o automatizaciones empresariales en España. Respuesta en menos de 24 horas.') }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -11,7 +11,7 @@
 {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  "name": "Contacto Megasoluciones",
+  "name": "{{ _('Contacto Megasoluciones') }}",
   "url": "{{ canonical_url }}",
   "mainEntity": {
     "@type": "Organization",
@@ -27,7 +27,7 @@
   "@type": "FAQPage",
   "mainEntity": [
     {% for faq in faqs %}
-    {"@type": "Question", "name": {{ faq.question|tojson }}, "acceptedAnswer": {"@type": "Answer", "text": {{ faq.answer|tojson }}}}{% if not loop.last %},{% endif %}
+    {"@type": "Question", "name": {{ get_field(faq, 'question')|tojson }}, "acceptedAnswer": {"@type": "Answer", "text": {{ get_field(faq, 'answer')|tojson }}}}{% if not loop.last %},{% endif %}
     {% endfor %}
   ]
 }
@@ -37,8 +37,8 @@
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>Hablemos de tu <span class="gradient-text">proyecto</span></h1>
-        <p>Desarrollo de software, automatizaciones o integraciones — te respondemos en menos de 24 horas</p>
+        <h1>{{ _('Hablemos de tu') }} <span class="gradient-text">{{ _('proyecto') }}</span></h1>
+        <p>{{ _('Desarrollo de software, automatizaciones o integraciones — te respondemos en menos de 24 horas') }}</p>
     </div>
 </section>
 
@@ -48,64 +48,64 @@
     <div class="container">
         <div class="contact-wrapper">
             <div class="contact-info">
-                <h2>Información de Contacto</h2>
-                <p>Cuéntanos si necesitas desarrollo a medida, automatizar procesos o integrar sistemas. En la primera consulta seguimos nuestro <a href="#primera-consulta">roadmap de auditoría BPMN</a> antes de proponer nada.</p>
+                <h2>{{ _('Información de Contacto') }}</h2>
+                <p>{{ _('Cuéntanos si necesitas desarrollo a medida, automatizar procesos o integrar sistemas. En la primera consulta seguimos nuestro') }} <a href="#primera-consulta">{{ _('roadmap de auditoría BPMN') }}</a> {{ _('antes de proponer nada.') }}</p>
                 <div class="contact-methods">
                     <div class="contact-method">
                         <div class="method-icon">📧</div>
-                        <div><h4>Email</h4><p>info@megasolucion.net</p><p class="small">Respuesta en menos de 24h</p></div>
+                        <div><h4>{{ _('Email') }}</h4><p>info@megasolucion.net</p><p class="small">{{ _('Respuesta en menos de 24h') }}</p></div>
                     </div>
                     <div class="contact-method">
                         <div class="method-icon">📍</div>
-                        <div><h4>Ubicación</h4><p>España & LATAM</p><p class="small">Remoto y presencial</p></div>
+                        <div><h4>{{ _('Ubicación') }}</h4><p>{{ _('España & LATAM') }}</p><p class="small">{{ _('Remoto y presencial') }}</p></div>
                     </div>
                     <div class="contact-method">
                         <div class="method-icon">𝕏</div>
                         <div>
-                            <h4>X (Twitter)</h4>
+                            <h4>{{ _('X (Twitter)') }}</h4>
                             <p><a href="{{ x_url }}" target="_blank" rel="noopener noreferrer">@Megasolucion</a></p>
-                            <p class="small">Novedades y contenido sobre IA</p>
+                            <p class="small">{{ _('Novedades y contenido sobre IA') }}</p>
                         </div>
                     </div>
                     <div class="contact-method">
                         <div class="method-icon">💼</div>
                         <div>
-                            <h4>LinkedIn</h4>
+                            <h4>{{ _('LinkedIn') }}</h4>
                             <p><a href="{{ linkedin_url }}" target="_blank" rel="noopener noreferrer">MEGASOLUCIONES</a></p>
-                            <p class="small">Síguenos para novedades</p>
+                            <p class="small">{{ _('Síguenos para novedades') }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="office-hours">
-                    <h3>Horario de Atención</h3>
-                    <p>Lunes a Viernes: 9:00 - 18:00 (CET)</p>
-                    <p>Sábados: 10:00 - 14:00 (CET)</p>
+                    <h3>{{ _('Horario de Atención') }}</h3>
+                    <p>{{ _('Lunes a Viernes: 9:00 - 18:00 (CET)') }}</p>
+                    <p>{{ _('Sábados: 10:00 - 14:00 (CET)') }}</p>
                 </div>
             </div>
 
             <div class="contact-form-wrapper">
-                <h2>Envíanos un Mensaje</h2>
-                <p>Indica el servicio que te interesa para una respuesta más precisa</p>
+                <h2>{{ _('Envíanos un Mensaje') }}</h2>
+                <p>{{ _('Indica el servicio que te interesa para una respuesta más precisa') }}</p>
                 <form method="POST" class="contact-form" id="contactForm" novalidate>
                     {{ form.hidden_tag() }}
                     <div class="form-group">
                         {{ form.nombre.label }}
-                        {{ form.nombre(class="form-control", placeholder="Tu nombre completo") }}
+                        {{ form.nombre(class="form-control", placeholder=_('Tu nombre completo')) }}
                         {% if form.nombre.errors %}<span class="error">{{ form.nombre.errors[0] }}</span>{% endif %}
                     </div>
                     <div class="form-group">
                         {{ form.email.label }}
-                        {{ form.email(class="form-control", placeholder="tu@email.com") }}
+                        {{ form.email(class="form-control", placeholder=_('tu@email.com')) }}
                         {% if form.email.errors %}<span class="error">{{ form.email.errors[0] }}</span>{% endif %}
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             {{ form.telefono.label }}
-                            {{ form.telefono(class="form-control", placeholder="+34 XXX XXX XXX") }}
+                            {{ form.telefono(class="form-control", placeholder=_('+34 XXX XXX XXX')) }}
                         </div>
                         <div class="form-group">
                             {{ form.empresa.label }}
-                            {{ form.empresa(class="form-control", placeholder="Nombre de tu empresa") }}
+                            {{ form.empresa(class="form-control", placeholder=_('Nombre de tu empresa')) }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -114,11 +114,11 @@
                     </div>
                     <div class="form-group">
                         {{ form.mensaje.label }}
-                        {{ form.mensaje(class="form-control", rows="5", placeholder="Describe tu proyecto: qué quieres desarrollar o automatizar...") }}
+                        {{ form.mensaje(class="form-control", rows="5", placeholder=_('Describe tu proyecto: qué quieres desarrollar o automatizar...')) }}
                         {% if form.mensaje.errors %}<span class="error">{{ form.mensaje.errors[0] }}</span>{% endif %}
                     </div>
                     <div class="hp-field" aria-hidden="true">
-                        <label for="middle_name_hp">Segundo nombre</label>
+                        <label for="middle_name_hp">{{ _('Segundo nombre') }}</label>
                         <input type="text" name="middle_name_hp" id="middle_name_hp" tabindex="-1" autocomplete="nope" value="">
                     </div>
                     {% if turnstile_site_key %}
@@ -126,9 +126,9 @@
                         <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}" data-theme="light"></div>
                     </div>
                     {% endif %}
-                    <button type="submit" class="btn-primary btn-block">Enviar Mensaje</button>
+                    <button type="submit" class="btn-primary btn-block">{{ _('Enviar Mensaje') }}</button>
                     <p class="form-note">
-                        Al enviar aceptas nuestra <a href="{{ url_for('privacidad') }}">política de privacidad</a> y el tratamiento de datos según el RGPD.
+                        {{ _('Al enviar aceptas nuestra') }} <a href="{{ url_for('privacidad') }}">{{ _('política de privacidad') }}</a> {{ _('y el tratamiento de datos según el RGPD.') }}
                     </p>
                 </form>
             </div>
@@ -138,12 +138,12 @@
 
 <section class="section bg-light">
     <div class="container">
-        <h2 class="text-center">Preguntas Frecuentes</h2>
+        <h2 class="text-center">{{ _('Preguntas Frecuentes') }}</h2>
         <div class="faq-list">
             {% for faq in faqs %}
             <div class="faq-item">
-                <h3>{{ faq.question }}</h3>
-                <p>{{ faq.answer }}</p>
+                <h3>{{ get_field(faq, 'question') }}</h3>
+                <p>{{ get_field(faq, 'answer') }}</p>
             </div>
             {% endfor %}
         </div>

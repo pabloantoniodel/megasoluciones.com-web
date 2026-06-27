@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
-{% block meta_description %}Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.{% endblock %}
-{% block og_title %}Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones{% endblock %}
-{% block og_description %}Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.{% endblock %}
+{% block title %}{{ _('Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones') }}{% endblock %}
+{% block meta_description %}{{ _('Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.') }}{% endblock %}
+{% block og_title %}{{ _('Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones') }}{% endblock %}
+{% block og_description %}{{ _('Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.') }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -11,7 +11,7 @@
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Casos de éxito Megasoluciones",
+  "name": "{{ _('Casos de éxito Megasoluciones') }}",
   "itemListElement": [
     {% for proyecto in proyectos %}
     {
@@ -19,8 +19,8 @@
       "position": {{ loop.index }},
       "item": {
         "@type": "CreativeWork",
-        "name": {{ proyecto.titulo|tojson }},
-        "description": {{ proyecto.descripcion|tojson }},
+        "name": {{ get_field(proyecto, 'titulo')|tojson }},
+        "description": {{ get_field(proyecto, 'descripcion')|tojson }},
         "url": "{{ url_for('portfolio_caso', slug=proyecto.slug, _external=True) }}"
       }
     }{% if not loop.last %},{% endif %}
@@ -33,8 +33,8 @@
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>Portfolio de <span class="gradient-text">desarrollo y automatizaciones</span></h1>
-        <p>Casos de éxito en software a medida, integraciones y automatización de procesos</p>
+        <h1>{{ _('Portfolio de') }} <span class="gradient-text">{{ _('desarrollo y automatizaciones') }}</span></h1>
+        <p>{{ _('Casos de éxito en software a medida, integraciones y automatización de procesos') }}</p>
     </div>
 </section>
 
@@ -45,7 +45,7 @@
             <div class="portfolio-card">
                 <a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}" class="portfolio-image-wrap">
                     {% set img_name = proyecto.imagen %}
-                    {% set alt = proyecto.titulo %}
+                    {% set alt = get_field(proyecto, 'titulo') %}
                     {% set width = 600 %}
                     {% set height = 400 %}
                     {% set lazy = true %}
@@ -55,19 +55,19 @@
                 <div class="portfolio-content">
                     <span class="portfolio-badge portfolio-badge-{{ 'desarrollo' if proyecto.categoria == 'Desarrollo' else 'automatizacion' }}">{{ proyecto.categoria }}</span>
                     {% if proyecto.real %}
-                        <span class="portfolio-badge portfolio-badge-real">Listo para producción</span>
+                        <span class="portfolio-badge portfolio-badge-real">{{ _('Listo para producción') }}</span>
                     {% else %}
-                        <span class="portfolio-badge portfolio-badge-mvp">MVP</span>
+                        <span class="portfolio-badge portfolio-badge-mvp">{{ _('MVP') }}</span>
                     {% endif %}
                     <span class="portfolio-category">{{ proyecto.cliente }}</span>
-                    <h3><a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}">{{ proyecto.titulo }}</a></h3>
-                    <p>{{ proyecto.descripcion }}</p>
+                    <h3><a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}">{{ get_field(proyecto, 'titulo') }}</a></h3>
+                    <p>{{ get_field(proyecto, 'descripcion') }}</p>
                     <div class="portfolio-tech">
-                        {% for tech in proyecto.tecnologias %}
+                        {% for tech in get_field(proyecto, 'tecnologias') %}
                         <span class="tech-badge">{{ tech }}</span>
                         {% endfor %}
                     </div>
-                    <a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}" class="btn-outline btn-sm">Ver caso completo</a>
+                    <a href="{{ url_for('portfolio_caso', slug=proyecto.slug) }}" class="btn-outline btn-sm">{{ _('Ver caso completo') }}</a>
                 </div>
             </div>
             {% endfor %}
@@ -77,37 +77,37 @@
 
 <section class="section bg-light">
     <div class="container">
-        <h2 class="text-center">Resultados Medibles</h2>
+        <h2 class="text-center">{{ _('Resultados Medibles') }}</h2>
         <div class="results-grid">
-            <div class="result-card"><h3>40%</h3><p>Reducción media de tareas manuales</p></div>
-            <div class="result-card"><h3>70%</h3><p>Menos tiempo en reporting</p></div>
-            <div class="result-card"><h3>200K€+</h3><p>Ahorro anual en automatizaciones</p></div>
-            <div class="result-card"><h3>6 sem</h3><p>Media de entrega MVP</p></div>
+            <div class="result-card"><h3>40%</h3><p>{{ _('Reducción media de tareas manuales') }}</p></div>
+            <div class="result-card"><h3>70%</h3><p>{{ _('Menos tiempo en reporting') }}</p></div>
+            <div class="result-card"><h3>200K€+</h3><p>{{ _('Ahorro anual en automatizaciones') }}</p></div>
+            <div class="result-card"><h3>6 sem</h3><p>{{ _('Media de entrega MVP') }}</p></div>
         </div>
     </div>
 </section>
 
 <section class="section">
     <div class="container">
-        <h2 class="text-center">Sectores en los que Trabajamos</h2>
+        <h2 class="text-center">{{ _('Sectores en los que Trabajamos') }}</h2>
         <div class="sectors-grid">
-            <div class="sector-card"><div class="sector-icon">🏦</div><h3>Finanzas</h3><p>Integraciones bancarias, reporting y automatización documental</p></div>
-            <div class="sector-card"><div class="sector-icon">🛒</div><h3>Retail y e-commerce</h3><p>Plataformas web, sincronización stock y atención automatizada</p></div>
-            <div class="sector-card"><div class="sector-icon">🏭</div><h3>Industria</h3><p>Integración ERP, automatización de pedidos y calidad</p></div>
-            <div class="sector-card"><div class="sector-icon">📱</div><h3>Tecnología</h3><p>Desarrollo SaaS, APIs y productos digitales</p></div>
-            <div class="sector-card"><div class="sector-icon">⚖️</div><h3>Legal y consultoría</h3><p>RPA documental, extracción de datos y workflows</p></div>
-            <div class="sector-card"><div class="sector-icon">🏢</div><h3>Servicios B2B</h3><p>Portales clientes, CRM y automatizaciones internas</p></div>
+            <div class="sector-card"><div class="sector-icon">🏦</div><h3>{{ _('Finanzas') }}</h3><p>{{ _('Integraciones bancarias, reporting y automatización documental') }}</p></div>
+            <div class="sector-card"><div class="sector-icon">🛒</div><h3>{{ _('Retail y e-commerce') }}</h3><p>{{ _('Plataformas web, sincronización stock y atención automatizada') }}</p></div>
+            <div class="sector-card"><div class="sector-icon">🏭</div><h3>{{ _('Industria') }}</h3><p>{{ _('Integración ERP, automatización de pedidos y calidad') }}</p></div>
+            <div class="sector-card"><div class="sector-icon">📱</div><h3>{{ _('Tecnología') }}</h3><p>{{ _('Desarrollo SaaS, APIs y productos digitales') }}</p></div>
+            <div class="sector-card"><div class="sector-icon">⚖️</div><h3>{{ _('Legal y consultoría') }}</h3><p>{{ _('RPA documental, extracción de datos y workflows') }}</p></div>
+            <div class="sector-card"><div class="sector-icon">🏢</div><h3>{{ _('Servicios B2B') }}</h3><p>{{ _('Portales clientes, CRM y automatizaciones internas') }}</p></div>
         </div>
-        <p class="text-center" style="margin-top: 2rem;"><a href="{{ url_for('recursos') }}">Guías sobre desarrollo y automatizaciones →</a></p>
+        <p class="text-center" style="margin-top: 2rem;"><a href="{{ url_for('recursos') }}">{{ _('Guías sobre desarrollo y automatizaciones') }} →</a></p>
     </div>
 </section>
 
 <section class="section-cta">
     <div class="container">
         <div class="cta-content">
-            <h2>¿Quieres ver tu proyecto aquí?</h2>
-            <p>Hablemos de tu próximo desarrollo o automatización</p>
-            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">Empezar un Proyecto</a>
+            <h2>{{ _('¿Quieres ver tu proyecto aquí?') }}</h2>
+            <p>{{ _('Hablemos de tu próximo desarrollo o automatización') }}</p>
+            <a href="{{ url_for('contacto') }}" class="btn-primary btn-lg">{{ _('Empezar un Proyecto') }}</a>
         </div>
     </div>
 </section>

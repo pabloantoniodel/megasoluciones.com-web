@@ -2,6 +2,47 @@
 
 from __future__ import annotations
 
+import json
+import os
+
+_I18N_PATH = os.path.join(os.path.dirname(__file__), 'geo_i18n_en.json')
+_GEO_I18N: dict | None = None
+
+
+def _load_geo_i18n() -> dict:
+    global _GEO_I18N
+    if _GEO_I18N is not None:
+        return _GEO_I18N
+    if os.path.isfile(_I18N_PATH):
+        with open(_I18N_PATH, encoding='utf-8') as f:
+            _GEO_I18N = json.load(f)
+    else:
+        _GEO_I18N = {}
+    return _GEO_I18N
+
+
+def _merge_i18n(base: dict, overlay: dict) -> dict:
+    """Sustituye campos base por sus equivalentes *_en del overlay."""
+    out = dict(base)
+    for key, val in overlay.items():
+        if key.endswith('_en') and val:
+            base_key = key[:-3]
+            if base_key in out:
+                out[base_key] = val
+    return out
+
+
+def localize_geo(page: dict | None, lang: str = 'es') -> dict | None:
+    if not page or lang != 'en':
+        return page
+    i18n = _load_geo_i18n()
+    slug = page.get('slug', '')
+    overlay = i18n.get('GEO_PAGES', {}).get(slug, {})
+    if overlay:
+        return _merge_i18n(page, overlay)
+    return page
+
+
 GEO_HUB = {
     'slug': '',
     'h1': 'Servicios por zona en la Comunidad de Madrid',
@@ -605,8 +646,17 @@ GEO_INDEX_GROUPS = [
 ]
 
 
-def get_geo_page(slug: str) -> dict | None:
-    return GEO_PAGES.get(slug)
+def get_geo_page(slug: str, lang: str = 'es') -> dict | None:
+    page = GEO_PAGES.get(slug)
+    return localize_geo(page, lang)
+
+
+def get_geo_hub(lang: str = 'es') -> dict:
+    hub = dict(GEO_HUB)
+    if lang == 'en':
+        i18n = _load_geo_i18n().get('GEO_HUB', {})
+        return _merge_i18n(hub, i18n)
+    return hub
 
 
 def iter_geo_pages() -> list[dict]:

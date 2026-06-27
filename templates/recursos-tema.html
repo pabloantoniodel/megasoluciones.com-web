@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{{ cluster_meta.nombre }} — Recursos | Megasoluciones{% endblock %}
-{% block meta_description %}{{ cluster_meta.descripcion }}{% endblock %}
-{% block og_title %}{{ cluster_meta.nombre }} | Recursos Megasoluciones{% endblock %}
-{% block og_description %}{{ cluster_meta.descripcion }}{% endblock %}
+{% block title %}{{ get_field(cluster_meta, 'nombre') }} — Recursos | Megasoluciones{% endblock %}
+{% block meta_description %}{{ get_field(cluster_meta, 'descripcion') }}{% endblock %}
+{% block og_title %}{{ get_field(cluster_meta, 'nombre') }} | Recursos Megasoluciones{% endblock %}
+{% block og_description %}{{ get_field(cluster_meta, 'descripcion') }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -12,9 +12,9 @@
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <p class="recursos-breadcrumb-inline"><a href="{{ url_for('recursos') }}">Recursos</a> › {{ cluster_meta.nombre }}</p>
-        <h1>{{ cluster_meta.nombre }}</h1>
-        <p>{{ cluster_meta.descripcion }}</p>
+        <p class="recursos-breadcrumb-inline"><a href="{{ url_for('recursos') }}">{{ _('Recursos') }}</a> › {{ get_field(cluster_meta, 'nombre') }}</p>
+        <h1>{{ get_field(cluster_meta, 'nombre') }}</h1>
+        <p>{{ get_field(cluster_meta, 'descripcion') }}</p>
     </div>
 </section>
 
@@ -25,14 +25,14 @@
             <article class="landing-card">
                 <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
                 {% if articulo.slug == pilar_slug %}<span class="recursos-badge-pilar">Guía pilar</span>{% endif %}
-                <h2><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ articulo.titulo }}</a></h2>
-                <p>{{ articulo.resumen }}</p>
-                <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">Leer artículo →</a>
+                <h2><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ get_field(articulo, 'titulo') }}</a></h2>
+                <p>{{ get_field(articulo, 'resumen') }}</p>
+                <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">{{ _('Leer artículo →') }}</a>
             </article>
             {% endfor %}
         </div>
         <p class="text-center" style="margin-top: 2rem;">
-            <a href="{{ url_for('recursos') }}">← Volver a todos los recursos</a>
+            <a href="{{ url_for('recursos') }}">{{ _('← Volver a todos los recursos') }}</a>
         </p>
     </div>
 </section>

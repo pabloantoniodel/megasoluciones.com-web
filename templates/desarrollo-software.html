@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Desarrollo de Software a Medida en España | Megasoluciones{% endblock %}
-{% block meta_description %}Desarrollo de software a medida en España: aplicaciones web, APIs, integraciones ERP/CRM y plataformas SaaS. Presupuesto transparente, metodología ágil y soporte continuo.{% endblock %}
-{% block meta_keywords %}desarrollo software a medida, desarrollo web España, software a medida empresas, integración APIs, desarrollo aplicaciones{% endblock %}
+{% block title %}{{ _('Desarrollo de Software a Medida en España | Megasoluciones') }}{% endblock %}
+{% block meta_description %}{{ _('Desarrollo de software a medida en España: aplicaciones web, APIs, integraciones ERP/CRM y plataformas SaaS. Presupuesto transparente, metodología ágil y soporte continuo.') }}{% endblock %}
+{% block meta_keywords %}{{ _('desarrollo software a medida, desarrollo web España, software a medida empresas, integración APIs, desarrollo aplicaciones') }}{% endblock %}
 
-{% block og_title %}Desarrollo de Software a Medida en España | Megasoluciones{% endblock %}
-{% block og_description %}Desarrollo de software a medida en España: aplicaciones web, APIs, integraciones ERP/CRM y plataformas SaaS. Presupuesto transparente, metodología ágil y soporte continuo.{% endblock %}
+{% block og_title %}{{ _('Desarrollo de Software a Medida en España | Megasoluciones') }}{% endblock %}
+{% block og_description %}{{ _('Desarrollo de software a medida en España: aplicaciones web, APIs, integraciones ERP/CRM y plataformas SaaS. Presupuesto transparente, metodología ágil y soporte continuo.') }}{% endblock %}
 
 {% block structured_data %}
-{% set breadcrumbs = [{'name': 'Desarrollo de Software', 'url': canonical_url}] %}
+{% set breadcrumbs = [{'name': _('Desarrollo de Software'), 'url': canonical_url}] %}
 {% include 'partials/schema-breadcrumb.html' %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Desarrollo de Software a Medida",
+  "name": "{{ _('Desarrollo de Software a Medida') }}",
   "provider": {"@type": "Organization", "name": "Megasoluciones", "url": "{{ site_base_url }}/"},
-  "areaServed": {"@type": "Country", "name": "España"},
-  "description": "Desarrollo de software a medida: webs, apps, APIs e integraciones para empresas en España",
+  "areaServed": {"@type": "Country", "name": "{{ _('España') }}"},
+  "description": "{{ _('Desarrollo de software a medida: webs, apps, APIs e integraciones para empresas en España') }}",
   "offers": {"@type": "Offer", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": "5000"}}
 }
 </script>
@@ -27,7 +27,7 @@
   "@type": "FAQPage",
   "mainEntity": [
     {% for faq in faqs %}
-    {"@type": "Question", "name": {{ faq.question|tojson }}, "acceptedAnswer": {"@type": "Answer", "text": {{ faq.answer|tojson }}}}{% if not loop.last %},{% endif %}
+    {"@type": "Question", "name": {{ get_field(faq, 'question')|tojson }}, "acceptedAnswer": {"@type": "Answer", "text": {{ get_field(faq, 'answer')|tojson }}}}{% if not loop.last %},{% endif %}
     {% endfor %}
   ]
 }
@@ -37,115 +37,115 @@
 {% block content %}
 <nav class="breadcrumb" aria-label="Breadcrumb">
     <div class="container">
-        <a href="{{ url_for('index') }}">Inicio</a> › <span>Desarrollo de Software</span>
+        <a href="{{ url_for('index') }}">{{ _('Inicio') }}</a> › <span>{{ _('Desarrollo de Software') }}</span>
     </div>
 </nav>
 
 <section class="page-header">
     <div class="container">
-        <h1>Desarrollo de software a medida para tu <span class="gradient-text">empresa</span></h1>
-        <p class="lead">Aplicaciones web, APIs, integraciones y plataformas diseñadas para resolver problemas reales de negocio en España</p>
-        <a href="{{ url_for('contacto', servicio='desarrollo-software') }}" class="btn-primary btn-lg">Solicitar presupuesto</a>
+        <h1>{{ _('Desarrollo de software a medida para tu') }} <span class="gradient-text">{{ _('empresa') }}</span></h1>
+        <p class="lead">{{ _('Aplicaciones web, APIs, integraciones y plataformas diseñadas para resolver problemas reales de negocio en España') }}</p>
+        <a href="{{ url_for('contacto', servicio='desarrollo-software') }}" class="btn-primary btn-lg">{{ _('Solicitar presupuesto') }}</a>
     </div>
 </section>
 
 <section class="section">
     <div class="container landing-content">
-        <h2>¿Por qué desarrollo de software a medida?</h2>
-        <p>Las herramientas genéricas rara vez encajan con los procesos únicos de tu empresa. Un <strong>desarrollo de software a medida</strong> te permite automatizar flujos específicos, conectar sistemas que no hablan entre sí y escalar sin depender de limitaciones de software estándar.</p>
-        <p>En Megasoluciones diseñamos y construimos soluciones desde cero o sobre plataformas existentes: portales de clientes, dashboards internos, integraciones bancarias, sincronización ERP-CRM y APIs REST documentadas. Trabajamos con empresas en toda España, con equipos ágiles y entregas cada dos semanas.</p>
+        <h2>{{ _('¿Por qué desarrollo de software a medida?') }}</h2>
+        <p>{{ _('Las herramientas genéricas rara vez encajan con los procesos únicos de tu empresa. Un') }} <strong>{{ _('desarrollo de software a medida') }}</strong> {{ _('te permite automatizar flujos específicos, conectar sistemas que no hablan entre sí y escalar sin depender de limitaciones de software estándar.') }}</p>
+        <p>{{ _('En Megasoluciones diseñamos y construimos soluciones desde cero o sobre plataformas existentes: portales de clientes, dashboards internos, integraciones bancarias, sincronización ERP-CRM y APIs REST documentadas. Trabajamos con empresas en toda España, con equipos ágiles y entregas cada dos semanas.') }}</p>
 
-        <h2>Qué desarrollamos</h2>
+        <h2>{{ _('Qué desarrollamos') }}</h2>
         <div class="landing-grid">
             <div class="landing-card">
-                <h3>Aplicaciones web a medida</h3>
-                <p>Portales de clientes, intranets, paneles de administración y plataformas SaaS con React, Vue o interfaces server-side según el proyecto.</p>
+                <h3>{{ _('Aplicaciones web a medida') }}</h3>
+                <p>{{ _('Portales de clientes, intranets, paneles de administración y plataformas SaaS con React, Vue o interfaces server-side según el proyecto.') }}</p>
             </div>
             <div class="landing-card">
-                <h3>APIs e integraciones</h3>
-                <p>Conectamos Odoo, Salesforce, Google Workspace, pasarelas de pago y APIs bancarias. Sincronización bidireccional en tiempo real o por lotes.</p>
+                <h3>{{ _('APIs e integraciones') }}</h3>
+                <p>{{ _('Conectamos Odoo, Salesforce, Google Workspace, pasarelas de pago y APIs bancarias. Sincronización bidireccional en tiempo real o por lotes.') }}</p>
             </div>
             <div class="landing-card">
-                <h3>Modernización de sistemas</h3>
-                <p>Migración de aplicaciones legacy, refactorización de bases de datos y despliegue en Docker/cloud con CI/CD.</p>
+                <h3>{{ _('Modernización de sistemas') }}</h3>
+                <p>{{ _('Migración de aplicaciones legacy, refactorización de bases de datos y despliegue en Docker/cloud con CI/CD.') }}</p>
             </div>
             <div class="landing-card">
-                <h3>MVP y productos digitales</h3>
-                <p>De la idea al MVP en 6–10 semanas. Validación de mercado con funcionalidad mínima viable y roadmap de evolutivos.</p>
+                <h3>{{ _('MVP y productos digitales') }}</h3>
+                <p>{{ _('De la idea al MVP en 6–10 semanas. Validación de mercado con funcionalidad mínima viable y roadmap de evolutivos.') }}</p>
             </div>
         </div>
 
-        <h2>Nuestro proceso de desarrollo</h2>
+        <h2>{{ _('Nuestro proceso de desarrollo') }}</h2>
         <div class="process-steps">
             <div class="process-step">
                 <div class="step-number">1</div>
-                <h3>Descubrimiento</h3>
-                <p>Analizamos requisitos, sistemas actuales y objetivos de negocio. Definimos alcance y presupuesto por fases.</p>
+                <h3>{{ _('Descubrimiento') }}</h3>
+                <p>{{ _('Analizamos requisitos, sistemas actuales y objetivos de negocio. Definimos alcance y presupuesto por fases.') }}</p>
             </div>
             <div class="process-step">
                 <div class="step-number">2</div>
-                <h3>Diseño técnico</h3>
-                <p>Arquitectura, stack tecnológico, modelos de datos y plan de integraciones. Documentación compartida contigo.</p>
+                <h3>{{ _('Diseño técnico') }}</h3>
+                <p>{{ _('Arquitectura, stack tecnológico, modelos de datos y plan de integraciones. Documentación compartida contigo.') }}</p>
             </div>
             <div class="process-step">
                 <div class="step-number">3</div>
-                <h3>Desarrollo ágil</h3>
-                <p>Sprints de 2 semanas con demos funcionales. Feedback continuo y ajustes de prioridades.</p>
+                <h3>{{ _('Desarrollo ágil') }}</h3>
+                <p>{{ _('Sprints de 2 semanas con demos funcionales. Feedback continuo y ajustes de prioridades.') }}</p>
             </div>
             <div class="process-step">
                 <div class="step-number">4</div>
-                <h3>Entrega y soporte</h3>
-                <p>Testing, despliegue en producción, formación y plan de mantenimiento con SLA acordado.</p>
+                <h3>{{ _('Entrega y soporte') }}</h3>
+                <p>{{ _('Testing, despliegue en producción, formación y plan de mantenimiento con SLA acordado.') }}</p>
             </div>
         </div>
 
-        <h2>Stack tecnológico</h2>
-        <p>Seleccionamos tecnologías según el proyecto, priorizando mantenibilidad y talento disponible en España:</p>
+        <h2>{{ _('Stack tecnológico') }}</h2>
+        <p>{{ _('Seleccionamos tecnologías según el proyecto, priorizando mantenibilidad y talento disponible en España:') }}</p>
         <ul class="landing-list">
-            <li><strong>Backend:</strong> Python (Flask, FastAPI, Django), Node.js</li>
-            <li><strong>Frontend:</strong> React, Vue.js, TypeScript, HTML/CSS responsive</li>
-            <li><strong>Bases de datos:</strong> PostgreSQL, MongoDB, Redis</li>
-            <li><strong>Infraestructura:</strong> Docker, AWS, Azure, servidores dedicados</li>
-            <li><strong>Integraciones:</strong> REST, GraphQL, webhooks, Odoo XML-RPC, OAuth2</li>
+            <li><strong>{{ _('Backend:') }}</strong> {{ _('Python (Flask, FastAPI, Django), Node.js') }}</li>
+            <li><strong>{{ _('Frontend:') }}</strong> {{ _('React, Vue.js, TypeScript, HTML/CSS responsive') }}</li>
+            <li><strong>{{ _('Bases de datos:') }}</strong> {{ _('PostgreSQL, MongoDB, Redis') }}</li>
+            <li><strong>{{ _('Infraestructura:') }}</strong> {{ _('Docker, AWS, Azure, servidores dedicados') }}</li>
+            <li><strong>{{ _('Integraciones:') }}</strong> {{ _('REST, GraphQL, webhooks, Odoo XML-RPC, OAuth2') }}</li>
         </ul>
 
-        <h2>Tipos de proyecto y presupuesto orientativo</h2>
-        <p>Desde <strong>{{ servicio.precio_desde }}</strong> según complejidad. Proyectos habituales:</p>
+        <h2>{{ _('Tipos de proyecto y presupuesto orientativo') }}</h2>
+        <p>{{ _('Desde') }} <strong>{{ servicio.precio_desde }}</strong> {{ _('según complejidad. Proyectos habituales:') }}</p>
         <ul class="landing-list">
-            <li>Web corporativa con CMS y formularios: desde 5.000€</li>
-            <li>Portal clientes con login y panel: desde 12.000€</li>
-            <li>Integración ERP + CRM + facturación: desde 8.000€</li>
-            <li>Plataforma SaaS multi-tenant: desde 30.000€</li>
+            <li>{{ _('Web corporativa con CMS y formularios: desde 5.000€') }}</li>
+            <li>{{ _('Portal clientes con login y panel: desde 12.000€') }}</li>
+            <li>{{ _('Integración ERP + CRM + facturación: desde 8.000€') }}</li>
+            <li>{{ _('Plataforma SaaS multi-tenant: desde 30.000€') }}</li>
         </ul>
 
-        <p>¿También necesitas <a href="{{ url_for('automatizaciones') }}">automatizar procesos</a> además del desarrollo? Combinamos ambos servicios para maximizar el ROI. Consulta nuestros <a href="{{ url_for('portfolio') }}">casos de éxito</a>, lee <a href="{{ url_for('recurso_articulo', slug='desarrolladores-ia-gestion-automatizacion-empresas') }}">por qué la IA empresarial necesita desarrolladores</a> o <a href="{{ url_for('recurso_articulo', slug='coste-desarrollo-software-2026') }}">cuánto cuesta un desarrollo a medida</a>.</p>
+        <p>{{ _('¿También necesitas') }} <a href="{{ url_for('automatizaciones') }}">{{ _('automatizar procesos') }}</a> {{ _('además del desarrollo? Combinamos ambos servicios para maximizar el ROI. Consulta nuestros') }} <a href="{{ url_for('portfolio') }}">{{ _('casos de éxito') }}</a>, {{ _('lee') }} <a href="{{ url_for('recurso_articulo', slug='desarrolladores-ia-gestion-automatizacion-empresas') }}">{{ _('por qué la IA empresarial necesita desarrolladores') }}</a> {{ _('o') }} <a href="{{ url_for('recurso_articulo', slug='coste-desarrollo-software-2026') }}">{{ _('cuánto cuesta un desarrollo a medida') }}</a>.</p>
 
-        <h2>Recursos sobre desarrollo e IA en empresas</h2>
+        <h2>{{ _('Recursos sobre desarrollo e IA en empresas') }}</h2>
         <div class="landing-grid">
             <div class="landing-card">
-                <h3><a href="{{ url_for('recurso_articulo', slug='agencia-ia-madrid-apuesta-comunidad-pymes') }}">Agencia IA Madrid y apuesta regional</a></h3>
-                <p>Qué impulsa la Comunidad de Madrid en IA y qué significa para pymes madrileñas.</p>
+                <h3><a href="{{ url_for('recurso_articulo', slug='agencia-ia-madrid-apuesta-comunidad-pymes') }}">{{ _('Agencia IA Madrid y apuesta regional') }}</a></h3>
+                <p>{{ _('Qué impulsa la Comunidad de Madrid en IA y qué significa para pymes madrileñas.') }}</p>
             </div>
             <div class="landing-card">
-                <h3><a href="{{ url_for('recurso_articulo', slug='desarrolladores-ia-gestion-automatizacion-empresas') }}">Desarrolladores e IA en empresas</a></h3>
-                <p>Por qué un modelo doméstico no sustituye integraciones, automatización y software en producción.</p>
+                <h3><a href="{{ url_for('recurso_articulo', slug='desarrolladores-ia-gestion-automatizacion-empresas') }}">{{ _('Desarrolladores e IA en empresas') }}</a></h3>
+                <p>{{ _('Por qué un modelo doméstico no sustituye integraciones, automatización y software en producción.') }}</p>
             </div>
             <div class="landing-card">
-                <h3><a href="{{ url_for('recurso_articulo', slug='coste-desarrollo-software-2026') }}">Cuánto cuesta un desarrollo a medida</a></h3>
-                <p>Rangos de presupuesto por tipo de proyecto en España (2026).</p>
+                <h3><a href="{{ url_for('recurso_articulo', slug='coste-desarrollo-software-2026') }}">{{ _('Cuánto cuesta un desarrollo a medida') }}</a></h3>
+                <p>{{ _('Rangos de presupuesto por tipo de proyecto en España (2026).') }}</p>
             </div>
             <div class="landing-card">
-                <h3><a href="{{ url_for('recurso_articulo', slug='elegir-empresa-desarrollo-software') }}">Elegir empresa de desarrollo</a></h3>
-                <p>Checklist de 8 criterios antes de contratar.</p>
+                <h3><a href="{{ url_for('recurso_articulo', slug='elegir-empresa-desarrollo-software') }}">{{ _('Elegir empresa de desarrollo') }}</a></h3>
+                <p>{{ _('Checklist de 8 criterios antes de contratar.') }}</p>
             </div>
         </div>
 
-        <h2>Preguntas frecuentes sobre desarrollo de software</h2>
+        <h2>{{ _('Preguntas frecuentes sobre desarrollo de software') }}</h2>
         <div class="faq-list">
             {% for faq in faqs %}
             <div class="faq-item">
-                <h3>{{ faq.question }}</h3>
-                <p>{{ faq.answer }}</p>
+                <h3>{{ get_field(faq, 'question') }}</h3>
+                <p>{{ get_field(faq, 'answer') }}</p>
             </div>
             {% endfor %}
         </div>
@@ -155,9 +155,9 @@
 <section class="section-cta">
     <div class="container">
         <div class="cta-content">
-            <h2>¿Tienes un proyecto de desarrollo en mente?</h2>
-            <p>Te respondemos en menos de 24 horas con propuesta inicial</p>
-            <a href="{{ url_for('contacto', servicio='desarrollo-software') }}" class="btn-primary btn-lg">Pedir presupuesto de desarrollo</a>
+            <h2>{{ _('¿Tienes un proyecto de desarrollo en mente?') }}</h2>
+            <p>{{ _('Te respondemos en menos de 24 horas con propuesta inicial') }}</p>
+            <a href="{{ url_for('contacto', servicio='desarrollo-software') }}" class="btn-primary btn-lg">{{ _('Pedir presupuesto de desarrollo') }}</a>
         </div>
     </div>
 </section>

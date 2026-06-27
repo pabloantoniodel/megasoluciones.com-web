@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Actualidad IA — Recursos | Megasoluciones{% endblock %}
-{% block meta_description %}Noticias y resúmenes sobre inteligencia artificial, regulación, modelos y productividad empresarial.{% endblock %}
-{% block og_title %}Actualidad IA | Recursos Megasoluciones{% endblock %}
-{% block og_description %}Noticias y resúmenes sobre inteligencia artificial para empresas.{% endblock %}
+{% block title %}{{ _('Actualidad IA — Recursos | Megasoluciones') }}{% endblock %}
+{% block meta_description %}{{ _('Noticias y resúmenes sobre inteligencia artificial, regulación, modelos y productividad empresarial.') }}{% endblock %}
+{% block og_title %}{{ _('Actualidad IA | Recursos Megasoluciones') }}{% endblock %}
+{% block og_description %}{{ _('Noticias y resúmenes sobre inteligencia artificial para empresas.') }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -12,33 +12,33 @@
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <p class="recursos-breadcrumb-inline"><a href="{{ url_for('recursos') }}">Recursos</a> › Actualidad IA</p>
-        <h1>Actualidad IA / Noticias del sector</h1>
-        <p>Resúmenes de vídeo y novedades sobre inteligencia artificial. Para guías evergreen, consulta las
-            <a href="{{ url_for('recursos') }}#cluster-ia">guías por tema</a>.</p>
+        <p class="recursos-breadcrumb-inline"><a href="{{ url_for('recursos') }}">{{ _('Recursos') }}</a> › {{ _('Actualidad IA') }}</p>
+        <h1>{{ _('Actualidad IA / Noticias del sector') }}</h1>
+        <p>{{ _('Resúmenes de vídeo y novedades sobre inteligencia artificial. Para guías evergreen, consulta las') }}
+            <a href="{{ url_for('recursos') }}#cluster-ia">{{ _('guías por tema') }}</a>.</p>
     </div>
 </section>
 
 <section class="section">
     <div class="container">
         <p class="recursos-feed-intro recursos-actualidad-pilar">
-            Guía pilar del cluster IA:
+            {{ _('Guía pilar del cluster IA:') }}
             <a href="{{ url_for('recurso_articulo', slug='seo-geo-inteligencia-artificial-2026') }}">
-                SEO para IA y GEO en 2026
+                {{ _('SEO para IA y GEO en 2026') }}
             </a>
         </p>
         <div class="landing-grid">
             {% for articulo in articulos %}
             <article class="landing-card landing-card-compact">
                 <time datetime="{{ articulo.fecha }}" class="recursos-date">{{ articulo.fecha }}</time>
-                <h2><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ articulo.titulo }}</a></h2>
-                <p>{{ articulo.resumen }}</p>
-                <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">Leer resumen →</a>
+                <h2><a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}">{{ get_field(articulo, 'titulo') }}</a></h2>
+                <p>{{ get_field(articulo, 'resumen') }}</p>
+                <a href="{{ url_for('recurso_articulo', slug=articulo.slug) }}" class="btn-outline btn-sm">{{ _('Leer resumen →') }}</a>
             </article>
             {% endfor %}
         </div>
         <p class="text-center" style="margin-top: 2rem;">
-            <a href="{{ url_for('recursos') }}">← Volver al hub de recursos</a>
+            <a href="{{ url_for('recursos') }}">{{ _('← Volver al hub de recursos') }}</a>
         </p>
     </div>
 </section>
