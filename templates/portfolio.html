@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block title %}{{ _('Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones') }}{% endblock %}
-{% block meta_description %}{{ _('Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.') }}{% endblock %}
+{% block meta_description %}{{ _('5 casos reales: -40%% tareas manuales, 200K€ ahorro anual. Proyectos IA, automatización y desarrollo a medida en España.') }}{% endblock %}
 {% block og_title %}{{ _('Casos de Éxito en Desarrollo y Automatizaciones | Megasoluciones') }}{% endblock %}
-{% block og_description %}{{ _('Casos de éxito en desarrollo de software a medida y automatizaciones empresariales en España. Proyectos reales con resultados medibles.') }}{% endblock %}
+{% block og_description %}{{ _('5 casos reales: -40%% tareas manuales, 200K€ ahorro anual. Proyectos IA, automatización y desarrollo a medida en España.') }}{% endblock %}
+{% block og_image %}{{ url_for('static', filename='images/portfolio-industry.png', _external=True) }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}

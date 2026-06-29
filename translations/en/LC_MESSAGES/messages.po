@@ -2720,3 +2720,27 @@ msgstr "Not a valid decimal value."
 #: venv/lib/python3.12/site-packages/wtforms/fields/numeric.py:197
 msgid "Not a valid float value."
 msgstr "Not a valid float value."
+
+#: templates/base.html
+msgid "Cerrar aviso"
+msgstr "Close notice"
+
+#: templates/base.html
+msgid "English version"
+msgstr "English version"
+
+#: templates/base.html
+msgid "Translation in progress"
+msgstr "Translation in progress"
+
+#: templates/base.html
+msgid "This English version is provided for accessibility purposes only. It has not been officially verified and some sections may still be incomplete or appear in Spanish."
+msgstr "This English version is provided for accessibility purposes only. It has not been officially verified and some sections may still be incomplete or appear in Spanish."
+
+#: templates/base.html
+msgid "The Spanish version of this website remains the authoritative reference."
+msgstr "The Spanish version of this website remains the authoritative reference."
+
+#: templates/base.html
+msgid "Understood"
+msgstr "Understood"

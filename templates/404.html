@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Página no encontrada | Megasoluciones{% endblock %}
+{% block meta_description %}La página que buscas no existe. Explora nuestros servicios de IA, automatización y desarrollo a medida.{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>404 — <span class="gradient-text">Página no encontrada</span></h1>
+        <p>La URL que has visitado no existe o ha cambiado.</p>
+    </div>
+</section>
+<section class="section">
+    <div class="container text-center">
+        <p style="margin-bottom: 2rem;">Prueba estos enlaces:</p>
+        <div class="hero-buttons" style="flex-wrap: wrap;">
+            <a href="{{ url_for('index') }}" class="btn-secondary">Inicio</a>
+            <a href="{{ url_for('servicios') }}" class="btn-secondary">Servicios</a>
+            <a href="{{ url_for('automatizaciones') }}" class="btn-secondary">Automatizaciones</a>
+            <a href="{{ url_for('recursos') }}" class="btn-secondary">Recursos</a>
+            <a href="{{ url_for('contacto') }}" class="btn-primary">Contacto</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

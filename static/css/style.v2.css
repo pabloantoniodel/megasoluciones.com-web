@@ -1377,6 +1377,83 @@ a {
     color: white;
 }
 
+/* Aviso idioma EN (accesibilidad) */
+.i18n-toast-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(2px);
+}
+
+.i18n-toast {
+    position: relative;
+    max-width: 520px;
+    width: 100%;
+    padding: 1.75rem 1.75rem 1.5rem;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 24px 48px rgba(15, 23, 42, 0.25);
+    text-align: center;
+    animation: i18nToastIn 0.35s ease;
+}
+
+.i18n-toast-label {
+    display: inline-block;
+    margin: 0 0 0.5rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1e40af;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.i18n-toast h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.35rem;
+    color: #0f172a;
+}
+
+.i18n-toast p {
+    margin: 0 0 0.75rem;
+    color: #334155;
+    line-height: 1.55;
+    font-size: 0.98rem;
+}
+
+.i18n-toast-note {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.i18n-toast-close {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.85rem;
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.i18n-toast .btn-primary {
+    margin-top: 0.5rem;
+}
+
+@keyframes i18nToastIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 /* Honeypot anti-spam (oculto para usuarios) */
 .hp-field {
     position: absolute;

@@ -1,0 +1,18 @@
+<p class="lead">Conectar <strong>Odoo con WhatsApp e IA</strong> permite que pedidos, facturas y notificaciones al cliente fluyan sin intervención manual — un patrón muy habitual en pymes españolas.</p>
+
+<h2>Flujo típico</h2>
+<ol>
+  <li>Cliente escribe por WhatsApp → chatbot IA responde FAQ y cualifica.</li>
+  <li>Pedido confirmado → se crea en Odoo (ventas + stock).</li>
+  <li>Factura generada → PDF enviado por WhatsApp o email.</li>
+  <li>Incidencia → ticket en Odoo con contexto de la conversación.</li>
+</ol>
+
+<h2>Componentes técnicos</h2>
+<ul>
+  <li>API de WhatsApp Business (Meta o proveedor BSP).</li>
+  <li>Odoo XML-RPC/REST o conector middleware.</li>
+  <li>LLM con prompts acotados + base de conocimiento interna.</li>
+</ul>
+
+<p><a href="{{ url_for('automatizaciones') }}">Automatizaciones e integraciones</a> · <a href="{{ url_for('recurso_articulo', slug='integrar-odoo-web-crm') }}">Guía Odoo + web</a></p>

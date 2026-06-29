@@ -31,6 +31,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         });
     }, 5000);
+
+    // Aviso traducción EN (accesibilidad)
+    const i18nToast = document.getElementById('i18nToastOverlay');
+    if (i18nToast) {
+        const closeToast = () => i18nToast.remove();
+        i18nToast.querySelectorAll('.close-i18n-toast').forEach(btn => {
+            btn.addEventListener('click', closeToast);
+        });
+        i18nToast.addEventListener('click', (e) => {
+            if (e.target === i18nToast) closeToast();
+        });
+    }
     
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -275,4 +287,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     console.log('🚀 Megasoluciones web loaded successfully!');
+
+    // GA4: eventos de conversión
+    function trackEvent(name, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', name, params || {});
+        }
+    }
+    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            trackEvent('click_cta', {
+                link_text: (btn.textContent || '').trim().slice(0, 80),
+                link_url: btn.getAttribute('href') || '',
+                page_path: window.location.pathname
+            });
+        });
+    });
+    document.querySelectorAll('form.contact-form').forEach(function(form) {
+        form.addEventListener('submit', function() {
+            var action = form.getAttribute('action') || '';
+            trackEvent('form_submit', { form_name: action, page_path: window.location.pathname });
+            if (action.indexOf('checklist') !== -1) {
+                trackEvent('generate_lead', { lead_type: 'checklist_automatizacion' });
+            }
+        });
+    });
+    if (window.location.pathname.indexOf('checklist') !== -1 && document.querySelector('.alert-success')) {
+        trackEvent('generate_lead', { lead_type: 'checklist_automatizacion', step: 'success_page' });
+    }
 });

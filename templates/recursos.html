@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block title %}{{ _('Recursos — Desarrollo y Automatizaciones | Megasoluciones') }}{% endblock %}
-{% block meta_description %}{{ _('Guías prácticas sobre desarrollo de software a medida, automatizaciones empresariales, RPA e inteligencia artificial para empresas en España.') }}{% endblock %}
+{% block meta_description %}{{ _('Guías prácticas de IA, automatización pymes y desarrollo a medida. Checklists, GEO 2026 y actualidad del sector. Gratis.') }}{% endblock %}
 {% block og_title %}{{ _('Recursos sobre Desarrollo y Automatizaciones | Megasoluciones') }}{% endblock %}
-{% block og_description %}{{ _('Guías prácticas sobre desarrollo de software a medida, automatizaciones empresariales, RPA e inteligencia artificial para empresas en España.') }}{% endblock %}
+{% block og_description %}{{ _('Guías prácticas de IA, automatización pymes y desarrollo a medida. Checklists, GEO 2026 y actualidad del sector. Gratis.') }}{% endblock %}
+{% block og_image %}{{ url_for('static', filename='images/logo-badge-megasoluciones-512.png', _external=True) }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
@@ -55,6 +56,9 @@
     <div class="container">
         <h1>{{ _('Recursos sobre') }} <span class="gradient-text">{{ _('desarrollo y automatizaciones') }}</span></h1>
         <p>{{ _('Guías evergreen y actualidad sobre IA, software a medida y RPA para empresas en España') }}</p>
+        <p class="recursos-lead-magnet-cta">
+            <a href="{{ url_for('checklist_automatizacion') }}" class="btn-primary">{{ _('Descargar checklist gratuito: 15 señales de automatización') }} →</a>
+        </p>
     </div>
 </section>
 

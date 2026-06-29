@@ -1,0 +1,23 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": {{ service_name|tojson }},
+  "provider": {"@id": "{{ site_base_url }}/#organization"},
+  "url": {{ service_url|tojson }},
+  "description": {{ service_description|tojson }},
+  "areaServed": {"@type": "Country", "name": "España"},
+  "serviceType": {{ service_type|default('')|tojson }}{% if service_price %},
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "EUR",
+    "price": "{{ service_price }}",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "{{ service_price }}",
+      "priceCurrency": "EUR",
+      "unitText": "{{ service_price_unit|default('mes') }}"
+    }
+  }{% endif %}
+}
+</script>

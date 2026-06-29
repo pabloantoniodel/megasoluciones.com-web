@@ -17,6 +17,8 @@ RECURSOS_DESTACADOS = [
     'seo-geo-inteligencia-artificial-2026',
     'elegir-empresa-desarrollo-software',
     'automatizar-procesos-pyme',
+    'checklist-15-senales-automatizar',
+    'precio-chatbot-ia-empresas-2026',
 ]
 
 FEED_ACTUALIDAD_LIMIT = 6

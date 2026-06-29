@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block title %}{{ _('Contacto — Presupuesto Desarrollo o Automatización | Megasoluciones') }}{% endblock %}
-{% block meta_description %}{{ _('Contacta con Megasoluciones para presupuesto de desarrollo de software a medida o automatizaciones empresariales en España. Respuesta en menos de 24 horas.') }}{% endblock %}
+{% block meta_description %}{{ _('Solicita presupuesto de IA, automatización o desarrollo. Respuesta en menos de 24h. Videollamada diagnóstico sin compromiso.') }}{% endblock %}
 {% block og_title %}{{ _('Presupuesto Desarrollo o Automatización | Megasoluciones') }}{% endblock %}
-{% block og_description %}{{ _('Contacta con Megasoluciones para presupuesto de desarrollo de software a medida o automatizaciones empresariales en España. Respuesta en menos de 24 horas.') }}{% endblock %}
+{% block og_description %}{{ _('Solicita presupuesto de IA, automatización o desarrollo. Respuesta en menos de 24h. Videollamada diagnóstico sin compromiso.') }}{% endblock %}
+{% block og_image %}{{ url_for('static', filename='images/logo-badge-megasoluciones.png', _external=True) }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}

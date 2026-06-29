@@ -1,26 +1,19 @@
 {% extends "base.html" %}
 
 {% block title %}{{ _('Automatización de Procesos y RPA para Empresas | Megasoluciones') }}{% endblock %}
-{% block meta_description %}{{ _('Automatizaciones empresariales y RPA en España. Automatiza procesos repetitivos, integra sistemas y reduce costes operativos con workflows inteligentes. Consulta gratuita.') }}{% endblock %}
+{% block meta_description %}{{ _('Automatiza facturación, ERP-CRM y procesos repetitivos con RPA e integraciones API. Ahorra horas semanales. Consulta gratuita en España.') }}{% endblock %}
 {% block meta_keywords %}{{ _('automatizaciones empresariales, automatización procesos, RPA empresas, automatizar procesos empresa, workflows automatizados España') }}{% endblock %}
 
 {% block og_title %}{{ _('Automatización de Procesos y RPA para Empresas | Megasoluciones') }}{% endblock %}
-{% block og_description %}{{ _('Automatizaciones empresariales y RPA en España. Automatiza procesos repetitivos, integra sistemas y reduce costes operativos con workflows inteligentes. Consulta gratuita.') }}{% endblock %}
+{% block og_description %}{{ _('Automatiza facturación, ERP-CRM y procesos repetitivos con RPA e integraciones API. Ahorra horas semanales. Consulta gratuita en España.') }}{% endblock %}
+{% block og_image %}{{ url_for('static', filename='images/hero-visual.png', _external=True) }}{% endblock %}
 
 {% block structured_data %}
 {% set breadcrumbs = [{'name': _('Automatizaciones'), 'url': canonical_url}] %}
 {% include 'partials/schema-breadcrumb.html' %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "{{ _('Automatizaciones y RPA para Empresas') }}",
-  "provider": {"@type": "Organization", "name": "Megasoluciones", "url": "{{ site_base_url }}/"},
-  "areaServed": {"@type": "Country", "name": "{{ _('España') }}"},
-  "description": "{{ _('Automatización de procesos empresariales, RPA e integración entre sistemas para empresas en España') }}",
-  "offers": {"@type": "Offer", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": "399"}}
-}
-</script>
+{% with service_name=_('Automatización de Procesos y RPA'), service_url=url_for('automatizaciones', _external=True), service_description=_('Automatización empresarial con RPA, integraciones API y workflows entre ERP, CRM y facturación.'), service_type='Business Process Automation', service_price='399', service_price_unit='mes' %}
+{% include 'partials/schema-service.html' %}
+{% endwith %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

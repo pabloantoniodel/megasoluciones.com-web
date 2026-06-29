@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}{{ _('Soluciones de IA para Empresas: Software y Automatización | Megasoluciones') }}{% endblock %}
-{% block meta_description %}{{ _('Agencia IA en Madrid: chatbots, automatización de procesos, desarrollo a medida y consultoría para empresas y pymes en España. Primera consulta sin compromiso.') }}{% endblock %}
+{% block title %}{{ _('Agencia IA España | Chatbots, Automatización y Desarrollo | Megasoluciones') }}{% endblock %}
+{% block meta_description %}{{ _('Agencia IA en España: chatbots, automatización RPA, desarrollo a medida y consultoría para pymes. Resultados medibles. Primera consulta gratis.') }}{% endblock %}
 {% block meta_keywords %}{{ _('agencia inteligencia artificial, agencia IA Madrid, soluciones IA empresas, soluciones IA pymes, automatizar procesos con IA, chatbot inteligencia artificial, consultoría inteligencia artificial') }}{% endblock %}
-{% block og_title %}{{ _('Soluciones de IA para Empresas: Software y Automatización | Megasoluciones') }}{% endblock %}
-{% block og_description %}{{ _('Agencia IA en Madrid: chatbots, automatización de procesos, desarrollo a medida y consultoría para empresas y pymes en España. Primera consulta sin compromiso.') }}{% endblock %}
+{% block og_title %}{{ _('Agencia IA España | Chatbots, Automatización y Desarrollo | Megasoluciones') }}{% endblock %}
+{% block og_description %}{{ _('Agencia IA en España: chatbots, automatización RPA, desarrollo a medida y consultoría para pymes. Resultados medibles. Primera consulta gratis.') }}{% endblock %}
+
+{% block og_image %}{{ url_for('static', filename='images/hero-megasoluciones.png', _external=True) }}{% endblock %}
 
 {% block preload_assets %}
 <link rel="preload" as="image" href="{{ url_for('static', filename='images/hero-megasoluciones.webp') }}" type="image/webp">
@@ -24,6 +26,7 @@
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
+  "@id": "{{ site_base_url }}/#organization",
   "name": "Megasoluciones",
   "url": "{{ site_base_url }}/",
   "description": "{{ _('Agencia de inteligencia artificial en Madrid: chatbots, automatización de procesos, desarrollo a medida y consultoría IA') }}",

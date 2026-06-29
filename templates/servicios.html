@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}{{ _('Servicios de Desarrollo y Automatización | Megasoluciones') }}{% endblock %}
-{% block meta_description %}{{ _('Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.') }}{% endblock %}
+{% block meta_description %}{{ _('Servicios de IA para empresas: chatbots, RPA, ML, agentes y desarrollo software. Precios desde 299€/mes. Presupuesto en 24h.') }}{% endblock %}
 {% block og_title %}{{ _('Servicios de Desarrollo y Automatización | Megasoluciones') }}{% endblock %}
-{% block og_description %}{{ _('Servicios de desarrollo de software a medida, automatizaciones empresariales, RPA e IA aplicada para empresas en España. Presupuesto sin compromiso.') }}{% endblock %}
+{% block og_description %}{{ _('Servicios de IA para empresas: chatbots, RPA, ML, agentes y desarrollo software. Precios desde 299€/mes. Presupuesto en 24h.') }}{% endblock %}
+{% block og_image %}{{ url_for('static', filename='images/hero-ai-visual.png', _external=True) }}{% endblock %}
 
 {% block structured_data %}
 {% include 'partials/schema-breadcrumb.html' %}
+{% with service_name=_('Servicios de IA para Empresas'), service_url=url_for('servicios', _external=True), service_description=_('Chatbots IA, RPA, machine learning, agentes y desarrollo de software para empresas en España.'), service_type='IT Consulting', service_price='299', service_price_unit='mes' %}
+{% include 'partials/schema-service.html' %}
+{% endwith %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

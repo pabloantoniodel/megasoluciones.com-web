@@ -1,26 +1,19 @@
 {% extends "base.html" %}
 
 {% block title %}{{ _('Desarrollo de Software a Medida en España | Megasoluciones') }}{% endblock %}
-{% block meta_description %}{{ _('Desarrollo de software a medida en España: aplicaciones web, APIs, integraciones ERP/CRM y plataformas SaaS. Presupuesto transparente, metodología ágil y soporte continuo.') }}{% endblock %}
+{% block meta_description %}{{ _('Desarrollo de software a medida en España: web, APIs, ERP/CRM y SaaS. Stack moderno, metodología ágil. Presupuesto transparente.') }}{% endblock %}
 {% block meta_keywords %}{{ _('desarrollo software a medida, desarrollo web España, software a medida empresas, integración APIs, desarrollo aplicaciones') }}{% endblock %}
 
 {% block og_title %}{{ _('Desarrollo de Software a Medida en España | Megasoluciones') }}{% endblock %}
-{% block og_description %}{{ _('Desarrollo de software a medida en España: aplicaciones web, APIs, integraciones ERP/CRM y plataformas SaaS. Presupuesto transparente, metodología ágil y soporte continuo.') }}{% endblock %}
+{% block og_description %}{{ _('Desarrollo de software a medida en España: web, APIs, ERP/CRM y SaaS. Stack moderno, metodología ágil. Presupuesto transparente.') }}{% endblock %}
+{% block og_image %}{{ url_for('static', filename='images/about-mission.png', _external=True) }}{% endblock %}
 
 {% block structured_data %}
 {% set breadcrumbs = [{'name': _('Desarrollo de Software'), 'url': canonical_url}] %}
 {% include 'partials/schema-breadcrumb.html' %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "{{ _('Desarrollo de Software a Medida') }}",
-  "provider": {"@type": "Organization", "name": "Megasoluciones", "url": "{{ site_base_url }}/"},
-  "areaServed": {"@type": "Country", "name": "{{ _('España') }}"},
-  "description": "{{ _('Desarrollo de software a medida: webs, apps, APIs e integraciones para empresas en España') }}",
-  "offers": {"@type": "Offer", "priceSpecification": {"@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": "5000"}}
-}
-</script>
+{% with service_name=_('Desarrollo de Software a Medida'), service_url=url_for('desarrollo_software', _external=True), service_description=_('Desarrollo de software a medida: webs, apps, APIs e integraciones ERP/CRM para empresas en España.'), service_type='Software Development', service_price='5000', service_price_unit='proyecto' %}
+{% include 'partials/schema-service.html' %}
+{% endwith %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

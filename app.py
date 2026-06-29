@@ -98,6 +98,7 @@ SITEMAP_PAGES = [
     {'path': '/testimonios', 'changefreq': 'monthly', 'priority': '0.7'},
     {'path': '/contacto', 'changefreq': 'monthly', 'priority': '0.8'},
     {'path': '/recursos', 'changefreq': 'weekly', 'priority': '0.85'},
+    {'path': '/recursos/checklist-automatizacion', 'changefreq': 'monthly', 'priority': '0.8'},
     {'path': '/recursos/actualidad', 'changefreq': 'daily', 'priority': '0.65'},
     {'path': '/privacidad', 'changefreq': 'yearly', 'priority': '0.3'},
     {'path': '/aviso-legal', 'changefreq': 'yearly', 'priority': '0.3'},
@@ -162,31 +163,23 @@ def track_visit(response):
 
 @app.before_request
 def set_language_and_redirect():
-    """Establece el idioma y redirige a /en/ si es necesario en la raíz."""
+    """Idioma solo por URL (/en/); por defecto siempre español."""
     g.lang = request.environ.get('megasoluciones.lang', 'es')
-    
-    # Si el usuario entra en la raíz (es)
-    if request.path == '/' and g.lang == 'es' and not request.args.get('lang'):
-        if session.get('lang') == 'en':
-            return redirect('/en/')
-        elif 'lang' not in session:
-            best_match = request.accept_languages.best_match(['es', 'en'])
-            if best_match == 'en':
-                session['lang'] = 'en'
-                return redirect('/en/')
-            else:
-                session['lang'] = 'es'
-
-    # Guardar preferencia si viene por URL
-    if g.lang == 'en' and session.get('lang') != 'en':
-        session['lang'] = 'en'
-    elif g.lang == 'es' and session.get('lang') != 'es':
-        session['lang'] = 'es'
 
     if request.args.get('lang') == 'es' and g.lang == 'en':
         session['lang'] = 'es'
+        session.pop('show_en_translation_toast', None)
         path = request.path or '/'
         return redirect(path if path != '/' else '/')
+
+    if g.lang == 'en':
+        session['lang'] = 'en'
+        if request.args.get('lang_notice') == '1':
+            session['show_en_translation_toast'] = True
+            en_path = '/en' + (request.path if request.path != '/' else '/')
+            return redirect(en_path)
+    else:
+        session['lang'] = 'es'
 
 @app.context_processor
 def inject_i18n():
@@ -210,11 +203,16 @@ def inject_i18n():
             return val if val is not None else item.get(field)
         return item.get(field)
     
+    show_en_translation_toast = False
+    if g.lang == 'en':
+        show_en_translation_toast = session.pop('show_en_translation_toast', False)
+
     return dict(
         url_for=i18n_url_for,
         current_lang=g.lang,
         get_field=get_field,
         html_lang='en' if g.lang == 'en' else 'es',
+        show_en_translation_toast=show_en_translation_toast,
     )
 
 COM_HOSTS = frozenset({'megasolucion.com', 'www.megasolucion.com'})
@@ -300,6 +298,26 @@ class ContactForm(FlaskForm):
     empresa = StringField('Empresa')
     servicio = SelectField('Servicio de interés', choices=SERVICIO_CHOICES, default='')
     mensaje = TextAreaField('Mensaje', validators=[DataRequired()])
+
+
+SECTOR_CHOICES = [
+    ('', 'Selecciona tu sector'),
+    ('logistica', 'Logística y transporte'),
+    ('retail', 'Retail y comercio'),
+    ('industria', 'Industria y manufactura'),
+    ('servicios', 'Servicios profesionales'),
+    ('hosteleria', 'Hostelería y turismo'),
+    ('tecnologia', 'Tecnología y software'),
+    ('otro', 'Otro'),
+]
+
+
+class LeadMagnetForm(FlaskForm):
+    nombre = StringField('Nombre', validators=[DataRequired()])
+    email = EmailField('Email profesional', validators=[DataRequired(), Email()])
+    empresa = StringField('Empresa')
+    sector = SelectField('Sector', choices=SECTOR_CHOICES, default='')
+    middle_name_hp = StringField('Middle name')
 
 SERVICIOS = [   {   'id': 1,
         'slug': 'desarrollo-software',
@@ -1078,7 +1096,124 @@ RECURSOS = [   {   'slug': 'itinerarios-turisticos-ia-web-demo-publica',
         'intencion': 'comercial',
         'keyword_principal': 'elegir empresa desarrollo software',
         'relacionados': ['coste-desarrollo-software-2026', 'integrar-odoo-web-crm'],
-        'cta_servicio': 'desarrollo-software'}]
+        'cta_servicio': 'desarrollo-software'},
+    {   'slug': 'automatizar-pyme-espana-sin-equipo-tecnico',
+        'titulo': 'Cómo automatizar una pyme en España sin equipo técnico',
+        'titulo_en': 'How to automate an SME in Spain without a technical team',
+        'resumen': 'Guía paso a paso para automatizar procesos en pymes españolas con RPA, APIs e IA sin contratar desarrolladores internos.',
+        'resumen_en': 'Step-by-step guide to automate processes in Spanish SMEs with RPA, APIs, and AI without hiring in-house developers.',
+        'fecha': '2026-03-01',
+        'fecha_modificacion': '2026-03-01',
+        'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'automatizar pyme españa sin equipo técnico',
+        'relacionados': ['automatizar-procesos-pyme', 'rpa-vs-automatizacion-apis', 'checklist-15-senales-automatizar'],
+        'cta_servicio': 'automatizaciones-rpa'},
+    {   'slug': 'precio-chatbot-ia-empresas-2026',
+        'titulo': 'Cuánto cuesta un chatbot IA para empresas en 2026',
+        'titulo_en': 'How much does an AI chatbot cost for businesses in 2026',
+        'resumen': 'Precios reales de chatbots IA en España: WhatsApp, web y soporte. Rangos desde 299€/mes y factores que suben el coste.',
+        'resumen_en': 'Real AI chatbot prices in Spain: WhatsApp, web, and support. Ranges from €299/month and cost factors.',
+        'fecha': '2026-03-05',
+        'fecha_modificacion': '2026-03-05',
+        'cluster': 'ia',
+        'tipo': 'soporte',
+        'intencion': 'comercial',
+        'keyword_principal': 'precio chatbot ia empresas',
+        'relacionados': ['seo-geo-inteligencia-artificial-2026', 'agentes-ia-empresas-casos-uso'],
+        'cta_servicio': 'chatbots-ia'},
+    {   'slug': 'desarrollo-software-medida-vs-saas',
+        'titulo': 'Desarrollo software a medida vs SaaS: guía para directivos',
+        'titulo_en': 'Custom software development vs SaaS: guide for executives',
+        'resumen': 'Cuándo conviene desarrollo a medida frente a herramienta estándar. Costes, plazos, riesgos y criterios de decisión.',
+        'resumen_en': 'When custom development beats standard tools. Costs, timelines, risks, and decision criteria.',
+        'fecha': '2026-03-08',
+        'fecha_modificacion': '2026-03-08',
+        'cluster': 'desarrollo',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'software a medida vs saas',
+        'relacionados': ['elegir-empresa-desarrollo-software', 'coste-desarrollo-software-2026'],
+        'cta_servicio': 'desarrollo-software'},
+    {   'slug': 'integrar-odoo-whatsapp-ia',
+        'titulo': 'Integrar Odoo con WhatsApp e IA: caso práctico',
+        'titulo_en': 'Integrate Odoo with WhatsApp and AI: practical case',
+        'resumen': 'Flujo real: pedido → CRM → factura → notificación cliente con automatización e IA en pymes españolas.',
+        'resumen_en': 'Real flow: order → CRM → invoice → customer notification with automation and AI.',
+        'fecha': '2026-03-10',
+        'fecha_modificacion': '2026-03-10',
+        'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'integrar odoo whatsapp ia',
+        'relacionados': ['integrar-odoo-web-crm', 'precio-chatbot-ia-empresas-2026'],
+        'cta_servicio': 'automatizaciones-rpa'},
+    {   'slug': 'agentes-ia-empresas-casos-uso',
+        'titulo': 'Agentes de IA para empresas: qué son y 5 casos de uso',
+        'titulo_en': 'AI agents for businesses: what they are and 5 use cases',
+        'resumen': 'Definición clara de agentes IA, diferencia con chatbots y casos B2B en España: ventas, soporte, operaciones.',
+        'resumen_en': 'Clear definition of AI agents, difference from chatbots, and B2B use cases in Spain.',
+        'fecha': '2026-03-12',
+        'fecha_modificacion': '2026-03-12',
+        'cluster': 'ia',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'agentes ia empresas',
+        'relacionados': ['memoria-persistente-agentes-ia-desarrollo', 'precio-chatbot-ia-empresas-2026'],
+        'cta_servicio': 'chatbots-ia'},
+    {   'slug': 'checklist-15-senales-automatizar',
+        'titulo': 'Checklist: 15 señales de que tu empresa necesita automatizar',
+        'titulo_en': 'Checklist: 15 signs your company needs to automate',
+        'resumen': 'Señales operativas, quick wins y matriz impacto/esfuerzo. Descarga el PDF gratuito.',
+        'resumen_en': 'Operational signals, quick wins, and impact/effort matrix. Download the free PDF.',
+        'fecha': '2026-03-01',
+        'fecha_modificacion': '2026-03-01',
+        'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'comercial',
+        'keyword_principal': 'señales automatizar empresa',
+        'relacionados': ['automatizar-procesos-pyme', 'procesos-automatizar-empresa'],
+        'cta_servicio': 'automatizaciones-rpa'},
+    {   'slug': 'machine-learning-pymes-por-donde-empezar',
+        'titulo': 'Machine Learning para pymes: por dónde empezar',
+        'titulo_en': 'Machine Learning for SMEs: where to start',
+        'resumen': 'Predicción de demanda, churn y mantenimiento predictivo. Datos mínimos, ROI y primeros pasos.',
+        'resumen_en': 'Demand forecasting, churn, and predictive maintenance. Minimum data, ROI, and first steps.',
+        'fecha': '2026-03-15',
+        'fecha_modificacion': '2026-03-15',
+        'cluster': 'ia',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'machine learning pymes',
+        'relacionados': ['integrar-datos-ia-metodos-estrategias', 'medir-roi-proyecto-ia'],
+        'cta_servicio': 'machine-learning'},
+    {   'slug': 'medir-roi-proyecto-ia',
+        'titulo': 'Cómo medir el ROI de un proyecto de IA',
+        'titulo_en': 'How to measure ROI of an AI project',
+        'resumen': 'Fórmulas, KPIs y plantilla para calcular retorno: horas ahorradas, errores evitados e ingresos.',
+        'resumen_en': 'Formulas, KPIs, and template to calculate return: hours saved, errors avoided, and revenue.',
+        'fecha': '2026-03-18',
+        'fecha_modificacion': '2026-03-18',
+        'cluster': 'ia',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'roi inteligencia artificial',
+        'relacionados': ['machine-learning-pymes-por-donde-empezar', 'automatizar-procesos-pyme'],
+        'cta_servicio': 'consultoria-ia'},
+    {   'slug': 'automatizacion-madrid-sectores-2026',
+        'titulo': 'Automatización en Madrid: sectores y oportunidades 2026',
+        'titulo_en': 'Automation in Madrid: sectors and opportunities 2026',
+        'resumen': 'Logística, industria y servicios en Comunidad de Madrid. Procesos automatizables y casos reales.',
+        'resumen_en': 'Logistics, industry, and services in Madrid region. Automatable processes and real cases.',
+        'fecha': '2026-03-20',
+        'fecha_modificacion': '2026-03-20',
+        'cluster': 'automatizaciones',
+        'tipo': 'soporte',
+        'intencion': 'informacional',
+        'keyword_principal': 'automatización madrid pymes',
+        'relacionados': ['agencia-ia-madrid-apuesta-comunidad-pymes', 'automatizar-procesos-pyme'],
+        'cta_servicio': 'automatizaciones-rpa'}]
 
 TESTIMONIOS = [{'nombre': 'Ana R.',
   'cargo': 'Responsable de Operaciones · Empresa de distribución (España)',
@@ -1256,14 +1391,13 @@ def canonical_url() -> str:
 
 
 def hreflang_urls() -> list[tuple[str, str]]:
+    """Solo español indexable; sin alternates EN (versión /en/ con noindex)."""
+    if getattr(g, 'lang', 'es') == 'en':
+        return []
     path = request.path or '/'
     suffix = path if path != '/' else '/'
-    en_suffix = f"/en{suffix}" if suffix != '/' else '/en/'
-    return [
-        ('es', f"{HREFLANG_ES}{suffix}"),
-        ('en', f"{HREFLANG_ES}{en_suffix}"),
-        ('x-default', f"{HREFLANG_ES}{suffix}"),
-    ]
+    loc = f"{HREFLANG_ES}{suffix}"
+    return [('es', loc), ('x-default', loc)]
 
 
 def servicios_por_pilar(pilar: str) -> list:
@@ -1347,6 +1481,13 @@ def all_sitemap_paths() -> list[dict]:
             'path': f"/portfolio/{p['slug']}",
             'changefreq': 'monthly',
             'priority': '0.8',
+            'lastmod': today,
+        })
+    for cluster in recursos_seo.CLUSTERS:
+        pages.append({
+            'path': f'/recursos/temas/{cluster}',
+            'changefreq': 'weekly',
+            'priority': '0.75',
             'lastmod': today,
         })
     for entry in geo_sitemap_entries():
@@ -1494,6 +1635,91 @@ def recursos_tema(cluster):
             {'name': meta['nombre'], 'url': canonical_url()},
         ],
     )
+
+
+@app.route('/recursos/checklist-automatizacion', methods=['GET', 'POST'])
+def checklist_automatizacion():
+    form = LeadMagnetForm()
+    descargado = session.get('checklist_download_ok', False)
+    lead_nombre = session.get('checklist_lead_nombre', '')
+    if request.method == 'GET':
+        session['checklist_form_loaded_at'] = time()
+
+    if form.validate_on_submit():
+        client_ip = get_client_ip(
+            request.headers.get('X-Forwarded-For'),
+            request.remote_addr,
+        )
+        sector_label = dict(SECTOR_CHOICES).get(form.sector.data, 'No indicado')
+        akismet_spam = check_akismet_spam(
+            AKISMET_API_KEY,
+            blog_url=canonical_url(),
+            client_ip=client_ip,
+            user_agent=request.headers.get('User-Agent', ''),
+            author=form.nombre.data,
+            email=form.email.data,
+            content=f'Checklist lead — empresa: {form.empresa.data or "—"}, sector: {sector_label}',
+        )
+        if should_silently_drop(
+            request.form.get(HONEYPOT_FIELD),
+            session.get('checklist_form_loaded_at'),
+            client_ip,
+            akismet_spam=akismet_spam,
+        ):
+            session['checklist_download_ok'] = True
+            return redirect(url_for('checklist_automatizacion'))
+
+        turnstile_result = verify_turnstile(
+            request.form.get('cf-turnstile-response'),
+            client_ip,
+            TURNSTILE_SECRET_KEY,
+        )
+        if turnstile_result is False and TURNSTILE_SECRET_KEY:
+            flash(_('No pudimos verificar el envío. Inténtalo de nuevo.'), 'error')
+            session['checklist_form_loaded_at'] = time()
+        else:
+            try:
+                msg = Message(
+                    subject=f'Lead magnet checklist — {form.nombre.data}',
+                    recipients=['info@megasolucion.net'],
+                    reply_to=form.email.data,
+                )
+                msg.body = (
+                    f'Nuevo lead checklist automatización\n\n'
+                    f'Nombre: {form.nombre.data}\n'
+                    f'Email: {form.email.data}\n'
+                    f'Empresa: {form.empresa.data or "—"}\n'
+                    f'Sector: {sector_label}\n'
+                )
+                mail.send(msg)
+            except Exception as exc:
+                print(f'Checklist lead email error: {exc}')
+            record_submission(client_ip)
+            session['checklist_download_ok'] = True
+            session['checklist_lead_nombre'] = form.nombre.data
+            return redirect(url_for('checklist_automatizacion'))
+
+    return render_template(
+        'checklist-automatizacion.html',
+        form=form,
+        descargado=descargado,
+        lead_nombre=lead_nombre,
+        turnstile_site_key=TURNSTILE_SITE_KEY,
+        breadcrumbs=[
+            {'name': 'Recursos', 'url': url_for('recursos', _external=True)},
+            {'name': 'Checklist automatización', 'url': canonical_url()},
+        ],
+    )
+
+
+@app.route('/downloads/checklist-automatizacion.pdf')
+def download_checklist_pdf():
+    if not session.get('checklist_download_ok'):
+        return redirect(url_for('checklist_automatizacion'))
+    path = os.path.join(app.root_path, 'static', 'downloads', 'checklist-automatizacion.pdf')
+    if not os.path.isfile(path):
+        abort(404)
+    return send_file(path, as_attachment=True, download_name='checklist-15-senales-automatizar-megasoluciones.pdf')
 
 
 @app.route('/recursos/<slug>')
@@ -1716,6 +1942,11 @@ def geo_page(slug):
     )
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
 @app.route('/health')
 def health():
     return {'status': 'ok', 'service': 'megasoluciones'}, 200
@@ -1752,7 +1983,7 @@ def robots_txt():
             "Allow: /\n"
             "Disallow: /health\n"
             "Disallow: /admin\n"
-            "Disallow: /admin/\n"
+            "Disallow: /downloads/\n"
             f"\nSitemap: {HREFLANG_ES}/sitemap.xml\n"
             f"\n# Guía para modelos de lenguaje: {HREFLANG_ES}/llms.txt\n"
         )
@@ -1774,43 +2005,20 @@ def sitemap_xml():
     urls = []
     for page in all_sitemap_paths():
         path = page['path']
-        loc_es = f"{base}{path}"
-        
-        en_path = f"/en{path}" if path != '/' else '/en/'
-        loc_en = f"{base}{en_path}"
-        
+        loc = f"{base}{path}"
         lastmod = page.get('lastmod') or today
-        
-        # ES version
         urls.append(
             "  <url>\n"
-            f"    <loc>{loc_es}</loc>\n"
-            f"    <xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"{loc_es}\"/>\n"
-            f"    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"{loc_en}\"/>\n"
-            f"    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{loc_es}\"/>\n"
+            f"    <loc>{loc}</loc>\n"
             f"    <lastmod>{lastmod}</lastmod>\n"
             f"    <changefreq>{page['changefreq']}</changefreq>\n"
             f"    <priority>{page['priority']}</priority>\n"
             "  </url>"
         )
-        
-        # EN version
-        urls.append(
-            "  <url>\n"
-            f"    <loc>{loc_en}</loc>\n"
-            f"    <xhtml:link rel=\"alternate\" hreflang=\"es\" href=\"{loc_es}\"/>\n"
-            f"    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"{loc_en}\"/>\n"
-            f"    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{loc_es}\"/>\n"
-            f"    <lastmod>{lastmod}</lastmod>\n"
-            f"    <changefreq>{page['changefreq']}</changefreq>\n"
-            f"    <priority>{page['priority']}</priority>\n"
-            "  </url>"
-        )
-        
+
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
-        '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "\n".join(urls)
         + "\n</urlset>\n"
     )

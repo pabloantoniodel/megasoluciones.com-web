@@ -9,6 +9,9 @@
     {% if gsc_verification_token %}
     <meta name="google-site-verification" content="{{ gsc_verification_token }}">
     {% endif %}
+    {% if current_lang == 'en' %}
+    <meta name="robots" content="noindex, follow">
+    {% endif %}
 
     <link rel="canonical" href="{% block canonical_link %}{{ canonical_url }}{% endblock %}">
     {% for lang, url in hreflang_urls %}
@@ -34,13 +37,13 @@
 
     {% block preload_assets %}{% endblock %}
 
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico', v=2) }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg', v=2) }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/logo-icon-192.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logo-icon-32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logo-icon-16.png') }}">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css', v=33) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.v2.css', v=35) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -61,15 +64,30 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": "{{ site_base_url }}/#organization",
       "name": "Megasoluciones",
       "url": "{{ site_base_url }}/",
       "logo": "{{ url_for('static', filename='images/logo-nav.png', _external=True) }}",
-      "description": "{{ _('Agencia de inteligencia artificial y soluciones de IA para empresas y pymes en España') }}",
+      "image": "{{ url_for('static', filename='images/hero-megasoluciones.png', _external=True) }}",
+      "description": "{{ _('Agencia de inteligencia artificial y automatización para empresas y pymes en España y LATAM.') }}",
+      "email": "info@megasolucion.net",
+      "telephone": "+34-638-568-668",
       "areaServed": ["ES", "LATAM"],
-      "knowsAbout": ["Inteligencia artificial", "Automatización de procesos con IA", "Chatbots IA", "Agentes de IA", "Análisis de datos con IA", "Desarrollo de software", "Integración APIs"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ES",
+        "addressRegion": "Comunidad de Madrid"
+      },
+      "knowsAbout": [
+        "Inteligencia artificial empresarial",
+        "Automatización RPA",
+        "Chatbots IA",
+        "Desarrollo de software a medida",
+        "Generative Engine Optimization"
+      ],
       "serviceType": ["Agencia IA", "Soluciones IA empresas", "Automatización IA", "Chatbots", "Agentes IA", "Desarrollo Software", "Consultoría IA"],
-      "sameAs": ["{{ linkedin_url }}", "{{ x_url }}", "https://github.com/megasoluciones"]
+      "sameAs": ["{{ linkedin_url }}", "{{ x_url }}"]
     }
     </script>
 
@@ -105,7 +123,8 @@
                         {% if current_lang == 'en' %}
                         <a href="{{ request.path }}?lang=es" class="lang-selector">ES</a>
                         {% else %}
-                        <a href="/en{{ request.path }}" class="lang-selector">EN</a>
+                        {% set en_href = '/en' ~ (request.path if request.path != '/' else '/') ~ '?lang_notice=1' %}
+                        <a href="{{ en_href }}" class="lang-selector">EN</a>
                         {% endif %}
                     </li>
                     <li><a href="{{ url_for('contacto') }}" class="btn-primary">{{ _('Contacto') }}</a></li>
@@ -130,6 +149,19 @@
 
         {% block content %}{% endblock %}
     </main>
+
+    {% if show_en_translation_toast %}
+    <div class="i18n-toast-overlay" id="i18nToastOverlay" role="dialog" aria-modal="true" aria-labelledby="i18nToastTitle">
+        <div class="i18n-toast" role="document">
+            <button type="button" class="i18n-toast-close close-i18n-toast" aria-label="{{ _('Cerrar aviso') }}">&times;</button>
+            <p class="i18n-toast-label">{{ _('English version') }}</p>
+            <h2 id="i18nToastTitle">{{ _('Translation in progress') }}</h2>
+            <p>{{ _('This English version is provided for accessibility purposes only. It has not been officially verified and some sections may still be incomplete or appear in Spanish.') }}</p>
+            <p class="i18n-toast-note">{{ _('The Spanish version of this website remains the authoritative reference.') }}</p>
+            <button type="button" class="btn-primary btn-sm close-i18n-toast">{{ _('Understood') }}</button>
+        </div>
+    </div>
+    {% endif %}
 
     <footer class="footer">
         <div class="container">
@@ -196,7 +228,7 @@
         </svg>
     </a>
 
-    <script src="{{ url_for('static', filename='js/app.v2.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.v2.js', v=2) }}"></script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>

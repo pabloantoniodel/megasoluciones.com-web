@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Checklist: 15 señales de que tu empresa necesita automatizar | Megasoluciones{% endblock %}
+{% block meta_description %}Descarga gratis el checklist con 15 señales de que tu empresa necesita automatizar procesos. Quick wins, ROI estimado y matriz impacto/esfuerzo para pymes en España.{% endblock %}
+{% block og_title %}Checklist gratuito: ¿Necesita tu empresa automatizar?{% endblock %}
+{% block og_description %}15 señales operativas + quick wins para pymes. PDF gratis sin spam.{% endblock %}
+
+{% block structured_data %}
+{% include 'partials/schema-breadcrumb.html' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Checklist: 15 señales de automatización",
+  "description": "Lead magnet gratuito con señales operativas para pymes en España",
+  "url": "{{ canonical_url }}",
+  "isPartOf": {"@type": "WebSite", "name": "Megasoluciones", "url": "{{ site_base_url }}/"}
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <p class="recursos-breadcrumb-inline"><a href="{{ url_for('recursos') }}">Recursos</a> › Checklist</p>
+        <h1>¿Tu empresa pierde horas en <span class="gradient-text">tareas repetitivas</span>?</h1>
+        <p class="lead">Descarga el checklist gratuito: 15 señales de que necesitas automatizar + quick wins por departamento.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h2>Qué incluye el checklist</h2>
+                <ul class="service-features">
+                    <li>✓ 15 señales operativas por departamento (administración, ventas, operaciones)</li>
+                    <li>✓ Matriz impacto vs esfuerzo: qué automatizar primero</li>
+                    <li>✓ Estimación de ROI por tipo de proceso</li>
+                    <li>✓ Errores comunes al automatizar sin mapa de procesos</li>
+                </ul>
+                <p style="margin-top: 1.5rem; color: var(--color-gray);">Usado por directivos de logística, retail y servicios en España.</p>
+                <h3 style="margin-top: 2rem;">Preguntas frecuentes</h3>
+                <div class="faq-list" style="margin-top: 1rem;">
+                    <details class="faq-item"><summary>¿Es gratis?</summary><p>Sí, sin coste ni tarjeta.</p></details>
+                    <details class="faq-item"><summary>¿Recibiré spam?</summary><p>Solo el email con el PDF y, como máximo, un recordatorio en 3 días.</p></details>
+                    <details class="faq-item"><summary>¿Para quién es?</summary><p>Directivos y responsables de operaciones en pymes de 5 a 200 empleados en España.</p></details>
+                </div>
+            </div>
+            <div class="contact-form-wrapper">
+                {% if descargado %}
+                <div class="alert alert-success">
+                    <p><strong>¡Listo{% if lead_nombre %}, {{ lead_nombre }}{% endif %}!</strong> Tu checklist está disponible.</p>
+                    <p style="margin-top: 1rem;"><a href="{{ url_for('download_checklist_pdf') }}" class="btn-primary btn-block">Descargar PDF</a></p>
+                    <p style="margin-top: 1rem;"><a href="{{ url_for('contacto') }}">¿Prefieres hablar? Reserva consulta 30 min →</a></p>
+                </div>
+                {% else %}
+                <h2>Descargar PDF gratis</h2>
+                <form method="POST" class="contact-form" action="{{ url_for('checklist_automatizacion') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">{{ form.nombre.label }} {{ form.nombre(class="form-control") }}</div>
+                    <div class="form-group">{{ form.email.label }} {{ form.email(class="form-control") }}</div>
+                    <div class="form-group">{{ form.empresa.label }} {{ form.empresa(class="form-control") }}</div>
+                    <div class="form-group">{{ form.sector.label }} {{ form.sector(class="form-control") }}</div>
+                    <div style="display:none" aria-hidden="true">{{ form.middle_name_hp }}</div>
+                    {% if turnstile_site_key %}
+                    <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}"></div>
+                    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+                    {% endif %}
+                    <button type="submit" class="btn-primary btn-block btn-lg">Descargar checklist</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

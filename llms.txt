@@ -21,6 +21,10 @@ Este archivo orienta a sistemas de IA sobre qué páginas priorizar para entende
 - [Primera consulta: roadmap BPMN](https://megasolucion.es/recursos/primera-consulta-roadmap-auditoria-bpmn): Auditoría de procesos, oportunidades, vulnerabilidades y hoja de ruta técnica.
 - [Actualidad IA](https://megasolucion.es/recursos/actualidad): Noticias y resúmenes del sector de inteligencia artificial.
 - [Itinerarios turísticos con IA](https://megasolucion.es/recursos/itinerarios-turisticos-ia-web-demo-publica): De Excel a plataforma web con rutas personalizadas y demo pública.
+- [Checklist: 15 señales de automatización](https://megasolucion.es/recursos/checklist-automatizacion): PDF gratuito para pymes (lead magnet).
+- [Precio chatbot IA 2026](https://megasolucion.es/recursos/precio-chatbot-ia-empresas-2026): Rangos de coste para empresas en España.
+- [RPA vs APIs](https://megasolucion.es/recursos/rpa-vs-automatizacion-apis): Comparativa para elegir automatización.
+- [ROI de proyectos de IA](https://megasolucion.es/recursos/medir-roi-proyecto-ia): Cómo medir retorno de inversión.
 
 ## Empresa
 
